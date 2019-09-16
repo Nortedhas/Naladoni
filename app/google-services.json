@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "398584179747",
+    "firebase_url": "https://some-ca0df.firebaseio.com",
+    "project_id": "some-ca0df",
+    "storage_bucket": "some-ca0df.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398584179747:android:87bd5a0d8c3e3c5e",
+        "android_client_info": {
+          "package_name": "com.example.ageone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398584179747-p9iljpvjl7ce0h56174sn2g22ggf6fd5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ageone",
+            "certificate_hash": "914680a6a0aa7ed54fbde97f0af3839cc742eaab"
+          }
+        },
+        {
+          "client_id": "398584179747-u8vhj386kd9g401paolasdabvclpnl0r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqL8ucsfV91CnyWXHkR0T7K4VnLTyEhGo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398584179747-u8vhj386kd9g401paolasdabvclpnl0r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
