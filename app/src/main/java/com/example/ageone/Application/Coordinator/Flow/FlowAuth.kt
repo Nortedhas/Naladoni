@@ -7,15 +7,15 @@ import com.example.ageone.Application.coordinator
 import com.example.ageone.External.Base.Flow.BaseFlow
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.Modules.Registration.RegistrationModel
-import com.example.ageone.Modules.Registration.RegistrationView
-import com.example.ageone.Modules.Registration.RegistrationViewModel
-import com.example.ageone.Modules.RegistrationSMS.RegistrationSMSView
+import com.example.ageone.Modules.Auth.RegistrationModel
+import com.example.ageone.Modules.Auth.RegistrationView
+import com.example.ageone.Modules.Auth.RegistrationViewModel
+import com.example.ageone.Modules.SMS.RegistrationSMSView
 import com.example.ageone.Modules.RegistrationSMSModel
 import com.example.ageone.Modules.RegistrationSMSViewModel
-import com.example.ageone.Modules.Start.StartModel
-import com.example.ageone.Modules.Start.StartView
-import com.example.ageone.Modules.Start.StartViewModel
+import com.example.ageone.Modules.Loading.StartModel
+import com.example.ageone.Modules.Loading.StartView
+import com.example.ageone.Modules.Loading.StartViewModel
 
 fun FlowCoordinator.runFlowAuth() {
 
@@ -66,9 +66,8 @@ class FlowAuth: BaseFlow() {
 
         module.emitEvent = { event ->
             when(StartViewModel.EventType.valueOf(event)) {
-                StartViewModel.EventType.OnRegistrationPhonePressed -> {
+                StartViewModel.EventType. OnRegistrationPhonePressed -> {
                     runModuleRegistration()
-
                 }
 
             }

@@ -1,4 +1,4 @@
-package com.example.ageone.Modules.Registration
+package com.example.ageone.Modules.Auth
 
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +13,10 @@ import com.example.ageone.External.Base.TextInputLayout.InputEditTextType
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.External.Libraries.Alert.alertManager
 import com.example.ageone.External.Libraries.Alert.single
-import com.example.ageone.External.Utils.Validation.isValidEmail
 import com.example.ageone.External.Utils.Validation.isValidPhone
 import com.example.ageone.Models.User.user
-import com.example.ageone.Modules.Registration.rows.RegistrationTextHolder
-import com.example.ageone.Modules.Registration.rows.initialize
+import com.example.ageone.Modules.Auth.rows.RegistrationTextHolder
+import com.example.ageone.Modules.Auth.rows.initialize
 import com.example.ageone.UIComponents.ViewHolders.ButtonViewHolder
 import com.example.ageone.UIComponents.ViewHolders.InputViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
@@ -55,14 +54,14 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(
 
         private val RegistrationInputType = 0
         private val RegistrationButtonType = 1
-        private val RegistrationTextType = 2
+      private val RegistrationTextType = 2
 
-        override fun getItemCount(): Int = 5
+        override fun getItemCount(): Int = 4
 
         override fun getItemViewType(position: Int):Int = when(position) {
-            in 0..2 -> RegistrationInputType
-            3 -> RegistrationButtonType
-            4 -> RegistrationTextType
+            in 0..1 -> RegistrationInputType
+            2 -> RegistrationButtonType
+         3 -> RegistrationTextType
             else -> -1
         }
 
@@ -81,7 +80,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(
                     ButtonViewHolder(layout)
                 }
                 RegistrationTextType -> {
-                    RegistrationTextHolder(layout)
+                 RegistrationTextHolder(layout)
                 }
                 else ->
                     BaseViewHolder(layout)
@@ -101,7 +100,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(
                             }
                             holder.textInputL.editText?.setText(user.data.name)
                         }
-                        else -> {
+                        1 -> {
                             holder.initialize("Введите ваш номер телефона:", InputEditTextType.PHONE)
                             holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
                                 viewModel.model.inputPhone = text.toString()
@@ -112,22 +111,22 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(
                 }
 
                 is ButtonViewHolder -> {
-                    holder.initialize("Зарегистрироваться")
+                    holder.initialize("Войти в приложение")
                     holder.button.setOnClickListener {
-                        if (!viewModel.model.inputPhone.isValidPhone()) {
-                            alertManager.single("Неверный номер", "Введен неверный номер", null) {_,_ ->
-                            }
-                        }  else if (viewModel.model.inputName.isBlank()){
-                            alertManager.single("Неверное имя", "Имя не введено", null) {_,_ ->
-                            }
-                        } else {
-                            api.request(mapOf(
-                                "router" to "phoneAuth",
-                                "phone" to viewModel.model.inputPhone)){
-                                rootModule.emitEvent?.invoke(RegistrationViewModel.EventType.OnRegistrationPressed.toString())
-                            }
-
-                        }
+//                        if (!viewModel.model.inputPhone.isValidPhone()) {
+//                            alertManager.single("Неверный номер", "Введен неверный номер", null) {_,_ ->
+//                            }
+//                        }  else if (viewModel.model.inputName.isBlank()){
+//                            alertManager.single("Неверное имя", "Имя не введено", null) {_,_ ->
+//                            }
+//                        } else {
+//                            api.request(mapOf(
+//                                "router" to "phoneAuth",
+//                                "phone" to viewModel.model.inputPhone)){
+                               rootModule.emitEvent?.invoke(RegistrationViewModel.EventType.OnRegistrationPressed.toString())
+//                            }
+//
+//                        }
 
                     }
                 }

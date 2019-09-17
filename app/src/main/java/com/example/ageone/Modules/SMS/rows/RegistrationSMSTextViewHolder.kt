@@ -1,4 +1,4 @@
-package com.example.ageone.Modules.RegistrationSMS.rows
+package com.example.ageone.Modules.SMS.rows
 
 import android.graphics.Color
 import android.graphics.Typeface

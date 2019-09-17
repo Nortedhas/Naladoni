@@ -1,4 +1,4 @@
-package com.example.ageone.Modules.Registration.rows
+package com.example.ageone.Modules.Auth.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
@@ -10,7 +10,6 @@ import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextView.BaseTextView
-import com.example.ageone.External.Base.TextView.underline
 import yummypets.com.stevia.*
 
 class RegistrationTextHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {

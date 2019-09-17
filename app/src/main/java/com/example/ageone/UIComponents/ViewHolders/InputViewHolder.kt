@@ -22,7 +22,7 @@ class InputViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(co
         params.updateMargins(left = (-2).dp)
         textInput.layoutParams = params
 
-        textInput.boxStrokeColor = Color.parseColor("#707ABA")
+        textInput.boxStrokeColor = Color.parseColor("#f2842d")
         textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
         textInput.setInactiveUnderlineColor(Color.GRAY)
 
@@ -44,8 +44,8 @@ fun InputViewHolder.renderUI() {
     )
 
     textInputL
-        .constrainTopToTopOf(constraintLayout, 8)
-        .fillHorizontally(16)
+        .constrainTopToTopOf(constraintLayout, 60)
+        .fillHorizontally(18)
 }
 
 fun InputViewHolder.initialize(hint: String, type: InputEditTextType) {

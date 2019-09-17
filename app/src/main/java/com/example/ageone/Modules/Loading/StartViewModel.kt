@@ -1,24 +1,23 @@
-package com.example.ageone.Modules.Registration
+package com.example.ageone.Modules.Loading
 
 import com.example.ageone.External.Interfaces.InterfaceModel
 import com.example.ageone.External.Interfaces.InterfaceViewModel
 
-class RegistrationViewModel: InterfaceViewModel {
-    var model = RegistrationModel()
+class StartViewModel: InterfaceViewModel {
+    var model = StartModel()
 
     fun initialize(recievedModel: InterfaceModel, completion: ()->(Unit)) {
-        if (recievedModel is RegistrationModel) {
+        if (recievedModel is StartModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 
     enum class EventType{
-        OnRegistrationPressed
+        OnRegistrationPhonePressed
     }
 }
 
-class RegistrationModel: InterfaceModel {
-    var inputName = ""
-    var inputPhone = ""
+class StartModel: InterfaceModel {
+
 }

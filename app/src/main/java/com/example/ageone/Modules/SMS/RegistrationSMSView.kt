@@ -1,6 +1,5 @@
-package com.example.ageone.Modules.RegistrationSMS
+package com.example.ageone.Modules.SMS
 
-import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -14,8 +13,8 @@ import com.example.ageone.External.Base.TextInputLayout.InputEditTextType
 import com.example.ageone.External.HTTP.update
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Models.User.user
-import com.example.ageone.Modules.RegistrationSMS.rows.RegistrationSMSTextViewHolder
-import com.example.ageone.Modules.RegistrationSMS.rows.initialize
+import com.example.ageone.Modules.SMS.rows.RegistrationSMSTextViewHolder
+import com.example.ageone.Modules.SMS.rows.initialize
 import com.example.ageone.Modules.RegistrationSMSViewModel
 import com.example.ageone.SCAG.DataBase
 import com.example.ageone.SCAG.Parser

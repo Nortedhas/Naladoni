@@ -15,9 +15,9 @@ class ButtonViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(c
         button.textSize = 17F
         button.textColor = Color.WHITE
         button.typeface = Typeface.DEFAULT
-        button.backgroundColor = Color.rgb(0xA8, 0xAC, 0xEB)
+        button.backgroundColor = Color.rgb(242, 119, 39)
         button.cornerRadius = 60
-        button.gradient = Color.rgb(0x8B, 0x91, 0xC7)
+        button.gradient = Color.rgb(242, 132, 45)
         button.orientation = GradientDrawable.Orientation.TOP_BOTTOM
 
         button.initialize()

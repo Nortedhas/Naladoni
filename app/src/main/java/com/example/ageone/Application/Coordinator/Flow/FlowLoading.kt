@@ -12,7 +12,7 @@ import timber.log.Timber
 
 fun FlowCoordinator.runFlowLoading() {}
 
-////    var flow: FlowLoading? = FlowLoading()
+//  var flow: FlowLoading? = FlowLoading()
 ////
 //   flow?.let{ flow ->
 //
@@ -42,43 +42,43 @@ fun FlowCoordinator.runFlowLoading() {}
 //
 //}
 //
-////class FlowLoading: BaseFlow() {
-//////
-////    private var models = FlowLoadingModels()
+//class FlowLoading: BaseFlow() {
 ////
-////    override fun start() {
-////        onStarted()
-////        runModuleLoading()
-////    }
-////
-////    inner class FlowLoadingModels {
-////        var modelLoading = LoadingModel()
-////    }
-////
-////    //main load, parsing, socket
-////
-////    fun runModuleLoading() {
-////        val module = LoadingView(InitModuleUI(
-////            isBottomNavigationVisible = false,
-////            isToolbarHidden = true
-////        ))
-////        module.viewModel.initialize(models.modelLoading) { module.reload() }
-////
-////        settingsCurrentFlow.isBottomNavigationVisible = false
-////
-////        module.emitEvent = { event ->
-////            when(LoadingViewModel.EventType.valueOf(event)) {
-////                LoadingViewModel.EventType.onFinish -> {
-////                    module.startMainFlow()
-////                }
-////            }
-////        }
-////        push(module)
-////    }
-////
-////    fun BaseModule.startMainFlow() {
-////        Timber.i("Start main load")
-//////        coordinator.start()
-////        onFinish?.invoke()
-////    }
-////}
+//    private var models = FlowLoadingModels()
+//
+//    override fun start() {
+//        onStarted()
+//        runModuleLoading()
+//    }
+//
+//    inner class FlowLoadingModels {
+//        var modelLoading = LoadingModel()
+//    }
+//
+//    //main load, parsing, socket
+//
+//    fun runModuleLoading() {
+//        val module = LoadingView(InitModuleUI(
+//            isBottomNavigationVisible = false,
+//            isToolbarHidden = true
+//        ))
+//        module.viewModel.initialize(models.modelLoading) { module.reload() }
+//
+//        settingsCurrentFlow.isBottomNavigationVisible = false
+//
+//        module.emitEvent = { event ->
+//            when(LoadingViewModel.EventType.valueOf(event)) {
+//                LoadingViewModel.EventType.onFinish -> {
+//                    module.startMainFlow()
+//                }
+//            }
+//        }
+//        push(module)
+//    }
+//
+//    fun BaseModule.startMainFlow() {
+//        Timber.i("Start main load")
+////        coordinator.start()
+//        onFinish?.invoke()
+//    }
+//}
