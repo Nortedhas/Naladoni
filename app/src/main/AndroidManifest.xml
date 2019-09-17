@@ -16,16 +16,16 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-        <service android:name="com.example.ageone.Application.DownloadService"/>
-        <service android:name="com.example.ageone.Application.MusicService">
-            <intent-filter>
-                <action android:name="com.example.ageone.intent.action.PLAY" />
-                <action android:name="com.example.ageone.intent.action.STOP" />
-                <action android:name="com.example.ageone.intent.action.SEEK_TO" />
-                <action android:name="com.example.ageone.intent.action.VOLUME" />
-                <action android:name="com.example.ageone.intent.action.CHANGE_SOUND" />
-            </intent-filter>
-        </service>
+<!--&lt;!&ndash;        <service android:name="com.example.ageone.Application.DownloadService"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        <service android:name="com.example.ageone.Application.MusicService">&ndash;&gt;-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.example.ageone.intent.action.PLAY" />-->
+<!--                <action android:name="com.example.ageone.intent.action.STOP" />-->
+<!--                <action android:name="com.example.ageone.intent.action.SEEK_TO" />-->
+<!--                <action android:name="com.example.ageone.intent.action.VOLUME" />-->
+<!--                <action android:name="com.example.ageone.intent.action.CHANGE_SOUND" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
 
         <activity
                 android:name="com.example.ageone.Application.AppActivity"

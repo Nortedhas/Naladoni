@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
+import android.os.CountDownTimer
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -31,14 +32,23 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
     val textViewHello by lazy {
         val textViewHello = BaseTextView()
         textViewHello.gravity = Gravity.CENTER
+        textViewHello.typeface = Typeface.DEFAULT
+        textViewHello.textSize = 19F
+        textViewHello.textColor = Color.WHITE
+        textViewHello.setBackgroundColor(Color.TRANSPARENT)
+        textViewHello.text = "Все акции твоего города"
+        textViewHello
+    }
+    val textViewName by lazy {
+        val textViewHello = BaseTextView()
+        textViewHello.gravity = Gravity.CENTER
         textViewHello.typeface = Typeface.DEFAULT_BOLD
         textViewHello.textSize = 29F
         textViewHello.textColor = Color.WHITE
         textViewHello.setBackgroundColor(Color.TRANSPARENT)
-        textViewHello.text = "Добро пожаловать\nв Поток "
+        textViewHello.text = "NALADONI"
         textViewHello
     }
-
     val imageView by lazy {
         val imageView = BaseImageView()
         imageView
@@ -50,61 +60,18 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
     }
 
 
-    val buttonEnter by lazy {
-        val button = BaseButton()
-        button.textSize = 17F
-        button.textColor = Color.WHITE
-        button.typeface = Typeface.DEFAULT
-        button.backgroundColor = Color.rgb(0xA8, 0xAC, 0xEB)
-        button.cornerRadius = 60
-        button.gradient = Color.rgb(0x8B, 0x91, 0xC7)
-        button.orientation = GradientDrawable.Orientation.TOP_BOTTOM
-        button.text = "Вход в приложение"
-        button.initialize()
-        button
-    }
 
     val timerFirst = Timer()
-    val timerSecond = Timer()
+
 
     init {
-        setBackgroundColor(Color.TRANSPARENT)
-
-        bodyTable.adapter = Factory(this)
-        bodyTable.layoutManager = LinearLayoutManager(currentActivity, LinearLayoutManager.HORIZONTAL, false)
-        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
-        bodyTable.addItemDecoration(CirclePagerIndicatorDecoration())
-
-        val snapHelper = PagerSnapHelper()
-        snapHelper.attachToRecyclerView(bodyTable)
-
-        buttonEnter.setOnClickListener {
-            timerFirst.cancel()
-            timerSecond.cancel()
-            emitEvent?.invoke(StartViewModel.EventType.OnLoaded.toString())
-        }
-
+        setBackgroundResource(R.drawable.loading)
         renderUIO()
-        timerFirst.schedule(5000){
-            if ((bodyTable.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition() == 0) {
-                bodyTable.smoothScrollToPosition(1)
-            }
-        }
-        timerSecond.schedule(10000){
-            if ((bodyTable.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition() == 1) {
-                bodyTable.smoothScrollToPosition(2)
-            }
-        }
     }
 
     override fun unBind() {
 
     }
-
-    companion object {
-        var indexCurrentItem: Int = 0
-    }
-
 }
 
 fun StartView.renderUIO() {
@@ -112,78 +79,64 @@ fun StartView.renderUIO() {
     innerContent.subviews(
         imageView,
         textViewHello,
-        bodyTable,
-        buttonEnter
+        textViewName
     )
 
-    buttonEnter
-        .constrainBottomToBottomOf(innerContent, 40)
-        .fillHorizontally(32)
-
-    bodyTable
-        .constrainBottomToTopOf(buttonEnter, 72)
-        .constrainLeftToLeftOf(innerContent)
-        .constrainRightToRightOf(innerContent)
+    textViewName
+        .constrainBottomToBottomOf(innerContent, 300)
+        .fillHorizontally(35)
 
     textViewHello
-        .constrainBottomToTopOf(bodyTable, 56)
+        .constrainTopToBottomOf(textViewName, 5)
         .constrainLeftToLeftOf(innerContent)
         .constrainRightToRightOf(innerContent)
 
     imageView
-        .constrainBottomToTopOf(textViewHello, 40)
+        .constrainBottomToTopOf(textViewName, 5)
         .constrainLeftToLeftOf(innerContent)
         .constrainRightToRightOf(innerContent)
-}
 
-class Factory(val rootModule: BaseModule): BaseAdapter<Factory.TextViewHolder>() {
+//    timerFirst.schedule(5000){
+//        emitEvent?.invoke(StartViewModel.EventType.OnRegistrationPhonePressed.toString())
+//
+//    }
 
-    private val list = listOf(
-        "Повседневная практика показывает, что новая модель организационной деятельности",
-        "Повседневная практика показывает, что новая модель организационной деятельности",
-        "Повседневная практика показывает, что новая модель организационной деятельности")
 
-    override fun getItemCount() = list.size
+    var timer = object : CountDownTimer(3000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            millisUntilFinished / 1000
 
-    override fun getItemViewType(position: Int): Int = 0
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextViewHolder {
-        val layout = ConstraintLayout(parent.context)
-
-        layout
-            .width(matchParent)
-            .height(90)
-
-        return TextViewHolder(layout)
-    }
-
-    override fun onBindViewHolder(viewHolder: TextViewHolder, position: Int) {
-        viewHolder.textView.text = list[position]
-    }
-
-    class TextViewHolder(constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
-        val textView by lazy {
-            val textViewSmall = BaseTextView()
-            textViewSmall.gravity = Gravity.CENTER
-            textViewSmall.typeface = Typeface.DEFAULT
-            textViewSmall.textSize = 19F
-            textViewSmall.textColor = Color.WHITE
-            textViewSmall.setBackgroundColor(Color.TRANSPARENT)
-            textViewSmall
         }
+        override fun onFinish() {
+            emitEvent?.invoke(StartViewModel.EventType.OnRegistrationPhonePressed.toString())
+            imageView.setImageResource(R.drawable.home)
 
-        init {
-            constraintLayout.subviews(
-                textView
-            )
-
-            textView
-                .constrainTopToTopOf(constraintLayout)
-                .centerHorizontally()
-                .width(320)
         }
-
-
     }
-
+    timer.start()
 }
+//class TextViewHolder(constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
+//        val textView by lazy {
+//            val textViewSmall = BaseTextView()
+//            textViewSmall.gravity = Gravity.CENTER
+//            textViewSmall.typeface = Typeface.DEFAULT
+//            textViewSmall.textSize = 19F
+//            textViewSmall.textColor = Color.WHITE
+//            textViewSmall.setBackgroundColor(Color.TRANSPARENT)
+//            textViewSmall
+//        }
+//
+//        init {
+//            constraintLayout.subviews(
+//                textView
+//            )
+//
+//            textView
+//                .constrainTopToTopOf(constraintLayout)
+//                .centerHorizontally()
+//                .width(320)
+//        }
+//
+//
+//    }
+

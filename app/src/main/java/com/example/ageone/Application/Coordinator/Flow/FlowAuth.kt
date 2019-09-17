@@ -7,6 +7,12 @@ import com.example.ageone.Application.coordinator
 import com.example.ageone.External.Base.Flow.BaseFlow
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.InitModuleUI
+import com.example.ageone.Modules.Registration.RegistrationModel
+import com.example.ageone.Modules.Registration.RegistrationView
+import com.example.ageone.Modules.Registration.RegistrationViewModel
+import com.example.ageone.Modules.RegistrationSMS.RegistrationSMSView
+import com.example.ageone.Modules.RegistrationSMSModel
+import com.example.ageone.Modules.RegistrationSMSViewModel
 import com.example.ageone.Modules.Start.StartModel
 import com.example.ageone.Modules.Start.StartView
 import com.example.ageone.Modules.Start.StartViewModel
@@ -45,6 +51,8 @@ class FlowAuth: BaseFlow() {
 
     inner class FlowAuthModels {
         var modelStart = StartModel()
+        var modelRegistration = RegistrationModel()
+        var modelRegistrationSMS = RegistrationSMSModel()
     }
 
     fun runModuleStart() {
@@ -58,15 +66,59 @@ class FlowAuth: BaseFlow() {
 
         module.emitEvent = { event ->
             when(StartViewModel.EventType.valueOf(event)) {
-                StartViewModel.EventType.OnLoaded -> {
-//                    runModuleStartLogin()
+                StartViewModel.EventType.OnRegistrationPhonePressed -> {
+                    runModuleRegistration()
+
                 }
 
             }
         }
         push(module)
     }
+    fun runModuleRegistration() {
+        val module = RegistrationView(InitModuleUI(
+            isBottomNavigationVisible = false
+        ))
+        module.viewModel.initialize(models.modelRegistration) { module.reload() }
 
+        settingsCurrentFlow.isBottomNavigationVisible = false
+
+
+        module.emitEvent = { event ->
+            when(RegistrationViewModel.EventType.valueOf(event)) {
+                RegistrationViewModel.EventType.OnRegistrationPressed -> {
+
+                    models.modelRegistrationSMS.inputName = models.modelRegistration.inputName
+                    models.modelRegistrationSMS.inputPhone = models.modelRegistration.inputPhone
+
+                    runModuleRegistrationSMS()
+                }
+            }
+        }
+        push(module)
+    }
+
+    fun runModuleRegistrationSMS() {
+        val module = RegistrationSMSView(InitModuleUI(
+            isBottomNavigationVisible = false,
+            isBackPressed = true,
+            backListener = {
+                pop()
+            }
+        ))
+        module.viewModel.initialize(models.modelRegistrationSMS) { module.reload() }
+
+        settingsCurrentFlow.isBottomNavigationVisible = false
+
+        module.emitEvent = { event ->
+            when (RegistrationSMSViewModel.EventType.valueOf(event)) {
+                RegistrationSMSViewModel.EventType.OnAcceptPressed -> {
+                    module.startLoadingFlow()
+                }
+            }
+        }
+        push(module)
+    }
     fun BaseModule.startLoadingFlow() {
         coordinator.start()
         onDeInit?.invoke()

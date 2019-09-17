@@ -16,8 +16,6 @@ import com.example.ageone.Modules.*
 import com.example.ageone.Modules.Meditation.MeditationModel
 import com.example.ageone.Modules.Meditation.MeditationView
 import com.example.ageone.Modules.Meditation.MeditationViewModel
-import com.example.ageone.Modules.MeditationFilter.MeditationFilterView
-import com.example.ageone.Modules.MeditationFilterList.MeditationFilterListView
 import timber.log.Timber
 
 fun FlowCoordinator.runFlowMain() {
