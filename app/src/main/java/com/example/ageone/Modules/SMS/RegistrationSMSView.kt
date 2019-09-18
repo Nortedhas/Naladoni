@@ -13,6 +13,7 @@ import com.example.ageone.External.Base.TextInputLayout.InputEditTextType
 import com.example.ageone.External.HTTP.update
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Models.User.user
+import com.example.ageone.Modules.City.CityViewModel
 import com.example.ageone.Modules.SMS.rows.RegistrationSMSTextViewHolder
 import com.example.ageone.Modules.SMS.rows.initialize
 import com.example.ageone.Modules.RegistrationSMSViewModel
@@ -26,7 +27,7 @@ import timber.log.Timber
 import yummypets.com.stevia.*
 
 class RegistrationSMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
-    override fun unBind() { }
+    override fun unBind() {}
 
 
     val viewModel = RegistrationSMSViewModel()
@@ -44,17 +45,16 @@ class RegistrationSMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModu
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
-        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
         renderUIO()
     }
 
-    inner class Factory(val rootModule: BaseModule): BaseAdapter<BaseViewHolder>() {
+    inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
+
 
         private val RegistrationSMSInputType = 0
         private val RegistrationSMSTextType = 1
         private val RegistrationSMSButtonType = 2
-
         override fun getItemCount(): Int = 3
 
         override fun getItemViewType(position: Int): Int = when (position) {
@@ -102,36 +102,39 @@ class RegistrationSMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModu
                 is ButtonViewHolder -> {
                     holder.initialize("Подтверждаю")
                     holder.button.setOnClickListener {
-                        api.request(mapOf(
-                            "router" to "codeCheck",
-                            "phone" to viewModel.model.inputPhone,
-                            "code" to viewModel.model.code
-                        )) { json ->
-                            Timber.i("JSON answer $json")
-                            DataBase.User.update(user.hashId,
-                                mapOf(
-//                                    "phone" to viewModel.model.inputPhone,
-                                    "name" to viewModel.model.inputName,
-                                    "email" to viewModel.model.inputMail
-                                ))
-                            //TODO: where?
-                            Parser().userData(json)
-                            user.data.name = viewModel.model.inputName
-                            user.data.phone = viewModel.model.inputPhone
-                            user.data.email = viewModel.model.inputMail
-                            user.isAuthorized = true
-
-                            rootModule.emitEvent?.invoke(RegistrationSMSViewModel.EventType.OnAcceptPressed.toString())
-                        }
-
+                        rootModule.emitEvent?.invoke(CityViewModel.EventType.onSityPresed.toString())
+//                        api.request(
+//                            mapOf(
+//                                "router" to "codeCheck",
+//                                "phone" to viewModel.model.inputPhone,
+//                                "code" to viewModel.model.code
+//                            )
+//                        ) { json ->
+//                            Timber.i("JSON answer $json")
+//                            DataBase.User.update(
+//                                user.hashId,
+//                                mapOf(
+////                                    "phone" to viewModel.model.inputPhone,
+//                                    "name" to viewModel.model.inputName
+//                                )
+//                            )
+//                            //TODO: where?
+//                            Parser().userData(json)
+//                            user.data.name = viewModel.model.inputName
+//                            user.data.phone = viewModel.model.inputPhone
+//
+//                            user.isAuthorized = true
+//
+//
+//                        }
                     }
                 }
             }
+
         }
-
     }
-}
 
-fun  RegistrationSMSView.renderUIO() {
-    renderBodyTable()
+    fun RegistrationSMSView.renderUIO() {
+        renderBodyTable()
+    }
 }

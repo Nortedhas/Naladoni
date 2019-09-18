@@ -14,7 +14,7 @@ import yummypets.com.stevia.*
 class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout): Toolbar(currentActivity) {
     var title: String? = null
     var textColor: Int = Color.WHITE
-//    var titleTextSize: Float = 18F
+    var titleTextSize: Float = 18F
 
     var viewIconRes: Int? = null
     var viewIconSize: Int = 30

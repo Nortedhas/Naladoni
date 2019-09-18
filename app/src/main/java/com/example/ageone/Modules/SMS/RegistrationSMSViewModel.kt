@@ -14,13 +14,12 @@ class RegistrationSMSViewModel : InterfaceViewModel {
     }
 
     enum class EventType {
-        OnAcceptPressed
+        onSityPresed
     }
 }
 
 class RegistrationSMSModel : InterfaceModel {
     var inputName = ""
     var inputPhone = ""
-    var inputMail = ""
     var code = ""
 }

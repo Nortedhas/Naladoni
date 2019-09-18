@@ -144,9 +144,7 @@ fun AlertManager.double(
 
 // MARK: With list
 
-fun AlertManager.list(title: String,
-                      variants: Array<String>,
-                      completion: (DialogInterface, Int) -> (Unit)) {
+fun AlertManager.list(title: String,variants: Array<String>, completion: (DialogInterface, Int) -> (Unit)) {
 
     // setup the alert builder
     val builder = AlertDialog.Builder(currentActivity)
