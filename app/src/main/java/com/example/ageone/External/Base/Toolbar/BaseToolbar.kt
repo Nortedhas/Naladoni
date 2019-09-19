@@ -26,12 +26,12 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
         view
     }
 
-    /*private val textViewTitle by lazy {
-        val textView = BaseTextView()
-        textView.gravity = Gravity.CENTER
-        textView.typeface = Typeface.DEFAULT_BOLD
-        textView.setBackgroundColor(Color.TRANSPARENT)
-        textView
+    /*private val viewHolder by lazy {
+        val viewHolder = BaseTextView()
+        viewHolder.gravity = Gravity.CENTER
+        viewHolder.typeface = Typeface.DEFAULT_BOLD
+        viewHolder.setBackgroundColor(Color.TRANSPARENT)
+        viewHolder
     }
 
     private val viewIcon by lazy {
@@ -64,7 +64,7 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
             viewExit.visibility = View.VISIBLE
             viewExit.setOnClickListener(exitListener)
         }
-//        textViewTitle.textColor = textColor
+//        viewHolder.textColor = textColor
 
         /*initModuleUI.backListener?.let { backListener ->
             viewArrow.visibility = View.VISIBLE
@@ -106,7 +106,7 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
 
         /*subviews(
             viewArrow,
-            textViewTitle,
+            viewHolder,
             viewIcon,
             viewExit
         )
@@ -117,7 +117,7 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
             .height(35)
             .constrainLeftToLeftOf(this, 8)
 
-        textViewTitle
+        viewHolder
             .fillHorizontally()
             .fillVertically()
 

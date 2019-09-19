@@ -20,7 +20,6 @@ import com.example.ageone.External.RxBus.RxEvent
 import com.example.ageone.Modules.Auth.RegistrationViewModel
 import com.example.ageone.Modules.City.rows.CityViewViewHolder
 import com.example.ageone.Modules.City.rows.initialize
-import com.example.ageone.Modules.FAQ.FAQViewModel
 import com.example.ageone.Modules.Loading.StartViewModel
 import com.example.ageone.Modules.SMS.rows.RegistrationSMSTextViewHolder
 import com.example.ageone.Modules.SMS.rows.initialize
@@ -131,7 +130,7 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                    holder.button.setOnClickListener{
 //                       alertManager.single(message = "мы определили ваш город как ",
 //                           title = "Ваш город подарков",button = "Отлично"){_,_->}
-                       emitEvent?.invoke(CityViewModel.EventType.onFAQPresed.toString())
+                       emitEvent?.invoke(CityViewModel.EventType.onSityPresed.toString())
 
                    }
                 }

@@ -14,8 +14,6 @@ import com.example.ageone.Modules.City.CityModel
 import com.example.ageone.Modules.City.CityView
 import com.example.ageone.Modules.City.CityViewModel
 import com.example.ageone.Modules.FAQ.FAQModel
-import com.example.ageone.Modules.FAQ.FAQView
-import com.example.ageone.Modules.FAQ.FAQViewModel
 import com.example.ageone.Modules.SMS.RegistrationSMSView
 import com.example.ageone.Modules.RegistrationSMSModel
 import com.example.ageone.Modules.RegistrationSMSViewModel
@@ -60,7 +58,7 @@ class FlowAuth: BaseFlow() {
         var modelRegistration = RegistrationModel()
         var modelRegistrationSMS = RegistrationSMSModel()
         var modelSelectCity = CityModel()
-        var modelFAQ =FAQModel()
+        var modelFAQ = FAQModel()
     }
 
     fun runModuleStart() {
@@ -141,33 +139,54 @@ class FlowAuth: BaseFlow() {
         settingsCurrentFlow.isBottomNavigationVisible = false
         module.emitEvent = { event ->
             when (CityViewModel.EventType.valueOf(event)) {
-                CityViewModel.EventType.onFAQPresed -> {
+                CityViewModel.EventType.onSityPresed -> {
                     runModuleFAQ()
                 }
             }
         }
         push(module)
     }
-
     fun runModuleFAQ() {
-        val module = FAQView(InitModuleUI(
-            isBottomNavigationVisible = false,
-            isBackPressed = true,
-            backListener = {
-                pop()
-            }
-        ))
+        val module = com.example.ageone.Modules.FAQ.StartView(
+            InitModuleUI(
+                isBottomNavigationVisible = false,
+                isToolbarHidden = true
+            )
+        )
         module.viewModel.initialize(models.modelFAQ) { module.reload() }
+
         settingsCurrentFlow.isBottomNavigationVisible = false
+
         module.emitEvent = { event ->
-            when (FAQViewModel.EventType.valueOf(event)) {
-                FAQViewModel.EventType.onFAQPresed -> {
+            when(com.example.ageone.Modules.FAQ.FAQViewModel.EventType.valueOf(event)) {
+                com.example.ageone.Modules.FAQ.FAQViewModel.EventType.OnLoaded -> {
                     module.startLoadingFlow()
                 }
+
             }
         }
         push(module)
     }
+
+//    fun runModuleFAQ() {
+//        val module = FAQView(InitModuleUI(
+//            isBottomNavigationVisible = false,
+//            isBackPressed = true,
+//            backListener = {
+//                pop()
+//            }
+//        ))
+//        module.viewModel.initialize(models.modelFAQ) { module.reload() }
+//        settingsCurrentFlow.isBottomNavigationVisible = false
+//        module.emitEvent = { event ->
+//            when (FAQViewModel.EventType.valueOf(event)) {
+//                FAQViewModel.EventType.onFAQPresed -> {
+//                    module.startLoadingFlow()
+//                }
+//            }
+//        }
+//        push(module)
+//    }
 
 
     fun BaseModule.startLoadingFlow() {

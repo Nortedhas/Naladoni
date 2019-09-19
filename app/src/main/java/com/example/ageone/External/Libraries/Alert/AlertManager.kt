@@ -57,7 +57,7 @@ class AlertManager {
         imageViewIcon
     }
 
-    // MARK: textViewTitle
+    // MARK: viewHolder
 
     val textViewTitle: BaseTextView by lazy {
         val textViewTitle = BaseTextView()
