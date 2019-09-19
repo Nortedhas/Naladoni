@@ -114,7 +114,9 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                             when (int)
                             {
                               0 ->{
-                                  holder.textInputL.editText?.setText(array[0]) }
+                                  holder.textInputL.editText?.setText(
+                                      array[0])
+                             }
                                1 -> {
                                    holder.textInputL.editText?.setText(array[1]) }
                                }
@@ -128,10 +130,11 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                 is  ButtonViewHolder ->{
                     holder.initialize("Подтверждаю")
                    holder.button.setOnClickListener{
-//                       alertManager.single(message = "мы определили ваш город как ",
-//                           title = "Ваш город подарков",button = "Отлично"){_,_->}
+                       alertManager.single(
+                           message = "мы определили ваш город как ",
+                           title = "Ваш город подарков", button = "Отлично"
+                       ) { _, _ -> }
                        emitEvent?.invoke(CityViewModel.EventType.onSityPresed.toString())
-
                    }
                 }
                is CityViewViewHolder ->{

@@ -36,7 +36,7 @@ fun ButtonViewHolder.renderUI() {
 
     button
         .constrainTopToTopOf(constraintLayout, 32)
-        .fillHorizontally(40)
+        .fillHorizontally(20)
 }
 
 fun ButtonViewHolder.initialize(text: String) {

@@ -14,10 +14,10 @@ class SpinerViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(c
     val textView by lazy {
         val textView = BaseTextView()
         textView.gravity = Gravity.CENTER
-        textView.typeface = Typeface.DEFAULT_BOLD
+        textView.typeface = Typeface.DEFAULT
         textView.setBackgroundColor(Color.TRANSPARENT)
-        textView.textColor = Color.rgb(0, 0, 0)
-        textView.textSize = 19F
+        textView.textColor = Color.parseColor("#333333")
+        textView.textSize = 14F
         textView
     }
     val imageView by lazy {
@@ -46,7 +46,7 @@ imageView
     .constrainBottomToBottomOf(constraintLayout, 20 )
 
     textView
-        .fillHorizontally(44)
+        .fillHorizontally(24)
         .constrainTopToBottomOf(imageView, 50)
         .width(320)
 

@@ -24,6 +24,7 @@ import com.example.ageone.Modules.FAQ.rows.SpinerViewHolder
 import com.example.ageone.Modules.Loading.StartViewModel
 import yummypets.com.stevia.*
 import java.util.*
+import java.util.stream.Collectors.toList
 import kotlin.concurrent.schedule
 
 
@@ -44,13 +45,32 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
         button.initialize()
         button
     }
-
+    val buttonSkip by lazy {
+        val button = BaseButton()
+        button.textSize = 12F
+        button.textColor = Color.BLACK
+        button.typeface = Typeface.DEFAULT
+        button.backgroundColor = Color.TRANSPARENT
+        button.orientation = GradientDrawable.Orientation.BOTTOM_TOP
+        button.text = "пропустить"
+        button.initialize()
+        button
+    }
+    val textToolbar by lazy{
+      val textBar = BaseTextView()
+//        textBar.gravity = Gravity.CENTER
+        textBar.typeface = Typeface.DEFAULT_BOLD
+        textBar.textSize = 34F
+        textBar.textColor =  Color.rgb(242, 132, 45)
+        textBar.text = "О приложении"
+        textBar.orientation = GradientDrawable.Orientation.BOTTOM_TOP
+        textBar
+    }
     val timerFirst = Timer()
         val timerSecond = Timer()
 
         init {
             setBackgroundColor(Color.WHITE)
-
             bodyTable.adapter = Factory(this)
             bodyTable.layoutManager = LinearLayoutManager(currentActivity, LinearLayoutManager.HORIZONTAL, false)
             bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
@@ -88,15 +108,23 @@ fun StartView.renderUIO() {
 
     innerContent.subviews(
         bodyTable,
-        buttonEnter
+        buttonEnter,
+        buttonSkip,
+        textToolbar
     )
+    buttonSkip
+        .constrainLeftToLeftOf(innerContent, 260)
+
+    textToolbar
+        .constrainTopToTopOf(innerContent, 35)
+        .constrainLeftToLeftOf(innerContent, 16)
 
     buttonEnter
         .constrainBottomToBottomOf(innerContent, 40)
         .fillHorizontally(32)
 
     bodyTable
-        .constrainBottomToTopOf(buttonEnter, 72)
+        .constrainBottomToTopOf(buttonEnter, 52)
         .constrainLeftToLeftOf(innerContent)
         .constrainRightToRightOf(innerContent)
 }
@@ -104,26 +132,31 @@ fun StartView.renderUIO() {
 class Factory(val rootModule: BaseModule): BaseAdapter<SpinerViewHolder>() {
 
     private val list = listOf(
-        "Смотри какие скидка",
+        "Смотри какие скидки",
         "Нужна скидка",
         "Все что нужно")
+    private val resourceImages = arrayOf(
+        R.drawable.faq1,
+        R.drawable.faq2,
+        R.drawable.faq3)
 
     override fun getItemCount() = list.size
-
     override fun getItemViewType(position: Int): Int = 0
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpinerViewHolder {
         val layout = ConstraintLayout(parent.context)
 
         layout
             .width(matchParent)
-            .height(90)
+            .height(wrapContent)
 
         return SpinerViewHolder(layout)
     }
 
-    override fun onBindViewHolder(SpinerViewHolder: SpinerViewHolder, position: Int) {
-        SpinerViewHolder.textView.text = list[position]
+    override fun onBindViewHolder(ViewHolder: SpinerViewHolder, position: Int) {
+        ViewHolder.textView.text = list[position]
+        ViewHolder.imageView.setBackgroundResource(resourceImages[position])
+
+
     }
 
 }
