@@ -48,7 +48,7 @@ fun RegistrationTextHolder.initialize() {
 
     val spannableContent = SpannableString(text + declaration)
     spannableContent.setSpan(
-        ForegroundColorSpan(Color.parseColor("#707ABA")),
+        ForegroundColorSpan(Color.parseColor("#f27727")),
         text.length,  text.length + declaration.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
 
     spannableContent.setSpan(

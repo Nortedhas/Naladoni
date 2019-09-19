@@ -30,10 +30,10 @@ import kotlin.concurrent.schedule
 
 class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
     override fun unBind() {}
-
     val viewModel = FAQViewModel()
     val buttonEnter by lazy {
         val button = BaseButton()
+        button.visibility = View.GONE
         button.textSize = 17F
         button.textColor = Color.WHITE
         button.typeface = Typeface.DEFAULT
@@ -94,7 +94,8 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
         timerSecond.schedule(10000){
             if ((bodyTable.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition() == 1) {
                 bodyTable.smoothScrollToPosition(2)
-            }
+//                buttonEnter.visibility = View.VISIBLE
+        }
         }
     }
 
@@ -103,7 +104,6 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
     }
 
 }
-
 fun StartView.renderUIO() {
 
     innerContent.subviews(
@@ -124,7 +124,8 @@ fun StartView.renderUIO() {
         .fillHorizontally(32)
 
     bodyTable
-        .constrainBottomToTopOf(buttonEnter, 52)
+        .constrainTopToTopOf(innerContent, 20)
+        .constrainBottomToBottomOf(innerContent, 20)
         .constrainLeftToLeftOf(innerContent)
         .constrainRightToRightOf(innerContent)
 }
@@ -132,9 +133,9 @@ fun StartView.renderUIO() {
 class Factory(val rootModule: BaseModule): BaseAdapter<SpinerViewHolder>() {
 
     private val list = listOf(
-        "Смотри какие скидки",
-        "Нужна скидка",
-        "Все что нужно")
+        "Смотри какие акции окружают тебя с помощью нашей интерактивной карты, и выбирай лучшие предложения в городе!",
+        "Смотри какие акции окружают тебя с помощью нашей интерактивной карты, и выбирай лучшие предложения в городе!",
+        "Смотри какие акции окружают тебя с помощью нашей интерактивной карты, и выбирай лучшие предложения в городе!")
     private val resourceImages = arrayOf(
         R.drawable.faq1,
         R.drawable.faq2,

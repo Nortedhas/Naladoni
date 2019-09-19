@@ -3,11 +3,15 @@ package com.example.ageone.Modules.FAQ.rows
 import android.graphics.Color
 import android.graphics.Typeface
 import android.view.Gravity
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.ageone.Application.R
+import com.example.ageone.Application.utils
 import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextView.BaseTextView
+import com.example.ageone.External.Libraries.Glide.addImageFromGlide
+import com.example.ageone.UIComponents.ViewHolders.MeditationCardViewHolder
 import yummypets.com.stevia.*
 
 class SpinerViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
@@ -40,7 +44,7 @@ fun SpinerViewHolder.renderUI() {
     )
 
 imageView
-    .constrainTopToTopOf(constraintLayout, 20)
+    .constrainTopToBottomOf(constraintLayout, 20)
     .constrainLeftToLeftOf(constraintLayout)
     .constrainRightToRightOf(constraintLayout)
     .constrainBottomToBottomOf(constraintLayout, 20 )

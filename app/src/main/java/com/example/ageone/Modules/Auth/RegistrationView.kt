@@ -20,10 +20,7 @@ import com.example.ageone.Modules.Auth.rows.initialize
 import com.example.ageone.UIComponents.ViewHolders.ButtonViewHolder
 import com.example.ageone.UIComponents.ViewHolders.InputViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
-import yummypets.com.stevia.height
-import yummypets.com.stevia.matchParent
-import yummypets.com.stevia.width
-import yummypets.com.stevia.wrapContent
+import yummypets.com.stevia.*
 
 class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
     override fun unBind() {
@@ -45,6 +42,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(
 
         bodyTable.adapter = viewAdapter
         bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
+
 
         renderUIO()
 

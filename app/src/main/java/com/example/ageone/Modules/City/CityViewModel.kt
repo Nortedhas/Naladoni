@@ -21,8 +21,7 @@ class CityViewModel : InterfaceViewModel {
         }
     }
     enum class EventType{
-        onSityPresed,
-        onFAQPresed
+        onSityPresed
     }
 }
 

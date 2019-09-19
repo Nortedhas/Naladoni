@@ -5,6 +5,7 @@ import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.os.CountDownTimer
 import android.view.Gravity
+import android.widget.ProgressBar
 import com.example.ageone.Application.R
 import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.Module.BaseModule
@@ -26,6 +27,7 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
         textViewHello.text = "Все акции твоего города"
         textViewHello
     }
+  
     val textViewName by lazy {
         val textViewHello = BaseTextView()
         textViewHello.gravity = Gravity.CENTER

@@ -59,6 +59,7 @@ class FlowAuth: BaseFlow() {
         var modelRegistrationSMS = RegistrationSMSModel()
         var modelSelectCity = CityModel()
         var modelFAQ = FAQModel()
+
     }
 
     fun runModuleStart() {
@@ -158,7 +159,7 @@ class FlowAuth: BaseFlow() {
         settingsCurrentFlow.isBottomNavigationVisible = false
 
         module.emitEvent = { event ->
-            when(com.example.ageone.Modules.FAQ.FAQViewModel.EventType.valueOf(event)) {
+            when (com.example.ageone.Modules.FAQ.FAQViewModel.EventType.valueOf(event)) {
                 com.example.ageone.Modules.FAQ.FAQViewModel.EventType.OnLoaded -> {
                     module.startLoadingFlow()
                 }
@@ -166,27 +167,8 @@ class FlowAuth: BaseFlow() {
             }
         }
         push(module)
-    }
 
-//    fun runModuleFAQ() {
-//        val module = FAQView(InitModuleUI(
-//            isBottomNavigationVisible = false,
-//            isBackPressed = true,
-//            backListener = {
-//                pop()
-//            }
-//        ))
-//        module.viewModel.initialize(models.modelFAQ) { module.reload() }
-//        settingsCurrentFlow.isBottomNavigationVisible = false
-//        module.emitEvent = { event ->
-//            when (FAQViewModel.EventType.valueOf(event)) {
-//                FAQViewModel.EventType.onFAQPresed -> {
-//                    module.startLoadingFlow()
-//                }
-//            }
-//        }
-//        push(module)
-//    }
+    }
 
 
     fun BaseModule.startLoadingFlow() {

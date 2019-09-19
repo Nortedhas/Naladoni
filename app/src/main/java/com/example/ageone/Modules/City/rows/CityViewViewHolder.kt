@@ -43,9 +43,7 @@ fun CityViewViewHolder.renderUI() {
 }
 
 fun CityViewViewHolder.initialize(text: String) {
-    val spannableContent = SpannableString(text + "0:39")
-    spannableContent.setSpan(
-        ForegroundColorSpan(Color.parseColor("#f2842d")),
-        text.length,  text.length + 4, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+    val spannableContent = SpannableString(text)
+    ForegroundColorSpan(Color.parseColor("#f2842d"))
     textView.text = spannableContent
 }

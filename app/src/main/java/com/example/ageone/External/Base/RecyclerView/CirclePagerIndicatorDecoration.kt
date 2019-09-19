@@ -15,14 +15,14 @@ import kotlin.math.min
 
 
 class CirclePagerIndicatorDecoration : RecyclerView.ItemDecoration() {
-    private val colorActive = Color.parseColor("#B2B5E0")
+    private val colorActive = Color.parseColor("#f27727")
     private val colorInactive = Color.WHITE
 
     private val mIndicatorHeight: Int = 32.dp
 
     private val mIndicatorStrokeWidth: Float = 1F.dp
 
-    private val mIndicatorItemLength: Float = 10F.dp
+    private val mIndicatorItemLength: Float = 17F.dp
 
     private val mIndicatorItemPadding: Float = 32F.dp
 

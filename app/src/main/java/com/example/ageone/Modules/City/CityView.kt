@@ -130,15 +130,16 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                 is  ButtonViewHolder ->{
                     holder.initialize("Подтверждаю")
                    holder.button.setOnClickListener{
+
                        alertManager.single(
                            message = "мы определили ваш город как ",
                            title = "Ваш город подарков", button = "Отлично"
                        ) { _, _ -> }
-                       emitEvent?.invoke(CityViewModel.EventType.onSityPresed.toString())
+//                       emitEvent?.invoke(CityViewModel.EventType.onSityPresed.toString())
                    }
                 }
                is CityViewViewHolder ->{
-                   holder.initialize("Система ватоматически определает ваш город" )
+                   holder.initialize("Система автоматически определает ваш город" )
                }
 
             }
