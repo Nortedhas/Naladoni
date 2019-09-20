@@ -20,6 +20,7 @@ import com.example.ageone.Modules.RegistrationSMSViewModel
 import com.example.ageone.Modules.Loading.StartModel
 import com.example.ageone.Modules.Loading.StartView
 import com.example.ageone.Modules.Loading.StartViewModel
+import com.example.ageone.Modules.Map.MapModel
 
 fun FlowCoordinator.runFlowAuth() {
 
@@ -59,6 +60,7 @@ class FlowAuth: BaseFlow() {
         var modelRegistrationSMS = RegistrationSMSModel()
         var modelSelectCity = CityModel()
         var modelFAQ = FAQModel()
+        var modelMap = MapModel()
 
     }
 
@@ -161,6 +163,27 @@ class FlowAuth: BaseFlow() {
         module.emitEvent = { event ->
             when (com.example.ageone.Modules.FAQ.FAQViewModel.EventType.valueOf(event)) {
                 com.example.ageone.Modules.FAQ.FAQViewModel.EventType.OnLoaded -> {
+                    runModuleMap()
+                }
+
+            }
+        }
+        push(module)
+
+    }
+    fun runModuleMap() {
+        val module = com.example.ageone.Modules.Map.MapView(
+            InitModuleUI(
+                isBottomNavigationVisible = true
+            )
+        )
+        module.viewModel.initialize(models.modelMap) { module.reload() }
+
+        settingsCurrentFlow.isBottomNavigationVisible = true
+
+        module.emitEvent = { event ->
+            when (com.example.ageone.Modules.Map.MapViewModel.EventType.valueOf(event)) {
+                com.example.ageone.Modules.Map.MapViewModel.EventType.OnlouderMap -> {
                     module.startLoadingFlow()
                 }
 

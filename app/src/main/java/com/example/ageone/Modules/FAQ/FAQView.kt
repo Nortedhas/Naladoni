@@ -17,6 +17,7 @@ import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.CirclePagerIndicatorDecoration
 import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.InitModuleUI
+import com.example.ageone.Modules.City.CityViewModel
 import com.example.ageone.Modules.FAQ.rows.SliderViewHolder
 import com.example.ageone.Modules.Loading.StartViewModel
 import yummypets.com.stevia.*
@@ -114,7 +115,9 @@ fun StartView.renderUIO() {
         }
     }
     timer.start()
-
+   buttonSkip.setOnClickListener{
+       emitEvent?.invoke(FAQViewModel.EventType.OnLoaded.toString())
+   }
     innerContent.subviews(
         bodyTable,
         buttonEnter,
@@ -165,6 +168,7 @@ class Factory(val rootModule: BaseModule): BaseAdapter<SliderViewHolder>() {
     override fun onBindViewHolder(viewHolder: SliderViewHolder, position: Int) {
         viewHolder.textView.text = list[position]
         viewHolder.imageView.setBackgroundResource(resourceImages[position])
+
 
 
     }
