@@ -3,6 +3,7 @@ package com.example.ageone.Modules.Loading
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
 import android.os.CountDownTimer
 import android.view.Gravity
 import android.widget.ProgressBar
@@ -11,6 +12,7 @@ import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.InitModuleUI
+import com.example.ageone.Modules.Loading.rows.ProgressBarView
 import yummypets.com.stevia.*
 
 class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
@@ -27,7 +29,12 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
         textViewHello.text = "Все акции твоего города"
         textViewHello
     }
-  
+val progressBar by lazy {
+    val progressBar = ProgressBarView()
+    progressBar.orientation = GradientDrawable.Orientation.TOP_BOTTOM
+    progressBar.backgroundColor = Color.rgb(0,0,0)
+    progressBar
+}
     val textViewName by lazy {
         val textViewHello = BaseTextView()
         textViewHello.gravity = Gravity.CENTER
@@ -62,6 +69,7 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
 fun StartView.renderUIO() {
 
     innerContent.subviews(
+        progressBar,
         imageView,
         textViewHello,
         textViewName
@@ -80,7 +88,9 @@ fun StartView.renderUIO() {
         .constrainBottomToTopOf(textViewName, 5)
         .constrainLeftToLeftOf(innerContent)
         .constrainRightToRightOf(innerContent)
-
+progressBar
+    .constrainBottomToBottomOf(innerContent,120)
+    .fillHorizontally(35)
 
     var timer = object : CountDownTimer(3000, 1000) {
         override fun onTick(millisUntilFinished: Long) {

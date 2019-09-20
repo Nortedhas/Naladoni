@@ -12,7 +12,7 @@ import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.Modules.SMS.rows.RegistrationSMSTextViewHolder
 import yummypets.com.stevia.*
 
-class CityViewViewHolder(val constraintLayout: ConstraintLayout) :
+class CityViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
 
     val textView by lazy {
@@ -32,7 +32,7 @@ class CityViewViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun CityViewViewHolder.renderUI() {
+fun CityViewHolder.renderUI() {
     constraintLayout.subviews(
         textView
     )
@@ -42,7 +42,7 @@ fun CityViewViewHolder.renderUI() {
         .fillHorizontally(16)
 }
 
-fun CityViewViewHolder.initialize(text: String) {
+fun CityViewHolder.initialize(text: String) {
     val spannableContent = SpannableString(text)
     ForegroundColorSpan(Color.parseColor("#f2842d"))
     textView.text = spannableContent

@@ -1,7 +1,6 @@
-package com.example.ageone.UIComponents.ViewHolders
+package com.example.ageone.Modules.Auth.rows
 
 import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
@@ -11,8 +10,7 @@ import com.example.ageone.External.Base.TextInputLayout.InputEditTextType
 import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 
-
-class InputViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
+class InputViewHolderC(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
     val textInputL by lazy {
         val textInput = BaseTextInputLayout()
 
@@ -40,17 +38,17 @@ class InputViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(co
     }
 
 }
-fun InputViewHolder.renderUI() {
+fun InputViewHolderC.renderUI() {
     constraintLayout.subviews(
         textInputL
     )
 
     textInputL
-        .constrainTopToTopOf(constraintLayout, 70)
+        .constrainTopToTopOf(constraintLayout, 10)
         .fillHorizontally(18)
 }
 
-fun InputViewHolder.initialize(hint: String, type: InputEditTextType) {
+fun InputViewHolderC.initialize(hint: String, type: InputEditTextType) {
     textInputL.hint = hint
     textInputL.defineType(type)
 }

@@ -15,6 +15,7 @@ import com.example.ageone.External.Libraries.Alert.alertManager
 import com.example.ageone.External.Libraries.Alert.single
 import com.example.ageone.External.Utils.Validation.isValidPhone
 import com.example.ageone.Models.User.user
+import com.example.ageone.Modules.Auth.rows.InputViewHolderC
 import com.example.ageone.Modules.Auth.rows.RegistrationTextHolder
 import com.example.ageone.Modules.Auth.rows.initialize
 import com.example.ageone.UIComponents.ViewHolders.ButtonViewHolder
@@ -44,6 +45,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(
         bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
 
+
         renderUIO()
 
     }
@@ -51,13 +53,16 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(
     inner class Factory(val rootModule: BaseModule): BaseAdapter<BaseViewHolder>() {
 
         private val RegistrationInputType = 0
-        private val RegistrationButtonType = 1
-      private val RegistrationTextType = 2
+        private val RegistrationInputType1 = 1
+        private val RegistrationButtonType = 2
+      private val RegistrationTextType = 3
 
-        override fun getItemCount(): Int = 4
+        override fun getItemCount(): Int = 5
 
         override fun getItemViewType(position: Int):Int = when(position) {
-            in 0..1 -> RegistrationInputType
+
+                   0 -> RegistrationInputType
+                 1 -> RegistrationInputType1
             2 -> RegistrationButtonType
          3 -> RegistrationTextType
             else -> -1
@@ -73,6 +78,9 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(
             val holder = when(viewType) {
                 RegistrationInputType -> {
                     InputViewHolder(layout)
+                }
+                RegistrationInputType1 -> {
+                    InputViewHolderC(layout)
                 }
                 RegistrationButtonType -> {
                     ButtonViewHolder(layout)
@@ -90,21 +98,17 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
             when(holder) {
                 is InputViewHolder -> {
-                    when (position) {
-                        0 -> {
+
                             holder.initialize("Введите ваше имя и фамилию:", InputEditTextType.TEXT)
                             holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
                                 viewModel.model.inputName = text.toString()
                             }
-                            holder.textInputL.editText?.setText(user.data.name)
-                        }
-                        1 -> {
-                            holder.initialize("Введите ваш номер телефона:", InputEditTextType.PHONE)
-                            holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
-                                viewModel.model.inputPhone = text.toString()
-                            }
-                        }
 
+                    }
+                is InputViewHolderC -> {
+                    holder.initialize("Введите ваш номер телефона:", InputEditTextType.PHONE)
+                    holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
+                        viewModel.model.inputPhone = text.toString()
                     }
                 }
 
@@ -139,6 +143,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(
 }
 
 fun RegistrationView.renderUIO() {
-
+      bodyTable
+          .constrainTopToTopOf(innerContent, 130)
     renderBodyTable()
 }

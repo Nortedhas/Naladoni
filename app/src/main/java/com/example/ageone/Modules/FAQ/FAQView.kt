@@ -1,10 +1,9 @@
 package com.example.ageone.Modules.FAQ
 
 import android.graphics.Color
-import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
-import android.view.Gravity
+import android.os.CountDownTimer
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -13,18 +12,15 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import com.example.ageone.Application.R
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.Button.BaseButton
-import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
-import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.RecyclerView.CirclePagerIndicatorDecoration
 import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.Modules.FAQ.rows.SpinerViewHolder
+import com.example.ageone.Modules.FAQ.rows.SliderViewHolder
 import com.example.ageone.Modules.Loading.StartViewModel
 import yummypets.com.stevia.*
 import java.util.*
-import java.util.stream.Collectors.toList
 import kotlin.concurrent.schedule
 
 
@@ -52,7 +48,7 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
         button.typeface = Typeface.DEFAULT
         button.backgroundColor = Color.TRANSPARENT
         button.orientation = GradientDrawable.Orientation.BOTTOM_TOP
-        button.text = "пропустить"
+        button.text = "Пропустить"
         button.initialize()
         button
     }
@@ -76,6 +72,7 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
             bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
             bodyTable.addItemDecoration(CirclePagerIndicatorDecoration())
 
+
             val snapHelper = PagerSnapHelper()
             snapHelper.attachToRecyclerView(bodyTable)
 
@@ -94,7 +91,7 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
         timerSecond.schedule(10000){
             if ((bodyTable.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition() == 1) {
                 bodyTable.smoothScrollToPosition(2)
-//                buttonEnter.visibility = View.VISIBLE
+
         }
         }
     }
@@ -105,6 +102,18 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
 
 }
 fun StartView.renderUIO() {
+    var timer = object : CountDownTimer(10000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            millisUntilFinished / 1000
+
+        }
+
+        override fun onFinish() {
+            currentActivity?.runOnUiThread {  buttonEnter.visibility = View.VISIBLE }
+
+        }
+    }
+    timer.start()
 
     innerContent.subviews(
         bodyTable,
@@ -130,7 +139,7 @@ fun StartView.renderUIO() {
         .constrainRightToRightOf(innerContent)
 }
 
-class Factory(val rootModule: BaseModule): BaseAdapter<SpinerViewHolder>() {
+class Factory(val rootModule: BaseModule): BaseAdapter<SliderViewHolder>() {
 
     private val list = listOf(
         "Смотри какие акции окружают тебя с помощью нашей интерактивной карты, и выбирай лучшие предложения в городе!",
@@ -143,19 +152,19 @@ class Factory(val rootModule: BaseModule): BaseAdapter<SpinerViewHolder>() {
 
     override fun getItemCount() = list.size
     override fun getItemViewType(position: Int): Int = 0
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpinerViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SliderViewHolder {
         val layout = ConstraintLayout(parent.context)
 
         layout
             .width(matchParent)
             .height(wrapContent)
 
-        return SpinerViewHolder(layout)
+        return SliderViewHolder(layout)
     }
 
-    override fun onBindViewHolder(ViewHolder: SpinerViewHolder, position: Int) {
-        ViewHolder.textView.text = list[position]
-        ViewHolder.imageView.setBackgroundResource(resourceImages[position])
+    override fun onBindViewHolder(viewHolder: SliderViewHolder, position: Int) {
+        viewHolder.textView.text = list[position]
+        viewHolder.imageView.setBackgroundResource(resourceImages[position])
 
 
     }

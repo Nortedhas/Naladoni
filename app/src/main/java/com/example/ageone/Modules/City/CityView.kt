@@ -1,9 +1,6 @@
 package com.example.ageone.Modules.City
 
-import android.graphics.Color
-import android.os.CountDownTimer
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
 import com.example.ageone.Application.R
@@ -15,14 +12,9 @@ import com.example.ageone.External.InitModuleUI
 import com.example.ageone.External.Libraries.Alert.alertManager
 import com.example.ageone.External.Libraries.Alert.list
 import com.example.ageone.External.Libraries.Alert.single
-import com.example.ageone.External.RxBus.RxBus
-import com.example.ageone.External.RxBus.RxEvent
-import com.example.ageone.Modules.Auth.RegistrationViewModel
-import com.example.ageone.Modules.City.rows.CityViewViewHolder
+import com.example.ageone.Modules.City.rows.CityViewHolder
 import com.example.ageone.Modules.City.rows.initialize
-import com.example.ageone.Modules.Loading.StartViewModel
-import com.example.ageone.Modules.SMS.rows.RegistrationSMSTextViewHolder
-import com.example.ageone.Modules.SMS.rows.initialize
+import com.example.ageone.Modules.FAQ.rows.SliderViewHolder
 import com.example.ageone.UIComponents.ViewHolders.ButtonViewHolder
 import com.example.ageone.UIComponents.ViewHolders.InputViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
@@ -32,14 +24,13 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
     override fun unBind() {}
 
     val viewModel = CityViewModel()
-
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
     }
 
     init {
-//        viewModel.loadRealmData()
+        //        viewModel.loadRealmData()
 
         setBackgroundResource(R.drawable.base_background)//TODO: set background
 
@@ -84,7 +75,7 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                     InputViewHolder(layout)
                 }
                 SelectCityTextType ->{
-                    CityViewViewHolder(layout)
+                    CityViewHolder(layout)
                 }
                 SelectCityButtonType ->{
                     ButtonViewHolder(layout)
@@ -113,41 +104,41 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                         alertManager.list( "sdfjkbhas", arrayOf("dsf","sfdas")  ) {_, int ->
                             when (int)
                             {
-                              0 ->{
-                                  holder.textInputL.editText?.setText(
-                                      array[0])
-                             }
-                               1 -> {
-                                   holder.textInputL.editText?.setText(array[1]) }
-                               }
-
+                                0 ->{
+                                    holder.textInputL.editText?.setText(
+                                        array[0])
+                                }
+                                1 -> {
+                                    holder.textInputL.editText?.setText(array[1]) }
                             }
 
                         }
 
                     }
 
+                }
+
                 is  ButtonViewHolder ->{
                     holder.initialize("Подтверждаю")
-                   holder.button.setOnClickListener{
+                    holder.button.setOnClickListener{
 
-                       alertManager.single(
-                           message = "мы определили ваш город как ",
-                           title = "Ваш город подарков", button = "Отлично"
-                       ) { _, _ -> }
-//                       emitEvent?.invoke(CityViewModel.EventType.onSityPresed.toString())
-                   }
+                        alertManager.single(
+                            message = "мы определили ваш город как ",
+                            title = "Ваш город подарков", button = "Отлично"
+                        ) { _, _ ->
+                            emitEvent?.invoke(CityViewModel.EventType.onSityPresed.toString())
+                        }
+                    }
                 }
-               is CityViewViewHolder ->{
-                   holder.initialize("Система автоматически определает ваш город" )
-               }
+                is CityViewHolder ->{
+                    holder.initialize("Система автоматически определает ваш город" )
+                }
 
             }
 
         }
 
     }
-
 }
 
 fun CityView.renderUIO() {
