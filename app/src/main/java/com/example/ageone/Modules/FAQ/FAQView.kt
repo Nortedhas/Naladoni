@@ -42,7 +42,7 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
     }
     val buttonSkip by lazy {
         val button = BaseButton()
-        button.textSize = 12F
+        button.textSize = 17F
         button.textColor = Color.BLACK
         button.typeface = Typeface.DEFAULT
         button.backgroundColor = Color.TRANSPARENT

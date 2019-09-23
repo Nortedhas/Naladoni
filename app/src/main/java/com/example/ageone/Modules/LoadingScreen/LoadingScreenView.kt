@@ -3,15 +3,15 @@ package com.example.ageone.Modules.LoadingScreen
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.Typeface
-import android.graphics.drawable.GradientDrawable
 import android.os.CountDownTimer
 import android.view.Gravity
+import android.widget.ProgressBar
 import com.example.ageone.Application.R
+import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.Modules.LoadingScreen.rows.LoadingScreenProgressBarViewHolder
 import yummypets.com.stevia.*
 
 class LoadingScreenView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
@@ -28,11 +28,9 @@ class LoadingScreenView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule
         textViewHello.text = "Все акции твоего города"
         textViewHello
     }
-val progressBar by lazy {
-    val progressBar = LoadingScreenProgressBarViewHolder()
-    progressBar
-    progressBar.orientation = GradientDrawable.Orientation.TOP_BOTTOM
-    progressBar
+    val progressBar by lazy {
+        val progressBar = ProgressBar(currentActivity)
+        progressBar
 }
     val textViewName by lazy {
         val textViewHello = BaseTextView()
@@ -65,10 +63,10 @@ val progressBar by lazy {
 fun LoadingScreenView.renderUIO() {
 
     innerContent.subviews(
-        progressBar,
         imageView,
         textViewHello,
-        textViewName
+        textViewName,
+        progressBar
     )
 
     textViewName
@@ -84,9 +82,10 @@ fun LoadingScreenView.renderUIO() {
         .constrainBottomToTopOf(textViewName, 5)
         .constrainLeftToLeftOf(innerContent)
         .constrainRightToRightOf(innerContent)
-progressBar
-    .constrainBottomToBottomOf(innerContent,120)
-    .fillHorizontally(35)
+    progressBar
+        .constrainTopToBottomOf(textViewHello, 100)
+        .constrainLeftToLeftOf(innerContent)
+        .constrainRightToRightOf(innerContent)
 
     var timer = object : CountDownTimer(3000, 1000) {
         override fun onTick(millisUntilFinished: Long) {

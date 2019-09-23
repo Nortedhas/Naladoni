@@ -92,11 +92,18 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
             }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-
+            val city = arrayOf("Краснодар", "Москва")
             when (holder) {
                 is CityEditTextViewHolder -> {
+                    alertManager.single(
+                        message = "мы определили ваш город как "+ city[0],
+                        title = "Ваш город подарков", button = "Отлично"
+                    ) { _, _ ->
+                        holder.editText.setText(
+                            city[0])
+                    }
                     holder.editText.setOnClickListener{
-                        val city = arrayOf("Краснодар", "Москва")
+
                         alertManager.list( "Выберите город", city  ) {_, int ->
                             when (int)
                             {
@@ -119,13 +126,7 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                 is ButtonViewHolder -> {
                     holder.initialize("Подтверждаю")
                     holder.button.setOnClickListener {
-
-                        alertManager.single(
-                            message = "мы определили ваш город как ",
-                            title = "Ваш город подарков", button = "Отлично"
-                        ) { _, _ ->
-                            emitEvent?.invoke(CityViewModel.EventType.onSityPresed.toString())
-                        }
+                        emitEvent?.invoke(CityViewModel.EventType.onSityPresed.toString())
                     }
                 }
                 is CityViewHolder -> {
