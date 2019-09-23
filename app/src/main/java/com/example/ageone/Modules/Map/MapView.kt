@@ -25,7 +25,6 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
     val viewModel = MapViewModel()
     val imageView1 by lazy {
         val imageView = BaseImageView()
-        imageView.setImageResource(R.drawable.map)
         imageView.initialize()
         imageView.orientation = GradientDrawable.Orientation.TOP_BOTTOM
         imageView

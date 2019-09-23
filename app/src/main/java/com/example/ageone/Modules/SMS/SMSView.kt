@@ -1,32 +1,24 @@
 package com.example.ageone.Modules.SMS
 
-import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
 import com.example.ageone.Application.R
-import com.example.ageone.Application.api
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextInputLayout.InputEditTextType
-import com.example.ageone.External.HTTP.update
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.Models.User.user
 import com.example.ageone.Modules.City.CityViewModel
 import com.example.ageone.Modules.SMS.rows.RegistrationSMSTextViewHolder
 import com.example.ageone.Modules.SMS.rows.initialize
 import com.example.ageone.Modules.RegistrationSMSViewModel
-import com.example.ageone.SCAG.DataBase
-import com.example.ageone.SCAG.Parser
-import com.example.ageone.SCAG.userData
 import com.example.ageone.UIComponents.ViewHolders.ButtonViewHolder
 import com.example.ageone.UIComponents.ViewHolders.InputViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
-import timber.log.Timber
 import yummypets.com.stevia.*
 
-class RegistrationSMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
+class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
     override fun unBind() {}
 
 
@@ -134,7 +126,7 @@ class RegistrationSMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModu
         }
     }
 
-    fun RegistrationSMSView.renderUIO() {
+    fun SMSView.renderUIO() {
         renderBodyTable()
     }
 }

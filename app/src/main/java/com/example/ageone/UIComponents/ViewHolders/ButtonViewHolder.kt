@@ -9,7 +9,7 @@ import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import timber.log.Timber
 import yummypets.com.stevia.*
 
-class ButtonViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
+class ButtonViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
     val button by lazy {
         val button = BaseButton()
         button.textSize = 17F

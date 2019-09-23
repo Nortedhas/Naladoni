@@ -46,7 +46,7 @@ object TabBar {
     val bottomNavigation by lazy {
         val bottomNavigation = AHBottomNavigation(currentActivity)
         bottomNavigation.setTitleTextSize(30f,30f)
-        bottomNavigation.defaultBackgroundColor = Color.parseColor("#FEFEFE")
+        bottomNavigation.defaultBackgroundColor = Color.parseColor("#FEFEFE")//color
         bottomNavigation.isBehaviorTranslationEnabled = true
         bottomNavigation.accentColor = Color.rgb(0x70,0x7A,0xBA)
         bottomNavigation.inactiveColor = Color.GRAY
@@ -67,11 +67,11 @@ object TabBar {
 
     private fun createStackItem() {
         items = arrayListOf(
-            AHBottomNavigationItem("Главная", R.drawable.home),
-            AHBottomNavigationItem("Сеты", R.drawable.sets),
-            AHBottomNavigationItem("Анонсы", R.drawable.anons),
-            AHBottomNavigationItem("Покупки", R.drawable.buy),
-            AHBottomNavigationItem("Профиль", R.drawable.profile)
+            AHBottomNavigationItem("", R.drawable.ic_map),
+            AHBottomNavigationItem("", R.drawable.ic_list),
+            AHBottomNavigationItem("", R.drawable.ic_search),
+            AHBottomNavigationItem("", R.drawable.ic_user)
+
         )
 
     }

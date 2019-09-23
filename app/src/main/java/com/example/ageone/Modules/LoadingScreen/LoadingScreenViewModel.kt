@@ -1,13 +1,13 @@
-package com.example.ageone.Modules.Loading
+package com.example.ageone.Modules.LoadingScreen
 
 import com.example.ageone.External.Interfaces.InterfaceModel
 import com.example.ageone.External.Interfaces.InterfaceViewModel
 
-class StartViewModel: InterfaceViewModel {
-    var model = StartModel()
+class LoadingScreenViewModel: InterfaceViewModel {
+    var model = LoadingScreenModel()
 
     fun initialize(recievedModel: InterfaceModel, completion: ()->(Unit)) {
-        if (recievedModel is StartModel) {
+        if (recievedModel is LoadingScreenModel) {
             model = recievedModel
             completion.invoke()
         }
@@ -18,6 +18,6 @@ class StartViewModel: InterfaceViewModel {
     }
 }
 
-class StartModel: InterfaceModel {
+class LoadingScreenModel: InterfaceModel {
 
 }

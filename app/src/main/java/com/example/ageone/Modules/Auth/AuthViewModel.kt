@@ -3,11 +3,11 @@ package com.example.ageone.Modules.Auth
 import com.example.ageone.External.Interfaces.InterfaceModel
 import com.example.ageone.External.Interfaces.InterfaceViewModel
 
-class RegistrationViewModel: InterfaceViewModel {
-    var model = RegistrationModel()
+class AuthRegistrationViewModel: InterfaceViewModel {
+    var model = AuthRegistrationModel()
 
     fun initialize(recievedModel: InterfaceModel, completion: ()->(Unit)) {
-        if (recievedModel is RegistrationModel) {
+        if (recievedModel is AuthRegistrationModel) {
             model = recievedModel
             completion.invoke()
         }
@@ -18,7 +18,7 @@ class RegistrationViewModel: InterfaceViewModel {
     }
 }
 
-class RegistrationModel: InterfaceModel {
+class AuthRegistrationModel: InterfaceModel {
     var inputName = ""
     var inputPhone = ""
 }

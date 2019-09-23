@@ -1,6 +1,8 @@
 package com.example.ageone.Modules.City
 
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
 import com.example.ageone.Application.R
@@ -12,6 +14,8 @@ import com.example.ageone.External.InitModuleUI
 import com.example.ageone.External.Libraries.Alert.alertManager
 import com.example.ageone.External.Libraries.Alert.list
 import com.example.ageone.External.Libraries.Alert.single
+import com.example.ageone.Modules.City.rows.CityEditTextViewHolder
+import com.example.ageone.Modules.City.rows.CitySpinnerViewHolder
 import com.example.ageone.Modules.City.rows.CityViewHolder
 import com.example.ageone.Modules.City.rows.initialize
 import com.example.ageone.Modules.FAQ.rows.SliderViewHolder
@@ -21,8 +25,8 @@ import com.example.ageone.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
 
 class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
-    override fun unBind() {}
-
+    override fun unBind() {
+    }
     val viewModel = CityViewModel()
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -49,67 +53,63 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 ////        )*/
 ////    }
 
-    inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
+           inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private  val SelectalertManager =0
-        private  val SelectCityTextType = 1
-        private  val SelectCityButtonType =2
-        override fun getItemCount() = 3//viewModel.realmData.size
+            private val SelectalertManager = 0
+            private val SelectCityTextType = 1
+            private val SelectCityButtonType = 2
+            override fun getItemCount() = 3//viewModel.realmData.size
 
-        override fun getItemViewType(position: Int): Int = when (position) {
+            override fun getItemViewType(position: Int): Int = when (position) {
 
-            0 -> SelectalertManager
-            1 -> SelectCityTextType
-            2 -> SelectCityButtonType
-            else -> -1
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-            val layout = ConstraintLayout(parent.context)
-            layout
-                .width(matchParent)
-                .height(wrapContent)
-
-            val holder = when (viewType) {
-                SelectalertManager -> {
-                    InputViewHolder(layout)
-                }
-                SelectCityTextType ->{
-                    CityViewHolder(layout)
-                }
-                SelectCityButtonType ->{
-                    ButtonViewHolder(layout)
-
-                }
-                else -> {
-                    BaseViewHolder(layout)
-                }
+                0 -> SelectalertManager
+                1 -> SelectCityTextType
+                2 -> SelectCityButtonType
+                else -> -1
             }
 
-            return holder
-        }
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+                val layout = ConstraintLayout(parent.context)
+                layout
+                    .width(matchParent)
+                    .height(wrapContent)
+
+                val holder = when (viewType) {
+                    SelectalertManager -> {
+                        CityEditTextViewHolder(layout)
+                    }
+                    SelectCityTextType -> {
+                        CityViewHolder(layout)
+                    }
+                    SelectCityButtonType -> {
+                        ButtonViewHolder(layout)
+
+                    }
+                    else -> {
+                        BaseViewHolder(layout)
+                    }
+                }
+
+                return holder
+            }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-                is InputViewHolder -> {
-
-                    holder.initialize("Мой город:", InputEditTextType.NUMERIC)
-                    holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
-                        viewModel.model.code = text.toString()
-
-                    }
-                    holder.textInputL.setOnClickListener{
-                        val array = arrayOf("dsf","sfdas")
-                        alertManager.list( "sdfjkbhas", arrayOf("dsf","sfdas")  ) {_, int ->
+                is CityEditTextViewHolder -> {
+                    holder.editText.setOnClickListener{
+                        val city = arrayOf("Краснодар", "Москва")
+                        alertManager.list( "Выберите город", city  ) {_, int ->
                             when (int)
                             {
                                 0 ->{
-                                    holder.textInputL.editText?.setText(
-                                        array[0])
+                                    holder.editText.setText(
+                                        city[0])
                                 }
                                 1 -> {
-                                    holder.textInputL.editText?.setText(array[1]) }
+                                    holder.editText.setText(
+                                        city[1])
+                                }
                             }
 
                         }
@@ -118,9 +118,9 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
                 }
 
-                is  ButtonViewHolder ->{
+                is ButtonViewHolder -> {
                     holder.initialize("Подтверждаю")
-                    holder.button.setOnClickListener{
+                    holder.button.setOnClickListener {
 
                         alertManager.single(
                             message = "мы определили ваш город как ",
@@ -130,8 +130,8 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                         }
                     }
                 }
-                is CityViewHolder ->{
-                    holder.initialize("Система автоматически определает ваш город" )
+                is CityViewHolder -> {
+                    holder.initialize("Система автоматически определает ваш город")
                 }
 
             }
@@ -140,6 +140,8 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
     }
 }
+
+private fun Spinner.setOnItemSelectedListener(cityView: CityView) {}
 
 fun CityView.renderUIO() {
 

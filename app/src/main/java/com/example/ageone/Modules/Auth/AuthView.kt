@@ -5,16 +5,11 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
 import com.example.ageone.Application.R
-import com.example.ageone.Application.api
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextInputLayout.InputEditTextType
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.External.Libraries.Alert.alertManager
-import com.example.ageone.External.Libraries.Alert.single
-import com.example.ageone.External.Utils.Validation.isValidPhone
-import com.example.ageone.Models.User.user
 import com.example.ageone.Modules.Auth.rows.InputViewHolderC
 import com.example.ageone.Modules.Auth.rows.RegistrationTextHolder
 import com.example.ageone.Modules.Auth.rows.initialize
@@ -23,11 +18,11 @@ import com.example.ageone.UIComponents.ViewHolders.InputViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
 
-class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
+class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
     override fun unBind() {
     }
 
-    val viewModel = RegistrationViewModel()
+    val viewModel = AuthRegistrationViewModel()
 
 
     val viewAdapter by lazy {
@@ -53,7 +48,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(
     inner class Factory(val rootModule: BaseModule): BaseAdapter<BaseViewHolder>() {
 
         private val RegistrationInputType = 0
-        private val RegistrationInputType1 = 1
+        private val RegistrationInputTypeC = 1
         private val RegistrationButtonType = 2
       private val RegistrationTextType = 3
 
@@ -62,7 +57,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(
         override fun getItemViewType(position: Int):Int = when(position) {
 
                    0 -> RegistrationInputType
-                 1 -> RegistrationInputType1
+                 1 -> RegistrationInputTypeC
             2 -> RegistrationButtonType
          3 -> RegistrationTextType
             else -> -1
@@ -79,7 +74,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(
                 RegistrationInputType -> {
                     InputViewHolder(layout)
                 }
-                RegistrationInputType1 -> {
+                RegistrationInputTypeC -> {
                     InputViewHolderC(layout)
                 }
                 RegistrationButtonType -> {
@@ -125,7 +120,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(
 //                            api.request(mapOf(
 //                                "router" to "phoneAuth",
 //                                "phone" to viewModel.model.inputPhone)){
-                               rootModule.emitEvent?.invoke(RegistrationViewModel.EventType.OnRegistrationPressed.toString())
+                               rootModule.emitEvent?.invoke(AuthRegistrationViewModel.EventType.OnRegistrationPressed.toString())
 //                            }
 //
 //                        }
@@ -142,7 +137,7 @@ class RegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(
     }
 }
 
-fun RegistrationView.renderUIO() {
+fun AuthRegistrationView.renderUIO() {
       bodyTable
           .constrainTopToTopOf(innerContent, 130)
     renderBodyTable()

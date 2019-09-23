@@ -1,4 +1,4 @@
-package com.example.ageone.Modules.Loading
+package com.example.ageone.Modules.LoadingScreen
 
 import android.graphics.Color
 import android.graphics.PorterDuff
@@ -6,18 +6,17 @@ import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.os.CountDownTimer
 import android.view.Gravity
-import android.widget.ProgressBar
 import com.example.ageone.Application.R
 import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.Modules.Loading.rows.ProgressBarView
+import com.example.ageone.Modules.LoadingScreen.rows.LoadingScreenProgressBarViewHolder
 import yummypets.com.stevia.*
 
-class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
+class LoadingScreenView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
 
-    val viewModel = StartViewModel()
+    val viewModel = LoadingScreenViewModel()
 
     val textViewHello by lazy {
         val textViewHello = BaseTextView()
@@ -30,9 +29,9 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
         textViewHello
     }
 val progressBar by lazy {
-    val progressBar = ProgressBarView()
+    val progressBar = LoadingScreenProgressBarViewHolder()
+    progressBar
     progressBar.orientation = GradientDrawable.Orientation.TOP_BOTTOM
-    progressBar.backgroundColor = Color.rgb(0,0,0)
     progressBar
 }
     val textViewName by lazy {
@@ -66,7 +65,7 @@ val progressBar by lazy {
     }
 }
 
-fun StartView.renderUIO() {
+fun LoadingScreenView.renderUIO() {
 
     innerContent.subviews(
         progressBar,
@@ -99,7 +98,7 @@ progressBar
         }
 
         override fun onFinish() {
-            emitEvent?.invoke(StartViewModel.EventType.OnRegistrationPhonePressed.toString())
+            emitEvent?.invoke(LoadingScreenViewModel.EventType.OnRegistrationPhonePressed.toString())
         }
     }
     timer.start()

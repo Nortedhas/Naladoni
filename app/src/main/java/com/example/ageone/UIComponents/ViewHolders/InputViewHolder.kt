@@ -12,13 +12,14 @@ import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 
 
-class InputViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
+class InputViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
     val textInputL by lazy {
         val textInput = BaseTextInputLayout()
 
         val params = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT)
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
         params.marginStart = (-2).dp
         params.updateMargins(left = (-2).dp)
         textInput.layoutParams = params
@@ -34,12 +35,14 @@ class InputViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(co
         }
         textInput
     }
+
     init {
 
         renderUI()
     }
 
 }
+
 fun InputViewHolder.renderUI() {
     constraintLayout.subviews(
         textInputL

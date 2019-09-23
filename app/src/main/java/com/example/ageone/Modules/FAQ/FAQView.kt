@@ -17,9 +17,7 @@ import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.CirclePagerIndicatorDecoration
 import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.Modules.City.CityViewModel
 import com.example.ageone.Modules.FAQ.rows.SliderViewHolder
-import com.example.ageone.Modules.Loading.StartViewModel
 import yummypets.com.stevia.*
 import java.util.*
 import kotlin.concurrent.schedule
