@@ -60,9 +60,6 @@ val progressBar by lazy {
         renderUIO()
     }
 
-    override fun unBind() {
-
-    }
 }
 
 fun LoadingScreenView.renderUIO() {

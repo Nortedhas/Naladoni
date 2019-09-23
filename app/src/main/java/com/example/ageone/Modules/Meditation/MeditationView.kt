@@ -77,11 +77,6 @@ class MeditationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(in
         bodyTable.adapter?.notifyDataSetChanged()
     }
 
-    override fun unBind() {
-        if (!personDisposable.isDisposed) {
-            personDisposable.dispose()
-        }
-    }
 
     inner class Factory(val rootModule: BaseModule): BaseAdapter<BaseViewHolder>() {
 

@@ -25,8 +25,6 @@ import com.example.ageone.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
 
 class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
-    override fun unBind() {
-    }
     val viewModel = CityViewModel()
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)

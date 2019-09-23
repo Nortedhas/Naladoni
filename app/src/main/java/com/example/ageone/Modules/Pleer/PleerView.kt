@@ -289,10 +289,6 @@ class PleerView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMo
 
     }
 
-    override fun unBind() {
-
-    }
-
     private fun onSeekBarMeditationChangeListener(): OnSeekBarChangeListener {
         return object : OnSeekBarChangeListener {
 

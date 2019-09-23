@@ -19,8 +19,6 @@ import com.example.ageone.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
 
 class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
-    override fun unBind() {
-    }
 
     val viewModel = AuthRegistrationViewModel()
 

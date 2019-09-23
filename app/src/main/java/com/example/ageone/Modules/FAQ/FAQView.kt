@@ -24,7 +24,6 @@ import kotlin.concurrent.schedule
 
 
 class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
-    override fun unBind() {}
     val viewModel = FAQViewModel()
     val buttonEnter by lazy {
         val button = BaseButton()

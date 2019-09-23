@@ -15,8 +15,6 @@ import timber.log.Timber
 import yummypets.com.stevia.subviews
 
 class LoadingView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
-    override fun unBind() {
-    }
 
     val viewModel = LoadingViewModel()
 

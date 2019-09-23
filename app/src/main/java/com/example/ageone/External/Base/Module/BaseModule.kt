@@ -12,6 +12,7 @@ import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.RecyclerView.BaseRecyclerView
 import com.example.ageone.External.Base.Toolbar.BaseToolbar
 import com.example.ageone.External.InitModuleUI
+import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 import yummypets.com.stevia.*
 
@@ -69,6 +70,12 @@ abstract class BaseModule(val initModuleUI: InitModuleUI = InitModuleUI()) : Con
         Timber.i("${this.className()} Init ")
     }
 
+    var compositeDisposable = CompositeDisposable()
+
+    fun unBind() {
+        compositeDisposable.dispose()
+    }
+
     fun renderUI() {
         subviews(
             backgroundImage,
@@ -118,6 +125,8 @@ abstract class BaseModule(val initModuleUI: InitModuleUI = InitModuleUI()) : Con
 
     }
 
+
+
     fun reload() {
         bodyTable.adapter?.notifyDataSetChanged()
     }
@@ -125,6 +134,4 @@ abstract class BaseModule(val initModuleUI: InitModuleUI = InitModuleUI()) : Con
     fun className(): String {
         return utils.tools.getClassName(this.toString())
     }
-
-    abstract fun unBind()
 }

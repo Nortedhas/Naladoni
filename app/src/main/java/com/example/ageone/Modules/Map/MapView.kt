@@ -2,7 +2,9 @@ package com.example.ageone.Modules.Map
 
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.ageone.Application.R
@@ -20,39 +22,29 @@ import com.example.ageone.Modules.Map.rows.initialize
 import yummypets.com.stevia.*
 
 class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
-    override fun unBind() {}
 
     val viewModel = MapViewModel()
-    val imageView1 by lazy {
-        val imageView = BaseImageView()
-        imageView.initialize()
-        imageView.orientation = GradientDrawable.Orientation.TOP_BOTTOM
-        imageView
-    }
-val buttonSkip by lazy {
-    val button = BaseButton()
-    button.typeface = Typeface.DEFAULT
-    button.backgroundColor = Color.TRANSPARENT
-    button.setBackgroundResource(R.drawable.setings)
-    button.orientation = GradientDrawable.Orientation.BOTTOM_TOP
-    button.initialize()
-    button
-}
+//    val imageView by lazy {
+//        val imageView = BaseImageView()
+//        imageView.initialize()
+//        imageView.orientation = GradientDrawable.Orientation.BOTTOM_TOP
+//        imageView.setBackgroundResource(R.drawable.ic_barbac)
+//        imageView
+//    }
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
     }
     init {
+
 //        viewModel.loadRealmData()
 
         setBackgroundResource(R.drawable.base_background)
-
-        toolbar.title = "Карта подарков"
-        toolbar.titleTextSize = 30F
-        toolbar
-            .constrainLeftToLeftOf(innerContent, 100)
-        renderToolbar()
-        bodyTable.adapter = viewAdapter
+//
+//        toolbar.title = "Карта подарков"
+//        toolbar.titleTextSize = 30F
+//        renderToolbar()
+//        bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
 
@@ -71,6 +63,7 @@ val buttonSkip by lazy {
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
         private val MapVType = 0
+        private val MeditationPopularType = 1
 
         override fun getItemCount() = 1//viewModel.realmData.size
 
@@ -105,6 +98,7 @@ val buttonSkip by lazy {
                 is MapViewHolder -> {
                     holder.initialize()
                 }
+                }
 
             }
 
@@ -112,20 +106,15 @@ val buttonSkip by lazy {
 
     }
 
-}
+
 
 fun MapView.renderUIO() {
 
     innerContent.subviews(
-//        imageView1
-        buttonSkip
+
     )
-//    imageView1
-    buttonSkip
-        .constrainLeftToLeftOf(innerContent, 0)
 
-
-    renderBodyTable()
+//            renderBodyTable()
 }
 
 

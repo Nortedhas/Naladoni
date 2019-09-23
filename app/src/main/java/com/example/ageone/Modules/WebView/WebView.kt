@@ -34,10 +34,6 @@ class WebView(initModuleUI: InitModuleUI = InitModuleUI(), url: String) : BaseMo
         webView.loadUrl(url)
         webView.webViewClient = MyWebViewClient()
     }
-
-    override fun unBind() {
-
-    }
 }
 
 class MyWebViewClient : WebViewClient() {
