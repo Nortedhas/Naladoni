@@ -20,6 +20,8 @@ import com.example.ageone.External.RxBus.RxBus
 import com.example.ageone.External.RxBus.RxEvent
 import com.example.ageone.Modules.Map.rows.MapViewHolder
 import com.example.ageone.Modules.Map.rows.initialize
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMapOptions
 import com.google.android.gms.maps.MapFragment
 import com.google.android.gms.maps.MapsInitializer
 import yummypets.com.stevia.*
@@ -36,12 +38,10 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 //        imageView
 //    }
     init {
-        val mapWidget by lazy {
-            val mapWidget = MapFragment()
-            mapWidget
-
-
-        }
+//        val mapWidget by lazy {
+//
+//
+//        }
 //        viewModel.loadRealmData()
 
         setBackgroundResource(R.drawable.base_background)
@@ -114,7 +114,6 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 fun MapView.renderUIO() {
 
     innerContent.subviews(
-
 
     )
 
