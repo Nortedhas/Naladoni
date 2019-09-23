@@ -60,7 +60,7 @@ class FlowAuth: BaseFlow() {
         var modelRegistrationSMS = RegistrationSMSModel()
         var modelSelectCity = CityModel()
         var modelFAQ = FAQModel()
-        var modelMap = MapModel()
+//        var modelMap = MapModel()
 
     }
 
@@ -163,7 +163,8 @@ class FlowAuth: BaseFlow() {
         module.emitEvent = { event ->
             when (com.example.ageone.Modules.FAQ.FAQViewModel.EventType.valueOf(event)) {
                 com.example.ageone.Modules.FAQ.FAQViewModel.EventType.OnLoaded -> {
-                    runModuleMap()
+//                    runModuleMap()
+                    module.startLoadingFlow()
                 }
 
             }
@@ -171,7 +172,7 @@ class FlowAuth: BaseFlow() {
         push(module)
 
     }
-    fun runModuleMap() {
+    /*fun runModuleMap() {
         val module = com.example.ageone.Modules.Map.MapView(
             InitModuleUI(
                 isBottomNavigationVisible = true,
@@ -192,7 +193,7 @@ class FlowAuth: BaseFlow() {
         }
         push(module)
 
-    }
+    }*/
 
 
     fun BaseModule.startLoadingFlow() {

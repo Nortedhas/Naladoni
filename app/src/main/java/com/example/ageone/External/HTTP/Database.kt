@@ -12,7 +12,7 @@ fun DataBase.request(params: Map<String, Any>, completion: (JSONObject) -> (Unit
 
     Fuel.post(Routes.Database.path)
         .jsonBody(api.createBody(params).toString())
-        .header(DataBase.headers)
+//        .header(DataBase.headers)
         .responseString { request, response, result ->
             result.fold({ result ->
                 val jsonObject = JSONObject(result)

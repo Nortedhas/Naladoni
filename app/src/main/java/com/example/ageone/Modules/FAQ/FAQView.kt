@@ -17,6 +17,7 @@ import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.CirclePagerIndicatorDecoration
 import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.InitModuleUI
+import com.example.ageone.Models.User.user
 import com.example.ageone.Modules.FAQ.rows.SliderViewHolder
 import yummypets.com.stevia.*
 import java.util.*
@@ -77,6 +78,7 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
             buttonEnter.setOnClickListener {
                 timerFirst.cancel()
                 timerSecond.cancel()
+                user.isAuthorized = true
                 emitEvent?.invoke(FAQViewModel.EventType.OnLoaded.toString())
             }
 
@@ -113,6 +115,7 @@ fun StartView.renderUIO() {
     }
     timer.start()
    buttonSkip.setOnClickListener{
+       user.isAuthorized = true
        emitEvent?.invoke(FAQViewModel.EventType.OnLoaded.toString())
    }
     innerContent.subviews(

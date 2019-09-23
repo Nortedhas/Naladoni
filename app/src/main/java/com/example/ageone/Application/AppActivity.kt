@@ -54,13 +54,13 @@ class AppActivity: BaseActivity() {
 
         setDisplaySize()
 
-        FuelManager.instance.basePath = DataBase.url
+//        FuelManager.instance.basePath = DataBase.url
 
         verifyStoragePermissions(this)
         val fingerprints = VKUtils.getCertificateFingerprint(this, this.packageName)
         Timber.i("PACKAGE: ${fingerprints?.toList()}")
 
-        //TODO just do this
+        user.isAuthorized = false //TODO: change after add registration
         coordinator.setLaunchScreen()
         Promise<Unit> { resolve, _ ->
 
@@ -72,7 +72,7 @@ class AppActivity: BaseActivity() {
             }
 
         }.then {
-            api.handshake {
+            /*api.handshake {
                 Timber.i("Handshake out")
                 coordinator.start()
 
@@ -85,9 +85,10 @@ class AppActivity: BaseActivity() {
 
                         // Get new Instance ID UserHandshake
                         val token = task.result?.token ?: ""
-                        DataBase.User.update(user.hashId, mapOf("fcmToken" to token))
+//                        DataBase.User.update(user.hashId, mapOf("fcmToken" to token))
                     })
-            }
+            }*/
+            coordinator.start()
         }
 
         setContentView(router.layout)
@@ -111,39 +112,6 @@ class AppActivity: BaseActivity() {
     override fun onBackPressed() {
         Timber.i("back")
         router.onBackPressed()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val callback = object: VKAuthCallback {
-            override fun onLogin(token: VKAccessToken) {
-                // User passed authorization
-                Timber.i("Token: ${token.accessToken}")
-                utils.variable.vkSdkTokenUser = token.accessToken
-                Timber.i("${VKUsersRequest()}")
-                VK.execute(VKUsersRequest(), object: VKApiCallback<VKUser> {
-                    override fun success(result: VKUser) {
-                        Timber.i("Result $result")
-                        user.data.email = token.email ?: ""
-                        user.data.name = "${result.firstName} ${result.lastName}"
-                        if (currentFlow is FlowAuth) {
-//                            (currentFlow as FlowAuth).runModuleRegistration()
-                        }
-                    }
-                    override fun fail(error: VKApiExecutionException) {
-                    }
-                })
-
-            }
-
-            override fun onLoginFailed(errorCode: Int) {
-                // User didn't pass authorization
-                alertManager.single("Ошибка авторизации", "Ошибка авторизации через vk", null) { _, _ ->
-                }
-            }
-        }
-        if (data == null || !VK.onActivityResult(requestCode, resultCode, data, callback)) {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
     }
 
 }

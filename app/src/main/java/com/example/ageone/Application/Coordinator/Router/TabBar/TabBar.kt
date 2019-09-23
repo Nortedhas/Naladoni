@@ -12,6 +12,7 @@ import com.example.ageone.Application.Coordinator.Router.TabBar.Stack.items
 import com.example.ageone.Application.R
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.Flow.BaseFlow
+import timber.log.Timber
 
 object Stack {
     var flows = arrayListOf<BaseFlow>()
@@ -22,6 +23,8 @@ object TabBar {
 
     fun createBottomNavigation() {
         isBottomNavigationExist = true
+
+        Timber.i("Bottom nav: create bottom nav")
 
         bottomNavigation.setOnTabSelectedListener { position, wasSelected ->
             if (!wasSelected && position < flows.size) {

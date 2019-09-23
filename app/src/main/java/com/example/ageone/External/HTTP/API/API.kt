@@ -43,7 +43,7 @@ class API {
 
         Fuel.post(Routes.Api.path)
             .jsonBody(createBody(params).toString())
-            .header(DataBase.headers)
+//            .header(DataBase.headers)
             .responseString { request, response, result ->
                 result.fold({ result ->
                     val jsonObject = JSONObject(result)
@@ -89,21 +89,6 @@ class API {
         }
     }
 
-    fun createOrder(productSetHashId: String, productHashId: String, orderType: Enums.OrderType,
-                    completion: (JSONObject) -> Unit) {
-        api.request(
-            mapOf(
-                "router" to "createOrder",
-                "orderType" to orderType,
-                "productSetHashId" to productSetHashId,
-                "productHashId" to productHashId
-
-            )
-        ) { jsonObject ->
-//            Timber.i("Object order: $jsonObject")
-            completion.invoke(jsonObject)
-        }
-    }
 }
 
 

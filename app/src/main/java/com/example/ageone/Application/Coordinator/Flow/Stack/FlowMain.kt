@@ -3,19 +3,12 @@ package com.example.ageone.Application.Coordinator.Flow.Stack
 import androidx.core.view.size
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
-import com.example.ageone.Application.Coordinator.Flow.Regular.runFlowPleer
 import com.example.ageone.Application.Coordinator.Router.DataFlow
 import com.example.ageone.Application.Coordinator.Router.TabBar.Stack.flows
 import com.example.ageone.Application.coordinator
-import com.example.ageone.Application.currentActivity
-import com.example.ageone.Application.webSocket
 import com.example.ageone.External.Base.Flow.BaseFlow
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.External.Libraries.WebView.openUrl
-import com.example.ageone.Modules.*
-import com.example.ageone.Modules.Meditation.MeditationModel
-import com.example.ageone.Modules.Meditation.MeditationView
-import com.example.ageone.Modules.Meditation.MeditationViewModel
+import com.example.ageone.Modules.Map.MapModel
 import timber.log.Timber
 
 fun FlowCoordinator.runFlowMain() {
@@ -46,37 +39,34 @@ class FlowMain: BaseFlow() {
 
     override fun start() {
         onStarted()
-        runModuleMeditation()
+        runModuleMap()
     }
 
     inner class FlowMainModels {
-        var modelMeditation = MeditationModel()
+        var modelMap = MapModel()
     }
 
-    private fun runModuleMeditation() {
-        val module = MeditationView()
-        module.viewModel.initialize(models.modelMeditation) { module.reload() }
+    fun runModuleMap() {
+        val module = com.example.ageone.Modules.Map.MapView(
+            InitModuleUI(
+                isBottomNavigationVisible = true,
+                isToolbarHidden = true
+            )
+        )
+        module.viewModel.initialize(models.modelMap) { module.reload() }
 
         settingsCurrentFlow.isBottomNavigationVisible = true
 
         module.emitEvent = { event ->
-            models.modelMeditation = module.viewModel.model
+            when (com.example.ageone.Modules.Map.MapViewModel.EventType.valueOf(event)) {
+                com.example.ageone.Modules.Map.MapViewModel.EventType.OnlouderMap -> {
+//                    module.startLoadingFlow()
+                }
 
-            when(MeditationViewModel.EventType.valueOf(event)) {
-                MeditationViewModel.EventType.OnEnterPressed -> {
-                    Timber.i("clicked photo")
-                }
-                MeditationViewModel.EventType.OnSearchPressed -> {
-//                    runModuleMeditationFilter()
-                }
-                MeditationViewModel.EventType.OnMeditationPressed -> {
-                    coordinator.runFlowPleer(this)
-                }
-                MeditationViewModel.EventType.OnPayed -> {
-//                    runModuleWebView(models.modelMeditation.url)
-                }
             }
         }
         push(module)
+
     }
+
 }

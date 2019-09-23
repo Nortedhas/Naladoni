@@ -16,9 +16,9 @@ import timber.log.Timber
 
 fun FlowCoordinator.runFlowLoading() {
 
-  var flow: FlowLoading? = FlowLoading()
+    var flow: FlowLoading? = FlowLoading()
 
-   flow?.let{ flow ->
+    flow?.let{ flow ->
 
         viewFlipperFlow.addView(flow.viewFlipperModule)
         viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
@@ -33,6 +33,7 @@ fun FlowCoordinator.runFlowLoading() {
 
         // MARK: first appear flow in bottom bar
 
+        Timber.i("Bottom Start flow create")
         val startFlow = 0
         createStackFlows(startFlow)
         TabBar.createBottomNavigation()
@@ -47,7 +48,7 @@ fun FlowCoordinator.runFlowLoading() {
 }
 
 class FlowLoading: BaseFlow() {
-//
+
     private var models = FlowLoadingModels()
 
     override fun start() {
@@ -56,11 +57,13 @@ class FlowLoading: BaseFlow() {
     }
 
     inner class FlowLoadingModels {
-       var modelLoading = LoadingModel()
-   }
+        var modelLoading = LoadingModel()
+    }
+
     //main load, parsing, socket
 
     fun runModuleLoading() {
+        Timber.i("Bottom Run module loading")
         val module = LoadingView(InitModuleUI(
             isBottomNavigationVisible = false,
             isToolbarHidden = true
@@ -72,16 +75,20 @@ class FlowLoading: BaseFlow() {
         module.emitEvent = { event ->
             when(LoadingViewModel.EventType.valueOf(event)) {
                 LoadingViewModel.EventType.onFinish -> {
+
+                    Timber.i("Bottom Start flow main")
                     module.startMainFlow()
                 }
             }
         }
         push(module)
+
+        module.loading()
     }
 
     fun BaseModule.startMainFlow() {
         Timber.i("Start main load")
-        coordinator.start()
+//        coordinator.start()
         onFinish?.invoke()
     }
 }

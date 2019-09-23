@@ -17,7 +17,7 @@ class WebSocket {
 
     fun initialize() {
         try {
-            socket = IO.socket("${DataBase.url}:80")
+//            socket = IO.socket("${DataBase.url}:80")
             socket.connect()
             val body = JSONObject()
             body.put("token", utils.variable.token)

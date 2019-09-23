@@ -16,6 +16,7 @@ import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.ViewFlipper.BaseViewFlipper
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Models.User.user
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 var isBottomNavigationExist = true
@@ -27,8 +28,6 @@ class FlowCoordinator {
         renderUI()
 
         val launch = object: BaseModule(InitModuleUI(colorToolbar = Color.TRANSPARENT)){
-            override fun unBind() {
-            }
         }
         launch.setBackgroundColor(Color.TRANSPARENT)
 
@@ -45,6 +44,7 @@ class FlowCoordinator {
         viewFlipperFlow.removeAllViews()
         when (LaunchInstructor.configure()) {
             LaunchInstructor.Main -> {
+                Timber.i("Bottom run flow loading")
                 runFlowLoading()
             }
             LaunchInstructor.Auth -> {
@@ -126,7 +126,7 @@ private enum class LaunchInstructor {
 
     companion object {
 
-        fun configure(isAutorized: Boolean = false): LaunchInstructor {
+        fun configure(isAutorized: Boolean = user.isAuthorized): LaunchInstructor {
             return when (isAutorized) {
                 true -> Main
                 false -> Auth

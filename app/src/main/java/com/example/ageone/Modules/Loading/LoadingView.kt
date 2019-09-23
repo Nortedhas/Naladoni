@@ -24,9 +24,21 @@ class LoadingView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
         innerContent.subviews(
         )
 
-        viewModel.startLoading {
+        /*viewModel.startLoading {
             emitEvent?.invoke(LoadingViewModel.EventType.onFinish.toString())
         }
+*/
+        Timber.i("Bottom init loading view")
+
     }
+
+    fun loading(){
+        viewModel.startLoading {
+            emitEvent?.invoke(LoadingViewModel.EventType.onFinish.name)
+        }
+
+    }
+
+
 
 }

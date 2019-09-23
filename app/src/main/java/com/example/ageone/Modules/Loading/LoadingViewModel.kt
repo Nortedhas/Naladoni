@@ -21,11 +21,13 @@ class LoadingViewModel : InterfaceViewModel {
     }
 
     fun startLoading(completion: () -> Unit) {
-        api.requestMainLoad {
+        /*api.requestMainLoad {
             Timber.i("completion invoke")
             webSocket.initialize()
             completion.invoke()
-        }
+        }*/
+
+        completion.invoke()
     }
 }
 

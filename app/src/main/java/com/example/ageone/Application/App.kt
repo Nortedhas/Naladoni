@@ -26,7 +26,7 @@ val coordinator = FlowCoordinator()
 
 val utils = Utils()
 val api = API()
-val database = DataBase
+//val database = DataBase
 val rxData = RxData()
 var webSocket = WebSocket()
 
