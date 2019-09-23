@@ -51,11 +51,11 @@ object TabBar {
         bottomNavigation.setTitleTextSize(30f,30f)
         bottomNavigation.defaultBackgroundColor = Color.parseColor("#FEFEFE")//color
         bottomNavigation.isBehaviorTranslationEnabled = true
-        bottomNavigation.accentColor = Color.rgb(0x70,0x7A,0xBA)
-        bottomNavigation.inactiveColor = Color.GRAY
+        bottomNavigation.accentColor = Color.parseColor("#F27D25")
+        bottomNavigation.inactiveColor = Color.parseColor("#AFAFB4")
         bottomNavigation.isForceTint = true
         bottomNavigation.isTranslucentNavigationEnabled = false
-        bottomNavigation.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
+        bottomNavigation.titleState = AHBottomNavigation.TitleState.ALWAYS_HIDE
         bottomNavigation
     }
 
