@@ -1,15 +1,12 @@
 package com.example.ageone.Modules.LoadingScreen
 
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.os.CountDownTimer
 import android.view.Gravity
-import android.widget.ProgressBar
 import com.example.ageone.Application.R
-import com.example.ageone.Application.currentActivity
-import com.example.ageone.External.Base.BaseProgressBar
+import com.example.ageone.External.Base.ProgressBar.BaseProgressBar
 import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.TextView.BaseTextView

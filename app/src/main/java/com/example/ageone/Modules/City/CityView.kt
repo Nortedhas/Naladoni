@@ -41,15 +41,16 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
         renderUIO()
+        bindUI()
     }
 
-//    fun bindUI() {
-////        /*compositeDisposable.add(
-////            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
-////                bodyTable.adapter?.notifyDataSetChanged()
-////            }
-////        )*/
-////    }
+    fun bindUI() {
+        /*compositeDisposable.add(
+            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
+                bodyTable.adapter?.notifyDataSetChanged()
+            }
+        )*/
+    }
 
            inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
@@ -96,7 +97,7 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
             when (holder) {
                 is CityEditTextViewHolder -> {
                     alertManager.single(
-                        message = "мы определили ваш город как "+ city[0],
+                        message = "мы определили ваш город как ${city[0]}",
                         title = "Ваш город подарков", button = "Отлично"
                     ) { _, _ ->
                         holder.editText.setText(
@@ -139,8 +140,6 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
     }
 }
-
-private fun Spinner.setOnItemSelectedListener(cityView: CityView) {}
 
 fun CityView.renderUIO() {
 
