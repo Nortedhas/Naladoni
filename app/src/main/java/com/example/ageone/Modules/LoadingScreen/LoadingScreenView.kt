@@ -1,5 +1,6 @@
 package com.example.ageone.Modules.LoadingScreen
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.Typeface
@@ -8,6 +9,7 @@ import android.view.Gravity
 import android.widget.ProgressBar
 import com.example.ageone.Application.R
 import com.example.ageone.Application.currentActivity
+import com.example.ageone.External.Base.BaseProgressBar
 import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.TextView.BaseTextView
@@ -28,10 +30,14 @@ class LoadingScreenView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule
         textViewHello.text = "Все акции твоего города"
         textViewHello
     }
+
     val progressBar by lazy {
-        val progressBar = ProgressBar(currentActivity)
+        val progressBar = BaseProgressBar()
+        progressBar.color = Color.WHITE
+        progressBar.initialize()
         progressBar
-}
+    }
+
     val textViewName by lazy {
         val textViewHello = BaseTextView()
         textViewHello.gravity = Gravity.CENTER
@@ -42,6 +48,7 @@ class LoadingScreenView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule
         textViewHello.text = "NALADONI"
         textViewHello
     }
+
     val imageView by lazy {
         val imageView = BaseImageView()
         imageView
