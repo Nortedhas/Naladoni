@@ -2,6 +2,7 @@ package com.example.ageone.Modules.Map.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.ageone.Application.R
@@ -50,16 +51,17 @@ class MapDiscountCardsViewHolder(val constraintLayout: ConstraintLayout) : BaseV
         textView.setBackgroundColor(Color.TRANSPARENT)
         textView
     }
-    val ButonEnter by lazy {
+
+    val buttonUse by lazy {
         val button = BaseButton()
-        button.gravity = Gravity.START
-        button.cornerRadius = 22
         button.textSize = 11F
-        button.text = "Использовать"
         button.textColor = Color.parseColor("#FFFAFA")
-        button.setBackgroundColor(Color.parseColor("#f2842d"))
-        button.cornerRadius = 15.dp
-        button.elevation = 8F.dp
+        button.typeface = Typeface.DEFAULT
+        button.backgroundColor = Color.parseColor("#F37E25")
+        button.cornerRadius = 2.dp
+        button.gradient = Color.parseColor("#F06F28")
+    	button.orientation = GradientDrawable.Orientation.TOP_BOTTOM
+        button.text = "Использовать"
         button.initialize()
         button
     }
@@ -77,8 +79,7 @@ fun MapDiscountCardsViewHolder.renderUI() {
             imageLock,
             textViewTitle,
             textViewDescribe,
-            ButonEnter
-
+            buttonUse
         )
     )
 
@@ -98,17 +99,14 @@ fun MapDiscountCardsViewHolder.renderUI() {
         .constrainTopToTopOf(back, 8)
         .fillHorizontally(60)
 
-
     textViewDescribe
         .constrainTopToBottomOf(textViewTitle, 4)
         .fillHorizontally(60)
 
-    ButonEnter
+    buttonUse
         .constrainTopToBottomOf(textViewDescribe, 4)
         .constrainBottomToBottomOf(back, 4)
         .fillHorizontally(5)
-        .width(260)
-        .height(27)
 
 }
 
