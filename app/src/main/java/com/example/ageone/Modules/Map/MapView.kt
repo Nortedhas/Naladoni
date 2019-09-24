@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import com.example.ageone.Application.currentActivity
 import com.example.ageone.Application.utils
 import com.example.ageone.External.Base.Button.BaseButton
 import com.example.ageone.External.Base.ImageView.BaseImageView
+import com.example.ageone.External.Base.MapView.BaseMapView
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
@@ -34,24 +36,27 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 
     val viewModel = MapViewModel()
 
-    //    val imageView by lazy {
-//        val imageView = BaseImageView()
-//        imageView.initialize()
-//        imageView.orientation = GradientDrawable.Orientation.BOTTOM_TOP
-//        imageView.setBackgroundResource(R.drawable.ic_barbac)
-//        imageView
+    val imageNavigationView by lazy {
+        val imageNavigationView = BaseImageView()
+        imageNavigationView.initialize()
+        imageNavigationView.orientation = GradientDrawable.Orientation.TOP_BOTTOM
+        imageNavigationView.setBackgroundResource(R.drawable.ic_navigationbuttom)
+        imageNavigationView
+    }
+//    val mapView by lazy {
+//       val mapView = BaseMapView()
+//        mapView
 //    }
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.base_background)
+//        setBackgroundResource(R.drawable.base_background)
 //
 //        toolbar.title = "Карта подарков"
 //        toolbar.titleTextSize = 30F
 //        renderToolbar()
         bodyTable.adapter = Factory(this)
-        bodyTable.layoutManager =
-            LinearLayoutManager(currentActivity, LinearLayoutManager.HORIZONTAL, false)
+        bodyTable.layoutManager = LinearLayoutManager(currentActivity, LinearLayoutManager.HORIZONTAL, false)
         bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
 
@@ -109,14 +114,7 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 //
 //    }
 class Factory(val rootModule: BaseModule) : BaseAdapter<MapDiscountCardsViewHolder>() {
-
-    private val list = listOf(
-        "Шаверма",
-        "одежда",
-        "игры"
-    )
-
-    override fun getItemCount() = list.size
+    override fun getItemCount() = 3
     override fun getItemViewType(position: Int): Int = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MapDiscountCardsViewHolder {
         val layout = ConstraintLayout(parent.context)
@@ -129,9 +127,6 @@ class Factory(val rootModule: BaseModule) : BaseAdapter<MapDiscountCardsViewHold
     }
 
     override fun onBindViewHolder(viewHolder: MapDiscountCardsViewHolder, position: Int) {
-        viewHolder.textViewTitle.text = list[position]
-        viewHolder.initialize(240, 120, list[position], "0.5 колы в подарок!")
-
 
     }
 
@@ -142,15 +137,25 @@ class Factory(val rootModule: BaseModule) : BaseAdapter<MapDiscountCardsViewHold
 fun MapView.renderUIO() {
 
     innerContent.subviews(
-        bodyTable
-            .constrainTopToTopOf(innerContent, 20)
-            .constrainBottomToBottomOf(innerContent, 20)
-            .constrainLeftToLeftOf(innerContent)
-            .constrainRightToRightOf(innerContent)
+      //  mapView,
+        bodyTable,
+        imageNavigationView
 
     )
+//    mapView
+////        .fillHorizontally()
+////        .fillVertically()
 
-//            renderBodyTable()
+    bodyTable
+        .constrainBottomToBottomOf(innerContent,10)
+    imageNavigationView
+        .constrainTopToTopOf(innerContent,300)
+        .constrainRightToRightOf(innerContent,16)
+        .constrainLeftToLeftOf(innerContent,300)
+        .constrainBottomToBottomOf(innerContent,160)
+        .height(60)
+        .width(60)
+//    renderBodyTable()
 }
 
 

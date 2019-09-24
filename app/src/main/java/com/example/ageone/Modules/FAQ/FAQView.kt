@@ -101,6 +101,7 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
     }
 
 }
+
 fun StartView.renderUIO() {
     var timer = object : CountDownTimer(10000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
@@ -109,15 +110,15 @@ fun StartView.renderUIO() {
         }
 
         override fun onFinish() {
-            currentActivity?.runOnUiThread {  buttonEnter.visibility = View.VISIBLE }
+            currentActivity?.runOnUiThread { buttonEnter.visibility = View.VISIBLE }
 
         }
     }
     timer.start()
-   buttonSkip.setOnClickListener{
-       user.isAuthorized = true
-       emitEvent?.invoke(FAQViewModel.EventType.OnLoaded.toString())
-   }
+    buttonSkip.setOnClickListener {
+        user.isAuthorized = true
+        emitEvent?.invoke(FAQViewModel.EventType.OnLoaded.toString())
+    }
     innerContent.subviews(
         bodyTable,
         buttonEnter,
