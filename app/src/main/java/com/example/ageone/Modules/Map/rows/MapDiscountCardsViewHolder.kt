@@ -24,7 +24,6 @@ class MapDiscountCardsViewHolder(val constraintLayout: ConstraintLayout) : BaseV
         view.initialize()
         view
     }
-
     val imageLock by lazy {
         val image = BaseImageView()
         image.setBackgroundResource(R.drawable.pic_groupfood)

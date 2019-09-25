@@ -49,8 +49,7 @@ class FlowMain: BaseFlow() {
     fun runModuleMap() {
         val module = com.example.ageone.Modules.Map.MapView(
             InitModuleUI(
-                isBottomNavigationVisible = true,
-                isToolbarHidden = true
+                isBottomNavigationVisible = true
             )
         )
         module.viewModel.initialize(models.modelMap) { module.reload() }
