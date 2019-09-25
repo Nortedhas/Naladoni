@@ -112,7 +112,7 @@ fun MapView.renderUIO() {
 //        .fillHorizontally()
 //        .fillVertically()
     filterView
-        .constrainLeftToRightOf(toolbar,25)
+        .constrainRightToRightOf(innerContent,5)
 
 
     bodyTable

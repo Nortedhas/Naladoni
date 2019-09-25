@@ -1,27 +1,28 @@
 package com.example.ageone.Application.Coordinator.Flow.Stack
 
+
 import androidx.core.view.size
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.example.ageone.Application.Coordinator.Router.DataFlow
-import com.example.ageone.Application.Coordinator.Router.TabBar.Stack.flows
-import com.example.ageone.Application.coordinator
+import com.example.ageone.Application.Coordinator.Router.TabBar.Stack
 import com.example.ageone.External.Base.Flow.BaseFlow
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.Modules.Map.MapModel
-import timber.log.Timber
+import com.example.ageone.Modules.List.ListView
+import com.example.ageone.Modules.List.ListModel
+import com.example.ageone.Modules.List.ListViewModel
 
-fun FlowCoordinator.runFlowMain() {
+fun FlowCoordinator.runFlowList() {
 
-    var flow: FlowMain? = FlowMain()
+    var flow: FlowList? = FlowList()
 
-    flow?.let{ flow ->
+    flow?.let { flow ->
         viewFlipperFlow.addView(flow.viewFlipperModule)
         viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
 
         flow.settingsCurrentFlow = DataFlow(viewFlipperFlow.size - 1)
 
-        flows.add(flow)
+        Stack.flows.add(flow)
     }
 
     flow?.onFinish = {
@@ -31,41 +32,41 @@ fun FlowCoordinator.runFlowMain() {
     }
 
 //    flow?.start()
+
+
 }
 
-class FlowMain: BaseFlow() {
+class FlowList : BaseFlow() {
 
-    private var models = FlowMainModels()
+    private var models = FlowFlowListModels()
 
     override fun start() {
         onStarted()
-        runModuleMap()
+        runModuleList()
     }
 
-    inner class FlowMainModels {
-        var modelMap = MapModel()
+    inner class FlowFlowListModels {
+        var modelList = ListModel()
     }
 
-    fun runModuleMap() {
-        val module = com.example.ageone.Modules.Map.MapView(
+    fun runModuleList() {
+        val module = com.example.ageone.Modules.List.ListView(
             InitModuleUI(
                 isBottomNavigationVisible = true
             )
         )
-        module.viewModel.initialize(models.modelMap) { module.reload() }
+        module.viewModel.initialize(models.modelList) { module.reload() }
 
         settingsCurrentFlow.isBottomNavigationVisible = true
 
         module.emitEvent = { event ->
-            when (com.example.ageone.Modules.Map.MapViewModel.EventType.valueOf(event)) {
-                com.example.ageone.Modules.Map.MapViewModel.EventType.OnlouderMap -> {
+            when (com.example.ageone.Modules.List.ListViewModel.EventType.valueOf(event)) {
+                com.example.ageone.Modules.List.ListViewModel.EventType.OnlouderList -> {
 //                     module.runFlowList()
                 }
 
             }
         }
         push(module)
-
     }
-
 }
