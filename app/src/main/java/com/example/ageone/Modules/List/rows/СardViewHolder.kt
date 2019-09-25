@@ -23,21 +23,22 @@ class СardViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(c
     val photoLogo by lazy {
         val image = BaseImageView()
         image
+
     }
 
-    val bootomframe by lazy {
+    val bottomframe by lazy {
         val frame = BaseImageView()
         frame.setBackgroundResource(R.drawable.ic_bottom_frame)
         frame
     }
     val textViewDescribe by lazy {
-        val discribe = BaseTextView()
-        discribe.gravity = Gravity.START
-        discribe.typeface = Typeface.DEFAULT
-        discribe.textSize = 13F
-        discribe.textColor = Color.parseColor("#333333")
-        discribe.setBackgroundColor(Color.TRANSPARENT)
-        discribe
+        val describe = BaseTextView()
+        describe.gravity = Gravity.START
+        describe.typeface = Typeface.DEFAULT
+        describe.textSize = 13F
+        describe.textColor = Color.parseColor("#333333")
+        describe.setBackgroundColor(Color.TRANSPARENT)
+        describe
     }
 
     val textViewLogo by lazy {
@@ -69,7 +70,7 @@ fun СardViewHolder.renderUI() {
     constraintLayout.subviews(
         card.subviews(
             photoLogo,
-            bootomframe,
+            bottomframe,
             textViewDescribe,
             textViewLogo,
             textViewDate
@@ -77,16 +78,19 @@ fun СardViewHolder.renderUI() {
     )
     card
         .width(162)
+        .constrainTopToTopOf(constraintLayout,8)
+        .constrainBottomToBottomOf(constraintLayout,8)
+        .constrainLeftToLeftOf(constraintLayout,8)
     photoLogo
         .constrainTopToTopOf(card)
         .height(105)
-    bootomframe
-        .constrainTopToTopOf(card,100)
+    bottomframe
+        .constrainTopToTopOf(card, 100)
     textViewDescribe
-        .constrainTopToBottomOf(bootomframe,15)
+        .constrainTopToBottomOf(bottomframe,15)
         .constrainLeftToLeftOf(card,9)
     textViewLogo
-        .constrainTopToBottomOf(bootomframe,25)
+        .constrainTopToBottomOf(bottomframe,35)
         .constrainLeftToLeftOf(card,9)
     textViewDate
         .constrainTopToBottomOf(textViewLogo,5)
@@ -96,13 +100,12 @@ fun СardViewHolder.renderUI() {
 
 }
 
-fun СardViewHolder.initialize( describe: String,logo: String,date:String, photo_logo: Int) {
+fun СardViewHolder.initialize(describe: String, logo: String, date: String, photo_logo: Int) {
 
     textViewDescribe.text = describe
     textViewLogo.text = logo
     textViewDate.text = date
     photoLogo.setBackgroundResource(photo_logo)
-
 
 
 }

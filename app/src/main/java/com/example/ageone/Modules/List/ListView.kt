@@ -38,7 +38,7 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return when (position) {
-                    in 0..3 -> 2
+                     0 -> 1
                     else -> 1
                 }
             }
@@ -52,6 +52,7 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
         toolbar.title = "Подарки города"
         renderToolbar()
+        bodyTable.layoutManager = layoutManager
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
@@ -72,10 +73,10 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
         private val СardType = 0
 
-        override fun getItemCount() = 1//viewModel.realmData.size
+        override fun getItemCount() = 4//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0 -> СardType
+           in 0..3 -> СardType
             else -> -1
         }
 
