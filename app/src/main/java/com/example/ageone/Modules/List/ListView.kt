@@ -35,20 +35,12 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
     }
     val layoutManager by lazy {
         val layoutManager = GridLayoutManager(currentActivity, 2)
-        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return when (position) {
-                     0 -> 1
-                    else -> 1
-                }
-            }
-        }
         layoutManager
     }
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.base_background)//TODO: set background
+        setBackgroundResource(R.drawable.base_background)
 
         toolbar.title = "Подарки города"
         renderToolbar()
@@ -73,12 +65,9 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
         private val СardType = 0
 
-        override fun getItemCount() = 4//viewModel.realmData.size
+        override fun getItemCount() = 10//viewModel.realmData.size
 
-        override fun getItemViewType(position: Int): Int = when (position) {
-           in 0..3 -> СardType
-            else -> -1
-        }
+        override fun getItemViewType(position: Int): Int = СardType
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
 
@@ -104,7 +93,8 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
             when (holder) {
                 is СardViewHolder -> {
-                    holder.initialize("describe","logo","date",R.drawable.pic_photo_logo)
+                    holder.initialize("Скидка 500 при покупке от 2500",
+                        "Nike","до 12.08.2019", R.drawable.pic_photo_logo)
                 }
 
             }
