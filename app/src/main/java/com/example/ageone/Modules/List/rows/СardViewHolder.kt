@@ -10,12 +10,11 @@ import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.Base.View.BaseView
-import timber.log.Timber
 import yummypets.com.stevia.*
 
 class СardViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
 
-    val card by lazy {
+    val viewCard by lazy {
         val view = BaseView()
         view.cornerRadius = 8.dp
         view.elevation = 5F.dp
@@ -24,15 +23,15 @@ class СardViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(c
         view
     }
 
-    val photoLogo by lazy {
-        val image = BaseImageView()
-        image
+    val imageViewLogo by lazy {
+        val imageView = BaseImageView()
+        imageView
     }
 
-    val bottomframe by lazy {
-        val frame = BaseImageView()
-        frame.setBackgroundResource(R.drawable.ic_bottom_frame)
-        frame
+    val imageViewBottomFrame by lazy {
+        val imageView = BaseImageView()
+        imageView.setBackgroundResource(R.drawable.ic_bottom_frame)
+        imageView
     }
 
     val textViewDescribe by lazy {
@@ -75,33 +74,33 @@ class СardViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(c
 fun СardViewHolder.renderUI() {
 
     constraintLayout.subviews(
-        card.subviews(
-            photoLogo,
-            bottomframe,
+        viewCard.subviews(
+            imageViewLogo,
+            imageViewBottomFrame,
             textViewDescribe,
             textViewLogo,
             textViewDate
         )
     )
 
-    card
+    viewCard
         .width((utils.variable.displayWidth - 48) / 2 )
         .constrainTopToTopOf(constraintLayout,8)
         .constrainBottomToBottomOf(constraintLayout,8)
         .constrainLeftToLeftOf(constraintLayout,8)
 
-    photoLogo
+    imageViewLogo
         .width((utils.variable.displayWidth - 48) / 2 )
         .height((utils.variable.displayWidth - 48) / 2 * .64F)
-        .constrainTopToTopOf(card)
+        .constrainTopToTopOf(viewCard)
 
-    bottomframe
-        .constrainCenterYToBottomOf(photoLogo)
+    imageViewBottomFrame
+        .constrainCenterYToBottomOf(imageViewLogo)
 
     textViewDescribe
-        .constrainTopToBottomOf(photoLogo,16)
-        .constrainRightToRightOf(card,4)
-        .constrainLeftToLeftOf(card,8)
+        .constrainTopToBottomOf(imageViewLogo,16)
+        .constrainRightToRightOf(viewCard,4)
+        .constrainLeftToLeftOf(viewCard,8)
 
     textViewLogo
         .fillHorizontally(8)
@@ -110,7 +109,7 @@ fun СardViewHolder.renderUI() {
     textViewDate
         .fillHorizontally(8)
         .constrainTopToBottomOf(textViewLogo,5)
-        .constrainBottomToBottomOf(card,10)
+        .constrainBottomToBottomOf(viewCard,10)
 
 }
 
@@ -119,6 +118,6 @@ fun СardViewHolder.initialize(describe: String, logo: String, date: String, pho
     textViewDescribe.text = describe
     textViewLogo.text = logo
     textViewDate.text = date
-    photoLogo.setBackgroundResource(photo_logo)
+    imageViewLogo.setBackgroundResource(photo_logo)
 
 }

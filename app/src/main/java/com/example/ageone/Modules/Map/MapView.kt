@@ -1,9 +1,6 @@
 package com.example.ageone.Modules.Map
 
-import android.graphics.Color
-import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
-import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -11,24 +8,26 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ageone.Application.R
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.ImageView.BaseImageView
+import com.example.ageone.External.Base.MapView.BaseMapView
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
-import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.Map.rows.MapDiscountCardsViewHolder
 import com.example.ageone.Modules.Map.rows.initialize
 import yummypets.com.stevia.*
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException
+import com.google.android.gms.maps.MapsInitializer
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
 
-class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
-   val viewModel = MapViewModel()
-//    val topView by lazy {
-//        val view = BaseView()
-//        view.orientation = GradientDrawable.Orientation.BOTTOM_TOP
-//        view.setBackgroundResource(R.drawable.ic_top_picture)
-//        view.elevation = 5F.dp
-//        view
-//    }
+class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI),
+    OnMapReadyCallback {
+
+    val viewModel = MapViewModel()
+
     val imageNavigationView by lazy {
         val imageNavigationView = BaseImageView()
         imageNavigationView.initialize()
@@ -43,13 +42,29 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         filterView.setBackgroundResource(R.drawable.ic_filter)
         filterView
     }
-//    val mapView by lazy {
-//       val mapView = BaseMapView()
-//        mapView
-//    }
+
+    /*val mapView by lazy {
+       val mapView = BaseMapView()
+        mapView
+    }*/
 
     init {
 //        viewModel.loadRealmData()
+
+        /*mapView.onCreate(null)
+
+    // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
+        try {
+            MapsInitializer.initialize(currentActivity)
+        } catch (e: GooglePlayServicesNotAvailableException) {
+            e.printStackTrace()
+        }
+
+        // Gets to GoogleMap from the MapView and does initialization stuff
+        mapView.getMapAsync(this)*/
+
+
+
         setBackgroundResource(R.drawable.base_background)
         toolbar.title = "Карта подарков"
         renderToolbar()
@@ -76,10 +91,7 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 
         override fun getItemViewType(position: Int): Int = 0
 
-        override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
-        ): MapDiscountCardsViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MapDiscountCardsViewHolder {
             val layout = ConstraintLayout(parent.context)
 
             layout
@@ -90,8 +102,15 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         }
 
         override fun onBindViewHolder(holder: MapDiscountCardsViewHolder, position: Int) {
-            holder.initialize("title", "describe", R.drawable.pic_groupfood)
+            holder.initialize("Шаверма Mix",
+                "При покупке шавермы big получи 0.5 колы в подарок!", R.drawable.pic_groupfood)
         }
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        googleMap.setMinZoomPreference(12F)
+        val ny = LatLng(40.7143528, -74.0059731)
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(ny))
     }
 }
 
@@ -108,15 +127,16 @@ fun MapView.renderUIO() {
     toolbar.subviews(
         filterView
     )
+
 //    mapView
 //        .fillHorizontally()
 //        .fillVertically()
+
     filterView
         .constrainRightToRightOf(innerContent,5)
 
-
     bodyTable
-        .constrainBottomToBottomOf(innerContent, 10)
+        .constrainBottomToBottomOf(innerContent)
 
     imageNavigationView
         .constrainRightToRightOf(innerContent, 16)

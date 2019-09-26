@@ -19,7 +19,7 @@ class MapDiscountCardsViewHolder(val constraintLayout: ConstraintLayout) : BaseV
     val back by lazy {
         val view = BaseView()
         view.cornerRadius = 8.dp
-        view.elevation = 15F.dp
+        view.elevation = 6F.dp
         view.backgroundColor = Color.WHITE
         view.initialize()
         view
@@ -48,6 +48,7 @@ class MapDiscountCardsViewHolder(val constraintLayout: ConstraintLayout) : BaseV
         textView.textSize = 13F
         textView.textColor = Color.parseColor("#333333")
         textView.setBackgroundColor(Color.TRANSPARENT)
+        textView.setLines(2)
         textView
     }
 
@@ -85,8 +86,9 @@ fun MapDiscountCardsViewHolder.renderUI() {
     back
         .constrainLeftToLeftOf(constraintLayout, 8)
         .constrainRightToRightOf(constraintLayout, 8)
+        .constrainBottomToBottomOf(constraintLayout, 16)
+        .constrainTopToTopOf(constraintLayout, 8)
         .width(283)
-        .height(117)
 
     imageLock
         .constrainLeftToLeftOf(back, 8)
@@ -96,15 +98,17 @@ fun MapDiscountCardsViewHolder.renderUI() {
 
     textViewTitle
         .constrainTopToTopOf(back, 8)
-        .fillHorizontally(60)
+        .constrainLeftToRightOf(imageLock, 8)
+//        .constrainRightToRightOf(back, 8)
 
     textViewDescribe
         .constrainTopToBottomOf(textViewTitle, 4)
-        .fillHorizontally(60)
+        .constrainLeftToRightOf(imageLock, 8)
+//        .constrainRightToRightOf(back, 8)
 
     buttonUse
         .constrainTopToBottomOf(textViewDescribe, 4)
-        .constrainBottomToBottomOf(back, 4)
+        .constrainBottomToBottomOf(back, 8)
         .fillHorizontally(5)
 
 }

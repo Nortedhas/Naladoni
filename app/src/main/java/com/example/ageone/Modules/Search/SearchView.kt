@@ -1,7 +1,5 @@
 package com.example.ageone.Modules.Search
 
-import android.app.SearchManager
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.ViewGroup
@@ -14,17 +12,14 @@ import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.View.BaseView
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.External.RxBus.RxBus
-import com.example.ageone.External.RxBus.RxEvent
 import com.example.ageone.Modules.List.rows.initialize
 import com.example.ageone.Modules.List.rows.СardViewHolder
-import com.example.ageone.Modules.Search.rows.SearchViewViewHolder
-import com.example.ageone.Modules.Search.rows.initialize
 import yummypets.com.stevia.*
 
 class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
     val viewModel = SearchViewModel()
+
     val card by lazy {
         val view = BaseView()
         view.cornerRadius = 12.dp
@@ -38,13 +33,13 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     val searchBox by lazy {
         val searchView = android.widget.SearchView(currentActivity)
         searchView
-
-
     }
+
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
     }
+
     val layoutManager by lazy {
         val layoutManager = GridLayoutManager(currentActivity, 2)
         layoutManager
@@ -53,16 +48,14 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.back_search)//TODO: set background
+        setBackgroundResource(R.drawable.back_search)
 
         toolbar.title = "Хочу найти"
 
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
-
         bodyTable.layoutManager = layoutManager
-
 
         renderUIO()
         bindUI()
@@ -123,16 +116,20 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 }
 
 fun SearchView.renderUIO() {
+
     innerContent.subviews(
         card.subviews(
             searchBox
         )
     )
+
     card
         .constrainTopToBottomOf(toolbar, 5)
         .constrainRightToRightOf(innerContent)
         .constrainLeftToLeftOf(innerContent)
+
     renderBodyTable()
+
     bodyTable
         .constrainTopToBottomOf(card, 33)
 }

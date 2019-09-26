@@ -5,8 +5,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
             android:name="com.example.ageone.Application.App"
@@ -16,23 +14,12 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-<!--&lt;!&ndash;        <service android:name="com.example.ageone.Application.DownloadService"/>&ndash;&gt;-->
-<!--&lt;!&ndash;        <service android:name="com.example.ageone.Application.MusicService">&ndash;&gt;-->
-<!--            <intent-filter>-->
-<!--                <action android:name="com.example.ageone.intent.action.PLAY" />-->
-<!--                <action android:name="com.example.ageone.intent.action.STOP" />-->
-<!--                <action android:name="com.example.ageone.intent.action.SEEK_TO" />-->
-<!--                <action android:name="com.example.ageone.intent.action.VOLUME" />-->
-<!--                <action android:name="com.example.ageone.intent.action.CHANGE_SOUND" />-->
-<!--            </intent-filter>-->
-<!--        </service>-->
 
         <activity
                 android:name="com.example.ageone.Application.AppActivity"
                 android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
