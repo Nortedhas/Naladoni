@@ -3,6 +3,7 @@ package com.example.ageone.Modules.Search
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ageone.Application.R
@@ -15,6 +16,9 @@ import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.List.rows.initialize
 import com.example.ageone.Modules.List.rows.СardViewHolder
 import yummypets.com.stevia.*
+import android.widget.ImageView
+import com.example.ageone.External.Base.SearchView.BaseSearchView
+
 
 class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
@@ -31,7 +35,11 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     }
 
     val searchBox by lazy {
-        val searchView = android.widget.SearchView(currentActivity)
+        val searchView = BaseSearchView()
+        searchView.color = Color.WHITE
+        searchView.isAlwaysExpand = true
+        searchView.queryHint = "Поиск"
+        searchView.initialize()
         searchView
     }
 
@@ -103,8 +111,7 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                 is СardViewHolder -> {
                     holder.initialize(
                         "Скидка 500 при покупке от 2500",
-                        "Nike", "до 12.08.2019", R.drawable.pic_washing
-                    )
+                        "Nike", "до 12.08.2019", R.drawable.pic_washing)
                 }
 
             }
