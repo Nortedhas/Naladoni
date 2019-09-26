@@ -8,11 +8,14 @@ import com.example.ageone.Application.Coordinator.Router.DataFlow
 import com.example.ageone.Application.Coordinator.Router.TabBar.Stack
 import com.example.ageone.External.Base.Flow.BaseFlow
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.Modules.List.ListModel
+import com.example.ageone.Application.*
+import com.example.ageone.Application.R
+import com.example.ageone.Modules.Search.SearchModel
+import com.example.ageone.Modules.Search.SearchViewModel
 
-fun FlowCoordinator.runFlowList() {
+fun FlowCoordinator.runFlowSearch() {
 
-    var flow: FlowList? = FlowList()
+    var flow: FlowSearch? = FlowSearch()
 
     flow?.let { flow ->
         viewFlipperFlow.addView(flow.viewFlipperModule)
@@ -34,32 +37,32 @@ fun FlowCoordinator.runFlowList() {
 
 }
 
-class FlowList : BaseFlow() {
+class FlowSearch : BaseFlow() {
 
-    private var models = FlowListModels()
+    private var models = FlowSearchModels()
 
     override fun start() {
         onStarted()
-        runModuleList()
+        runModuleSearch()
     }
 
-    inner class FlowListModels {
-        var modelList = ListModel()
+    inner class FlowSearchModels {
+        var modelSearch = SearchModel()
     }
 
-    fun runModuleList() {
-        val module = com.example.ageone.Modules.List.ListView(
+    fun runModuleSearch() {
+        val module = com.example.ageone.Modules.Search.SearchView(
             InitModuleUI(
                 isBottomNavigationVisible = true
             )
         )
-        module.viewModel.initialize(models.modelList) { module.reload() }
+        module.viewModel.initialize(models.modelSearch) { module.reload() }
 
         settingsCurrentFlow.isBottomNavigationVisible = true
 
         module.emitEvent = { event ->
-            when (com.example.ageone.Modules.List.ListViewModel.EventType.valueOf(event)) {
-                com.example.ageone.Modules.List.ListViewModel.EventType.OnlouderList -> {
+            when (com.example.ageone.Modules.Search.SearchViewModel.EventType.valueOf(event)) {
+                com.example.ageone.Modules.Search.SearchViewModel.EventType.OnlouderSearch -> {
                 }
 
             }

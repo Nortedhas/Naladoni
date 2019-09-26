@@ -100,6 +100,7 @@ fun СardViewHolder.renderUI() {
 
     textViewDescribe
         .constrainTopToBottomOf(photoLogo,16)
+        .constrainRightToRightOf(card,4)
         .constrainLeftToLeftOf(card,8)
 
     textViewLogo

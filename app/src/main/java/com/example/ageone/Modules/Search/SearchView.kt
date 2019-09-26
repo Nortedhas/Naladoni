@@ -1,5 +1,7 @@
-package com.example.ageone.Modules.List
+package com.example.ageone.Modules.Search
 
+import android.app.SearchManager
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.ViewGroup
@@ -7,27 +9,37 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ageone.Application.R
 import com.example.ageone.Application.currentActivity
-import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
+import com.example.ageone.External.Base.View.BaseView
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.External.RxBus.RxBus
 import com.example.ageone.External.RxBus.RxEvent
-import com.example.ageone.Modules.List.rows.СardViewHolder
 import com.example.ageone.Modules.List.rows.initialize
+import com.example.ageone.Modules.List.rows.СardViewHolder
+import com.example.ageone.Modules.Search.rows.SearchViewViewHolder
+import com.example.ageone.Modules.Search.rows.initialize
 import yummypets.com.stevia.*
 
-class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
+class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
-    val viewModel = ListViewModel()
+    val viewModel = SearchViewModel()
+    val card by lazy {
+        val view = BaseView()
+        view.cornerRadius = 12.dp
+        view.elevation = 5F.dp
+        view.backgroundColor = Color.argb(100, 255, 255, 255)
+        view.orientation = GradientDrawable.Orientation.BOTTOM_TOP
+        view.initialize()
+        view
+    }
 
-    val filterView by lazy {
-        val filterView = BaseImageView()
-        filterView.initialize()
-        filterView.orientation = GradientDrawable.Orientation.TOP_BOTTOM
-        filterView.setBackgroundResource(R.drawable.ic_filter)
-        filterView
+    val searchBox by lazy {
+        val searchView = android.widget.SearchView(currentActivity)
+        searchView
+
+
     }
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -37,15 +49,20 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
         val layoutManager = GridLayoutManager(currentActivity, 2)
         layoutManager
     }
+
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.base_background)
+        setBackgroundResource(R.drawable.base_background)//TODO: set background
 
-        toolbar.title = "Подарки города"
+        toolbar.title = "Хочу найти"
+
         renderToolbar()
-        bodyTable.layoutManager = layoutManager
+
         bodyTable.adapter = viewAdapter
+
+        bodyTable.layoutManager = layoutManager
+
 
         renderUIO()
         bindUI()
@@ -61,11 +78,11 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val СardType = 0
+        private val SearchViewType = 0
 
         override fun getItemCount() = 10//viewModel.realmData.size
 
-        override fun getItemViewType(position: Int): Int = СardType
+        override fun getItemViewType(position: Int): Int = SearchViewType
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
 
@@ -76,7 +93,7 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                СardType -> {
+                SearchViewType -> {
                     СardViewHolder(layout)
                 }
                 else -> {
@@ -91,8 +108,10 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
             when (holder) {
                 is СardViewHolder -> {
-                    holder.initialize("Скидка 500 при покупке от 2500",
-                        "Nike","до 12.08.2019", R.drawable.pic_photo_logo)
+                    holder.initialize(
+                        "Скидка 500 при покупке от 2500",
+                        "Nike", "до 12.08.2019", R.drawable.pic_washing
+                    )
                 }
 
             }
@@ -103,13 +122,19 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
 }
 
-fun ListView.renderUIO() {
-    toolbar.subviews(
-        filterView
+fun SearchView.renderUIO() {
+    innerContent.subviews(
+        card.subviews(
+            searchBox
+        )
     )
-    filterView
-        .constrainRightToRightOf(innerContent, 5)
+    card
+        .constrainTopToBottomOf(toolbar, 5)
+        .constrainRightToRightOf(innerContent)
+        .constrainLeftToLeftOf(innerContent)
     renderBodyTable()
+    bodyTable
+        .constrainTopToBottomOf(card, 33)
 }
 
 
