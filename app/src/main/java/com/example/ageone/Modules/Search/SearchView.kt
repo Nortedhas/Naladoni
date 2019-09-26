@@ -53,7 +53,7 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.base_background)//TODO: set background
+        setBackgroundResource(R.drawable.back_search)//TODO: set background
 
         toolbar.title = "Хочу найти"
 
