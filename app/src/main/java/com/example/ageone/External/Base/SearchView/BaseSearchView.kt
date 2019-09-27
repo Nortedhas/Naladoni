@@ -1,10 +1,9 @@
 package com.example.ageone.External.Base.SearchView
 
-import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
+import android.graphics.Color
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import com.example.ageone.Application.currentActivity
 
@@ -26,6 +25,9 @@ class BaseSearchView: SearchView(currentActivity) {
 
             editText?.setTextColor(color)
             editText?.setHintTextColor(color)
+
+            val v = findViewById<View?>(androidx.appcompat.R.id.search_plate)
+            v?.setBackgroundColor(Color.TRANSPARENT)
 
             searchCloseIcon?.setColorFilter(color)
             searchInnerIcon?.setColorFilter(color)
