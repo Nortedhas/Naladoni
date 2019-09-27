@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.view.View
 import android.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.ageone.Application.R
+import com.example.ageone.R
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.Application.router
 import com.example.ageone.External.Base.ImageView.BaseImageView

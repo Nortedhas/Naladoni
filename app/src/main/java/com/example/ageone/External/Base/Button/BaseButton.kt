@@ -9,7 +9,7 @@ import android.widget.Button
 import com.example.ageone.Application.currentActivity
 import yummypets.com.stevia.dp
 import android.graphics.drawable.VectorDrawable
-import com.example.ageone.Application.R
+import com.example.ageone.R
 
 class BaseButton: Button(currentActivity) {
     val gradientDrawable = GradientDrawable()

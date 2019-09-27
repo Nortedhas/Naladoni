@@ -5,7 +5,7 @@ import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.os.CountDownTimer
 import android.view.Gravity
-import com.example.ageone.Application.R
+import com.example.ageone.R
 import com.example.ageone.External.Base.ProgressBar.BaseProgressBar
 import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.Module.BaseModule

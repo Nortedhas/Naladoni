@@ -5,18 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.ageone.Application.R
+import com.example.ageone.R
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.ImageView.BaseImageView
-import com.example.ageone.External.Base.MapView.BaseMapView
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.Map.rows.MapDiscountCardsViewHolder
 import com.example.ageone.Modules.Map.rows.initialize
 import yummypets.com.stevia.*
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException
-import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.GoogleMap
@@ -44,26 +41,14 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
     }
 
     /*val mapView by lazy {
-       val mapView = BaseMapView()
+       val mapView = com.google.android.gms.maps.MapView(currentActivity)
         mapView
     }*/
 
     init {
 //        viewModel.loadRealmData()
 
-        /*mapView.onCreate(null)
-
-    // Needs to call MapsInitializer before doing any CameraUpdateFactory calls
-        try {
-            MapsInitializer.initialize(currentActivity)
-        } catch (e: GooglePlayServicesNotAvailableException) {
-            e.printStackTrace()
-        }
-
-        // Gets to GoogleMap from the MapView and does initialization stuff
-        mapView.getMapAsync(this)*/
-
-
+//        mapView.getMapAsync(this)
 
         setBackgroundResource(R.drawable.base_background)
         toolbar.title = "Карта подарков"
@@ -128,9 +113,9 @@ fun MapView.renderUIO() {
         filterView
     )
 
-//    mapView
-//        .fillHorizontally()
-//        .fillVertically()
+    /*mapView
+        .fillHorizontally()
+        .fillVertically()*/
 
     filterView
         .constrainRightToRightOf(innerContent,5)

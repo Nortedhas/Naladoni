@@ -9,7 +9,7 @@ import com.example.ageone.Application.Coordinator.Flow.isBottomNavigationExist
 import com.example.ageone.Application.Coordinator.Flow.setStatusBarColor
 import com.example.ageone.Application.Coordinator.Router.TabBar.Stack.flows
 import com.example.ageone.Application.Coordinator.Router.TabBar.Stack.items
-import com.example.ageone.Application.R
+import com.example.ageone.R
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.Flow.BaseFlow
 import timber.log.Timber

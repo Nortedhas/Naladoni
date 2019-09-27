@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.Gravity
 import androidx.appcompat.widget.AppCompatRadioButton
-import com.example.ageone.Application.R
+import com.example.ageone.R
 import com.example.ageone.Application.currentActivity
 
 class BaseRadioButton: AppCompatRadioButton(currentActivity) {
