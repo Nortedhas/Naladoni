@@ -1,23 +1,28 @@
-package com.example.ageone.External.Base.Toolbar
+package com.ageone.potok.External.Base.Toolbar
 
 import android.graphics.Color
 import android.view.View
 import android.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.ageone.R
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.Application.router
 import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.InitModuleUI
+import com.example.ageone.R
 import yummypets.com.stevia.*
 
 class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout): Toolbar(currentActivity) {
     var title: String? = null
     var textColor: Int = Color.WHITE
-    var titleTextSize: Float = 18F
+    var iconOtherSize = 25
+    var iconExitSize = 25
 
-    var viewIconRes: Int? = null
-    var viewIconSize: Int = 30
+    private val viewOther by lazy {
+        val view = BaseImageView()
+        view.setImageResource(R.drawable.ic_close)
+        view.visibility = View.GONE
+        view
+    }
 
     private val viewExit by lazy {
         val view = BaseImageView()
@@ -26,29 +31,9 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
         view
     }
 
-    /*private val viewHolder by lazy {
-        val viewHolder = BaseTextView()
-        viewHolder.gravity = Gravity.CENTER
-        viewHolder.typeface = Typeface.DEFAULT_BOLD
-        viewHolder.setBackgroundColor(Color.TRANSPARENT)
-        viewHolder
+    fun setTitleToolbar(title: String) {
+        setTitle(title)
     }
-
-    private val viewIcon by lazy {
-        val view = BaseImageView()
-        view.visibility = View.GONE
-        view
-    }
-
-    private val viewArrow by lazy {
-        val view = BaseButton()
-        view.imageIcon = R.drawable.ic_arrow_back
-        view.sizeIcon = Pair(35F, 35F)
-        //setImageResource(R.drawable.ic_arrow_back)
-        view.visibility = View.GONE
-        view.initialize()
-        view
-    }*/
 
     fun initialize() {
         setTitle(title)
@@ -60,34 +45,18 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
             }
         }
 
+        initModuleUI.exitIcon?.let { icon ->
+            viewExit.setImageResource(icon)
+        }
         initModuleUI.exitListener?.let { exitListener ->
             viewExit.visibility = View.VISIBLE
             viewExit.setOnClickListener(exitListener)
         }
-//        viewHolder.textColor = textColor
 
-        /*initModuleUI.backListener?.let { backListener ->
-            viewArrow.visibility = View.VISIBLE
-            viewArrow.setOnClickListener(backListener)
+        initModuleUI.iconListener?.let { listener ->
+            viewOther.visibility = View.VISIBLE
+            viewOther.setOnClickListener(listener)
         }
-
-
-
-        viewIconRes?.let{ iconRes ->
-            viewIcon
-                .setImageResource(iconRes)
-
-            viewIcon
-                .width(viewIconSize)
-                .height(viewIconSize)
-                .visibility = View.VISIBLE
-
-            initModuleUI.iconListener?.let { iconListener ->
-                viewIcon.setOnClickListener(iconListener)
-            }
-        }
-
-        viewArrow.setPadding(16)*/
 
         renderUI()
 
@@ -95,40 +64,21 @@ class BaseToolbar(val initModuleUI: InitModuleUI, val content: ConstraintLayout)
 
     private fun renderUI() {
         content.subviews(
-            viewExit
+            viewExit,
+            viewOther
         )
 
         viewExit
-            .width(25)
-            .height(25)
+            .width(iconExitSize)
+            .height(iconExitSize)
             .constrainRightToRightOf(this, 16)
             .constrainCenterYToCenterYOf(this)
 
-        /*subviews(
-            viewArrow,
-            viewHolder,
-            viewIcon,
-            viewExit
-        )
 
-        viewArrow
-            .fillVertically()
-            .width(35)
-            .height(35)
-            .constrainLeftToLeftOf(this, 8)
-
-        viewHolder
-            .fillHorizontally()
-            .fillVertically()
-
-        viewIcon
-            .fillVertically()
-            .constrainRightToLeftOf(viewExit,16)
-
-        viewExit
-            .fillVertically()
-            .width(20)
-            .height(20)
-            .constrainRightToRightOf(this, 16)*/
+        viewOther
+            .width(iconOtherSize)
+            .height(iconOtherSize)
+            .constrainRightToLeftOf(viewExit, 16)
+            .constrainCenterYToCenterYOf(this)
     }
 }

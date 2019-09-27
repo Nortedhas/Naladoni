@@ -70,7 +70,7 @@ class BaseButton: Button(currentActivity) {
 
                 }
                 else -> {
-                    currentActivity?.resources?.getDrawable(R.drawable.cast_ic_notification_small_icon) as Bitmap//заглушка
+                    currentActivity?.resources?.getDrawable(R.drawable.ic_arrow) as Bitmap//заглушка
                 }
             }
 

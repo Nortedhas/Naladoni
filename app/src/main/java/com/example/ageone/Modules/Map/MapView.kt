@@ -18,8 +18,10 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
+import android.os.Bundle
 
 
+val MAPVIEW_BUNDLE_KEY = "MapViewBundleKey"
 class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI),
     OnMapReadyCallback {
 
@@ -32,15 +34,18 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         imageNavigationView.setBackgroundResource(R.drawable.ic_navigationbuttom)
         imageNavigationView
     }
-    /*val mapView by lazy {
+
+    val mapView by lazy {
        val mapView = com.google.android.gms.maps.MapView(currentActivity)
         mapView
-    }*/
+    }
 
     init {
 //        viewModel.loadRealmData()
 
-//        mapView.getMapAsync(this)
+        var mapViewBundle: Bundle? = null
+        mapView.onCreate(mapViewBundle)
+        mapView.getMapAsync(this)
 
         setBackgroundResource(R.drawable.base_background)
         toolbar.title = "Карта подарков"
@@ -85,7 +90,7 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        googleMap.setMinZoomPreference(12F)
+        /*googleMap.setMinZoomPreference(12F)*/
         val ny = LatLng(40.7143528, -74.0059731)
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(ny))
     }
@@ -95,16 +100,16 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
 fun MapView.renderUIO() {
 
     innerContent.subviews(
-//        mapView,
+        mapView,
         bodyTable,
         imageNavigationView
 
 
     )
 
-    /*mapView
+    mapView
         .fillHorizontally()
-        .fillVertically()*/
+        .fillVertically()
 
 
     bodyTable

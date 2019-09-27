@@ -14,6 +14,8 @@ import com.example.ageone.External.Base.Activity.BaseActivity
 import com.example.ageone.Models.User.user
 import com.example.ageone.Models.VKUser
 import com.example.ageone.R
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
 import com.swarmnyc.promisekt.Promise
 import com.vk.api.sdk.requests.VKRequest
 import com.vk.api.sdk.utils.VKUtils
@@ -74,8 +76,19 @@ class AppActivity: BaseActivity() {
 //                        DataBase.User.update(user.hashId, mapOf("fcmToken" to token))
                     })
             }*/
-            coordinator.start()
+            val googleApiAvailability = GoogleApiAvailability.getInstance()
+            when (val result = googleApiAvailability.isGooglePlayServicesAvailable(this)) {
+                ConnectionResult.SUCCESS -> {
+                    coordinator.start()
+                }
+                else -> {
+                    googleApiAvailability.showErrorNotification(this, result)
+                }
+            }
+
         }
+
+
 
         setContentView(router.layout)
 
