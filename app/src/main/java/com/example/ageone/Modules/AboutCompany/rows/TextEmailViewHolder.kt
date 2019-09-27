@@ -38,12 +38,12 @@ fun TextEmailViewHolder.renderUI() {
     )
 
     textView
-        .constrainTopToTopOf(constraintLayout, 40)
-        .fillHorizontally(80)
+        .constrainTopToTopOf(constraintLayout, 11)
+        .fillHorizontally(20)
 }
 
 fun TextEmailViewHolder.initialize() {
-    val text = "или напишите нам на почту:"
+    val text = "или напишите нам на почту: "
     val declaration = "deal@naladoni.com "
 
     val spannableContent = SpannableString(text + declaration)

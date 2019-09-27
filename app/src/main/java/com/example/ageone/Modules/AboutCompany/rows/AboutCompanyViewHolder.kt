@@ -33,7 +33,7 @@ class AboutCompanyViewHolder(val constraintLayout: ConstraintLayout) :
         textView.gravity = Gravity.START
         textView.typeface = Typeface.DEFAULT
         textView.textSize = 14F
-        textView.textColor = Color.parseColor("#333333")
+        textView.textColor = Color.parseColor("#AFAFB4")
         textView.setBackgroundColor(Color.TRANSPARENT)
         textView.setLines(3)
         textView
@@ -67,19 +67,20 @@ fun AboutCompanyViewHolder.renderUI() {
         )
     )
     card
-        .fillHorizontally(50)
-        .height(50)
+        .fillHorizontally(60)
 
 
     imageViewLogo
+        .width(44)
+        .height(48)
         .constrainLeftToLeftOf(card)
         .constrainBottomToBottomOf(card)
-        .constrainTopToTopOf(card)
+        .constrainTopToTopOf(card,18)
     textView
-        .constrainLeftToRightOf(imageViewLogo, 15)
-        .constrainTopToTopOf(imageViewLogo, 2)
+        .constrainLeftToRightOf(imageViewLogo, 12)
+        .constrainTopToTopOf(imageViewLogo, 5)
     textViewDescribe
-        .constrainTopToBottomOf(textView, 1)
+        .constrainTopToBottomOf(textView)
         .constrainLeftToLeftOf(textView)
 
 

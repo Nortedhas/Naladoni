@@ -56,12 +56,13 @@ class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         private val AboutTextButtonType = 2
         private val AboutTextEmailType = 3
 
-        override fun getItemCount() = 1//viewModel.realmData.size
+        override fun getItemCount() = 7//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
             0 -> AboutCompanyvType
             1,2 -> AboutTextType
-            3 -> AboutTextEmailType
+            3 -> AboutTextButtonType
+            4 -> AboutTextEmailType
             else -> -1
         }
 
@@ -103,14 +104,14 @@ class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
                 is TextAboutViewHolder -> {
                     when (position) {
-                        0 -> {
+                        1 -> {
                             holder.initialize("Значимость этих проблем настолько очевидна, что консультация " +
                                     "с широким активом играет важную роль в формировании дальнейших направлений развития." +
                                     " Задача организации, в особенности же консультация с широким активом требуют определения " +
                                     "и уточнения дальнейших направлений развития.","О компании")
 
                         }
-                        1 -> {
+                        2 -> {
                             holder.initialize("Значимость этих проблем настолько очевидна, что консультация с широким активом" +
                                     " играет важную роль в формировании дальнейших направлений развития.","Партнерам")
                             }
@@ -137,7 +138,7 @@ fun AboutCompanyView.renderUIO() {
     renderBodyTable()
 
     bodyTable
-        .constrainTopToTopOf(innerContent,50)
+        .constrainTopToTopOf(innerContent,54)
 }
 
 

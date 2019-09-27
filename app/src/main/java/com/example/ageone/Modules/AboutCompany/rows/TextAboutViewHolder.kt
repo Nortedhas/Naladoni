@@ -23,7 +23,7 @@ class TextAboutViewHolder(val constraintLayout: ConstraintLayout) :
         val textView = BaseTextView()
         textView.typeface = Typeface.DEFAULT
         textView.textSize = 15F
-        textView.textColor = Color.parseColor("#AFAFB4")
+        textView.textColor = Color.parseColor("#333333")
         textView.setBackgroundColor(Color.TRANSPARENT)
         textView
     }
@@ -41,12 +41,13 @@ fun TextAboutViewHolder.renderUI() {
         textViewDescribe
     )
     textView
-        .constrainTopToTopOf(8)
+        .constrainTopToTopOf(constraintLayout)
         .constrainLeftToLeftOf(constraintLayout,8)
     textViewDescribe
         .fillHorizontally(8)
-        .constrainTopToBottomOf(textView,8)
+        .constrainTopToBottomOf(textView)
         .constrainLeftToLeftOf(constraintLayout,8)
+        .constrainBottomToBottomOf(constraintLayout,11)
 
 
 
