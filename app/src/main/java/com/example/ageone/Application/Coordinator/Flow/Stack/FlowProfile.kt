@@ -6,12 +6,13 @@ import com.example.ageone.Application.Coordinator.Router.DataFlow
 import com.example.ageone.Application.Coordinator.Router.TabBar.Stack
 import com.example.ageone.External.Base.Flow.BaseFlow
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.Modules.List.ListModel
-import com.example.ageone.Modules.List.ListView
 
-fun FlowCoordinator.runFlowList() {
+import com.example.ageone.Modules.Profile.ProfileModel
+import com.example.ageone.Modules.Profile.ProfileView
 
-    var flow: FlowList? = FlowList()
+fun FlowCoordinator.runFlowProfile() {
+
+    var flow: FlowProfile? = FlowProfile()
 
     flow?.let { flow ->
         viewFlipperFlow.addView(flow.viewFlipperModule)
@@ -33,32 +34,35 @@ fun FlowCoordinator.runFlowList() {
 
 }
 
-class FlowList : BaseFlow() {
+class FlowProfile : BaseFlow() {
 
-    private var models = FlowListModels()
+    private var models = FlowProfileModels()
 
     override fun start() {
         onStarted()
-        runModuleList()
+        runModuleProfile()
     }
 
-    inner class FlowListModels {
-        var modelList = ListModel()
+    inner class FlowProfileModels {
+        var modelProfile = ProfileModel(
+
+        )
     }
 
-    fun runModuleList() {
-        val module = ListView(
+    fun runModuleProfile() {
+        val module = ProfileView(
             InitModuleUI(
                 isBottomNavigationVisible = true
             )
         )
-        module.viewModel.initialize(models.modelList) { module.reload() }
+
+        module.viewModel.initialize(models.modelProfile) { module.reload() }
 
         settingsCurrentFlow.isBottomNavigationVisible = true
 
         module.emitEvent = { event ->
-            when (com.example.ageone.Modules.List.ListViewModel.EventType.valueOf(event)) {
-                com.example.ageone.Modules.List.ListViewModel.EventType.OnlouderList -> {
+            when (com.example.ageone.Modules.Profile.ProfileViewModel.EventType.valueOf(event)) {
+                com.example.ageone.Modules.Profile.ProfileViewModel.EventType.OnlouderProfile -> {
                 }
 
             }

@@ -18,6 +18,7 @@ class BaseSearchView: SearchView(currentActivity) {
         color?.let { color ->
             val editText =
                 findViewById<EditText?>(androidx.appcompat.R.id.search_src_text)
+
             val searchCloseIcon =
                 findViewById<ImageView?>(androidx.appcompat.R.id.search_close_btn)
             val searchInnerIcon =
