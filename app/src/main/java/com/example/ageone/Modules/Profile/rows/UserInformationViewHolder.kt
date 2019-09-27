@@ -2,18 +2,16 @@ package com.example.ageone.Modules.Profile.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
-import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.ageone.Application.R
+import com.example.ageone.R
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.Base.View.BaseView
 import yummypets.com.stevia.*
 
-class UserInformationViewHolder(val constraintLayout: ConstraintLayout) :
-    BaseViewHolder(constraintLayout) {
+class UserInformationViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
 
-    val back by lazy {
+    val viewBack by lazy {
         val view = BaseView()
         view.backgroundColor = Color.WHITE
         view.cornerRadius = 8.dp
@@ -23,16 +21,16 @@ class UserInformationViewHolder(val constraintLayout: ConstraintLayout) :
     }
 
 
-    val image by lazy {
-        val base = BaseView()
-        base.setBackgroundResource(R.drawable.ic_arrow)
-        base
+    val viewArrow by lazy {
+        val view = BaseView()
+        view.setBackgroundResource(R.drawable.ic_arrow)
+        view
     }
 
-    val imagePhoto by lazy {
-        val base = BaseView()
-        base.setBackgroundResource(R.drawable.pic_profile)
-        base
+    val viewPhoto by lazy {
+        val view = BaseView()
+        view.setBackgroundResource(R.drawable.pic_profile)
+        view
     }
 
     val textViewName by lazy {
@@ -55,38 +53,38 @@ class UserInformationViewHolder(val constraintLayout: ConstraintLayout) :
 fun UserInformationViewHolder.renderUI() {
 
     constraintLayout.subviews(
-        back.subviews(
-            image,
+        viewBack.subviews(
+            viewArrow,
             textViewName,
-            imagePhoto
+            viewPhoto
         )
 
     )
 
 
-    back
+    viewBack
         .height(120)
         .fillHorizontally(8)
         .constrainTopToTopOf(constraintLayout, 8)
         .constrainBottomToBottomOf(constraintLayout, 8)
 
-    imagePhoto
+    viewPhoto
         .height(74)
         .width(74)
-        .constrainLeftToLeftOf(back)
-        .constrainRightToRightOf(back)
-        .constrainTopToTopOf(back,5)
+        .constrainLeftToLeftOf(viewBack)
+        .constrainRightToRightOf(viewBack)
+        .constrainTopToTopOf(viewBack,5)
 
     textViewName
         .fillHorizontally(90)
-        .constrainTopToBottomOf(imagePhoto,8)
+        .constrainTopToBottomOf(viewPhoto,8)
 
-    image
+    viewArrow
         .height(20)
         .width(12)
-        .constrainRightToRightOf(back,18)
-        .constrainTopToTopOf(back)
-        .constrainBottomToBottomOf(back)
+        .constrainRightToRightOf(viewBack,18)
+        .constrainTopToTopOf(viewBack)
+        .constrainBottomToBottomOf(viewBack)
 
 }
 

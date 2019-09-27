@@ -99,12 +99,12 @@ fun MapDiscountCardsViewHolder.renderUI() {
     textViewTitle
         .constrainTopToTopOf(back, 8)
         .constrainLeftToRightOf(imageLock, 8)
-//        .constrainRightToRightOf(back, 8)
+//        .constrainRightToRightOf(viewBack, 8)
 
     textViewDescribe
         .constrainTopToBottomOf(textViewTitle, 4)
         .constrainLeftToRightOf(imageLock, 8)
-//        .constrainRightToRightOf(back, 8)
+//        .constrainRightToRightOf(viewBack, 8)
 
     buttonUse
         .constrainTopToBottomOf(textViewDescribe, 4)

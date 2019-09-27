@@ -35,7 +35,7 @@ object TabBar {
                     flows[position].start()
                 }
 
-                //correct image current module
+                //correct viewArrow current module
                 currentFlow = flows[position]
                 setStatusBarColor(flows[position].colorStatusBar)
             }

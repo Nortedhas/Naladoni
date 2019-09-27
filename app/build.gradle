@@ -82,7 +82,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     kapt "android.arch.lifecycle:compiler:1.1.1"
     kapt 'com.github.bumptech.glide:compiler:4.9.0'
-    implementation 'com.github.armcha:ColoredShadowImageView:1.1.0'         //Color shadow for image (with Glide)
+    implementation 'com.github.armcha:ColoredShadowImageView:1.1.0'         //Color shadow for viewArrow (with Glide)
 
     implementation 'com.github.swarmnyc.promisekt:promisekt:1.0.5'          //PromiseKt
     implementation 'com.github.swarmnyc.promisekt:promisekt-android:1.0.5'

@@ -96,7 +96,7 @@ class AppActivity: BaseActivity() {
     }
 
     override fun onBackPressed() {
-        Timber.i("back")
+        Timber.i("viewBack")
         router.onBackPressed()
     }
 

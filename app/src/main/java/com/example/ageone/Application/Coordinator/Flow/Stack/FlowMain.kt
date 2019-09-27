@@ -5,13 +5,10 @@ import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.example.ageone.Application.Coordinator.Router.DataFlow
 import com.example.ageone.Application.Coordinator.Router.TabBar.Stack.flows
-import com.example.ageone.Application.R
-import com.example.ageone.Application.coordinator
-import com.example.ageone.Application.router
 import com.example.ageone.External.Base.Flow.BaseFlow
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.Map.MapModel
-import timber.log.Timber
+import com.example.ageone.R
 
 fun FlowCoordinator.runFlowMain() {
 

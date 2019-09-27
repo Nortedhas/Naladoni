@@ -2,7 +2,7 @@ package com.example.ageone.Modules.Profile
 
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.ageone.Application.R
+import com.example.ageone.R
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
@@ -22,14 +22,13 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.base_background)//TODO: set background
+        setBackgroundResource(R.drawable.base_background)
 
         toolbar.title = "Мой Профиль"
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
-
 
         renderUIO()
         bindUI()
