@@ -4,11 +4,11 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.ageone.Application.R
 import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.Base.View.BaseView
+import com.example.ageone.R
 import yummypets.com.stevia.*
 
 class AboutCompanyViewHolder(val constraintLayout: ConstraintLayout) :

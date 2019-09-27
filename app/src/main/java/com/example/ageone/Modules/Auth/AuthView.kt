@@ -54,10 +54,10 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
 
         override fun getItemViewType(position: Int):Int = when(position) {
 
-                   0 -> RegistrationInputType
-                 1 -> RegistrationInputTypeC
+            0 -> RegistrationInputType
+            1 -> RegistrationInputTypeC
             2 -> RegistrationButtonType
-         3 -> RegistrationTextType
+            3 -> RegistrationTextType
             else -> -1
         }
 

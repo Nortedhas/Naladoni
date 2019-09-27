@@ -3,13 +3,13 @@ package com.example.ageone.Modules.ChangePhone
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
-import com.example.ageone.Application.R
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextInputLayout.InputEditTextType
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.Auth.AuthRegistrationViewModel
+import com.example.ageone.R
 import com.example.ageone.UIComponents.ViewHolders.ButtonViewHolder
 import com.example.ageone.UIComponents.ViewHolders.InputViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize

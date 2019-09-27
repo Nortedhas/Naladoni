@@ -12,7 +12,6 @@ class TextAboutViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
     val textView by lazy {
         val textView = BaseTextView()
-        textView.gravity = Gravity.START
         textView.typeface = Typeface.DEFAULT_BOLD
         textView.textSize = 21F
         textView.textColor = Color.parseColor("#333333")
@@ -22,7 +21,6 @@ class TextAboutViewHolder(val constraintLayout: ConstraintLayout) :
 
     val textViewDescribe by lazy {
         val textView = BaseTextView()
-        textView.gravity = Gravity.START
         textView.typeface = Typeface.DEFAULT
         textView.textSize = 15F
         textView.textColor = Color.parseColor("#AFAFB4")

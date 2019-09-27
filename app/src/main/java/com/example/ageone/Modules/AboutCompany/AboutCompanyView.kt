@@ -2,7 +2,6 @@ package com.example.ageone.Modules.AboutCompany
 
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.ageone.Application.R
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
@@ -11,8 +10,7 @@ import com.example.ageone.Modules.AboutCompany.rows.AboutCompanyViewHolder
 import com.example.ageone.Modules.AboutCompany.rows.TextAboutViewHolder
 import com.example.ageone.Modules.AboutCompany.rows.TextEmailViewHolder
 import com.example.ageone.Modules.AboutCompany.rows.initialize
-import com.example.ageone.Modules.Profile.ProfileViewModel
-import com.example.ageone.Modules.Profile.rows.initialize
+import com.example.ageone.R
 import com.example.ageone.UIComponents.ViewHolders.ButtonViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
@@ -55,7 +53,8 @@ class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
         private val AboutCompanyvType = 0
         private val AboutTextType = 1
-        private val AboutTextEmailType = 2
+        private val AboutTextButtonType = 2
+        private val AboutTextEmailType = 3
 
         override fun getItemCount() = 1//viewModel.realmData.size
 
@@ -81,6 +80,9 @@ class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 AboutTextType -> {
                     TextAboutViewHolder(layout)
                 }
+                AboutTextButtonType -> {
+                    ButtonViewHolder(layout)
+                }
                 AboutTextEmailType -> {
                     TextEmailViewHolder(layout)
                 }
@@ -101,14 +103,14 @@ class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
                 is TextAboutViewHolder -> {
                     when (position) {
-                        2 -> {
+                        0 -> {
                             holder.initialize("Значимость этих проблем настолько очевидна, что консультация " +
                                     "с широким активом играет важную роль в формировании дальнейших направлений развития." +
                                     " Задача организации, в особенности же консультация с широким активом требуют определения " +
                                     "и уточнения дальнейших направлений развития.","О компании")
 
                         }
-                        3 -> {
+                        1 -> {
                             holder.initialize("Значимость этих проблем настолько очевидна, что консультация с широким активом" +
                                     " играет важную роль в формировании дальнейших направлений развития.","Партнерам")
                             }
@@ -133,6 +135,9 @@ class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 fun AboutCompanyView.renderUIO() {
 
     renderBodyTable()
+
+    bodyTable
+        .constrainTopToTopOf(innerContent,50)
 }
 
 
