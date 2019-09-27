@@ -5,7 +5,7 @@ import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.ageone.Application.R
+import com.example.ageone.R
 import com.example.ageone.Application.utils
 import com.example.ageone.External.Base.Button.BaseButton
 import com.example.ageone.External.Base.ImageView.BaseImageView
@@ -99,12 +99,12 @@ fun MapDiscountCardsViewHolder.renderUI() {
     textViewTitle
         .constrainTopToTopOf(back, 8)
         .constrainLeftToRightOf(imageLock, 8)
-//        .constrainRightToRightOf(back, 8)
+//        .constrainRightToRightOf(viewBack, 8)
 
     textViewDescribe
         .constrainTopToBottomOf(textViewTitle, 4)
         .constrainLeftToRightOf(imageLock, 8)
-//        .constrainRightToRightOf(back, 8)
+//        .constrainRightToRightOf(viewBack, 8)
 
     buttonUse
         .constrainTopToBottomOf(textViewDescribe, 4)

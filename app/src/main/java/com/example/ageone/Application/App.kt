@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Router.Router
+import com.example.ageone.BuildConfig
 import com.example.ageone.External.Base.Activity.BaseActivity
 import com.example.ageone.External.Extensions.Application.FTActivityLifecycleCallbacks
 import com.example.ageone.External.HTTP.API.API

@@ -9,7 +9,7 @@ import android.widget.Button
 import com.example.ageone.Application.currentActivity
 import yummypets.com.stevia.dp
 import android.graphics.drawable.VectorDrawable
-import com.example.ageone.Application.R
+import com.example.ageone.R
 
 class BaseButton: Button(currentActivity) {
     val gradientDrawable = GradientDrawable()
@@ -70,7 +70,7 @@ class BaseButton: Button(currentActivity) {
 
                 }
                 else -> {
-                    currentActivity?.resources?.getDrawable(R.drawable.cast_ic_notification_small_icon) as Bitmap//заглушка
+                    currentActivity?.resources?.getDrawable(R.drawable.ic_arrow) as Bitmap//заглушка
                 }
             }
 

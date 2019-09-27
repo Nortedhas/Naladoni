@@ -3,7 +3,7 @@ package com.example.ageone.Modules
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import com.example.ageone.Application.R
+import com.example.ageone.R
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.InitModuleUI

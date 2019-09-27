@@ -82,7 +82,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     kapt "android.arch.lifecycle:compiler:1.1.1"
     kapt 'com.github.bumptech.glide:compiler:4.9.0'
-    implementation 'com.github.armcha:ColoredShadowImageView:1.1.0'         //Color shadow for image (with Glide)
+    implementation 'com.github.armcha:ColoredShadowImageView:1.1.0'         //Color shadow for viewArrow (with Glide)
 
     implementation 'com.github.swarmnyc.promisekt:promisekt:1.0.5'          //PromiseKt
     implementation 'com.github.swarmnyc.promisekt:promisekt-android:1.0.5'
@@ -101,11 +101,12 @@ dependencies {
     implementation "com.squareup.moshi:moshi:1.8.0"                         //moshi
     implementation 'com.squareup.moshi:moshi-adapters:1.8.0'
     implementation "com.squareup.moshi:moshi-kotlin:1.8.0"
-    implementation 'com.google.android.gms:play-services:12.0.1'            // google map services
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.8.0"
 
     implementation 'com.vk:androidsdk:2.1.1'                                //vk
 
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'       //Google maps
+    implementation 'com.google.android.gms:play-services-base:17.1.0'
 
 }
 

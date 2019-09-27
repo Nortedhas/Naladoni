@@ -47,7 +47,7 @@ abstract class BaseFlow: View(currentActivity){
     fun push(module: BaseModule?) {
         module?.let { module ->
             includeModule(module)
-            //correct image module
+            //correct viewArrow module
             viewFlipperModule.displayedChild = stack.indexOf(module.id)
             setBottomNavigationVisible(module.initModuleUI.isBottomNavigationVisible)
         }
@@ -79,7 +79,7 @@ abstract class BaseFlow: View(currentActivity){
             
             if (viewFlipperModule.contains(module)) {
                 viewFlipperModule.removeView(module)
-                //image previous module
+                //viewArrow previous module
                 viewFlipperModule.displayedChild = stack.size - 1//.last()
 
             }

@@ -3,36 +3,24 @@ package com.example.ageone.Application
 import android.Manifest
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import com.example.ageone.Application.Coordinator.Flow.FlowAuth
-import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.currentFlow
+import androidx.core.app.ActivityCompat
 import com.example.ageone.External.Base.Activity.BaseActivity
-import com.example.ageone.External.HTTP.update
-import com.example.ageone.External.Libraries.Alert.alertManager
-import com.example.ageone.External.Libraries.Alert.single
 import com.example.ageone.Models.User.user
 import com.example.ageone.Models.VKUser
-import com.example.ageone.SCAG.DataBase
-import com.github.kittinunf.fuel.core.FuelManager
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.iid.FirebaseInstanceId
+import com.example.ageone.R
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
 import com.swarmnyc.promisekt.Promise
-import com.vk.api.sdk.VK
-import com.vk.api.sdk.VKApiCallback
-import com.vk.api.sdk.auth.VKAccessToken
-import com.vk.api.sdk.auth.VKAuthCallback
-import com.vk.api.sdk.exceptions.VKApiExecutionException
 import com.vk.api.sdk.requests.VKRequest
+import com.vk.api.sdk.utils.VKUtils
 import org.json.JSONObject
 import timber.log.Timber
-import android.content.pm.PackageManager
-import androidx.core.app.ActivityCompat
-import com.vk.api.sdk.utils.VKUtils
 
 
 class AppActivity: BaseActivity() {
@@ -88,8 +76,19 @@ class AppActivity: BaseActivity() {
 //                        DataBase.User.update(user.hashId, mapOf("fcmToken" to token))
                     })
             }*/
-            coordinator.start()
+            val googleApiAvailability = GoogleApiAvailability.getInstance()
+            when (val result = googleApiAvailability.isGooglePlayServicesAvailable(this)) {
+                ConnectionResult.SUCCESS -> {
+                    coordinator.start()
+                }
+                else -> {
+                    googleApiAvailability.showErrorNotification(this, result)
+                }
+            }
+
         }
+
+
 
         setContentView(router.layout)
 
@@ -110,7 +109,7 @@ class AppActivity: BaseActivity() {
     }
 
     override fun onBackPressed() {
-        Timber.i("back")
+        Timber.i("viewBack")
         router.onBackPressed()
     }
 

@@ -9,7 +9,7 @@ import com.example.ageone.Application.Coordinator.Router.TabBar.Stack
 import com.example.ageone.External.Base.Flow.BaseFlow
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Application.*
-import com.example.ageone.Application.R
+import com.example.ageone.R
 import com.example.ageone.Modules.Search.SearchModel
 import com.example.ageone.Modules.Search.SearchViewModel
 

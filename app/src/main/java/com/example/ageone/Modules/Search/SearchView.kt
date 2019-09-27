@@ -3,12 +3,10 @@ package com.example.ageone.Modules.Search
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.ageone.Application.R
+import com.example.ageone.R
 import com.example.ageone.Application.currentActivity
-import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
@@ -17,7 +15,6 @@ import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.List.rows.initialize
 import com.example.ageone.Modules.List.rows.СardViewHolder
 import yummypets.com.stevia.*
-import android.widget.ImageView
 import com.example.ageone.External.Base.SearchView.BaseSearchView
 
 
@@ -35,7 +32,7 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         view
     }
 
-    val searchBox by lazy {
+    val searchView by lazy {
         val searchView = BaseSearchView()
         searchView.color = Color.WHITE
         searchView.isAlwaysExpand = true
@@ -128,7 +125,7 @@ fun SearchView.renderUIO() {
 
     innerContent.subviews(
         card.subviews(
-            searchBox
+            searchView
         )
     )
 

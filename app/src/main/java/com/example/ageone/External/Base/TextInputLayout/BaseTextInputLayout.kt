@@ -5,7 +5,7 @@ import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.text.method.DigitsKeyListener
-import com.example.ageone.Application.R
+import com.example.ageone.R
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.EditText.limitLength
 import com.example.ageone.External.Base.EditText.phoneMask
