@@ -21,14 +21,6 @@ import yummypets.com.stevia.*
 class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
     val viewModel = ListViewModel()
-
-    val filterView by lazy {
-        val filterView = BaseImageView()
-        filterView.initialize()
-        filterView.orientation = GradientDrawable.Orientation.TOP_BOTTOM
-        filterView.setBackgroundResource(R.drawable.ic_filter)
-        filterView
-    }
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
@@ -104,11 +96,7 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 }
 
 fun ListView.renderUIO() {
-    toolbar.subviews(
-        filterView
-    )
-    filterView
-        .constrainRightToRightOf(innerContent, 5)
+
     renderBodyTable()
 }
 

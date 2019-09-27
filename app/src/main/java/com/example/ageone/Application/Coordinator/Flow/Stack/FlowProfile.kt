@@ -1,29 +1,28 @@
 package com.example.ageone.Application.Coordinator.Flow.Stack
-
 import androidx.core.view.size
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.example.ageone.Application.Coordinator.Router.DataFlow
-import com.example.ageone.Application.Coordinator.Router.TabBar.Stack.flows
+import com.example.ageone.Application.Coordinator.Router.TabBar.Stack
 import com.example.ageone.Application.R
-import com.example.ageone.Application.coordinator
 import com.example.ageone.Application.router
 import com.example.ageone.External.Base.Flow.BaseFlow
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.Modules.Map.MapModel
-import timber.log.Timber
 
-fun FlowCoordinator.runFlowMain() {
+import com.example.ageone.Modules.Profile.ProfileModel
+import com.example.ageone.Modules.Profile.ProfileView
 
-    var flow: FlowMain? = FlowMain()
+fun FlowCoordinator.runFlowProfile() {
 
-    flow?.let{ flow ->
+    var flow: FlowProfile? = FlowProfile()
+
+    flow?.let { flow ->
         viewFlipperFlow.addView(flow.viewFlipperModule)
         viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
 
         flow.settingsCurrentFlow = DataFlow(viewFlipperFlow.size - 1)
 
-        flows.add(flow)
+        Stack.flows.add(flow)
     }
 
     flow?.onFinish = {
@@ -33,45 +32,47 @@ fun FlowCoordinator.runFlowMain() {
     }
 
 //    flow?.start()
+
+
 }
 
-class FlowMain: BaseFlow() {
+class FlowProfile : BaseFlow() {
 
-    private var models = FlowMainModels()
+    private var models = FlowProfileModels()
 
     override fun start() {
         onStarted()
-        runModuleMap()
+        runModuleProfile()
     }
 
-    inner class FlowMainModels {
-        var modelMap = MapModel()
+    inner class FlowProfileModels {
+        var modelProfile = ProfileModel(
+
+        )
     }
 
-    fun runModuleMap() {
-        val module = com.example.ageone.Modules.Map.MapView(
+    fun runModuleProfile() {
+        val module = ProfileView(
             InitModuleUI(
                 isBottomNavigationVisible = true,
                 exitListener = {
-                    runModuleMap()
+                    router.onBackPressed()
                 },
-                exitIcon = R.drawable.pic_filter
+                exitIcon = R.drawable.ic_exit
             )
         )
-        module.viewModel.initialize(models.modelMap) { module.reload() }
+
+        module.viewModel.initialize(models.modelProfile) { module.reload() }
 
         settingsCurrentFlow.isBottomNavigationVisible = true
 
         module.emitEvent = { event ->
-            when (com.example.ageone.Modules.Map.MapViewModel.EventType.valueOf(event)) {
-                com.example.ageone.Modules.Map.MapViewModel.EventType.OnlouderMap -> {
-//                     module.runFlowList()
+            when (com.example.ageone.Modules.Profile.ProfileViewModel.EventType.valueOf(event)) {
+                com.example.ageone.Modules.Profile.ProfileViewModel.EventType.OnlouderProfile -> {
                 }
 
             }
         }
         push(module)
-
     }
-
 }

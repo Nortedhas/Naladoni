@@ -11,5 +11,6 @@ data class InitModuleUI (
     var colorToolbar: Int = Color.TRANSPARENT,
     var backListener: ((View) -> Unit)? = null,
     var exitListener: ((View) -> Unit)? = null,
+    var exitIcon: Int? = null,
     var iconListener: ((View) -> Unit)? = null
 )

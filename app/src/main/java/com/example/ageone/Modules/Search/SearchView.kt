@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ageone.R
 import com.example.ageone.Application.currentActivity
+import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
@@ -111,7 +112,8 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                 is СardViewHolder -> {
                     holder.initialize(
                         "Скидка 500 при покупке от 2500",
-                        "Nike", "до 12.08.2019", R.drawable.pic_washing)
+                        "Nike", "до 12.08.2019", R.drawable.pic_washing
+                    )
                 }
 
             }
@@ -138,7 +140,7 @@ fun SearchView.renderUIO() {
     renderBodyTable()
 
     bodyTable
-        .constrainTopToBottomOf(card, 33)
+        .constrainTopToBottomOf(card, 37)
 }
 
 

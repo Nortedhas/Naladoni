@@ -1,14 +1,15 @@
 package com.example.ageone.Application.Coordinator.Flow.Stack
-
-
 import androidx.core.view.size
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.example.ageone.Application.Coordinator.Router.DataFlow
 import com.example.ageone.Application.Coordinator.Router.TabBar.Stack
+import com.example.ageone.Application.R
+import com.example.ageone.Application.router
 import com.example.ageone.External.Base.Flow.BaseFlow
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.List.ListModel
+import com.example.ageone.Modules.List.ListView
 
 fun FlowCoordinator.runFlowList() {
 
@@ -48,9 +49,13 @@ class FlowList : BaseFlow() {
     }
 
     fun runModuleList() {
-        val module = com.example.ageone.Modules.List.ListView(
+        val module = ListView(
             InitModuleUI(
-                isBottomNavigationVisible = true
+                isBottomNavigationVisible = true,
+                exitListener = {
+                    runModuleList()
+                },
+                exitIcon = R.drawable.ic_filter2
             )
         )
         module.viewModel.initialize(models.modelList) { module.reload() }
