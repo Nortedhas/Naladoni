@@ -1,17 +1,14 @@
-package com.example.ageone.Modules.Profile
+package com.example.ageone.Modules.ChangePhone
 
 import com.example.ageone.Application.utils
 import com.example.ageone.External.Interfaces.InterfaceModel
 import com.example.ageone.External.Interfaces.InterfaceViewModel
 
-class ProfileViewModel : InterfaceViewModel {
-    var model = ProfileModel()
+class ChangePhoneViewModel : InterfaceViewModel {
+    var model = ChangePhoneModel()
 
     enum class EventType {
-        OnlouderProfileN,
-        OnlouderProfileP,
-        OnlouderProfileA
-
+        OnlouderChangePhone
     }
 
     /*var realmData = listOf<>()
@@ -20,13 +17,13 @@ class ProfileViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is ProfileModel) {
+        if (recievedModel is ChangePhoneModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class ProfileModel : InterfaceModel {
-
+class ChangePhoneModel : InterfaceModel {
+    var inputPhone = ""
 }
