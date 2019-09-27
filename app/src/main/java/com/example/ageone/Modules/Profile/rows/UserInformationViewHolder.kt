@@ -65,6 +65,7 @@ fun UserInformationViewHolder.renderUI() {
 
 
     back
+        .height(120)
         .fillHorizontally(8)
         .constrainTopToTopOf(constraintLayout, 8)
         .constrainBottomToBottomOf(constraintLayout, 8)
@@ -74,16 +75,16 @@ fun UserInformationViewHolder.renderUI() {
         .width(74)
         .constrainLeftToLeftOf(back)
         .constrainRightToRightOf(back)
-        .constrainTopToTopOf(back, 8)
+        .constrainTopToTopOf(back,5)
 
     textViewName
-        .constrainTopToBottomOf(imagePhoto,10)
-        .constrainBottomToBottomOf(back,10)
+        .fillHorizontally(90)
+        .constrainTopToBottomOf(imagePhoto,8)
 
     image
         .height(20)
         .width(12)
-        .constrainRightToRightOf(back)
+        .constrainRightToRightOf(back,18)
         .constrainTopToTopOf(back)
         .constrainBottomToBottomOf(back)
 

@@ -25,7 +25,6 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
         setBackgroundResource(R.drawable.base_background)//TODO: set background
 
         toolbar.title = "Мой Профиль"
-
         renderToolbar()
 
         bodyTable.adapter = viewAdapter

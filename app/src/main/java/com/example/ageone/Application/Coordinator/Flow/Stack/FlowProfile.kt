@@ -4,6 +4,8 @@ import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.example.ageone.Application.Coordinator.Router.DataFlow
 import com.example.ageone.Application.Coordinator.Router.TabBar.Stack
+import com.example.ageone.Application.R
+import com.example.ageone.Application.router
 import com.example.ageone.External.Base.Flow.BaseFlow
 import com.example.ageone.External.InitModuleUI
 
@@ -52,7 +54,11 @@ class FlowProfile : BaseFlow() {
     fun runModuleProfile() {
         val module = ProfileView(
             InitModuleUI(
-                isBottomNavigationVisible = true
+                isBottomNavigationVisible = true,
+                exitListener = {
+                    router.onBackPressed()
+                },
+                exitIcon = R.drawable.ic_exit
             )
         )
 

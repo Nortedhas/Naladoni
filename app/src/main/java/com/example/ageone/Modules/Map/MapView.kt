@@ -35,14 +35,6 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         imageNavigationView.setBackgroundResource(R.drawable.ic_navigationbuttom)
         imageNavigationView
     }
-    val filterView by lazy {
-        val filterView = BaseImageView()
-        filterView.initialize()
-        filterView.orientation = GradientDrawable.Orientation.TOP_BOTTOM
-        filterView.setBackgroundResource(R.drawable.ic_filter)
-        filterView
-    }
-
     /*val mapView by lazy {
        val mapView = BaseMapView()
         mapView
@@ -124,16 +116,11 @@ fun MapView.renderUIO() {
 
 
     )
-    toolbar.subviews(
-        filterView
-    )
 
 //    mapView
 //        .fillHorizontally()
 //        .fillVertically()
 
-    filterView
-        .constrainRightToRightOf(innerContent,5)
 
     bodyTable
         .constrainBottomToBottomOf(innerContent)
