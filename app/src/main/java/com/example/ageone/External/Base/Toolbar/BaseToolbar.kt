@@ -1,4 +1,4 @@
-package com.ageone.potok.External.Base.Toolbar
+package com.example.ageone.External.Base.Toolbar
 
 import android.graphics.Color
 import android.view.View

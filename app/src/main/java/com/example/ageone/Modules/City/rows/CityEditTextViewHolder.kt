@@ -23,14 +23,10 @@ class CityEditTextViewHolder(val constraintLayout: ConstraintLayout) : BaseViewH
         editText.layoutParams = params
         editText.textSize = 15F
         editText.textColor = Color.parseColor("#333333")
-
-
-
         editText
     }
 
     init {
-
         renderUI()
     }
 

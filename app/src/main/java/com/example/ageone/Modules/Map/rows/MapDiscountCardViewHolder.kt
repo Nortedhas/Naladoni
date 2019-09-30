@@ -6,7 +6,6 @@ import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.ageone.R
-import com.example.ageone.Application.utils
 import com.example.ageone.External.Base.Button.BaseButton
 import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
@@ -14,9 +13,9 @@ import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.Base.View.BaseView
 import yummypets.com.stevia.*
 
-class MapDiscountCardsViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
+class MapDiscountCardViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
 
-    val back by lazy {
+    val viewBack by lazy {
         val view = BaseView()
         view.cornerRadius = 8.dp
         view.elevation = 6F.dp
@@ -24,7 +23,7 @@ class MapDiscountCardsViewHolder(val constraintLayout: ConstraintLayout) : BaseV
         view.initialize()
         view
     }
-    val imageLock by lazy {
+    val imageViewType by lazy {
         val image = BaseImageView()
         image.setBackgroundResource(R.drawable.pic_groupfood)
         image.elevation = 5F.dp
@@ -38,6 +37,7 @@ class MapDiscountCardsViewHolder(val constraintLayout: ConstraintLayout) : BaseV
         textView.textSize = 17F
         textView.textColor = Color.parseColor("#333333")
         textView.setBackgroundColor(Color.TRANSPARENT)
+        textView.setLines(1)
         textView
     }
 
@@ -63,6 +63,9 @@ class MapDiscountCardsViewHolder(val constraintLayout: ConstraintLayout) : BaseV
     	button.orientation = GradientDrawable.Orientation.TOP_BOTTOM
         button.text = "Использовать"
         button.initialize()
+        button.setPadding(0,0,0,0)
+        button.minHeight = 0
+        button.minWidth = 0
         button
     }
 
@@ -72,51 +75,53 @@ class MapDiscountCardsViewHolder(val constraintLayout: ConstraintLayout) : BaseV
 
 }
 
-fun MapDiscountCardsViewHolder.renderUI() {
+fun MapDiscountCardViewHolder.renderUI() {
 
     constraintLayout.subviews(
-        back.subviews(
-            imageLock,
+        viewBack.subviews(
+            imageViewType,
             textViewTitle,
             textViewDescribe,
             buttonUse
         )
     )
 
-    back
+    viewBack
         .constrainLeftToLeftOf(constraintLayout, 8)
         .constrainRightToRightOf(constraintLayout, 8)
         .constrainBottomToBottomOf(constraintLayout, 16)
         .constrainTopToTopOf(constraintLayout, 8)
-        .width(283)
+        .width(95.dp)
 
-    imageLock
-        .constrainLeftToLeftOf(back, 8)
-        .constrainTopToTopOf(back, 8)
+    imageViewType
+        .constrainLeftToLeftOf(viewBack, 8)
+        .constrainTopToTopOf(viewBack, 8)
         .width(44)
         .height(44)
 
     textViewTitle
-        .constrainTopToTopOf(back, 8)
-        .constrainLeftToRightOf(imageLock, 8)
-//        .constrainRightToRightOf(viewBack, 8)
+        .fillHorizontally()
+        .constrainTopToTopOf(viewBack, 8)
+        .constrainLeftToRightOf(imageViewType, 8)
+        .constrainRightToRightOf(viewBack, 8)
 
     textViewDescribe
+        .fillHorizontally()
         .constrainTopToBottomOf(textViewTitle, 4)
-        .constrainLeftToRightOf(imageLock, 8)
-//        .constrainRightToRightOf(viewBack, 8)
+        .constrainLeftToRightOf(imageViewType, 8)
+        .constrainRightToRightOf(viewBack, 8)
 
     buttonUse
         .constrainTopToBottomOf(textViewDescribe, 4)
-        .constrainBottomToBottomOf(back, 8)
+        .constrainBottomToBottomOf(viewBack, 8)
         .fillHorizontally(5)
 
 }
 
-fun MapDiscountCardsViewHolder.initialize(title: String, describe: String,icon: Int) {
+fun MapDiscountCardViewHolder.initialize(title: String, describe: String, icon: Int) {
 
     textViewTitle.text = title
     textViewDescribe.text = describe
-    imageLock.setBackgroundResource(icon)
+    imageViewType.setBackgroundResource(icon)
 
 }

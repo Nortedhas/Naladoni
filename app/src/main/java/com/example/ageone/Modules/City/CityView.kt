@@ -5,6 +5,8 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
+import com.example.ageone.Application.currentActivity
+import com.example.ageone.Application.hideKeyboard
 import com.example.ageone.R
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
@@ -60,7 +62,6 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
             override fun getItemCount() = 3//viewModel.realmData.size
 
             override fun getItemViewType(position: Int): Int = when (position) {
-
                 0 -> SelectalertManager
                 1 -> SelectCityTextType
                 2 -> SelectCityButtonType
@@ -82,7 +83,6 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                     }
                     SelectCityButtonType -> {
                         ButtonViewHolder(layout)
-
                     }
                     else -> {
                         BaseViewHolder(layout)
@@ -104,8 +104,8 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                             city[0])
                     }
                     holder.editText.setOnClickListener{
-
-                        alertManager.list( "Выберите город", city  ) {_, int ->
+                        currentActivity?.hideKeyboard()
+                        alertManager.list( "Выберите город", city) {_, int ->
                             when (int)
                             {
                                 0 ->{
