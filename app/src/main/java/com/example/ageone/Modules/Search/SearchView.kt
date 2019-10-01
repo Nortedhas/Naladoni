@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.ageone.Application.Coordinator.Flow.Stack.runFlowMainStock
+import com.example.ageone.Application.coordinator
 import com.example.ageone.R
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.Module.BaseModule
@@ -117,8 +119,8 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                         "Скидка 500 при покупке от 2500",
                         "Nike", "до 12.08.2019", R.drawable.pic_washing)
                     holder.viewCard.setOnClickListener{
-
-                        rootModule.emitEvent?.invoke(SearchViewModel.EventType.OnlouderSearch.toString())
+                          coordinator.runFlowMainStock()
+//                        rootModule.emitEvent?.invoke(SearchViewModel.EventType.OnlouderSearch.toString())
 
                     }
                 }

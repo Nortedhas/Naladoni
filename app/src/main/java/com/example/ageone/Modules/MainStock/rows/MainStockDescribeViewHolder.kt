@@ -24,6 +24,11 @@ class MainStockDescribeViewHolder(val constraintLayout: ConstraintLayout) :
         val imageView = BaseImageView()
         imageView
     }
+    val imageBoxView by lazy {
+        val imageView = BaseImageView()
+        imageView.backgroundColor = Color.WHITE
+        imageView
+    }
 
     val textViewDescribe by lazy {
         val textView = BaseTextView()
@@ -67,6 +72,7 @@ class MainStockDescribeViewHolder(val constraintLayout: ConstraintLayout) :
 
 fun MainStockDescribeViewHolder.renderUI() {
     constraintLayout.subviews(
+        imageBoxView,
         view.subviews(
             textViewLogo,
             textViewDescribe,
@@ -94,9 +100,15 @@ fun MainStockDescribeViewHolder.renderUI() {
     textViewTitle
         .constrainTopToTopOf(view,68)
         .fillHorizontally(90)
+
     textViewDescribe
         .constrainTopToBottomOf(textViewTitle,3)
         .fillHorizontally(10)
+
+    imageBoxView
+        .height(60)
+        .constrainCenterYToBottomOf(view)
+        .fillHorizontally()
 }
 
 fun MainStockDescribeViewHolder.initialize(text:String,describe:String,textlogo:String, logo:Int) {

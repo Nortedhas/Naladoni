@@ -1,5 +1,6 @@
 package com.example.ageone.Modules.MainStock
 
+import android.graphics.Color
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.ageone.External.Base.Module.BaseModule
@@ -109,6 +110,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                 is MainStockTextViewHolder -> {
                     when (position) {
                         1 -> {
+                            holder.constraintLayout.backgroundColor = Color.WHITE
                             holder.textView.constrainTopToTopOf(innerContent)
                             holder.initialize(
                                 "Акция: ", "Равным образом новая модель" +
@@ -118,7 +120,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                         }
 
                         2 -> {
-
+                            holder.constraintLayout.backgroundColor = Color.WHITE
                             holder.initialize("Даты проведения: ", "с 25.08.2019 до 30.08.2019")
 
                         }
@@ -126,11 +128,13 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                 }
 
                 is ButtonViewHolder -> {
+                    holder.constraintLayout.backgroundColor = Color.WHITE
                     holder.initialize("Как добраться?")
                     holder.button.constrainTopToTopOf(innerContent, 5)
                 }
 
                 is MainStockQRCodViewHolder -> {
+                    holder.constraintLayout.backgroundColor = Color.WHITE
                     holder.initialize(
                         "Получай выгоду!", "Количество воспользовавшихся предложением:",
                         "146", R.drawable.pic_qarcod, "145 678 345"

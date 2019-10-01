@@ -11,7 +11,6 @@ import com.example.ageone.External.HTTP.API.API
 import com.example.ageone.Internal.Utilities.Utils
 import com.example.ageone.Models.RxData
 import com.example.ageone.Network.Socket.WebSocket
-import com.example.ageone.SCAG.DataBase
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage

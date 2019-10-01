@@ -65,34 +65,35 @@ class FlowSearch : BaseFlow() {
         module.emitEvent = { event ->
             when (com.example.ageone.Modules.Search.SearchViewModel.EventType.valueOf(event)) {
                 com.example.ageone.Modules.Search.SearchViewModel.EventType.OnlouderSearch -> {
-                    runModuleMainStock()
+//                    runModuleMainStock()
+//                    coordinator.runFlowMainStock()
                 }
 
             }
         }
         push(module)
     }
-    fun runModuleMainStock() {
-        val module = com.example.ageone.Modules.MainStock.MainStockView(
-            InitModuleUI(
-                isBottomNavigationVisible = false,
-                isBackPressed = true,
-                backListener = {
-                    pop()
-                }
-            )
-        )
-        module.viewModel.initialize(models.modelMainStock) { module.reload() }
-
-        settingsCurrentFlow.isBottomNavigationVisible = false
-
-        module.emitEvent = { event ->
-            when (com.example.ageone.Modules.MainStock.MainStockViewModel.EventType.valueOf(event)) {
-                com.example.ageone.Modules.MainStock.MainStockViewModel.EventType.OnlouderMainStock -> {
-                }
-
-            }
-        }
-        push(module)
-    }
+//    fun runModuleMainStock() {
+//        val module = com.example.ageone.Modules.MainStock.MainStockView(
+//            InitModuleUI(
+//                isBottomNavigationVisible = false,
+//                isBackPressed = true,
+//                backListener = {
+//                    pop()
+//                }
+//            )
+//        )
+//        module.viewModel.initialize(models.modelMainStock) { module.reload() }
+//
+//        settingsCurrentFlow.isBottomNavigationVisible = false
+//
+//        module.emitEvent = { event ->
+//            when (com.example.ageone.Modules.MainStock.MainStockViewModel.EventType.valueOf(event)) {
+//                com.example.ageone.Modules.MainStock.MainStockViewModel.EventType.OnlouderMainStock -> {
+//                }
+//
+//            }
+//        }
+//        push(module)
+//    }
 }
