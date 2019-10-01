@@ -115,7 +115,7 @@ abstract class BaseModule(val initModuleUI: InitModuleUI = InitModuleUI()) : Con
         )
 
         bodyTable
-            .fillHorizontally(8)
+            .fillHorizontally(8)//TODO: change!
             .fillVertically()
             .constrainTopToTopOf(innerContent)
             .updatePadding(bottom = 24.dp)

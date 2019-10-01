@@ -2,12 +2,14 @@ package com.example.ageone.Modules.List
 
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ageone.R
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
+import com.example.ageone.External.Base.RecyclerView.ColumnEqualsPaddingItemDecoration
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.UIComponents.ViewHolders.СardViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
@@ -92,7 +94,21 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
 fun ListView.renderUIO() {
 
-    renderBodyTable()
+    innerContent.subviews(
+        bodyTable
+    )
+
+    bodyTable
+        .fillHorizontally(0)
+        .fillVertically()
+        .constrainTopToTopOf(innerContent)
+        .updatePadding(bottom = 24.dp)
+
+    bodyTable
+        .clipToPadding = false
+
+
+    bodyTable.addItemDecoration(ColumnEqualsPaddingItemDecoration(8.dp, 2))
 }
 
 
