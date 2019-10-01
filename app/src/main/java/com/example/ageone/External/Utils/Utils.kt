@@ -1,6 +1,7 @@
 package com.example.ageone.External.Utils
 
 import android.graphics.Color
+import com.example.ageone.Application.utils
 
 object Tools {
     fun hex(hex: String): Int {
@@ -10,6 +11,8 @@ object Tools {
     fun getClassName(name: String): String {
         return name.split("{")[0]
     }
+
+    fun getActualSizeFromDes(size: Int) = utils.variable.displayWidth * (size / utils.variable.widthDisplayDesign)
 }
 
 object Variable {
@@ -19,4 +22,6 @@ object Variable {
     var actionBarHeight = 0
     var token = ""
     var vkSdkTokenUser = ""
+
+    val widthDisplayDesign = 375
 }
