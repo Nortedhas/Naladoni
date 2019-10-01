@@ -148,6 +148,8 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
 fun MainStockView.renderUIO() {
 
     renderBodyTable()
+    bodyTable
+        .fillHorizontally()
 }
 
 
