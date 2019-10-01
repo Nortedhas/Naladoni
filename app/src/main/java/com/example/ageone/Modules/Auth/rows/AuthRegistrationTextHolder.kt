@@ -43,7 +43,7 @@ fun RegistrationTextHolder.renderUI() {
 }
 
 fun RegistrationTextHolder.initialize() {
-    val text = "Нажимая на кнопку “Зарегистрироваться”, я соглашаюсь с данным "
+    val text = "Нажимая на кнопку “Зарегистрироваться”,\nя соглашаюсь с данным "
     val declaration = "пользовательским соглашением"
 
     val spannableContent = SpannableString(text + declaration)

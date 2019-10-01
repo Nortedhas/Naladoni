@@ -121,8 +121,8 @@ class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 is ButtonViewHolder -> {
                     holder.initialize("Позвонить в компанию")
                     holder.button.setOnClickListener{
-//                        val Intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "1122334455"))
-//                        currentActivity?.startActivity(Intent)
+                        intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "1122334455"))
+                        currentActivity?.startActivity(intent)
                     }
                 }
 
