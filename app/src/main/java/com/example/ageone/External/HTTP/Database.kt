@@ -1,7 +1,7 @@
 package com.example.ageone.External.HTTP
 
 import com.example.ageone.Application.api
-import com.example.ageone.External.HTTP.API.Routes
+import com.example.ageone.External.HTTP.API.API
 import com.example.ageone.SCAG.DataBase
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.extensions.jsonBody
@@ -10,7 +10,7 @@ import timber.log.Timber
 
 fun DataBase.request(params: Map<String, Any>, completion: (JSONObject) -> (Unit)) {
 
-    Fuel.post(Routes.Database.path)
+    Fuel.post(API.Routes.Database.path)
         .jsonBody(api.createBody(params).toString())
 //        .header(DataBase.headers)
         .responseString { request, response, result ->

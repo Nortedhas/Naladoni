@@ -21,6 +21,9 @@ import com.example.ageone.Modules.ChangeName.ChangeNameViewModel
 import com.example.ageone.Modules.ChangePhone.ChangePhoneModel
 import com.example.ageone.Modules.ChangePhone.ChangePhoneView
 import com.example.ageone.Modules.ChangePhone.ChangePhoneViewModel
+import com.example.ageone.Modules.Navigation.NavigationModel
+import com.example.ageone.Modules.Navigation.NavigationView
+import com.example.ageone.Modules.Navigation.NavigationViewModel
 
 import com.example.ageone.Modules.Profile.ProfileModel
 import com.example.ageone.Modules.Profile.ProfileView
@@ -94,7 +97,7 @@ class FlowProfile : BaseFlow() {
                 }
 
                 com.example.ageone.Modules.Profile.ProfileViewModel.EventType.OnlouderProfileA -> {
-
+//                    runModuleNavigation()
                     runModuleAboutCompany()
 
                 }

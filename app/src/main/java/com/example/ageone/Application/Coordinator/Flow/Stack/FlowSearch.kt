@@ -4,15 +4,14 @@ package com.example.ageone.Application.Coordinator.Flow.Stack
 import androidx.core.view.size
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
+import com.example.ageone.Application.Coordinator.Flow.runFlowMainStock
 import com.example.ageone.Application.Coordinator.Router.DataFlow
 import com.example.ageone.Application.Coordinator.Router.TabBar.Stack
+import com.example.ageone.Application.coordinator
 import com.example.ageone.External.Base.Flow.BaseFlow
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.Application.*
 import com.example.ageone.Modules.MainStock.MainStockModel
-import com.example.ageone.R
 import com.example.ageone.Modules.Search.SearchModel
-import com.example.ageone.Modules.Search.SearchViewModel
 
 fun FlowCoordinator.runFlowSearch() {
 
@@ -66,7 +65,7 @@ class FlowSearch : BaseFlow() {
             when (com.example.ageone.Modules.Search.SearchViewModel.EventType.valueOf(event)) {
                 com.example.ageone.Modules.Search.SearchViewModel.EventType.OnlouderSearch -> {
 //                    runModuleMainStock()
-//                    coordinator.runFlowMainStock()
+                    coordinator.runFlowMainStock()
                 }
 
             }
