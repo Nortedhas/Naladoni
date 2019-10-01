@@ -7,6 +7,7 @@ import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.InitModuleUI
+import com.example.ageone.Modules.Auth.AuthRegistrationViewModel
 import com.example.ageone.Modules.MainStock.rows.MainStockDescribeViewHolder
 import com.example.ageone.Modules.MainStock.rows.MainStockTextViewHolder
 import com.example.ageone.Modules.MainStock.rows.MainStockQRCodViewHolder
@@ -131,6 +132,9 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                     holder.constraintLayout.backgroundColor = Color.WHITE
                     holder.initialize("Как добраться?")
                     holder.button.constrainTopToTopOf(innerContent, 5)
+                    holder.button.setOnClickListener{
+                        rootModule.emitEvent?.invoke(MainStockViewModel.EventType.OnlouderMainStock.toString())
+                    }
                 }
 
                 is MainStockQRCodViewHolder -> {

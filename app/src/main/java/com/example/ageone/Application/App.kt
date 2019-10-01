@@ -1,6 +1,7 @@
 package com.example.ageone.Application
 
 import android.app.Application
+import android.content.Intent
 import android.util.Log
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Router.Router
@@ -29,6 +30,7 @@ val api = API()
 //val database = DataBase
 val rxData = RxData()
 var webSocket = WebSocket()
+var intent = Intent()
 
 val currentActivity: BaseActivity?
     get() = App.instance?.mFTActivityLifecycleCallbacks?.currentActivity as BaseActivity

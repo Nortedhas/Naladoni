@@ -2,6 +2,8 @@ package com.example.ageone.External.HTTP.API
 
 import com.example.ageone.Application.api
 import com.example.ageone.Application.utils
+import com.example.ageone.External.Libraries.Alert.alertManager
+import com.example.ageone.External.Libraries.Alert.blockUI
 import com.example.ageone.Models.User.user
 import com.example.ageone.SCAG.DataBase
 import com.example.ageone.SCAG.Enums
@@ -22,11 +24,15 @@ class API {
 
     val parser = Parser()
 
-    fun handshake(completion: () -> Unit){
+    fun handshake(completion: () -> Unit) {
         Fuel.post(Routes.Handshake.path)
-            .jsonBody(createBody(mapOf(
-                "deviceId" to uuid
-            )).toString())
+            .jsonBody(
+                createBody(
+                    mapOf(
+                        "deviceId" to uuid
+                    )
+                ).toString()
+            )
             .responseString { request, response, result ->
                 Timber.i("API Handshake: $request $response")
 
@@ -56,7 +62,7 @@ class API {
                         completion.invoke(jsonObject)
                     }
 
-                },{ error ->
+                }, { error ->
                     Timber.e("${error.response.responseMessage}")
                 })
 
@@ -89,17 +95,16 @@ class API {
         }
     }
 
-}
 
+    enum class Routes(val path: String) {
+        Handshake("/handshake"),
+        Database("/database"),
+        Api("/api");
+    }
 
-enum class Routes(val path: String) {
-    Handshake("/handshake"),
-    Database("/database"),
-    Api("/api");
-}
+    var uuid = if (user.hashId.isNotBlank()) user.hashId else UUID.randomUUID().toString()
 
-var uuid = if (user.hashId.isNotBlank()) user.hashId else UUID.randomUUID().toString()
-
-fun uuidReload() {
-    uuid = UUID.randomUUID().toString()
+    fun uuidReload() {
+        uuid = UUID.randomUUID().toString()
+    }
 }

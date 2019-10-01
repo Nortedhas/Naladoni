@@ -15,6 +15,9 @@ import com.example.ageone.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
 import android.content.Intent
 import android.net.Uri
+import com.example.ageone.Application.api
+import com.example.ageone.Application.currentActivity
+import com.example.ageone.Application.intent
 
 
 class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -118,8 +121,8 @@ class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 is ButtonViewHolder -> {
                     holder.initialize("Позвонить в компанию")
                     holder.button.setOnClickListener{
-                       var  intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "1122334455"))
-//                        startActivity(intent)
+//                        val Intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "1122334455"))
+//                        currentActivity?.startActivity(Intent)
                     }
                 }
 
