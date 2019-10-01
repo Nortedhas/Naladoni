@@ -35,7 +35,8 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         val imageNavigationView = BaseImageView()
         imageNavigationView.initialize()
         imageNavigationView.orientation = GradientDrawable.Orientation.TOP_BOTTOM
-        imageNavigationView.setBackgroundResource(R.drawable.ic_navigationbuttom)
+        imageNavigationView.setBackgroundResource(R.drawable.pic_navigationbuttom)
+        imageNavigationView.elevation = 5F.dp
         imageNavigationView
     }
 

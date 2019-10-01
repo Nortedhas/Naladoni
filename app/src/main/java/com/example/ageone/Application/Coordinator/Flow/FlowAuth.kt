@@ -163,7 +163,6 @@ class FlowAuth: BaseFlow() {
         module.emitEvent = { event ->
             when (com.example.ageone.Modules.FAQ.FAQViewModel.EventType.valueOf(event)) {
                 com.example.ageone.Modules.FAQ.FAQViewModel.EventType.OnLoaded -> {
-//                    runModuleMap()
                     module.startLoadingFlow()
                 }
 
@@ -172,29 +171,6 @@ class FlowAuth: BaseFlow() {
         push(module)
 
     }
-    /*fun runModuleMap() {
-        val module = com.example.ageone.Modules.Map.MapView(
-            InitModuleUI(
-                isBottomNavigationVisible = true,
-                        isToolbarHidden = true
-            )
-        )
-        module.viewModel.initialize(models.modelMap) { module.reload() }
-
-        settingsCurrentFlow.isBottomNavigationVisible = true
-
-        module.emitEvent = { event ->
-            when (com.example.ageone.Modules.Map.MapViewModel.EventType.valueOf(event)) {
-                com.example.ageone.Modules.Map.MapViewModel.EventType.OnlouderMap -> {
-                    module.startLoadingFlow()
-                }
-
-            }
-        }
-        push(module)
-
-    }*/
-
 
     fun BaseModule.startLoadingFlow() {
         coordinator.start()

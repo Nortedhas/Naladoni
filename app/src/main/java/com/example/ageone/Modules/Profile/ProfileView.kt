@@ -2,13 +2,19 @@ package com.example.ageone.Modules.Profile
 
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.ageone.R
+import androidx.core.widget.doOnTextChanged
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
+import com.example.ageone.External.Base.TextInputLayout.InputEditTextType
 import com.example.ageone.External.InitModuleUI
+import com.example.ageone.Models.User.user
+import com.example.ageone.Modules.Auth.AuthRegistrationViewModel
 import com.example.ageone.Modules.Profile.rows.*
+import com.example.ageone.R
+import com.example.ageone.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
+import javax.annotation.meta.When
 
 class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
@@ -21,14 +27,14 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
     init {
 //        viewModel.loadRealmData()
-
-        setBackgroundResource(R.drawable.base_background)
+        setBackgroundResource(R.drawable.base_background)//TODO: set background
 
         toolbar.title = "Мой Профиль"
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
+
 
         renderUIO()
         bindUI()
@@ -92,16 +98,43 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
             when (holder) {
                 is UserInformationViewHolder -> {
-                    holder.initialize("Пупкин Георгий")
+                    holder.initialize("Пупкин Георгий", R.drawable.pic_food_main_stock)
+                    holder.viewArrow.setOnClickListener{
+
+                        rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileN.toString())
+
+                    }
+
+
                 }
                 is UsedDiscountViewHolder -> {
                     holder.initialize("24","Количество использованных мною скидок:")
                 }
                 is ProfileInformationViewHolder -> {
-                    holder.initialize("Мой город","Краснодар")
+                    when (position) {
+                        2 -> {
+                            holder.initialize("Мой город", "Краснодар")
+
+                        }
+
+                        3 -> {
+                            holder.initialize("Мой номер моб. телефона", "+7 (911) 163 81 56")
+                            holder.image.setOnClickListener{
+
+                                rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileP.toString())
+
+                            }
+                        }
+
+                    }
                 }
                 is ServiceInformationViewHolder -> {
                     holder.initialize("О нашем сервисе")
+                    holder.image.setOnClickListener{
+
+                        rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileA.toString())
+
+                    }
                 }
             }
 
@@ -112,7 +145,6 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 }
 
 fun ProfileView.renderUIO() {
-
 
     renderBodyTable()
 

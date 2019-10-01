@@ -1,16 +1,14 @@
-package com.example.ageone.Modules.Profile
+package com.example.ageone.Modules.AboutCompany
 
 import com.example.ageone.Application.utils
 import com.example.ageone.External.Interfaces.InterfaceModel
 import com.example.ageone.External.Interfaces.InterfaceViewModel
 
-class ProfileViewModel : InterfaceViewModel {
-    var model = ProfileModel()
+class AboutCompanyViewModel : InterfaceViewModel {
+    var model = AboutCompanyModel()
 
     enum class EventType {
-        OnlouderProfileN,
-        OnlouderProfileP,
-        OnlouderProfileA
+        OnlouderAboutCompany
 
     }
 
@@ -20,13 +18,13 @@ class ProfileViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is ProfileModel) {
+        if (recievedModel is AboutCompanyModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class ProfileModel : InterfaceModel {
+class AboutCompanyModel : InterfaceModel {
 
 }

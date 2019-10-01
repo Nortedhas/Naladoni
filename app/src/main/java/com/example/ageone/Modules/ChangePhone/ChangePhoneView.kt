@@ -1,27 +1,23 @@
-package com.example.ageone.Modules.Auth
+package com.example.ageone.Modules.ChangePhone
 
-import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
-import com.example.ageone.R
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextInputLayout.InputEditTextType
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.Modules.Auth.rows.InputViewHolderC
-import com.example.ageone.Modules.Auth.rows.RegistrationTextHolder
-import com.example.ageone.Modules.Auth.rows.initialize
+import com.example.ageone.Modules.Auth.AuthRegistrationViewModel
+import com.example.ageone.R
 import com.example.ageone.UIComponents.ViewHolders.ButtonViewHolder
 import com.example.ageone.UIComponents.ViewHolders.InputViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
 
-class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
+class ChangePhoneView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
-    val viewModel = AuthRegistrationViewModel()
-
+    val viewModel = ChangePhoneViewModel()
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -29,35 +25,41 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
     }
 
     init {
-        setBackgroundResource(R.drawable.base_background)
+//        viewModel.loadRealmData()
 
-        toolbar.title = "Авторизация"
+        setBackgroundResource(R.drawable.base_background)//TODO: set background
+
+        toolbar.title = "Номер телефона"
+
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
-        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
-
+//        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
 
         renderUIO()
+        bindUI()
+    }
 
+    fun bindUI() {
+        /*compositeDisposable.add(
+            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
+                bodyTable.adapter?.notifyDataSetChanged()
+            }
+        )*/
     }
 
     inner class Factory(val rootModule: BaseModule): BaseAdapter<BaseViewHolder>() {
 
         private val RegistrationInputType = 0
-        private val RegistrationInputTypeC = 1
-        private val RegistrationButtonType = 2
-      private val RegistrationTextType = 3
+        private val RegistrationButtonType = 1
 
-        override fun getItemCount(): Int = 5
+        override fun getItemCount(): Int = 4
 
         override fun getItemViewType(position: Int):Int = when(position) {
 
             0 -> RegistrationInputType
-            1 -> RegistrationInputTypeC
-            2 -> RegistrationButtonType
-            3 -> RegistrationTextType
+            1 -> RegistrationButtonType
             else -> -1
         }
 
@@ -72,15 +74,11 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
                 RegistrationInputType -> {
                     InputViewHolder(layout)
                 }
-                RegistrationInputTypeC -> {
-                    InputViewHolderC(layout)
-                }
+
                 RegistrationButtonType -> {
                     ButtonViewHolder(layout)
                 }
-                RegistrationTextType -> {
-                 RegistrationTextHolder(layout)
-                }
+
                 else ->
                     BaseViewHolder(layout)
             }
@@ -92,23 +90,17 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
             when(holder) {
                 is InputViewHolder -> {
 
-                            holder.initialize("Введите ваше имя и фамилию:", InputEditTextType.TEXT)
-                            holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
-                                viewModel.model.inputName = text.toString()
-                            }
-
-                    }
-                is InputViewHolderC -> {
-                    holder.initialize("Введите ваш номер телефона:", InputEditTextType.PHONE)
+                    holder.initialize("Введите ваш номер телефона:", InputEditTextType.TEXT)
                     holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
                         viewModel.model.inputPhone = text.toString()
                     }
+
                 }
 
                 is ButtonViewHolder -> {
-                    holder.initialize("Войти в приложение")
+                    holder.initialize("Изменить")
                     holder.button.setOnClickListener {
-//                        if (!viewModel.model.inputPhone.isValidPhone()) {
+                        //                        if (!viewModel.model.inputPhone.isValidPhone()) {
 //                            alertManager.single("Неверный номер", "Введен неверный номер", null) {_,_ ->
 //                            }
 //                        }  else if (viewModel.model.inputName.isBlank()){
@@ -118,16 +110,12 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
 //                            api.request(mapOf(
 //                                "router" to "phoneAuth",
 //                                "phone" to viewModel.model.inputPhone)){
-                               rootModule.emitEvent?.invoke(AuthRegistrationViewModel.EventType.OnRegistrationPressed.toString())
+                        rootModule.emitEvent?.invoke(AuthRegistrationViewModel.EventType.OnRegistrationPressed.toString())
 //                            }
 //
 //                        }
 
                     }
-                }
-
-                is RegistrationTextHolder -> {
-                    holder.initialize()
                 }
             }
         }
@@ -135,8 +123,8 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
     }
 }
 
-fun AuthRegistrationView.renderUIO() {
-      bodyTable
-          .constrainTopToTopOf(innerContent, 130)
+fun ChangePhoneView.renderUIO() {
+    bodyTable
+        .constrainTopToTopOf(innerContent, 130)
     renderBodyTable()
 }

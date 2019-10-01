@@ -1,17 +1,14 @@
-package com.example.ageone.Modules.Profile
+package com.example.ageone.Modules.MainStock
 
 import com.example.ageone.Application.utils
 import com.example.ageone.External.Interfaces.InterfaceModel
 import com.example.ageone.External.Interfaces.InterfaceViewModel
 
-class ProfileViewModel : InterfaceViewModel {
-    var model = ProfileModel()
+class MainStockViewModel : InterfaceViewModel {
+    var model = MainStockModel()
 
     enum class EventType {
-        OnlouderProfileN,
-        OnlouderProfileP,
-        OnlouderProfileA
-
+        OnlouderMainStock
     }
 
     /*var realmData = listOf<>()
@@ -20,13 +17,13 @@ class ProfileViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is ProfileModel) {
+        if (recievedModel is MainStockModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class ProfileModel : InterfaceModel {
+class MainStockModel : InterfaceModel {
 
 }

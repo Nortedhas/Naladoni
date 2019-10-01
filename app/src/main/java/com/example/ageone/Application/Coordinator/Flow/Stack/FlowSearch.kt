@@ -9,6 +9,7 @@ import com.example.ageone.Application.Coordinator.Router.TabBar.Stack
 import com.example.ageone.External.Base.Flow.BaseFlow
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Application.*
+import com.example.ageone.Modules.MainStock.MainStockModel
 import com.example.ageone.R
 import com.example.ageone.Modules.Search.SearchModel
 import com.example.ageone.Modules.Search.SearchViewModel
@@ -48,6 +49,7 @@ class FlowSearch : BaseFlow() {
 
     inner class FlowSearchModels {
         var modelSearch = SearchModel()
+        var modelMainStock = MainStockModel()
     }
 
     fun runModuleSearch() {
@@ -63,10 +65,35 @@ class FlowSearch : BaseFlow() {
         module.emitEvent = { event ->
             when (com.example.ageone.Modules.Search.SearchViewModel.EventType.valueOf(event)) {
                 com.example.ageone.Modules.Search.SearchViewModel.EventType.OnlouderSearch -> {
+//                    runModuleMainStock()
+//                    coordinator.runFlowMainStock()
                 }
 
             }
         }
         push(module)
     }
+//    fun runModuleMainStock() {
+//        val module = com.example.ageone.Modules.MainStock.MainStockView(
+//            InitModuleUI(
+//                isBottomNavigationVisible = false,
+//                isBackPressed = true,
+//                backListener = {
+//                    pop()
+//                }
+//            )
+//        )
+//        module.viewModel.initialize(models.modelMainStock) { module.reload() }
+//
+//        settingsCurrentFlow.isBottomNavigationVisible = false
+//
+//        module.emitEvent = { event ->
+//            when (com.example.ageone.Modules.MainStock.MainStockViewModel.EventType.valueOf(event)) {
+//                com.example.ageone.Modules.MainStock.MainStockViewModel.EventType.OnlouderMainStock -> {
+//                }
+//
+//            }
+//        }
+//        push(module)
+//    }
 }
