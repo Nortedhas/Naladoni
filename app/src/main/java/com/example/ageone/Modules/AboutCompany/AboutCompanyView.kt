@@ -16,8 +16,13 @@ import yummypets.com.stevia.*
 import android.content.Intent
 import android.net.Uri
 import com.example.ageone.Application.api
+import com.example.ageone.Application.copyToClipboard
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.Application.intent
+import android.widget.Toast
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 
 class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -127,8 +132,15 @@ class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 }
 
                 is AboutCompanyEmailViewHolder -> {
-                    holder.initialize()
+                    val mail = "deal@naladoni.com"
+                    holder.initialize(mail)
                     holder.textView.setOnClickListener {
+                        currentActivity?.copyToClipboard(mail)
+                        val toast = Toast.makeText(
+                            currentActivity?.applicationContext,
+                            "Почта скопирована", Toast.LENGTH_SHORT
+                        )
+                        toast.show()
                     }
                 }
 

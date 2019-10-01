@@ -2,6 +2,8 @@ package com.example.ageone.Application
 
 import android.Manifest
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
@@ -112,7 +114,6 @@ class AppActivity: BaseActivity() {
         Timber.i("viewBack")
         router.onBackPressed()
     }
-
 }
 
 fun Activity.hideKeyboard() {
@@ -123,6 +124,12 @@ fun Activity.hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
         imm?.hideSoftInputFromWindow(v.windowToken, 0)
     }
+}
+
+fun Activity.copyToClipboard(text: CharSequence){
+    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    val clip = ClipData.newPlainText("label", text)
+    clipboard.primaryClip = clip
 }
 
 fun AppActivity.setStatusBarColor(color: Int) {

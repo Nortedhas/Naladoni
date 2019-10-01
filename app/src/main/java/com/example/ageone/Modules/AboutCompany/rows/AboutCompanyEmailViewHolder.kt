@@ -43,9 +43,9 @@ fun AboutCompanyEmailViewHolder.renderUI() {
 }
 
 
-fun AboutCompanyEmailViewHolder.initialize() {
+fun AboutCompanyEmailViewHolder.initialize(declaration: String) {
     val text = "или напишите нам на почту: "
-    val declaration = "deal@naladoni.com "
+//    val declaration = "deal@naladoni.com"
 
     val spannableContent = SpannableString(text + declaration)
     spannableContent.setSpan(
