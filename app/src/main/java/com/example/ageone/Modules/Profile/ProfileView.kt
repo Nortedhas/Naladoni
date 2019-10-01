@@ -98,7 +98,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
             when (holder) {
                 is UserInformationViewHolder -> {
-                    holder.initialize("Пупкин Георгий")
+                    holder.initialize("Пупкин Георгий", R.drawable.pic_food_main_stock)
                     holder.viewArrow.setOnClickListener{
 
                         rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileN.toString())
@@ -145,7 +145,6 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 }
 
 fun ProfileView.renderUIO() {
-
 
     renderBodyTable()
 

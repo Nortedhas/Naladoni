@@ -1,4 +1,4 @@
-package com.example.ageone.Modules.List.rows
+package com.example.ageone.UIComponents.ViewHolders
 
 import android.graphics.Color
 import android.graphics.Typeface

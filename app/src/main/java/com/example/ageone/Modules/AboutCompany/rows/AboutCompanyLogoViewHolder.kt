@@ -11,7 +11,7 @@ import com.example.ageone.External.Base.View.BaseView
 import com.example.ageone.R
 import yummypets.com.stevia.*
 
-class AboutCompanyViewHolder(val constraintLayout: ConstraintLayout) :
+class AboutCompanyLogoViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
     val card by lazy {
         val view = BaseView()
@@ -56,7 +56,7 @@ class AboutCompanyViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun AboutCompanyViewHolder.renderUI() {
+fun AboutCompanyLogoViewHolder.renderUI() {
     constraintLayout.subviews(
         card.subviews(
             imageViewLogo,
@@ -86,7 +86,7 @@ fun AboutCompanyViewHolder.renderUI() {
 
 }
 
-fun AboutCompanyViewHolder.initialize(describe: String, logo: String) {
+fun AboutCompanyLogoViewHolder.initialize(describe: String, logo: String) {
     textViewDescribe.text = describe
     textView.text = logo
 }

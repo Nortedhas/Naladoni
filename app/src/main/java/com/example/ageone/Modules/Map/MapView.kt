@@ -11,7 +11,7 @@ import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.Modules.Map.rows.MapDiscountCardsViewHolder
+import com.example.ageone.Modules.Map.rows.MapDiscountCardViewHolder
 import com.example.ageone.Modules.Map.rows.initialize
 import yummypets.com.stevia.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -31,7 +31,8 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         val imageNavigationView = BaseImageView()
         imageNavigationView.initialize()
         imageNavigationView.orientation = GradientDrawable.Orientation.TOP_BOTTOM
-        imageNavigationView.setBackgroundResource(R.drawable.ic_navigationbuttom)
+        imageNavigationView.setBackgroundResource(R.drawable.pic_navigationbuttom)
+        imageNavigationView.elevation = 5F.dp
         imageNavigationView
     }
 
@@ -67,23 +68,23 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         )*/
     }
 
-    inner class Factory(val rootModule: BaseModule) : BaseAdapter<MapDiscountCardsViewHolder>() {
+    inner class Factory(val rootModule: BaseModule) : BaseAdapter<MapDiscountCardViewHolder>() {
 
         override fun getItemCount() = 3
 
         override fun getItemViewType(position: Int): Int = 0
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MapDiscountCardsViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MapDiscountCardViewHolder {
             val layout = ConstraintLayout(parent.context)
 
             layout
                 .width(wrapContent)
                 .height(wrapContent)
 
-            return MapDiscountCardsViewHolder(layout)
+            return MapDiscountCardViewHolder(layout)
         }
 
-        override fun onBindViewHolder(holder: MapDiscountCardsViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: MapDiscountCardViewHolder, position: Int) {
             holder.initialize("Шаверма Mix",
                 "При покупке шавермы big получи 0.5 колы в подарок!", R.drawable.pic_groupfood)
         }

@@ -6,7 +6,6 @@ import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.ageone.R
-import com.example.ageone.Application.utils
 import com.example.ageone.External.Base.Button.BaseButton
 import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
@@ -14,7 +13,7 @@ import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.Base.View.BaseView
 import yummypets.com.stevia.*
 
-class MapDiscountCardsViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
+class MapDiscountCardViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
 
     val back by lazy {
         val view = BaseView()
@@ -72,7 +71,7 @@ class MapDiscountCardsViewHolder(val constraintLayout: ConstraintLayout) : BaseV
 
 }
 
-fun MapDiscountCardsViewHolder.renderUI() {
+fun MapDiscountCardViewHolder.renderUI() {
 
     constraintLayout.subviews(
         back.subviews(
@@ -113,7 +112,7 @@ fun MapDiscountCardsViewHolder.renderUI() {
 
 }
 
-fun MapDiscountCardsViewHolder.initialize(title: String, describe: String,icon: Int) {
+fun MapDiscountCardViewHolder.initialize(title: String, describe: String, icon: Int) {
 
     textViewTitle.text = title
     textViewDescribe.text = describe

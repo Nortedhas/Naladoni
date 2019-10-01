@@ -40,6 +40,6 @@
     </style>
 
     <!-- color borders viewHolder input layout outline-->
-    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#FFF</color>
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#F37E25</color>
 
 </resources>

@@ -6,17 +6,18 @@ import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.Modules.AboutCompany.rows.AboutCompanyViewHolder
-import com.example.ageone.Modules.AboutCompany.rows.TextAboutViewHolder
-import com.example.ageone.Modules.AboutCompany.rows.TextEmailViewHolder
+import com.example.ageone.Modules.AboutCompany.rows.AboutCompanyLogoViewHolder
+import com.example.ageone.Modules.AboutCompany.rows.AboutCompanyTextViewHolder
+import com.example.ageone.Modules.AboutCompany.rows.AboutCompanyEmailViewHolder
 import com.example.ageone.Modules.AboutCompany.rows.initialize
-import com.example.ageone.R
 import com.example.ageone.UIComponents.ViewHolders.ButtonViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
+import android.content.Intent
+import android.net.Uri
+
 
 class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
-
     val viewModel = AboutCompanyViewModel()
 
     val viewAdapter by lazy {
@@ -26,8 +27,7 @@ class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
     init {
 //        viewModel.loadRealmData()
-
-        setBackgroundResource(R.drawable.base_background)//TODO: set background
+        setBackgroundResource(com.example.ageone.R.drawable.base_background)//TODO: set background
 
         toolbar.title = "О сервисе"
 
@@ -48,9 +48,7 @@ class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
             }
         )*/
     }
-
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
-
         private val AboutCompanyvType = 0
         private val AboutTextType = 1
         private val AboutTextButtonType = 2
@@ -65,7 +63,6 @@ class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
             4 -> AboutTextEmailType
             else -> -1
         }
-
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
 
             val layout = ConstraintLayout(parent.context)
@@ -76,16 +73,16 @@ class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
             val holder = when (viewType) {
                 AboutCompanyvType -> {
-                    AboutCompanyViewHolder(layout)
+                    AboutCompanyLogoViewHolder(layout)
                 }
                 AboutTextType -> {
-                    TextAboutViewHolder(layout)
+                    AboutCompanyTextViewHolder(layout)
                 }
                 AboutTextButtonType -> {
                     ButtonViewHolder(layout)
                 }
                 AboutTextEmailType -> {
-                    TextEmailViewHolder(layout)
+                    AboutCompanyEmailViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -98,11 +95,11 @@ class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-                is AboutCompanyViewHolder -> {
+                is AboutCompanyLogoViewHolder -> {
                     holder.initialize("Все акции твоего города ","NALADONI")
                 }
 
-                is TextAboutViewHolder -> {
+                is AboutCompanyTextViewHolder -> {
                     when (position) {
                         1 -> {
                             holder.initialize("Значимость этих проблем настолько очевидна, что консультация " +
@@ -120,10 +117,16 @@ class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
                 is ButtonViewHolder -> {
                     holder.initialize("Позвонить в компанию")
+                    holder.button.setOnClickListener{
+                       var  intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "1122334455"))
+//                        startActivity(intent)
+                    }
                 }
 
-                is TextEmailViewHolder -> {
+                is AboutCompanyEmailViewHolder -> {
                     holder.initialize()
+                    holder.textView.setOnClickListener {
+                    }
                 }
 
                 }
@@ -138,7 +141,7 @@ fun AboutCompanyView.renderUIO() {
     renderBodyTable()
 
     bodyTable
-        .constrainTopToTopOf(innerContent,54)
+        .constrainTopToTopOf(innerContent, 54)
 }
 
 

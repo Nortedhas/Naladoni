@@ -10,11 +10,11 @@ import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextView.BaseTextView
-import com.example.ageone.Modules.Auth.rows.RegistrationTextHolder
 import yummypets.com.stevia.*
 
-class TextEmailViewHolder(val constraintLayout: ConstraintLayout) :
+class AboutCompanyEmailViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
+
     val textView by lazy {
         val textViewLogin = BaseTextView()
         textViewLogin.textColor = Color.rgb(0x8A,0x8A,0x8F)
@@ -31,7 +31,7 @@ class TextEmailViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun TextEmailViewHolder.renderUI() {
+fun AboutCompanyEmailViewHolder.renderUI() {
 
     constraintLayout.subviews(
         textView
@@ -42,7 +42,8 @@ fun TextEmailViewHolder.renderUI() {
         .fillHorizontally(20)
 }
 
-fun TextEmailViewHolder.initialize() {
+
+fun AboutCompanyEmailViewHolder.initialize() {
     val text = "или напишите нам на почту: "
     val declaration = "deal@naladoni.com "
 
@@ -56,4 +57,5 @@ fun TextEmailViewHolder.initialize() {
         text.length,  text.length + declaration.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
 
     textView.text = spannableContent
+
 }

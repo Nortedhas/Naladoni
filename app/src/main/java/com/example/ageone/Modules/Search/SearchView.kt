@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ageone.R
 import com.example.ageone.Application.currentActivity
@@ -12,10 +13,11 @@ import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.View.BaseView
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.Modules.List.rows.initialize
-import com.example.ageone.Modules.List.rows.СardViewHolder
+import com.example.ageone.UIComponents.ViewHolders.initialize
+import com.example.ageone.UIComponents.ViewHolders.СardViewHolder
 import yummypets.com.stevia.*
 import com.example.ageone.External.Base.SearchView.BaseSearchView
+import com.example.ageone.Modules.Profile.ProfileViewModel
 
 
 class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -40,7 +42,11 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         searchView.initialize()
         searchView
     }
-
+//    val image by lazy {
+//        val image = BaseImageView()
+//        image.setBackgroundResource(R.drawable.pic_top_image)
+//        image
+//    }
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
@@ -109,8 +115,12 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                 is СardViewHolder -> {
                     holder.initialize(
                         "Скидка 500 при покупке от 2500",
-                        "Nike", "до 12.08.2019", R.drawable.pic_washing
-                    )
+                        "Nike", "до 12.08.2019", R.drawable.pic_washing)
+                    holder.viewCard.setOnClickListener{
+
+                        rootModule.emitEvent?.invoke(SearchViewModel.EventType.OnlouderSearch.toString())
+
+                    }
                 }
 
             }
@@ -128,7 +138,6 @@ fun SearchView.renderUIO() {
             searchView
         )
     )
-
     card
         .constrainTopToBottomOf(toolbar, 5)
         .constrainRightToRightOf(innerContent)
@@ -137,7 +146,7 @@ fun SearchView.renderUIO() {
     renderBodyTable()
 
     bodyTable
-        .constrainTopToBottomOf(card, 37)
+        .constrainTopToBottomOf(card,3)
 }
 
 

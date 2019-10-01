@@ -2,13 +2,12 @@ package com.example.ageone.Modules.AboutCompany.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
-import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextView.BaseTextView
 import yummypets.com.stevia.*
 
-class TextAboutViewHolder(val constraintLayout: ConstraintLayout) :
+class AboutCompanyTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
     val textView by lazy {
         val textView = BaseTextView()
@@ -35,7 +34,7 @@ class TextAboutViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun TextAboutViewHolder.renderUI() {
+fun AboutCompanyTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textView,
         textViewDescribe
@@ -54,7 +53,7 @@ fun TextAboutViewHolder.renderUI() {
 
 }
 
-fun TextAboutViewHolder.initialize(describe: String, title: String) {
+fun AboutCompanyTextViewHolder.initialize(describe: String, title: String) {
     textViewDescribe.text = describe
     textView.text = title
 
