@@ -4,12 +4,14 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ageone.R
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
+import com.example.ageone.External.Base.RecyclerView.ColumnEqualsPaddingItemDecoration
 import com.example.ageone.External.Base.View.BaseView
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.UIComponents.ViewHolders.initialize
@@ -139,10 +141,21 @@ fun SearchView.renderUIO() {
         .constrainRightToRightOf(innerContent)
         .constrainLeftToLeftOf(innerContent)
 
-    renderBodyTable()
+    innerContent.subviews(
+        bodyTable
+    )
 
     bodyTable
-        .constrainTopToBottomOf(card,3)
+        .fillHorizontally(0)
+        .fillVertically()
+        .constrainTopToBottomOf(card,8)
+        .updatePadding(bottom = 24.dp)
+
+    bodyTable
+        .clipToPadding = false
+
+
+    bodyTable.addItemDecoration(ColumnEqualsPaddingItemDecoration(8.dp, 2))
 }
 
 

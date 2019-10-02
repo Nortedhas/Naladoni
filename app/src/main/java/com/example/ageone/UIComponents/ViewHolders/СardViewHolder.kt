@@ -99,8 +99,7 @@ fun СardViewHolder.renderUI() {
 
     textViewDescribe
         .constrainTopToBottomOf(imageViewLogo,16)
-        .constrainRightToRightOf(viewCard,4)
-        .constrainLeftToLeftOf(viewCard,8)
+        .fillHorizontally(8)
 
     textViewLogo
         .fillHorizontally(8)

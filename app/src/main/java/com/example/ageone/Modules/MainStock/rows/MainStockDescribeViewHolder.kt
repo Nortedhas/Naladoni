@@ -8,6 +8,7 @@ import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.Base.View.BaseView
+import com.example.ageone.R
 import yummypets.com.stevia.*
 
 class MainStockDescribeViewHolder(val constraintLayout: ConstraintLayout) :
@@ -24,9 +25,10 @@ class MainStockDescribeViewHolder(val constraintLayout: ConstraintLayout) :
         val imageView = BaseImageView()
         imageView
     }
-    val imageBoxView by lazy {
-        val imageView = BaseImageView()
+    val BoxView by lazy {
+        val imageView = BaseView()
         imageView.backgroundColor = Color.WHITE
+        imageView.initialize()
         imageView
     }
 
@@ -72,7 +74,7 @@ class MainStockDescribeViewHolder(val constraintLayout: ConstraintLayout) :
 
 fun MainStockDescribeViewHolder.renderUI() {
     constraintLayout.subviews(
-        imageBoxView,
+        BoxView,
         view.subviews(
             textViewLogo,
             textViewDescribe,
@@ -88,32 +90,38 @@ fun MainStockDescribeViewHolder.renderUI() {
         .constrainRightToRightOf(constraintLayout)
         .constrainCenterYToTopOf(view)
 
+    BoxView
+        .height(60)
+        .fillHorizontally()
+        .constrainCenterYToBottomOf( view)
+
     view
         .height(120)
         .fillHorizontally()
         .constrainBottomToBottomOf(constraintLayout)
 
     textViewLogo
-        .constrainTopToTopOf(view,44)
+        .constrainTopToTopOf(view, 44)
         .fillHorizontally()
 
     textViewTitle
-        .constrainTopToTopOf(view,68)
+        .constrainTopToTopOf(view, 68)
         .fillHorizontally(90)
 
     textViewDescribe
-        .constrainTopToBottomOf(textViewTitle,3)
+        .constrainTopToBottomOf(textViewTitle, 3)
         .fillHorizontally(10)
 
-    imageBoxView
-        .height(60)
-        .constrainCenterYToBottomOf(view)
-        .fillHorizontally()
 }
 
-fun MainStockDescribeViewHolder.initialize(text:String,describe:String,textlogo:String, logo:Int) {
+fun MainStockDescribeViewHolder.initialize(
+    text: String,
+    describe: String,
+    textlogo: String,
+    logo: Int
+) {
     textViewLogo.text = textlogo
-    textViewTitle.text= text
+    textViewTitle.text = text
     textViewDescribe.text = describe
     imageIconView.setBackgroundResource(logo)
 

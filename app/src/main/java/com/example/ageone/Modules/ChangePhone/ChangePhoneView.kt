@@ -100,20 +100,7 @@ class ChangePhoneView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
                 is ButtonViewHolder -> {
                     holder.initialize("Изменить")
                     holder.button.setOnClickListener {
-                        //                        if (!viewModel.model.inputPhone.isValidPhone()) {
-//                            alertManager.single("Неверный номер", "Введен неверный номер", null) {_,_ ->
-//                            }
-//                        }  else if (viewModel.model.inputName.isBlank()){
-//                            alertManager.single("Неверное имя", "Имя не введено", null) {_,_ ->
-//                            }
-//                        } else {
-//                            api.request(mapOf(
-//                                "router" to "phoneAuth",
-//                                "phone" to viewModel.model.inputPhone)){
-                        rootModule.emitEvent?.invoke(AuthRegistrationViewModel.EventType.OnRegistrationPressed.toString())
-//                            }
-//
-//                        }
+                        rootModule.emitEvent?.invoke(ChangePhoneViewModel.EventType.OnlouderChangePhone.toString())
 
                     }
                 }

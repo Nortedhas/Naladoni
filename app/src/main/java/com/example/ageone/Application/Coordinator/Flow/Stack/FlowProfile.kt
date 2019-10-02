@@ -5,6 +5,7 @@ import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipp
 import com.example.ageone.Application.Coordinator.Router.DataFlow
 import com.example.ageone.Application.Coordinator.Router.TabBar.Stack
 import com.example.ageone.Application.api
+import com.example.ageone.Application.coordinator
 import com.example.ageone.R
 import com.example.ageone.Application.router
 import com.example.ageone.External.Base.Flow.BaseFlow
@@ -27,6 +28,7 @@ import com.example.ageone.Modules.Navigation.NavigationViewModel
 
 import com.example.ageone.Modules.Profile.ProfileModel
 import com.example.ageone.Modules.Profile.ProfileView
+import com.example.ageone.Modules.Profile.ProfileViewModel
 import io.realm.Realm
 
 fun FlowCoordinator.runFlowProfile() {
@@ -74,7 +76,12 @@ class FlowProfile : BaseFlow() {
             InitModuleUI(
                 isBottomNavigationVisible = true,
                 exitListener = {
-                    router.onBackPressed()
+                    user.isAuthorized = false
+                    api.cashTime = 0
+                    Realm.getDefaultInstance().executeTransaction { realm ->
+                        realm.deleteAll()
+                    }
+                    coordinator.start()
                 }
             )
         )
@@ -84,19 +91,19 @@ class FlowProfile : BaseFlow() {
         settingsCurrentFlow.isBottomNavigationVisible = true
 
         module.emitEvent = { event ->
-            when (com.example.ageone.Modules.Profile.ProfileViewModel.EventType.valueOf(event)) {
-                com.example.ageone.Modules.Profile.ProfileViewModel.EventType.OnlouderProfileN -> {
+            when (ProfileViewModel.EventType.valueOf(event)) {
+                ProfileViewModel.EventType.OnlouderProfileN -> {
 
                     runModuleChangeName()
 
                 }
 
-                com.example.ageone.Modules.Profile.ProfileViewModel.EventType.OnlouderProfileP -> {
+                ProfileViewModel.EventType.OnlouderProfileP -> {
 
                     runModuleChangePhone()
                 }
 
-                com.example.ageone.Modules.Profile.ProfileViewModel.EventType.OnlouderProfileA -> {
+                ProfileViewModel.EventType.OnlouderProfileA -> {
 //                    runModuleNavigation()
                     runModuleAboutCompany()
 
