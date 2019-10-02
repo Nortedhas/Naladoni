@@ -1,8 +1,9 @@
-package com.example.ageone.Application.Coordinator.Flow
+package com.example.ageone.Application.Coordinator.Flow.Regular
 
 
 import androidx.core.view.size
 import com.example.ageone.Application.*
+import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.example.ageone.Application.Coordinator.Router.DataFlow
 import com.example.ageone.External.Base.Flow.BaseFlow
@@ -17,7 +18,8 @@ import com.example.ageone.R
 
 fun FlowCoordinator.runFlowMainStock() {
 
-    var flow: FlowMainStock? = FlowMainStock()
+    var flow: FlowMainStock? =
+        FlowMainStock()
 
     flow?.let{ flow ->
 
@@ -56,13 +58,14 @@ class FlowMainStock : BaseFlow() {
         val module = MainStockView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
-                exitListener = {
-                    router.onBackPressed()
-                },
-                exitIcon = R.drawable.ic_send_activity,
-                backListener = {
-                    pop()
-                }
+
+                exitListener = {},
+
+                exitIcon = R.drawable.ic_share,
+
+                isBackPressed = true,
+
+                backListener = { router.onBackPressed() }
             )
         )
 
@@ -83,9 +86,8 @@ class FlowMainStock : BaseFlow() {
         val module = NavigationView(InitModuleUI(
             isBottomNavigationVisible = false,
             isBackPressed = true,
-            backListener = {
-                pop()
-            }
+            backListener = { pop() }
+
         ))
         module.viewModel.initialize(models.modelNavigation) { module.reload() }
 

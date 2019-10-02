@@ -23,8 +23,9 @@ class UserInformationViewHolder(val constraintLayout: ConstraintLayout) :
 
 
     val imagePhoto by lazy {
-        val view = BaseImageView()
-        view
+        val imageView = BaseImageView()
+        imageView.elevation = 3F.dp
+        imageView
     }
 
     val viewArrow by lazy {

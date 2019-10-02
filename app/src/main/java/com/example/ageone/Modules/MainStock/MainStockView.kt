@@ -1,26 +1,29 @@
 package com.example.ageone.Modules.MainStock
 
 import android.graphics.Color
+import android.graphics.Shader
+import android.graphics.drawable.GradientDrawable
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.Modules.Auth.AuthRegistrationViewModel
 import com.example.ageone.Modules.MainStock.rows.MainStockDescribeViewHolder
 import com.example.ageone.Modules.MainStock.rows.MainStockTextViewHolder
 import com.example.ageone.Modules.MainStock.rows.MainStockQRCodViewHolder
 import com.example.ageone.Modules.MainStock.rows.initialize
-import com.example.ageone.R
 import com.example.ageone.UIComponents.ViewHolders.ButtonViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
+import android.graphics.drawable.BitmapDrawable
+
+
 
 class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
     val viewModel = MainStockViewModel()
-
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
@@ -28,11 +31,11 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
 
     init {
 //        viewModel.loadRealmData()
+        setBackgroundResource(com.example.ageone.R.drawable.pic_main_stock_top)
+        Shader.TileMode.REPEAT
 
-        setBackgroundResource(R.drawable.base_background)//TODO: set background
-
+       // setBackgroundResource(com.example.ageone.R.drawable.bmp)//TODO: set background
         toolbar.title = ""
-
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
@@ -105,7 +108,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                         "Время работы: ",
                         "пн-пт: 10:00 до 18:00. сб-вс: 09:00 до 16:00",
                         "Вкусная шаверма",
-                        R.drawable.pic_food_main_stock
+                        com.example.ageone.R.drawable.pic_food_main_stock
                     )
                 }
                 is MainStockTextViewHolder -> {
@@ -132,7 +135,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                     holder.constraintLayout.backgroundColor = Color.WHITE
                     holder.initialize("Как добраться?")
                     holder.button.constrainTopToTopOf(innerContent, 5)
-                    holder.button.setOnClickListener{
+                    holder.button.setOnClickListener {
                         rootModule.emitEvent?.invoke(MainStockViewModel.EventType.OnlouderMainStock.toString())
                     }
                 }
@@ -141,7 +144,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                     holder.constraintLayout.backgroundColor = Color.WHITE
                     holder.initialize(
                         "Получай выгоду!", "Количество воспользовавшихся предложением:",
-                        "146", R.drawable.pic_qarcod, "145 678 345"
+                        "146", com.example.ageone.R.drawable.pic_qarcod, "145 678 345"
                     )
                 }
 
