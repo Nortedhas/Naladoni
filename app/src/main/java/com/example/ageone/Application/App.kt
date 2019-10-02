@@ -13,6 +13,7 @@ import com.example.ageone.Internal.Utilities.Utils
 import com.example.ageone.Models.RxData
 import com.example.ageone.Network.Socket.WebSocket
 import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
+import com.google.android.gms.maps.MapView
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.vk.api.sdk.VK
@@ -34,6 +35,12 @@ var intent = Intent()
 
 val currentActivity: BaseActivity?
     get() = App.instance?.mFTActivityLifecycleCallbacks?.currentActivity as BaseActivity
+
+val mapView by lazy {
+    val mapView = com.google.android.gms.maps.MapView(currentActivity)
+    mapView
+}
+
 
 class App: Application()  {
 

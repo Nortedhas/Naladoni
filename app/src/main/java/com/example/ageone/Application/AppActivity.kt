@@ -18,6 +18,7 @@ import com.example.ageone.Models.VKUser
 import com.example.ageone.R
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.gms.maps.MapView
 import com.swarmnyc.promisekt.Promise
 import com.vk.api.sdk.requests.VKRequest
 import com.vk.api.sdk.utils.VKUtils
@@ -28,7 +29,6 @@ import timber.log.Timber
 class AppActivity: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         //only vertical mode
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
@@ -36,6 +36,7 @@ class AppActivity: BaseActivity() {
         setTheme(R.style.AppTheme)
 
         super.onCreate(savedInstanceState)
+        mapView?.onCreate(savedInstanceState)
 
         //fullscreen flags
         window.decorView.systemUiVisibility =
@@ -114,6 +115,26 @@ class AppActivity: BaseActivity() {
         Timber.i("viewBack")
         router.onBackPressed()
     }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView?.onLowMemory()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mapView?.onStop()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView?.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView?.onDestroy()
+    }
 }
 
 fun Activity.hideKeyboard() {
@@ -134,23 +155,6 @@ fun Activity.copyToClipboard(text: CharSequence){
 
 fun AppActivity.setStatusBarColor(color: Int) {
     window.statusBarColor = color
-}
-
-class VKUsersRequest: VKRequest<VKUser> {
-    constructor(): super("account.getProfileInfo") {
-        addParam("access_token", utils.variable.vkSdkTokenUser)
-    }
-
-    override fun parse(r: JSONObject): VKUser {
-        var result = VKUser()
-        try {
-             result = VKUser.parse(r.getJSONObject("response"))
-        }
-        catch (e: Exception) {
-            Timber.e("Error parsing VK user: $e")
-        }
-        return result
-    }
 }
 
 // Storage Permissions

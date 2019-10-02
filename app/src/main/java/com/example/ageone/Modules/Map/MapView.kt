@@ -1,33 +1,30 @@
 package com.example.ageone.Modules.Map
 
 import android.graphics.drawable.GradientDrawable
+import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.ageone.R
 import com.example.ageone.Application.currentActivity
+import com.example.ageone.Application.mapView
 import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.Map.rows.MapDiscountCardViewHolder
 import com.example.ageone.Modules.Map.rows.initialize
-import yummypets.com.stevia.*
+import com.example.ageone.R
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import android.os.Bundle
-import timber.log.Timber
+import com.google.android.gms.maps.MapsInitializer
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import timber.log.Timber
+import yummypets.com.stevia.*
 
-
-
-
-val MAPVIEW_BUNDLE_KEY = "MapViewBundleKey"
-class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI),
-    OnMapReadyCallback {
+class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
 
     val viewModel = MapViewModel()
 
@@ -40,17 +37,40 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         imageNavigationView
     }
 
-    val mapView by lazy {
-       val mapView = com.google.android.gms.maps.MapView(currentActivity)
-        mapView
-    }
+    val position = LatLng(-33.920455, 18.466941)
 
     init {
 //        viewModel.loadRealmData()
 
         var mapViewBundle: Bundle? = null
-        mapView.onCreate(mapViewBundle)
-        mapView.getMapAsync(this)
+
+        Timber.i("Start init map")
+        mapView?.onCreate(mapViewBundle)
+        mapView.getMapAsync{ map ->
+            Timber.i("Map ready!")
+            /*googleMap.setMinZoomPreference(12F)*/
+            MapsInitializer.initialize(currentActivity?.applicationContext)
+            /*val sydney = LatLng(-33.852, 151.211)
+            map.addMarker(
+                MarkerOptions().position(sydney)
+                    .title("Marker in Sydney")
+            )
+            map.moveCamera(CameraUpdateFactory.newLatLng(sydney))*/
+            with(map) {
+                moveCamera(CameraUpdateFactory.newLatLngZoom(position, 13f))
+                addMarker(MarkerOptions().position(position))
+                mapType = GoogleMap.MAP_TYPE_NORMAL
+                setOnMapClickListener {
+                    Toast.makeText(currentActivity, "Clicked on map", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        /*mapView = com.google.android.gms.maps.MapView(currentActivity).apply {
+
+        }*/
+
+//        Timber.i("Map is $mapView")
 
         setBackgroundResource(R.drawable.base_background)
         toolbar.title = "Карта подарков"
@@ -94,32 +114,25 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         }
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
-        Timber.i("Map ready!")
-        /*googleMap.setMinZoomPreference(12F)*/
-        val sydney = LatLng(-33.852, 151.211)
-        googleMap.addMarker(
-            MarkerOptions().position(sydney)
-                .title("Marker in Sydney")
-        )
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-    }
 }
 
 
 fun MapView.renderUIO() {
 
-    innerContent.subviews(
-        mapView,
-        bodyTable,
-        imageNavigationView
+    mapView?.let { mapView ->
 
+        Timber.i("Map is $mapView")
+        innerContent.subviews(
+            mapView,
+            bodyTable,
+            imageNavigationView
+        )
 
-    )
+        mapView
+            .fillHorizontally()
+            .fillVertically()
+    }
 
-    mapView
-        .fillHorizontally()
-        .fillVertically()
 
 
     bodyTable
