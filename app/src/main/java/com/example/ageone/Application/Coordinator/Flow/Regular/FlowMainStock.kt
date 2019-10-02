@@ -68,7 +68,7 @@ class FlowMainStock(previousFlow: BaseFlow? = null) : BaseFlow() {
 
                 isBackPressed = true,
 
-                backListener = { router.onBackPressed() }
+                backListener = { this}
             )
         )
 

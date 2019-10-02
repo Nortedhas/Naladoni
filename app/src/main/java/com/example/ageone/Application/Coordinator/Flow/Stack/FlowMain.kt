@@ -3,8 +3,10 @@ package com.example.ageone.Application.Coordinator.Flow.Stack
 import androidx.core.view.size
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
+import com.example.ageone.Application.Coordinator.Flow.Regular.runFlowFilter
 import com.example.ageone.Application.Coordinator.Router.DataFlow
 import com.example.ageone.Application.Coordinator.Router.TabBar.Stack.flows
+import com.example.ageone.Application.coordinator
 import com.example.ageone.External.Base.Flow.BaseFlow
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.Map.MapModel
@@ -50,7 +52,7 @@ class FlowMain: BaseFlow() {
             InitModuleUI(
                 isBottomNavigationVisible = true,
                 exitListener = {
-                    runModuleMap()
+                    coordinator.runFlowFilter()
                 },
                 exitIcon = R.drawable.pic_filter
             )

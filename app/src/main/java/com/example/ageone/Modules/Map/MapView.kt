@@ -28,6 +28,13 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
 
     val viewModel = MapViewModel()
 
+    val imagefringeView by lazy {
+        val imageView = BaseImageView()
+        imageView.initialize()
+        imageView.orientation = GradientDrawable.Orientation.BOTTOM_TOP
+        imageView.setBackgroundResource(R.drawable.pic_map_top_image)
+        imageView
+    }
     val imageNavigationView by lazy {
         val imageNavigationView = BaseImageView()
         imageNavigationView.initialize()
@@ -111,7 +118,8 @@ fun MapView.renderUIO() {
         innerContent.subviews(
             mapView,
             bodyTable,
-            imageNavigationView
+            imageNavigationView,
+            imagefringeView
         )
 
         mapView
@@ -129,6 +137,11 @@ fun MapView.renderUIO() {
         .constrainBottomToTopOf(bodyTable, 16)
         .height(24.dp)
         .width(24.dp)
+
+    imagefringeView
+        .constrainTopToTopOf(toolbar)
+        .height(20)
+        .fillHorizontally()
 
 //    renderBodyTable()
 }

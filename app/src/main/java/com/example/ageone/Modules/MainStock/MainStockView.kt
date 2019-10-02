@@ -1,11 +1,8 @@
 package com.example.ageone.Modules.MainStock
 
 import android.graphics.Color
-import android.graphics.Shader
-import android.graphics.drawable.GradientDrawable
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
@@ -17,8 +14,7 @@ import com.example.ageone.Modules.MainStock.rows.initialize
 import com.example.ageone.UIComponents.ViewHolders.ButtonViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
-import android.graphics.drawable.BitmapDrawable
-
+import com.example.ageone.R
 
 
 class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -31,10 +27,8 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
 
     init {
 //        viewModel.loadRealmData()
-        setBackgroundResource(com.example.ageone.R.drawable.pic_main_stock_top)
-        Shader.TileMode.REPEAT
 
-       // setBackgroundResource(com.example.ageone.R.drawable.bmp)//TODO: set background
+        setBackgroundResource(R.drawable.pic_main_stock_top)//TODO: set background
         toolbar.title = ""
         renderToolbar()
 

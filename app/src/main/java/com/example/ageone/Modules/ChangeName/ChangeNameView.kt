@@ -97,7 +97,6 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                 is ButtonViewHolder -> {
                     holder.initialize("Изменить")
                     holder.button.setOnClickListener {
-                        rootModule.emitEvent?.invoke(AuthRegistrationViewModel.EventType.OnRegistrationPressed.toString())
 
                     }
                 }

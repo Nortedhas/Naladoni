@@ -105,11 +105,11 @@ fun MainStockDescribeViewHolder.renderUI() {
         .fillHorizontally()
 
     textViewTitle
-        .constrainTopToTopOf(view, 68)
+        .constrainTopToBottomOf(textViewLogo, 8)
         .fillHorizontally(90)
 
     textViewDescribe
-        .constrainTopToBottomOf(textViewTitle, 3)
+        .constrainTopToBottomOf(textViewTitle)
         .fillHorizontally(10)
 
 }

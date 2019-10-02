@@ -1,4 +1,4 @@
-package com.example.ageone.Modules.ChangePhone
+package com.example.ageone.Modules.ChangeCity
 
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -14,9 +14,10 @@ import com.example.ageone.UIComponents.ViewHolders.InputViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
 
-class ChangePhoneView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
+class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
-    val viewModel = ChangePhoneViewModel()
+    val viewModel = ChangeCityViewModel()
+
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -28,7 +29,7 @@ class ChangePhoneView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
 
         setBackgroundResource(R.drawable.base_background)//TODO: set background
 
-        toolbar.title = "Номер телефона"
+        toolbar.title = "Город"
 
         renderToolbar()
 
@@ -48,14 +49,14 @@ class ChangePhoneView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
         )*/
     }
 
-    inner class Factory(val rootModule: BaseModule): BaseAdapter<BaseViewHolder>() {
+    inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
         private val RegistrationInputType = 0
         private val RegistrationButtonType = 1
 
         override fun getItemCount(): Int = 4
 
-        override fun getItemViewType(position: Int):Int = when(position) {
+        override fun getItemViewType(position: Int): Int = when (position) {
 
             0 -> RegistrationInputType
             1 -> RegistrationButtonType
@@ -69,15 +70,13 @@ class ChangePhoneView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
                 .width(matchParent)
                 .height(wrapContent)
 
-            val holder = when(viewType) {
+            val holder = when (viewType) {
                 RegistrationInputType -> {
                     InputViewHolder(layout)
                 }
-
                 RegistrationButtonType -> {
                     ButtonViewHolder(layout)
                 }
-
                 else ->
                     BaseViewHolder(layout)
             }
@@ -86,20 +85,18 @@ class ChangePhoneView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-            when(holder) {
+            when (holder) {
                 is InputViewHolder -> {
 
-                    holder.initialize("Введите ваш номер телефона:", InputEditTextType.TEXT)
+                    holder.initialize("Введите ваш город:", InputEditTextType.TEXT)
                     holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
-                        viewModel.model.inputPhone = text.toString()
+                        viewModel.model.inputCity = text.toString()
                     }
-
                 }
 
                 is ButtonViewHolder -> {
                     holder.initialize("Изменить")
                     holder.button.setOnClickListener {
-                        rootModule.emitEvent?.invoke(ChangePhoneViewModel.EventType.OnlouderChangePhone.toString())
 
                     }
                 }
@@ -109,7 +106,7 @@ class ChangePhoneView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
     }
 }
 
-fun ChangePhoneView.renderUIO() {
+fun ChangeCityView.renderUIO() {
     bodyTable
         .constrainTopToTopOf(innerContent, 130)
     renderBodyTable()

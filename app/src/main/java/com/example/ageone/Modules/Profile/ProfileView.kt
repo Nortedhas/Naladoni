@@ -114,6 +114,11 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                     when (position) {
                         2 -> {
                             holder.initialize("Мой город", "Краснодар")
+                            holder.image.setOnClickListener{
+
+                                rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileC.toString())
+
+                            }
 
                         }
 

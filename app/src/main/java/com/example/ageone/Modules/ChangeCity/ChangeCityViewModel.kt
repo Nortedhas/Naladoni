@@ -1,18 +1,14 @@
-package com.example.ageone.Modules.Profile
+package com.example.ageone.Modules.ChangeCity
 
 import com.example.ageone.Application.utils
 import com.example.ageone.External.Interfaces.InterfaceModel
 import com.example.ageone.External.Interfaces.InterfaceViewModel
 
-class ProfileViewModel : InterfaceViewModel {
-    var model = ProfileModel()
+class ChangeCityViewModel : InterfaceViewModel {
+    var model = ChangeCityModel()
 
     enum class EventType {
-        OnlouderProfileN,
-        OnlouderProfileP,
-        OnlouderProfileA,
-        OnlouderProfileC
-
+        OnlouderChangeCity
     }
 
     /*var realmData = listOf<>()
@@ -21,13 +17,13 @@ class ProfileViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is ProfileModel) {
+        if (recievedModel is ChangeCityModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class ProfileModel : InterfaceModel {
-
+class ChangeCityModel : InterfaceModel {
+    var inputCity = ""
 }

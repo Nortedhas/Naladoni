@@ -79,7 +79,6 @@ fun MainStockQRCodViewHolder.renderUI() {
 
     textNumber
         .constrainTopToBottomOf(imageQRCod)
-        .constrainBottomToBottomOf(constraintLayout,15)
         .fillHorizontally()
 }
 
