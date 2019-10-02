@@ -16,10 +16,9 @@ import com.example.ageone.Modules.Navigation.NavigationView
 import com.example.ageone.Modules.Navigation.NavigationViewModel
 import com.example.ageone.R
 
-fun FlowCoordinator.runFlowMainStock() {
+fun FlowCoordinator.runFlowMainStock(previousFlow: BaseFlow) {
 
-    var flow: FlowMainStock? =
-        FlowMainStock()
+    var flow: FlowMainStock? = FlowMainStock(previousFlow)
 
     flow?.let{ flow ->
 
@@ -40,9 +39,13 @@ fun FlowCoordinator.runFlowMainStock() {
 
 }
 
-class FlowMainStock : BaseFlow() {
+class FlowMainStock(previousFlow: BaseFlow? = null) : BaseFlow() {
 
     private var models = FlowMainStockModels()
+
+    init {
+        this.previousFlow = previousFlow
+    }
 
     override fun start() {
         onStarted()
