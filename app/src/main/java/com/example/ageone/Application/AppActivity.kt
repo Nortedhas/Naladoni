@@ -7,26 +7,29 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.ageone.External.Base.Activity.BaseActivity
 import com.example.ageone.Models.User.user
-import com.example.ageone.Models.VKUser
 import com.example.ageone.R
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
-import com.google.android.gms.maps.MapView
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.swarmnyc.promisekt.Promise
-import com.vk.api.sdk.requests.VKRequest
 import com.vk.api.sdk.utils.VKUtils
-import org.json.JSONObject
 import timber.log.Timber
 
 
+var currentLocation: Location? = null
 class AppActivity: BaseActivity() {
+    private var fusedLocationProviderClient: FusedLocationProviderClient? = null
+    private val LOCATION_REQUEST_CODE = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //only vertical mode
@@ -48,6 +51,18 @@ class AppActivity: BaseActivity() {
 //        FuelManager.instance.basePath = DataBase.url
 
         verifyStoragePermissions(this)
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,  arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_REQUEST_CODE)
+
+        }
+        fetchLastLocation()
+
+
         val fingerprints = VKUtils.getCertificateFingerprint(this, this.packageName)
         Timber.i("PACKAGE: ${fingerprints?.toList()}")
 
@@ -118,23 +133,57 @@ class AppActivity: BaseActivity() {
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mapView?.onLowMemory()
+        mapView.onLowMemory()
     }
 
     override fun onStop() {
         super.onStop()
-        mapView?.onStop()
+        mapView.onStop()
     }
 
     override fun onResume() {
         super.onResume()
-        mapView?.onResume()
+        mapView.onResume()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mapView?.onDestroy()
+        mapView.onDestroy()
     }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResult: IntArray
+    ) {
+        when (requestCode) {
+            LOCATION_REQUEST_CODE -> if (grantResult.isNotEmpty() && grantResult[0] == PackageManager.PERMISSION_GRANTED) {
+                fetchLastLocation()
+            } else {
+                Toast.makeText(this, "Location permission missing", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
+
+    fun fetchLastLocation(){
+        val task = fusedLocationProviderClient?.lastLocation
+
+        task?.addOnSuccessListener{ location ->
+            if (location != null) {
+                currentLocation = location
+                Toast.makeText(
+                    this,
+                    "${currentLocation?.latitude} ${currentLocation?.longitude}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(this, "No Location recorded", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
 }
 
 fun Activity.hideKeyboard() {

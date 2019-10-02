@@ -1,13 +1,12 @@
 package com.example.ageone.Modules.Map
 
 import android.graphics.drawable.GradientDrawable
-import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ageone.Application.currentActivity
+import com.example.ageone.Application.currentLocation
 import com.example.ageone.Application.mapView
 import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.Module.BaseModule
@@ -17,12 +16,11 @@ import com.example.ageone.Modules.Map.rows.MapDiscountCardViewHolder
 import com.example.ageone.Modules.Map.rows.initialize
 import com.example.ageone.R
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import timber.log.Timber
 import yummypets.com.stevia.*
+
 
 class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
 
@@ -54,15 +52,16 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
 
         mapView.getMapAsync{ map ->
             Timber.i("Map ready!")
-            MapsInitializer.initialize(currentActivity?.applicationContext)
-            with(map) {
-                moveCamera(CameraUpdateFactory.newLatLngZoom(position, 13f))
-                addMarker(MarkerOptions().position(position))
-                mapType = GoogleMap.MAP_TYPE_NORMAL
-                setOnMapClickListener {
-                    Toast.makeText(currentActivity, "Clicked on map", Toast.LENGTH_SHORT).show()
-                }
-            }
+
+            val latLng = LatLng(
+                currentLocation?.latitude ?: 56.838607,
+                currentLocation?.longitude ?: 60.605514)
+            //MarkerOptions are used to create a new Marker.You can specify location, title etc with MarkerOptions
+            val markerOptions = MarkerOptions().position(latLng).title("You are Here")
+            map.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+            //Adding the created the marker on the map
+            map.addMarker(markerOptions)
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f))
         }
 
         setBackgroundResource(R.drawable.base_background)
