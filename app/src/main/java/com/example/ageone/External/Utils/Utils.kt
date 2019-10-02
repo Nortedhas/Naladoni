@@ -23,5 +23,5 @@ object Variable {
     var token = ""
     var vkSdkTokenUser = ""
 
-    val widthDisplayDesign = 375
+    val widthDisplayDesign = 375F
 }

@@ -51,7 +51,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
         private val UserInformationType = 0
-        private val ProfileInformationType =1
+        private val ProfileInformationType = 1
         private val ServiceInformationType = 2
         private val UsedDiscountType = 3
 
