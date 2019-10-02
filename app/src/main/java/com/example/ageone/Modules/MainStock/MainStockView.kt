@@ -155,6 +155,7 @@ fun MainStockView.renderUIO() {
     renderBodyTable()
     bodyTable
         .fillHorizontally()
+        .constrainBottomToBottomOf(innerContent)
 }
 
 

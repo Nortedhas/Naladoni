@@ -70,13 +70,13 @@ fun UserInformationViewHolder.renderUI() {
         .constrainCenterYToTopOf(view)
 
     view
-        .height(70)
+        .height(80)
         .fillHorizontally(8)
         .constrainBottomToBottomOf(constraintLayout, 8)
 
     textViewName
         .fillHorizontally(90)
-        .constrainTopToTopOf(view, 38)
+        .constrainTopToTopOf(view, 47)
 
     viewArrow
         .height(20)
