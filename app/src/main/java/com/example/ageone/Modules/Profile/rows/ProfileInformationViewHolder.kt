@@ -67,7 +67,7 @@ fun ProfileInformationViewHolder.renderUI() {
     )
 
     back
-        .height(80)
+        .height(70)
         .fillHorizontally(8)
         .constrainTopToTopOf(constraintLayout, 8)
         .constrainBottomToBottomOf(constraintLayout, 8)
