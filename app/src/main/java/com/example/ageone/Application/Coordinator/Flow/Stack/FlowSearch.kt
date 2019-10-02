@@ -65,7 +65,7 @@ class FlowSearch : BaseFlow() {
             when (com.example.ageone.Modules.Search.SearchViewModel.EventType.valueOf(event)) {
                 com.example.ageone.Modules.Search.SearchViewModel.EventType.OnlouderSearch -> {
 //                    runModuleMainStock()
-                    coordinator.runFlowMainStock()
+                    coordinator.runFlowMainStock(this)
                 }
 
             }

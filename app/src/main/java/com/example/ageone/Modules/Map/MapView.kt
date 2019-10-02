@@ -42,20 +42,12 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
     init {
 //        viewModel.loadRealmData()
 
-        var mapViewBundle: Bundle? = null
 
         Timber.i("Start init map")
-        mapView?.onCreate(mapViewBundle)
+
         mapView.getMapAsync{ map ->
             Timber.i("Map ready!")
-            /*googleMap.setMinZoomPreference(12F)*/
             MapsInitializer.initialize(currentActivity?.applicationContext)
-            /*val sydney = LatLng(-33.852, 151.211)
-            map.addMarker(
-                MarkerOptions().position(sydney)
-                    .title("Marker in Sydney")
-            )
-            map.moveCamera(CameraUpdateFactory.newLatLng(sydney))*/
             with(map) {
                 moveCamera(CameraUpdateFactory.newLatLngZoom(position, 13f))
                 addMarker(MarkerOptions().position(position))
@@ -65,12 +57,6 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                 }
             }
         }
-
-        /*mapView = com.google.android.gms.maps.MapView(currentActivity).apply {
-
-        }*/
-
-//        Timber.i("Map is $mapView")
 
         setBackgroundResource(R.drawable.base_background)
         toolbar.title = "Карта подарков"
