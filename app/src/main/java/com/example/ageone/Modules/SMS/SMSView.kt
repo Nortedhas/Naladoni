@@ -1,8 +1,11 @@
 package com.example.ageone.Modules.SMS
 
+import android.os.CountDownTimer
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
+import com.example.ageone.Application.currentActivity
 import com.example.ageone.R
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
@@ -10,6 +13,7 @@ import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextInputLayout.InputEditTextType
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.City.CityViewModel
+import com.example.ageone.Modules.FAQ.FAQViewModel
 import com.example.ageone.Modules.SMS.rows.RegistrationSMSTextViewHolder
 import com.example.ageone.Modules.SMS.rows.initialize
 import com.example.ageone.Modules.RegistrationSMSViewModel
@@ -94,30 +98,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                     holder.initialize("Подтверждаю")
                     holder.button.setOnClickListener {
                         rootModule.emitEvent?.invoke(CityViewModel.EventType.onSityPresed.toString())
-//                        api.request(
-//                            mapOf(
-//                                "router" to "codeCheck",
-//                                "phone" to viewModel.model.inputPhone,
-//                                "code" to viewModel.model.code
-//                            )
-//                        ) { json ->
-//                            Timber.i("JSON answer $json")
-//                            DataBase.User.update(
-//                                user.hashId,
-//                                mapOf(
-////                                    "phone" to viewModel.model.inputPhone,
-//                                    "name" to viewModel.model.inputName
-//                                )
-//                            )
-//                            //TODO: where?
-//                            Parser().userData(json)
-//                            user.data.name = viewModel.model.inputName
-//                            user.data.phone = viewModel.model.inputPhone
-//
-//                            user.isAuthorized = true
-//
-//
-//                        }
+
                     }
                 }
             }
@@ -127,5 +108,18 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
 
     fun SMSView.renderUIO() {
         renderBodyTable()
+//        var timer = object : CountDownTimer(60000, 1000) {
+//            override fun onTick(millisUntilFinished: Long) {
+//                millisUntilFinished / 1000
+//
+//
+//            }
+//
+//            override fun onFinish() {
+//                emitEvent?.invoke(RegistrationSMSViewModel.EventType.onTimerPresed.toString())
+//
+//            }
+//        }
+//        timer.start()
     }
 }

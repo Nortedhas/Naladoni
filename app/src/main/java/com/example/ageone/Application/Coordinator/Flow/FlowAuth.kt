@@ -121,10 +121,12 @@ class FlowAuth: BaseFlow() {
         module.emitEvent = { event ->
             when (RegistrationSMSViewModel.EventType.valueOf(event)) {
                 RegistrationSMSViewModel.EventType.onSityPresed -> {
-
                   models.modelSelectCity.code = models.modelRegistrationSMS.code
-
                    runModuleCity()
+                }
+                RegistrationSMSViewModel.EventType.onTimerPresed -> {
+                    runModuleRegistration()
+
                 }
             }
         }

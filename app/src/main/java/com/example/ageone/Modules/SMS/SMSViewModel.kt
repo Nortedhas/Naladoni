@@ -14,7 +14,8 @@ class RegistrationSMSViewModel : InterfaceViewModel {
     }
 
     enum class EventType {
-        onSityPresed
+        onSityPresed,
+        onTimerPresed
     }
 }
 

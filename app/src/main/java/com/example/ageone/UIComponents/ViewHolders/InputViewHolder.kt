@@ -5,6 +5,7 @@ import android.graphics.drawable.GradientDrawable
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
+import com.example.ageone.Application.utils
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextInputLayout.BaseTextInputLayout
 import com.example.ageone.External.Base.TextInputLayout.InputEditTextType
@@ -49,7 +50,7 @@ fun InputViewHolder.renderUI() {
     )
 
     textInputL
-        .constrainTopToTopOf(constraintLayout, 70)
+        .constrainTopToTopOf(constraintLayout,(utils.variable.displayWidth - 48) / 3 )
         .fillHorizontally(18)
 }
 

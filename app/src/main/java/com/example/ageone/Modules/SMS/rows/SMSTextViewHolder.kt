@@ -49,4 +49,5 @@ fun RegistrationSMSTextViewHolder.initialize(text: String) {
     spannableContent.setSpan(ForegroundColorSpan(Color.parseColor("#f2842d")),
         text.length,  text.length + 4, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
     textView.text = spannableContent
+
 }

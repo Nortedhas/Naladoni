@@ -88,6 +88,7 @@ fun СardViewHolder.renderUI() {
         .constrainTopToTopOf(constraintLayout,8)
         .constrainBottomToBottomOf(constraintLayout,8)
         .constrainLeftToLeftOf(constraintLayout,8)
+        .constrainRightToRightOf(constraintLayout,4)
 
     imageViewLogo
         .width((utils.variable.displayWidth - 48) / 2 )
