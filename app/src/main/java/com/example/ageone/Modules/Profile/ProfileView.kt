@@ -154,7 +154,7 @@ fun ProfileView.renderUIO() {
     renderBodyTable()
 
     bodyTable
-        .constrainTopToTopOf(innerContent, 80)
+        .constrainTopToTopOf(innerContent)
 }
 
 

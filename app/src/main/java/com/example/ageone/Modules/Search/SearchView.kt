@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ageone.R
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.Module.BaseModule
@@ -18,11 +19,11 @@ import com.example.ageone.UIComponents.ViewHolders.initialize
 import com.example.ageone.UIComponents.ViewHolders.СardViewHolder
 import yummypets.com.stevia.*
 import com.example.ageone.External.Base.SearchView.BaseSearchView
+import com.example.ageone.Modules.Search.rows.SearchEmptyViewHolder
+import com.example.ageone.Modules.Search.rows.initialize
 
 class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
-
     val viewModel = SearchViewModel()
-
     val card by lazy {
         val view = BaseView()
         view.cornerRadius = 12.dp
@@ -41,7 +42,7 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         searchView.initialize()
         searchView
     }
-//    val image by lazy {
+    //    val image by lazy {
 //        val image = BaseImageView()
 //        image.setBackgroundResource(R.drawable.pic_top_image)
 //        image
@@ -50,8 +51,11 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         val viewAdapter = Factory(this)
         viewAdapter
     }
-
-    val layoutManager by lazy {
+    val linearManager by lazy {
+        val layoutManager = LinearLayoutManager(currentActivity)
+        layoutManager
+    }
+    val gridManager by lazy {
         val layoutManager = GridLayoutManager(currentActivity, 2)
         layoutManager
     }
@@ -66,7 +70,7 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
-        bodyTable.layoutManager = layoutManager
+        bodyTable.layoutManager = linearManager
 
         renderUIO()
         bindUI()
@@ -81,81 +85,109 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
-
         private val SearchViewType = 0
+        private val SearchEmptyViewType = 1
 
-        override fun getItemCount() = 10//viewModel.realmData.size
 
-        override fun getItemViewType(position: Int): Int = SearchViewType
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-
-            val layout = ConstraintLayout(parent.context)
-
-            layout
-                .width(matchParent)
-                .height(wrapContent)
-
-            val holder = when (viewType) {
-                SearchViewType -> {
-                    СardViewHolder(layout)
+        override fun getItemCount() =
+                if (listReceived) {
+                    bodyTable.layoutManager = gridManager
+                    10
+                } else {
+                    bodyTable.layoutManager = linearManager
+                    1
                 }
-                else -> {
-                    BaseViewHolder(layout)
-                }
-            }
 
-            return holder
-        }
-
-        override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-
-            when (holder) {
-                is СardViewHolder -> {
-                    holder.initialize(
-                        "Скидка 500 при покупке от 2500",
-                        "Nike", "до 12.08.2019", R.drawable.pic_washing)
-                    holder.viewCard.setOnClickListener{
-                        rootModule.emitEvent?.invoke(SearchViewModel.EventType.OnlouderSearch.toString())
-
+                override fun getItemViewType(position: Int): Int =when (listReceived) {
+                    true -> if (listReceived) {
+                        SearchViewType
+                    } else {
+                        SearchEmptyViewType
+                    }
+                    false -> if (listReceived) {
+                        SearchViewType
+                    } else {
+                        SearchEmptyViewType
                     }
                 }
 
-            }
+                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
 
-        }
+                    val layout = ConstraintLayout(parent.context)
+
+                    layout
+                        .width(matchParent)
+                        .height(wrapContent)
+                    val holder = when (viewType) {
+                        SearchViewType -> {
+                            СardViewHolder(layout)
+                        }
+                        SearchEmptyViewType -> {
+                            SearchEmptyViewHolder(layout)
+                        }
+                        else -> {
+                            BaseViewHolder(layout)
+                        }
+                    }
+
+                    return holder
+
+                }
+
+                override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+
+                    when (holder) {
+                        is СardViewHolder -> {
+                            holder.initialize(
+                                "Скидка 500 при покупке от 2500",
+                                "Nike", "до 12.08.2019", R.drawable.pic_washing
+                            )
+                            holder.viewCard.setOnClickListener {
+                                rootModule.emitEvent?.invoke(SearchViewModel.EventType.OnlouderSearch.toString())
+
+                            }
+                        }
+                        is SearchEmptyViewHolder -> {
+                            holder.initialize("Найдите для себя лучшую акцию в вашем городе!")
+                        }
+
+                    }
+
+                }
+
+            }
 
     }
 
-}
+    var listReceived = false
 
-fun SearchView.renderUIO() {
-
-    innerContent.subviews(
-        card.subviews(
-            searchView
+    fun SearchView.renderUIO() {
+        innerContent.subviews(
+            card.subviews(
+                searchView
+            )
         )
-    )
-    card
-        .constrainTopToBottomOf(toolbar, 5)
-        .constrainRightToRightOf(innerContent)
-        .constrainLeftToLeftOf(innerContent)
+        card
+            .constrainTopToBottomOf(toolbar, 5)
+            .constrainRightToRightOf(innerContent)
+            .constrainLeftToLeftOf(innerContent)
 
-    innerContent.subviews(
+        innerContent.subviews(
+            bodyTable
+        )
+
         bodyTable
-    )
+            .fillHorizontally(0)
+            .fillVertically()
+            .constrainTopToBottomOf(card, 8)
+            .updatePadding(bottom = 24.dp)
 
-    bodyTable
-        .fillHorizontally(0)
-        .fillVertically()
-        .constrainTopToBottomOf(card,8)
-        .updatePadding(bottom = 24.dp)
-
-    bodyTable
-        .clipToPadding = false
+        bodyTable
+            .clipToPadding = false
 
 
-    bodyTable.addItemDecoration(ColumnEqualsPaddingItemDecoration(8.dp, 2))
-}
+        bodyTable.addItemDecoration(ColumnEqualsPaddingItemDecoration(8.dp, 2))
+
+    }
 
 

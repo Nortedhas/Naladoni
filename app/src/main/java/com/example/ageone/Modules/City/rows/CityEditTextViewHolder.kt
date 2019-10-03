@@ -7,6 +7,7 @@ import android.widget.Spinner
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateMargins
 import com.example.ageone.Application.currentActivity
+import com.example.ageone.Application.utils
 import com.example.ageone.External.Base.EditText.BaseEditText
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.google.android.material.textfield.TextInputLayout
@@ -38,7 +39,7 @@ fun CityEditTextViewHolder.renderUI() {
     )
 
     editText
-        .constrainTopToTopOf(constraintLayout, 70)
+        .constrainTopToTopOf(constraintLayout,(utils.variable.displayWidth - 48) / 3)
         .fillHorizontally(16)
 }
 
