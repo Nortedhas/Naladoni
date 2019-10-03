@@ -42,11 +42,6 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         searchView.initialize()
         searchView
     }
-    //    val image by lazy {
-//        val image = BaseImageView()
-//        image.setBackgroundResource(R.drawable.pic_top_image)
-//        image
-//    }
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
@@ -159,7 +154,7 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
     }
 
-    var listReceived = false
+    var listReceived = true
 
     fun SearchView.renderUIO() {
         innerContent.subviews(

@@ -11,12 +11,11 @@ import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.Filter.FilterModel
 import com.example.ageone.Modules.Filter.FilterView
 import com.example.ageone.Modules.Filter.FilterViewModel
-import com.example.ageone.R
 
-fun FlowCoordinator.runFlowFilter() {
+fun FlowCoordinator.runFlowFilter(previousFlow: BaseFlow) {
 
-    var flow: FlowFilter? =
-        FlowFilter()
+    var flow: FlowFilter? = FlowFilter(previousFlow)
+
     flow?.let{ flow ->
 
         viewFlipperFlow.addView(flow.viewFlipperModule)
@@ -36,9 +35,13 @@ fun FlowCoordinator.runFlowFilter() {
 
 }
 
-class FlowFilter : BaseFlow() {
+class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
 
     private var models = FlowFilterModels()
+
+    init {
+        this.previousFlow = previousFlow
+    }
 
     override fun start() {
         onStarted()
@@ -55,7 +58,7 @@ class FlowFilter : BaseFlow() {
 
             isBackPressed = true,
 
-            backListener = { router.onBackPressed() }
+            backListener = { this }
         ))
 
         module.viewModel.initialize(models.modelFiltern) { module.reload() }

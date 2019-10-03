@@ -19,14 +19,15 @@ class SearchEmptyViewHolder(val constraintLayout: ConstraintLayout) :
         image.setBackgroundResource(R.drawable.pic_logo_empty)
         image
     }
-  val text by lazy {
-      val text = BaseTextView()
-      text.textColor = Color.parseColor("#F06F28")
-      text.textSize = 17F
-      text.typeface = Typeface.DEFAULT_BOLD
-      text.gravity = Gravity.CENTER
-      text
-  }
+    val text by lazy {
+        val text = BaseTextView()
+        text.textColor = Color.parseColor("#F06F28")
+        text.textSize = 17F
+        text.typeface = Typeface.DEFAULT_BOLD
+        text.gravity = Gravity.CENTER
+        text
+    }
+
     init {
 
         renderUI()
@@ -40,19 +41,19 @@ fun SearchEmptyViewHolder.renderUI() {
         text
     )
     image
-        .constrainTopToTopOf(constraintLayout,150)
+        .constrainTopToTopOf(constraintLayout, 150)
         .constrainRightToRightOf(constraintLayout)
         .constrainLeftToLeftOf(constraintLayout)
         .width(86)
         .height(96)
 
     text
-        .constrainTopToBottomOf(image,20)
+        .constrainTopToBottomOf(image, 20)
         .fillHorizontally(72)
 
 }
 
-fun SearchEmptyViewHolder.initialize(describe:String) {
+fun SearchEmptyViewHolder.initialize(describe: String) {
     text.text = describe
 
 }

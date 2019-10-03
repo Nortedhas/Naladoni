@@ -2,7 +2,6 @@ package com.example.ageone.Application.Coordinator.Flow.Regular
 
 
 import androidx.core.view.size
-import com.example.ageone.Application.*
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.example.ageone.Application.Coordinator.Router.DataFlow

@@ -2,8 +2,10 @@ package com.example.ageone.Application.Coordinator.Flow.Stack
 import androidx.core.view.size
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
+import com.example.ageone.Application.Coordinator.Flow.Regular.runFlowFilter
 import com.example.ageone.Application.Coordinator.Router.DataFlow
 import com.example.ageone.Application.Coordinator.Router.TabBar.Stack
+import com.example.ageone.Application.coordinator
 import com.example.ageone.R
 import com.example.ageone.Application.router
 import com.example.ageone.External.Base.Flow.BaseFlow
@@ -53,7 +55,7 @@ class FlowList : BaseFlow() {
             InitModuleUI(
                 isBottomNavigationVisible = true,
                 exitListener = {
-                    runModuleList()
+                    coordinator.runFlowFilter(this)
                 },
                 exitIcon = R.drawable.ic_filter2
             )
