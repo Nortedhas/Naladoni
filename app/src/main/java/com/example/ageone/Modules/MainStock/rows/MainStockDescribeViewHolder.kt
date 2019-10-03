@@ -8,6 +8,7 @@ import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.Base.View.BaseView
+import com.example.ageone.External.Libraries.Glide.addImageFromGlide
 import com.example.ageone.R
 import yummypets.com.stevia.*
 
@@ -123,6 +124,6 @@ fun MainStockDescribeViewHolder.initialize(
     textViewLogo.text = textlogo
     textViewTitle.text = text
     textViewDescribe.text = describe
-    imageIconView.setBackgroundResource(logo)
+    addImageFromGlide(imageIconView, logo)
 
 }

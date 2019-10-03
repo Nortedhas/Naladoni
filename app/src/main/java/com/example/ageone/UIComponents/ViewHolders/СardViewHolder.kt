@@ -10,6 +10,7 @@ import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.Base.View.BaseView
+import com.example.ageone.External.Libraries.Glide.addImageFromGlide
 import yummypets.com.stevia.*
 
 class СardViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
@@ -118,6 +119,6 @@ fun СardViewHolder.initialize(describe: String, logo: String, date: String, pho
     textViewDescribe.text = describe
     textViewLogo.text = logo
     textViewDate.text = date
-    imageViewLogo.setBackgroundResource(photo_logo)
+    addImageFromGlide(imageViewLogo, photo_logo)
 
 }

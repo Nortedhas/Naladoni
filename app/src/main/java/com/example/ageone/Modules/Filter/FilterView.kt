@@ -1,11 +1,21 @@
 package com.example.ageone.Modules.Filter
 
+import android.graphics.Color
+import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
+import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.ageone.Application.currentActivity
+import com.example.ageone.External.Base.Button.BaseButton
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.InitModuleUI
+import com.example.ageone.External.Libraries.Alert.alertManager
+import com.example.ageone.External.Libraries.Alert.single
+import com.example.ageone.Modules.Filter.rows.FilterButtonViewHolder
 import com.example.ageone.Modules.Filter.rows.FilterSwitchViewHolder
 import com.example.ageone.Modules.Filter.rows.initialize
 import com.example.ageone.R
@@ -19,7 +29,6 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         val viewAdapter = Factory(this)
         viewAdapter
     }
-
     init {
 //        viewModel.loadRealmData()
 
@@ -48,11 +57,14 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
         private val FilterType = 0
+        private val ButtonType = 1
 
-        override fun getItemCount() = 1//viewModel.realmData.size
+
+        override fun getItemCount() = 5//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0 -> FilterType
+            0, 1 -> FilterType
+            2 -> ButtonType
             else -> -1
         }
 
@@ -68,6 +80,9 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                 FilterType -> {
                     FilterSwitchViewHolder(layout)
                 }
+                ButtonType -> {
+                    FilterButtonViewHolder(layout)
+                }
                 else -> {
                     BaseViewHolder(layout)
                 }
@@ -80,20 +95,53 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
             when (holder) {
                 is FilterSwitchViewHolder -> {
-                    holder.initialize("Только популярные")
+                    when (position) {
+                        0 -> {
+                            holder.initialize("Только популярные")
+                            holder.switch.setOnClickListener {
+                                if (holder.switch.isChecked) {
+                                    alertManager.single(
+                                        message = "В вашем городе нет подарков в данной категории, попробуйте поискать в другой ",
+                                        title = "Мы ничего не нашли", button = "Понятно"
+                                    ) { _, _ ->
+                                        val toast = Toast.makeText(
+                                            currentActivity?.applicationContext,
+                                            "МММ жаль", Toast.LENGTH_SHORT
+                                        )
+                                        toast.show()
+                                    }
+                                }
+                            }
+                        }
+                        1 -> {
+                            holder.initialize("Только ближайшие")
+                            holder.linetop.visibility = View.INVISIBLE
+                        }
+
+                    }
+
+
+                }
+                is FilterButtonViewHolder -> {
+                    holder.initialize("Вперёд!")
                 }
 
             }
 
         }
-
     }
-
 }
 
 fun FilterView.renderUIO() {
 
-    renderBodyTable()
+  //  renderBodyTable()
+    innerContent.subviews(
+        bodyTable
+    )
+    bodyTable
+        .fillHorizontally()
+        .constrainBottomToBottomOf(innerContent)
+
 }
 
 

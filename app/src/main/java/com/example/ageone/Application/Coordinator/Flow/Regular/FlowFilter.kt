@@ -11,6 +11,7 @@ import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.Filter.FilterModel
 import com.example.ageone.Modules.Filter.FilterView
 import com.example.ageone.Modules.Filter.FilterViewModel
+import com.example.ageone.R
 
 fun FlowCoordinator.runFlowFilter(previousFlow: BaseFlow) {
 
@@ -55,10 +56,13 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
     fun runModuleFiltern() {
         val module = FilterView(   InitModuleUI(
             isBottomNavigationVisible = false,
-
+            exitListener = {},
+            exitIcon = R.drawable.pic_button_clear,
+            iconExitSize = 55,
             isBackPressed = true,
 
             backListener = { this }
+
         ))
 
         module.viewModel.initialize(models.modelFiltern) { module.reload() }
