@@ -14,7 +14,8 @@ import com.example.ageone.External.Base.Map.setMyLocation
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Extensions.Activity.currentLocation
-import com.example.ageone.External.Extensions.Activity.positionBase
+import com.example.ageone.External.Extensions.Activity.locationBase
+import com.example.ageone.External.Extensions.Activity.startLocation
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.Map.rows.MapDiscountCardViewHolder
 import com.example.ageone.Modules.Map.rows.initialize
@@ -57,19 +58,11 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
 
         mapView.getMapAsync{ map ->
             Timber.i("Map ready!")
-
             map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this.context, R.raw.map_style))
-            map.setMyLocation()
+//            map.setMyLocation()
+            map.isMyLocationEnabled = true
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 13f))
 
-            val latLng = LatLng(
-                currentLocation?.latitude ?: positionBase.latitude,
-                currentLocation?.longitude ?: positionBase.longitude)
-
-            /*val markerOptions = MarkerOptions().position(latLng).title("You are Here")
-            map.animateCamera(CameraUpdateFactory.newLatLng(latLng))
-            map.addMarker(markerOptions)*/
-
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f))
         }
 
         setBackgroundResource(R.drawable.base_background)

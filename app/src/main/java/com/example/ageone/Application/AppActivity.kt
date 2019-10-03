@@ -31,8 +31,9 @@ class AppActivity: BaseActivity() {
         setFullScreen()
         setDisplaySize()
 
-        verifyStoragePermissions()
-        verifyLocationPermissions()
+        /*verifyStoragePermissions()
+        verifyLocationPermissions()*/
+        verifyLocationAndStoragePermissions()
 
 //        FuelManager.instance.basePath = DataBase.url
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
@@ -113,6 +114,7 @@ class AppActivity: BaseActivity() {
         when (requestCode) {
             LOCATION_PERMISSION_REQUEST_CODE -> {
                 if (grantResult.isNotEmpty() && grantResult[0] == PackageManager.PERMISSION_GRANTED) {
+                    isLocationGranted = true
                     fetchLastLocation()
                 } else {
                     Toast.makeText(this, "Location permission missing", Toast.LENGTH_SHORT)
