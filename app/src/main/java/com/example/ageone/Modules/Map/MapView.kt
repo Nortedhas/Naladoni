@@ -3,21 +3,25 @@ package com.example.ageone.Modules.Map
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ageone.Application.currentActivity
-import com.example.ageone.Application.currentLocation
 import com.example.ageone.Application.mapView
 import com.example.ageone.External.Base.ImageView.BaseImageView
+import com.example.ageone.External.Base.Map.setLocationButtonInMap
+import com.example.ageone.External.Base.Map.setMyLocation
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
+import com.example.ageone.External.Extensions.Activity.currentLocation
+import com.example.ageone.External.Extensions.Activity.positionBase
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.Map.rows.MapDiscountCardViewHolder
 import com.example.ageone.Modules.Map.rows.initialize
 import com.example.ageone.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.MapStyleOptions
 import timber.log.Timber
 import yummypets.com.stevia.*
 
@@ -33,34 +37,38 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         imageView.setBackgroundResource(R.drawable.pic_map_top_image)
         imageView
     }
-    val imageNavigationView by lazy {
+    /*val buttonMyLocation by lazy {
         val imageNavigationView = BaseImageView()
         imageNavigationView.initialize()
         imageNavigationView.orientation = GradientDrawable.Orientation.TOP_BOTTOM
         imageNavigationView.setBackgroundResource(R.drawable.pic_navigationbuttom)
         imageNavigationView.elevation = 5F.dp
         imageNavigationView
-    }
+    }*/
 
-    val position = LatLng(-33.920455, 18.466941)
+    var buttonMyLocation: ImageView
 
     init {
 //        viewModel.loadRealmData()
 
-
         Timber.i("Start init map")
+        buttonMyLocation = (mapView.findViewById<View>(Integer.parseInt("1")).parent as View)
+            .findViewById(Integer.parseInt("2"))
 
         mapView.getMapAsync{ map ->
             Timber.i("Map ready!")
 
+            map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this.context, R.raw.map_style))
+            map.setMyLocation()
+
             val latLng = LatLng(
-                currentLocation?.latitude ?: 56.838607,
-                currentLocation?.longitude ?: 60.605514)
-            //MarkerOptions are used to create a new Marker.You can specify location, title etc with MarkerOptions
-            val markerOptions = MarkerOptions().position(latLng).title("You are Here")
+                currentLocation?.latitude ?: positionBase.latitude,
+                currentLocation?.longitude ?: positionBase.longitude)
+
+            /*val markerOptions = MarkerOptions().position(latLng).title("You are Here")
             map.animateCamera(CameraUpdateFactory.newLatLng(latLng))
-            //Adding the created the marker on the map
-            map.addMarker(markerOptions)
+            map.addMarker(markerOptions)*/
+
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13f))
         }
 
@@ -106,43 +114,39 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         }
     }
 
+    fun setUpLocationButton() {
+        buttonMyLocation.setImageResource(R.drawable.pic_navigationbuttom)
+
+        buttonMyLocation
+            .height(24.dp)
+            .width(24.dp)
+            .setLocationButtonInMap(0,0,10,150)
+    }
+
 }
 
 
 fun MapView.renderUIO() {
 
-    mapView?.let { mapView ->
+    innerContent.subviews(
+        mapView,
+        bodyTable,
+        imagefringeView
+    )
 
-        Timber.i("Map is $mapView")
-        innerContent.subviews(
-            mapView,
-            bodyTable,
-            imageNavigationView,
-            imagefringeView
-        )
-
-        mapView
-            .fillHorizontally()
-            .fillVertically()
-    }
-
-
+    mapView
+        .fillHorizontally()
+        .fillVertically()
 
     bodyTable
         .constrainBottomToBottomOf(innerContent)
-
-    imageNavigationView
-        .constrainRightToRightOf(innerContent, 16)
-        .constrainBottomToTopOf(bodyTable, 16)
-        .height(24.dp)
-        .width(24.dp)
 
     imagefringeView
         .constrainTopToTopOf(toolbar)
         .height(20)
         .fillHorizontally()
 
-//    renderBodyTable()
+    setUpLocationButton()
 }
 
 

@@ -6,11 +6,11 @@ import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ageone.External.Base.Toolbar.BaseToolbar
 import com.example.ageone.Application.currentActivity
-import com.example.ageone.Application.hideKeyboard
 import com.example.ageone.Application.utils
 import com.example.ageone.External.Base.ConstraintLayout.BaseConstraintLayout
 import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.RecyclerView.BaseRecyclerView
+import com.example.ageone.External.Extensions.Activity.hideKeyboard
 import com.example.ageone.External.InitModuleUI
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber

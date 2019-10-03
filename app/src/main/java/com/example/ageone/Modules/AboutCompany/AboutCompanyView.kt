@@ -1,28 +1,24 @@
 package com.example.ageone.Modules.AboutCompany
 
+import android.content.Intent
+import android.net.Uri
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.ageone.Application.currentActivity
+import com.example.ageone.Application.intent
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
+import com.example.ageone.External.Extensions.Activity.copyToClipboard
 import com.example.ageone.External.InitModuleUI
+import com.example.ageone.Modules.AboutCompany.rows.AboutCompanyEmailViewHolder
 import com.example.ageone.Modules.AboutCompany.rows.AboutCompanyLogoViewHolder
 import com.example.ageone.Modules.AboutCompany.rows.AboutCompanyTextViewHolder
-import com.example.ageone.Modules.AboutCompany.rows.AboutCompanyEmailViewHolder
 import com.example.ageone.Modules.AboutCompany.rows.initialize
 import com.example.ageone.UIComponents.ViewHolders.ButtonViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
-import android.content.Intent
-import android.net.Uri
-import com.example.ageone.Application.api
-import com.example.ageone.Application.copyToClipboard
-import com.example.ageone.Application.currentActivity
-import com.example.ageone.Application.intent
-import android.widget.Toast
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
 
 
 class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {

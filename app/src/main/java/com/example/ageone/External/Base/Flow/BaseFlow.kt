@@ -7,9 +7,9 @@ import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipp
 import com.example.ageone.Application.Coordinator.Flow.setBottomNavigationVisible
 import com.example.ageone.Application.Coordinator.Router.DataFlow
 import com.example.ageone.Application.currentActivity
-import com.example.ageone.Application.hideKeyboard
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.ViewFlipper.BaseViewFlipper
+import com.example.ageone.External.Extensions.Activity.hideKeyboard
 import timber.log.Timber
 
 abstract class BaseFlow: View(currentActivity){

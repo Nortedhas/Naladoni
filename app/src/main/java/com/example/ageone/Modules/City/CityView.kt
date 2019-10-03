@@ -1,30 +1,26 @@
 package com.example.ageone.Modules.City
 
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Spinner
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.doOnTextChanged
 import com.example.ageone.Application.currentActivity
-import com.example.ageone.Application.hideKeyboard
-import com.example.ageone.R
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
-import com.example.ageone.External.Base.TextInputLayout.InputEditTextType
+import com.example.ageone.External.Extensions.Activity.hideKeyboard
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.External.Libraries.Alert.alertManager
 import com.example.ageone.External.Libraries.Alert.list
 import com.example.ageone.External.Libraries.Alert.single
 import com.example.ageone.Modules.City.rows.CityEditTextViewHolder
-import com.example.ageone.Modules.City.rows.CitySpinnerViewHolder
 import com.example.ageone.Modules.City.rows.CityViewHolder
 import com.example.ageone.Modules.City.rows.initialize
-import com.example.ageone.Modules.FAQ.rows.SliderViewHolder
+import com.example.ageone.R
 import com.example.ageone.UIComponents.ViewHolders.ButtonViewHolder
-import com.example.ageone.UIComponents.ViewHolders.InputViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
-import yummypets.com.stevia.*
+import yummypets.com.stevia.height
+import yummypets.com.stevia.matchParent
+import yummypets.com.stevia.width
+import yummypets.com.stevia.wrapContent
 
 class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
     val viewModel = CityViewModel()
@@ -106,9 +102,8 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                     holder.editText.setOnClickListener{
                         currentActivity?.hideKeyboard()
                         alertManager.list( "Выберите город", city) {_, int ->
-                            when (int)
-                            {
-                                0 ->{
+                            when (int) {
+                                0 -> {
                                     holder.editText.setText(
                                         city[0])
                                 }

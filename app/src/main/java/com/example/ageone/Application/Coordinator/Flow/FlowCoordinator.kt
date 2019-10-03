@@ -9,11 +9,11 @@ import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipp
 import com.example.ageone.Application.Coordinator.Router.TabBar.TabBar.bottomNavigation
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.Application.router
-import com.example.ageone.Application.setStatusBarColor
 import com.example.ageone.External.Base.ConstraintLayout.BaseConstraintLayout
 import com.example.ageone.External.Base.Flow.BaseFlow
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.ViewFlipper.BaseViewFlipper
+import com.example.ageone.External.Extensions.Activity.setStatusBarColor
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Models.User.user
 import timber.log.Timber
@@ -117,7 +117,7 @@ fun setBottomNavigationVisible(visible: Boolean) = if (visible) {
 }
 
 fun setStatusBarColor(color: Int) {
-    (currentActivity as AppActivity).setStatusBarColor(color)
+    currentActivity?.setStatusBarColor(color)
 }
 
 private enum class LaunchInstructor {

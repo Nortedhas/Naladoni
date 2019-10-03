@@ -5,8 +5,8 @@ import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipp
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.example.ageone.Application.Coordinator.Flow.setBottomNavigationVisible
 import com.example.ageone.Application.currentActivity
-import com.example.ageone.Application.hideKeyboard
 import com.example.ageone.Application.router
+import com.example.ageone.External.Extensions.Activity.hideKeyboard
 import com.example.ageone.External.Extensions.Function.guard
 import timber.log.Timber
 import yummypets.com.stevia.style
