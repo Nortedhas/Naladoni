@@ -45,8 +45,6 @@ fun AppActivity.verifyPermissions(completion: () -> Unit ) {
         )
     } else {
         Timber.i("Location permission are OK")
-        completion.invoke()//TODO
-        isLocationGranted = true
-        fetchLastLocation()
+        completion.invoke()
     }
 }

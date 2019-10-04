@@ -10,7 +10,6 @@ import yummypets.com.stevia.*
 
 class FilterButtonViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
 
-
     val button by lazy {
         val button = BaseButton()
         button.textSize = 21F

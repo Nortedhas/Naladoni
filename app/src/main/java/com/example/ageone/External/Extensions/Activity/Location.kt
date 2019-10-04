@@ -1,6 +1,7 @@
 package com.example.ageone.External.Extensions.Activity
 
 import android.location.Location
+import android.os.Looper
 import android.widget.Toast
 import com.example.ageone.Application.AppActivity
 import com.example.ageone.Application.currentActivity
@@ -21,15 +22,19 @@ val reqSetting = LocationRequest.create().apply {
 }
 
 fun AppActivity.fetchLastLocation(){
-    val task = fusedLocationProviderClient?.lastLocation
-
-    task?.addOnSuccessListener{ location ->
+    fusedLocationProviderClient?.
+        lastLocation?.addOnSuccessListener{ location ->
         if (location != null) {
             currentLocation = location
         } else {
             Toast.makeText(this, "No Location recorded", Toast.LENGTH_SHORT).show()
         }
     }
+
+    setLocationUpdates()
+}
+
+private fun AppActivity.setLocationUpdates() {
 
     val REQUEST_CHECK_STATE = 12300 // any suitable ID
     val builder = LocationSettingsRequest.Builder()
@@ -43,16 +48,16 @@ fun AppActivity.fetchLastLocation(){
             state?.let { state ->
                 Timber.i(
                     "LocationSettings: \n" +
-                        " GPS present: ${state.isGpsPresent} \n" +
-                        " GPS usable: ${state.isGpsUsable} \n" +
-                        " Location present: " +
-                        "${state.isLocationPresent} \n" +
-                        " Location usable: " +
-                        "${state.isLocationUsable} \n" +
-                        " Network Location present: " +
-                        "${state.isNetworkLocationPresent} \n" +
-                        " Network Location usable: " +
-                        "${state.isNetworkLocationUsable} \n"
+                            " GPS present: ${state.isGpsPresent} \n" +
+                            " GPS usable: ${state.isGpsUsable} \n" +
+                            " Location present: " +
+                            "${state.isLocationPresent} \n" +
+                            " Location usable: " +
+                            "${state.isLocationUsable} \n" +
+                            " Network Location present: " +
+                            "${state.isNetworkLocationPresent} \n" +
+                            " Network Location usable: " +
+                            "${state.isNetworkLocationUsable} \n"
                 )
 
             }
@@ -60,7 +65,8 @@ fun AppActivity.fetchLastLocation(){
             if (e.cause is ResolvableApiException)
                 (e.cause as ResolvableApiException).startResolutionForResult(
                     currentActivity,
-                    REQUEST_CHECK_STATE)
+                    REQUEST_CHECK_STATE
+                )
         }
     }
 
@@ -75,9 +81,11 @@ fun AppActivity.fetchLastLocation(){
         }
     }
 
-    fusedLocationProviderClient?.requestLocationUpdates(reqSetting,
+    fusedLocationProviderClient?.requestLocationUpdates(
+        reqSetting,
         locationUpdates,
-        null /* Looper */)
+        Looper.getMainLooper()
+    )
 }
 
 var startLocation: LatLng = locationBase

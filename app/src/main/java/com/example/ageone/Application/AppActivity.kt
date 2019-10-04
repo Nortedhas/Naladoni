@@ -33,7 +33,10 @@ class AppActivity: BaseActivity() {
 
         addStoragePermissions()
         addLocationPermissions()
-        verifyPermissions {  }
+        verifyPermissions {
+            isLocationGranted = true
+            fetchLastLocation()
+        }
 
 //        FuelManager.instance.basePath = DataBase.url
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)

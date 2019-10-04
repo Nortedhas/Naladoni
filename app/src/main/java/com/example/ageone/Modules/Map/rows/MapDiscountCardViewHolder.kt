@@ -54,20 +54,25 @@ class MapDiscountCardViewHolder(val constraintLayout: ConstraintLayout) : BaseVi
     }
 
     val buttonUse by lazy {
-        val button = BaseButton()
-        button.textSize = 11F
-        button.textColor = Color.parseColor("#FFFAFA")
-        button.typeface = Typeface.DEFAULT
+        val button = BaseView()
         button.backgroundColor = Color.parseColor("#F37E25")
         button.cornerRadius = 2.dp
         button.gradient = Color.parseColor("#F06F28")
     	button.orientation = GradientDrawable.Orientation.TOP_BOTTOM
-        button.text = "Использовать"
         button.initialize()
-        button.setPadding(0,0,0,0)
-        button.minHeight = 0
-        button.minWidth = 0
         button
+    }
+
+    val textViewUse by lazy {
+        val textView = BaseTextView()
+        textView.gravity = Gravity.START
+        textView.typeface = Typeface.DEFAULT_BOLD
+        textView.textSize = 15F
+        textView.textColor = Color.parseColor("#FFFAFA")
+        textView.setBackgroundColor(Color.TRANSPARENT)
+        textView.text = "Использовать"
+    // 	textView.elevation = 5F.dp
+        textView
     }
 
     init {
@@ -83,7 +88,9 @@ fun MapDiscountCardViewHolder.renderUI() {
             imageViewType,
             textViewTitle,
             textViewDescribe,
-            buttonUse
+            buttonUse.subviews(
+                textViewUse
+            )
         )
     )
 
@@ -116,6 +123,12 @@ fun MapDiscountCardViewHolder.renderUI() {
         .constrainTopToBottomOf(textViewDescribe, 4)
         .constrainBottomToBottomOf(viewBack, 8)
         .fillHorizontally(5)
+
+    textViewUse
+        .constrainCenterXToCenterXOf(buttonUse)
+        .constrainTopToTopOf(buttonUse, 4)
+        .constrainBottomToBottomOf(buttonUse, 4)
+
 
 }
 

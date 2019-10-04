@@ -1,7 +1,12 @@
 package com.example.ageone.External.Base.ImageView
 
+import android.graphics.Outline
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
+import android.view.View
+import android.view.ViewOutlineProvider
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import com.example.ageone.Application.currentActivity
 
 class BaseImageView: ImageView(currentActivity) {
@@ -44,4 +49,18 @@ class BaseImageView: ImageView(currentActivity) {
 
         background = gradientDrawable
     }
+}
+
+fun BaseImageView.setOnlyTopRoundedCorners(radius: Float) {
+
+    outlineProvider = object : ViewOutlineProvider() {
+
+        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+        override fun getOutline(view: View?, outline: Outline?) {
+            outline?.setRoundRect(0, 0, width, (height + radius).toInt(), radius)
+        }
+    }
+
+    clipToOutline = true
+
 }
