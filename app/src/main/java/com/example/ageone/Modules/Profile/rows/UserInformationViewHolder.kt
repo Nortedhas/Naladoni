@@ -92,7 +92,6 @@ fun UserInformationViewHolder.renderUI() {
 fun UserInformationViewHolder.initialize(text: String,photo: Int) {
 
     textViewName.text = ("Я: " + text)
-    imagePhoto.setBackgroundResource(photo)
     addImageFromGlide(imagePhoto, photo)
 
 
