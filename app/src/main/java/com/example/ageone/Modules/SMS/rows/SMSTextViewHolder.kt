@@ -2,11 +2,13 @@ package com.example.ageone.Modules.SMS.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
+import android.os.CountDownTimer
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextView.BaseTextView
 import yummypets.com.stevia.constrainTopToTopOf

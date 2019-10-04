@@ -106,6 +106,9 @@ fun StartView.renderUIO() {
     var timer = object : CountDownTimer(10000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             millisUntilFinished / 1000
+            if ((bodyTable.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition() == 2) {
+                currentActivity?.runOnUiThread { buttonEnter.visibility = View.VISIBLE }
+            }
 
         }
 
@@ -133,6 +136,7 @@ fun StartView.renderUIO() {
         .constrainLeftToLeftOf(innerContent, 16)
 
     buttonEnter
+        .constrainTopToBottomOf(bodyTable,25)
         .constrainBottomToBottomOf(innerContent, 40)
         .fillHorizontally(32)
 
@@ -169,9 +173,6 @@ class Factory(val rootModule: BaseModule): BaseAdapter<SliderViewHolder>() {
     override fun onBindViewHolder(viewHolder: SliderViewHolder, position: Int) {
         viewHolder.textView.text = list[position]
         viewHolder.imageView.setBackgroundResource(resourceImages[position])
-
-
-
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.ageone.Modules.MainStock
 import android.graphics.Color
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.updatePadding
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
@@ -152,10 +153,18 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
 
 fun MainStockView.renderUIO() {
 
-    renderBodyTable()
+    innerContent.subviews(
+        bodyTable
+    )
+
     bodyTable
-        .fillHorizontally()
-        .constrainBottomToBottomOf(innerContent)
+        .fillHorizontally(0)
+        .fillVertically()
+        .constrainTopToTopOf(innerContent)
+
+
+    bodyTable
+        .clipToPadding = false
 }
 
 

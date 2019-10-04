@@ -65,11 +65,6 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     }
 
     fun bindUI() {
-        /*compositeDisposable.add(
-            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
-                bodyTable.adapter?.notifyDataSetChanged()
-            }
-        )*/
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
@@ -101,7 +96,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         override fun getItemCount() = 16//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0,12 -> FilterCardType
+           in 0..12 -> FilterCardType
             13,14 -> FilterType
             15 -> ButtonType
             else -> -1
@@ -140,7 +135,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                     for (x in event) {
                         holder.initialize(list[position], resourceImages[position])
                     }
-                }
+                  }
                 is FilterSwitchViewHolder -> {
                     when (position) {
                         13 -> {
@@ -192,9 +187,6 @@ fun FilterView.renderUIO() {
 
     bodyTable
         .clipToPadding = false
-
-
-    //bodyTable.addItemDecoration(ColumnEqualsPaddingItemDecoration(8.dp, 3))
 }
 
 
