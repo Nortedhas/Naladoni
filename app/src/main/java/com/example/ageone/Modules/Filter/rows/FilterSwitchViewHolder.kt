@@ -54,7 +54,7 @@ fun FilterSwitchViewHolder.renderUI() {
     )
     linetop
         .fillHorizontally()
-        .constrainTopToTopOf(constraintLayout)
+        .constrainTopToTopOf(constraintLayout,16)
         .height(1)
     linebuttom
         .fillHorizontally()

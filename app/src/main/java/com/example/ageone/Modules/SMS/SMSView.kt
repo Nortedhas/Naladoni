@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.R
 import com.example.ageone.External.Base.Module.BaseModule
