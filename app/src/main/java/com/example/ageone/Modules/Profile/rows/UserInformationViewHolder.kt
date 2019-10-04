@@ -11,8 +11,8 @@ import com.example.ageone.External.Base.View.BaseView
 import com.example.ageone.External.Libraries.Glide.addImageFromGlide
 import yummypets.com.stevia.*
 
-class UserInformationViewHolder(val constraintLayout: ConstraintLayout) :
-    BaseViewHolder(constraintLayout) {
+class UserInformationViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
+
     val view by lazy {
         val view = BaseView()
         view.cornerRadius = 8.dp
@@ -21,7 +21,6 @@ class UserInformationViewHolder(val constraintLayout: ConstraintLayout) :
         view.initialize()
         view
     }
-
 
     val imagePhoto by lazy {
         val imageView = BaseImageView()
