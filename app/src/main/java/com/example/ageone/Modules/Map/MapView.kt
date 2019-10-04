@@ -38,13 +38,14 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         imageView.setBackgroundResource(R.drawable.pic_map_top_image)
         imageView
     }
+
     /*val buttonMyLocation by lazy {
-        val imageNavigationView = BaseImageView()
-        imageNavigationView.initialize()
-        imageNavigationView.orientation = GradientDrawable.Orientation.TOP_BOTTOM
-        imageNavigationView.setBackgroundResource(R.drawable.pic_navigationbuttom)
-        imageNavigationView.elevation = 5F.dp
-        imageNavigationView
+        val buttonMyLocation = BaseImageView()
+        buttonMyLocation.initialize()
+        buttonMyLocation.orientation = GradientDrawable.Orientation.TOP_BOTTOM
+        buttonMyLocation.setBackgroundResource(R.drawable.pic_navigationbuttom)
+        buttonMyLocation.elevation = 5F.dp
+        buttonMyLocation
     }*/
 
     var buttonMyLocation: ImageView
