@@ -2,6 +2,7 @@ package com.example.ageone.Modules.Profile.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
+import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.R
@@ -39,6 +40,7 @@ class UserInformationViewHolder(val constraintLayout: ConstraintLayout): BaseVie
         textView.textColor = Color.parseColor("#333333")
         textView.textSize = 17F
         textView.typeface = Typeface.DEFAULT_BOLD
+        textView.gravity = Gravity.CENTER
         textView.setBackgroundColor(Color.TRANSPARENT)
         textView.setLines(3)
         textView
@@ -63,8 +65,8 @@ fun UserInformationViewHolder.renderUI() {
     )
 
     imagePhoto
-        .height(114)
-        .width(114)
+        .height(74)
+        .width(74)
         .constrainLeftToLeftOf(constraintLayout)
         .constrainRightToRightOf(constraintLayout)
         .constrainCenterYToTopOf(view)
@@ -76,8 +78,8 @@ fun UserInformationViewHolder.renderUI() {
         .constrainBottomToBottomOf(constraintLayout, 8)
 
     textViewName
-        .fillHorizontally(90)
-        .constrainTopToTopOf(view, 47)
+        .fillHorizontally(8)
+        .constrainTopToTopOf(view, 27)
 
     viewArrow
         .height(20)
