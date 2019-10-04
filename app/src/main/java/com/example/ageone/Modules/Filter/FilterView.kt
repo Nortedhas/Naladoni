@@ -7,18 +7,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.updatePadding
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.Button.BaseButton
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
+import com.example.ageone.External.Base.RecyclerView.ColumnEqualsPaddingItemDecoration
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.External.Libraries.Alert.alertManager
 import com.example.ageone.External.Libraries.Alert.single
-import com.example.ageone.Modules.Filter.rows.FilterButtonViewHolder
-import com.example.ageone.Modules.Filter.rows.FilterSwitchViewHolder
-import com.example.ageone.Modules.Filter.rows.initialize
+import com.example.ageone.Modules.Filter.rows.*
+import com.example.ageone.Modules.List.ListView
+import com.example.ageone.Modules.Profile.ProfileViewModel
+import com.example.ageone.Modules.Profile.rows.initialize
 import com.example.ageone.R
+import com.example.ageone.UIComponents.ViewHolders.initialize
+import com.example.ageone.UIComponents.ViewHolders.СardViewHolder
 import yummypets.com.stevia.*
 
 class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -29,14 +36,28 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         val viewAdapter = Factory(this)
         viewAdapter
     }
+    val layoutManager by lazy {
+        val layoutManager = GridLayoutManager(currentActivity, 3)
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return when (position) {
+                    13,14 -> 3
+                    15 -> 3
+                    else -> 1
+                }
+            }
+        }
+        layoutManager
+    }
+
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.back_filter)//TODO: set background
+        setBackgroundResource(R.drawable.back_filter)
 
         toolbar.title = "Покажи мне"
         renderToolbar()
-
+        bodyTable.layoutManager = layoutManager
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
@@ -53,16 +74,37 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
+        private val list = listOf(
+            "Поесть", "Автосервис", "Красота", "Развлечения", "Фитнес", "Здоровье", "Для детей",
+            "Услуги", "Товары", "Образование", "Туризм", "Для животных", "18+"
+        )
+        private val resourceImages = arrayOf(
+            R.drawable.pic_food,
+            R.drawable.pic_car,
+            R.drawable.pic_women_hairstyling,
+            R.drawable.pic_balloons,
+            R.drawable.pic_exercise,
+            R.drawable.pic_pharmacy,
+            R.drawable.pic_duck,
+            R.drawable.pic_repairs,
+            R.drawable.pic_tovari,
+            R.drawable.pic_book,
+            R.drawable.pic_hiking,
+            R.drawable.pic_paw_print,
+            R.drawable.pic_frame
+        )
 
-        private val FilterType = 0
-        private val ButtonType = 1
 
+        private val FilterCardType = 0
+        private val FilterType = 1
+       private val ButtonType = 2
 
-        override fun getItemCount() = 5//viewModel.realmData.size
+        override fun getItemCount() = 16//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0, 1 -> FilterType
-            2 -> ButtonType
+            0,12 -> FilterCardType
+            13,14 -> FilterType
+            15 -> ButtonType
             else -> -1
         }
 
@@ -75,6 +117,9 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                 .height(wrapContent)
 
             val holder = when (viewType) {
+                FilterCardType -> {
+                    FilterFilterIconsViewHolder(layout)
+                }
                 FilterType -> {
                     FilterSwitchViewHolder(layout)
                 }
@@ -90,11 +135,16 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-
+            val event = 0..12
             when (holder) {
+                is FilterFilterIconsViewHolder -> {
+                    for (x in event) {
+                        holder.initialize(list[position], resourceImages[position])
+                    }
+                }
                 is FilterSwitchViewHolder -> {
                     when (position) {
-                        0 -> {
+                        13 -> {
                             holder.initialize("Только популярные")
                             holder.switch.setOnClickListener {
                                 if (holder.switch.isChecked) {
@@ -111,35 +161,43 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                                 }
                             }
                         }
-                        1 -> {
+                        14 -> {
                             holder.initialize("Только ближайшие")
                             holder.linetop.visibility = View.INVISIBLE
                         }
-
                     }
-
-
                 }
+
                 is FilterButtonViewHolder -> {
                     holder.initialize("Вперёд!")
                 }
-
             }
 
         }
+
     }
+
 }
 
 fun FilterView.renderUIO() {
 
-  //  renderBodyTable()
     innerContent.subviews(
         bodyTable
     )
-    bodyTable
-        .fillHorizontally()
-        .constrainBottomToBottomOf(innerContent)
 
+    bodyTable
+        .fillHorizontally(0)
+        .fillVertically()
+        .constrainTopToTopOf(innerContent)
+        .updatePadding(bottom = 24.dp)
+
+    bodyTable
+        .clipToPadding = false
+
+
+    //bodyTable.addItemDecoration(ColumnEqualsPaddingItemDecoration(8.dp, 3))
 }
+
+
 
 

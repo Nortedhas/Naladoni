@@ -93,7 +93,7 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                     1
                 }
 
-                override fun getItemViewType(position: Int): Int =when (listReceived) {
+                override fun getItemViewType(position: Int): Int = when (listReceived) {
                     true -> if (listReceived) {
                         SearchViewType
                     } else {
