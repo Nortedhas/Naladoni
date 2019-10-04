@@ -1,14 +1,14 @@
-package com.example.ageone.Modules.Filter
+package com.example.ageone.Modules.InnerFilter
 
 import com.example.ageone.Application.utils
 import com.example.ageone.External.Interfaces.InterfaceModel
 import com.example.ageone.External.Interfaces.InterfaceViewModel
 
-class FilterViewModel : InterfaceViewModel {
-    var model = FilterModel()
+class InnerFilterViewModel : InterfaceViewModel {
+    var model = InnerFilterModel()
 
     enum class EventType {
-        OnlouderFilter
+
     }
 
     /*var realmData = listOf<>()
@@ -17,13 +17,13 @@ class FilterViewModel : InterfaceViewModel {
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is FilterModel) {
+        if (recievedModel is InnerFilterModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 }
 
-class FilterModel : InterfaceModel {
+class InnerFilterModel : InterfaceModel {
 
 }

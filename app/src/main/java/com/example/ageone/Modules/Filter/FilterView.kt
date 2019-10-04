@@ -1,31 +1,20 @@
 package com.example.ageone.Modules.Filter
 
-import android.graphics.Color
-import android.graphics.Typeface
-import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ageone.Application.currentActivity
-import com.example.ageone.External.Base.Button.BaseButton
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
-import com.example.ageone.External.Base.RecyclerView.ColumnEqualsPaddingItemDecoration
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.External.Libraries.Alert.alertManager
 import com.example.ageone.External.Libraries.Alert.single
 import com.example.ageone.Modules.Filter.rows.*
-import com.example.ageone.Modules.List.ListView
-import com.example.ageone.Modules.Profile.ProfileViewModel
-import com.example.ageone.Modules.Profile.rows.initialize
 import com.example.ageone.R
-import com.example.ageone.UIComponents.ViewHolders.initialize
-import com.example.ageone.UIComponents.ViewHolders.СardViewHolder
 import yummypets.com.stevia.*
 
 class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -135,7 +124,11 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                     for (x in event) {
                         holder.initialize(list[position], resourceImages[position])
                     }
-                  }
+                    holder.card.setOnClickListener {
+                        rootModule.emitEvent?.invoke(FilterViewModel.EventType.OnlouderFilter.toString())
+                    }
+
+                }
                 is FilterSwitchViewHolder -> {
                     when (position) {
                         13 -> {
@@ -145,13 +138,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                                     alertManager.single(
                                         message = "В вашем городе нет подарков в данной категории, попробуйте поискать в другой ",
                                         title = "Мы ничего не нашли", button = "Понятно"
-                                    ) { _, _ ->
-                                        val toast = Toast.makeText(
-                                            currentActivity?.applicationContext,
-                                            "МММ жаль", Toast.LENGTH_SHORT
-                                        )
-                                        toast.show()
-                                    }
+                                    ) { _, _ -> }
                                 }
                             }
                         }

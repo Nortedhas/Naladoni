@@ -98,7 +98,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
             when (holder) {
                 is UserInformationViewHolder -> {
-                    holder.initialize("Пупкин Георгий", R.drawable.pic_food_main_stock)
+                    holder.initialize("Артем Горбунов", R.drawable.pic_naladoni)
                     holder.view.setOnClickListener{
 
                         rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileN.toString())
@@ -113,7 +113,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                 is ProfileInformationViewHolder -> {
                     when (position) {
                         2 -> {
-                            holder.initialize("Мой город", "Краснодар")
+                            holder.initialize("Мой город", "Екатеринбург")
                             holder.back.setOnClickListener{
 
                                 rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileC.toString())
