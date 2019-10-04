@@ -11,6 +11,7 @@ import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.RecyclerView.ColumnEqualsPaddingItemDecoration
 import com.example.ageone.External.InitModuleUI
+import com.example.ageone.Modules.Search.SearchViewModel
 import com.example.ageone.UIComponents.ViewHolders.СardViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
@@ -82,6 +83,10 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                 is СardViewHolder -> {
                     holder.initialize("Скидка 500 при покупке от 2500",
                         "Nike","до 12.08.2019", R.drawable.pic_hm)
+                    holder.viewCard.setOnClickListener {
+                        rootModule.emitEvent?.invoke(ListViewModel.EventType.OnlouderList.toString())
+
+                    }
                 }
 
             }

@@ -3,6 +3,7 @@ import androidx.core.view.size
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.example.ageone.Application.Coordinator.Flow.Regular.runFlowFilter
+import com.example.ageone.Application.Coordinator.Flow.Regular.runFlowMainStock
 import com.example.ageone.Application.Coordinator.Router.DataFlow
 import com.example.ageone.Application.Coordinator.Router.TabBar.Stack
 import com.example.ageone.Application.coordinator
@@ -67,6 +68,7 @@ class FlowList : BaseFlow() {
         module.emitEvent = { event ->
             when (com.example.ageone.Modules.List.ListViewModel.EventType.valueOf(event)) {
                 com.example.ageone.Modules.List.ListViewModel.EventType.OnlouderList -> {
+                    coordinator.runFlowMainStock(this)
                 }
 
             }
