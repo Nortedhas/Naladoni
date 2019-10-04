@@ -60,7 +60,7 @@ fun ServiceInformationViewHolder.renderUI() {
     back
         .height(70)
         .fillHorizontally(8)
-        .constrainTopToTopOf(constraintLayout, 16)
+        .constrainTopToTopOf(constraintLayout, 8)
         .constrainBottomToBottomOf(constraintLayout, 8)
 
     textView

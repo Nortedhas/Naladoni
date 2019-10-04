@@ -11,6 +11,9 @@ import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.Filter.FilterModel
 import com.example.ageone.Modules.Filter.FilterView
 import com.example.ageone.Modules.Filter.FilterViewModel
+import com.example.ageone.Modules.InnerFilter.InnerFilterModel
+import com.example.ageone.Modules.InnerFilter.InnerFilterView
+import com.example.ageone.Modules.InnerFilter.InnerFilterViewModel
 import com.example.ageone.R
 
 fun FlowCoordinator.runFlowFilter(previousFlow: BaseFlow) {
@@ -51,6 +54,7 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
 
     inner class FlowFilterModels {
         var modelFiltern = FilterModel()
+        var modelInnerFiltern = InnerFilterModel()
     }
 
     fun runModuleFiltern() {
@@ -58,7 +62,6 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
             isBottomNavigationVisible = false,
             exitListener = {},
             exitIcon = R.drawable.pic_button_clear,
-            iconExitSize = 55,
             isBackPressed = true,
 
             backListener = { this }
@@ -71,6 +74,31 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
 
         module.emitEvent = { event ->
             when (FilterViewModel.EventType.valueOf(event)) {
+                FilterViewModel.EventType.OnlouderFilter -> {
+                    runModuleInnerFilter()
+                }
+
+
+            }
+        }
+        push(module)
+    }
+    fun runModuleInnerFilter() {
+        val module = InnerFilterView(   InitModuleUI(
+            isBottomNavigationVisible = false,
+            isBackPressed = true,
+
+            backListener = {
+                pop() }
+
+        ))
+
+        module.viewModel.initialize(models.modelInnerFiltern) { module.reload() }
+
+        settingsCurrentFlow.isBottomNavigationVisible = true
+
+        module.emitEvent = { event ->
+            when (InnerFilterViewModel.EventType.valueOf(event)) {
 
             }
         }

@@ -154,7 +154,7 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
     }
 
-    var listReceived = true
+    var listReceived = false
 
     fun SearchView.renderUIO() {
         innerContent.subviews(

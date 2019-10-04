@@ -64,8 +64,8 @@ fun UserInformationViewHolder.renderUI() {
     )
 
     imagePhoto
-        .height(74)
-        .width(74)
+        .height(114)
+        .width(114)
         .constrainLeftToLeftOf(constraintLayout)
         .constrainRightToRightOf(constraintLayout)
         .constrainCenterYToTopOf(view)
