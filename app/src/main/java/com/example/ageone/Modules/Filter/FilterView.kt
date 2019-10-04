@@ -2,6 +2,7 @@ package com.example.ageone.Modules.Filter
 
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -24,13 +25,15 @@ import yummypets.com.stevia.*
 class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
     val viewModel = FilterViewModel()
+
     val clear by lazy {
         val text = BaseTextView()
         text.textColor = Color.parseColor("#FFFFFF")
         text.textSize = 17F
-        text.gravity = Gravity.END
+        text.text = "Очистить"
+        text.orientation = GradientDrawable.Orientation.BOTTOM_TOP
         text.typeface = Typeface.DEFAULT
-       // text.setBackgroundColor(Color.TRANSPARENT)
+        text.setBackgroundColor(Color.TRANSPARENT)
         text
     }
     val viewAdapter by lazy {
@@ -156,6 +159,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                         }
                         14 -> {
                             holder.initialize("Только ближайшие")
+                            holder.linetop.constrainTopToTopOf(innerContent)
                             holder.linetop.visibility = View.INVISIBLE
                         }
                     }
@@ -174,14 +178,17 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
 fun FilterView.renderUIO() {
 
-    innerContent.subviews(
-        bodyTable,
+    toolbar.subviews(
         clear
+    )
+    innerContent.subviews(
+        bodyTable
+
     )
 
     clear
-        .constrainTopToTopOf(innerContent,10)
-        .constrainRightToRightOf(innerContent,16)
+        .constrainTopToTopOf(toolbar)
+        .constrainLeftToRightOf(toolbar,150)
 
     bodyTable
         .fillHorizontally(0)
