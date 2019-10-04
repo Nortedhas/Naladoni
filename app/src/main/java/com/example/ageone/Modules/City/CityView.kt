@@ -89,7 +89,7 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
             }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-            val city = arrayOf("Краснодар", "Москва")
+            val city = arrayOf("Екатеринбург", "Москва")
             when (holder) {
                 is CityEditTextViewHolder -> {
                     alertManager.single(
