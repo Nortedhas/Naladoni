@@ -26,12 +26,10 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         setBackgroundResource(R.drawable.back_filter)//TODO: set background
 
         toolbar.title = "Покажи мне"
-
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
-
 
         renderUIO()
         bindUI()

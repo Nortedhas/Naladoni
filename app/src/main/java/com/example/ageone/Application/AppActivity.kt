@@ -31,9 +31,9 @@ class AppActivity: BaseActivity() {
         setFullScreen()
         setDisplaySize()
 
-        /*verifyStoragePermissions()
-        verifyLocationPermissions()*/
-        verifyLocationAndStoragePermissions()
+        addStoragePermissions()
+        addLocationPermissions()
+        verifyPermissions {  }
 
 //        FuelManager.instance.basePath = DataBase.url
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
@@ -112,7 +112,7 @@ class AppActivity: BaseActivity() {
         grantResult: IntArray
     ) {
         when (requestCode) {
-            LOCATION_PERMISSION_REQUEST_CODE -> {
+            REQUEST_CODE -> {
                 if (grantResult.isNotEmpty() && grantResult[0] == PackageManager.PERMISSION_GRANTED) {
                     isLocationGranted = true
                     fetchLastLocation()
