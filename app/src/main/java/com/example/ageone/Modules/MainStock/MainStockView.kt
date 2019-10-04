@@ -110,7 +110,6 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                     when (position) {
                         1 -> {
                             holder.constraintLayout.backgroundColor = Color.WHITE
-                            holder.textView.constrainTopToTopOf(innerContent)
                             holder.initialize(
                                 "Акция: ", "Равным образом новая модель" +
                                         " организационной деятельности способствует подготовки и реализации " +
@@ -119,6 +118,8 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                         }
 
                         2 -> {
+                            holder.constraintLayout.constrainTopToTopOf(innerContent)
+                            holder.textView.constrainTopToTopOf(innerContent)
                             holder.constraintLayout.backgroundColor = Color.WHITE
                             holder.initialize("Даты проведения: ", "с 25.08.2019 до 30.08.2019")
 
@@ -129,7 +130,8 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                 is ButtonViewHolder -> {
                     holder.constraintLayout.backgroundColor = Color.WHITE
                     holder.initialize("Как добраться?")
-                    holder.button.constrainTopToTopOf(innerContent, 5)
+                    holder.button.constrainTopToTopOf(innerContent,12)
+                    holder.button.constrainBottomToBottomOf(innerContent)
                     holder.button.setOnClickListener {
                         rootModule.emitEvent?.invoke(MainStockViewModel.EventType.OnlouderMainStock.toString())
                     }

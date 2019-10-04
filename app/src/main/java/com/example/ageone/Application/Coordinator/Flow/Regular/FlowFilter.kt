@@ -5,7 +5,6 @@ import androidx.core.view.size
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.example.ageone.Application.Coordinator.Router.DataFlow
-import com.example.ageone.Application.router
 import com.example.ageone.External.Base.Flow.BaseFlow
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.Filter.FilterModel
@@ -49,7 +48,7 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
 
     override fun start() {
         onStarted()
-        runModuleFiltern()
+        runModuleFilter()
     }
 
     inner class FlowFilterModels {
@@ -57,11 +56,9 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
         var modelInnerFiltern = InnerFilterModel()
     }
 
-    fun runModuleFiltern() {
+    fun runModuleFilter() {
         val module = FilterView(   InitModuleUI(
             isBottomNavigationVisible = false,
-            exitListener = {},
-            exitIcon = R.drawable.pic_button_clear,
             isBackPressed = true,
 
             backListener = { this }

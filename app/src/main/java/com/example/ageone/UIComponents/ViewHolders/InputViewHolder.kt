@@ -26,7 +26,7 @@ class InputViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(c
         textInput.layoutParams = params
 
 
-        textInput.boxStrokeColor = Color.rgb(242, 132, 45)
+        textInput.boxStrokeColor = Color.parseColor("#f2842d")
         textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
         textInput.setInactiveUnderlineColor(Color.parseColor("#f2842d"))
 

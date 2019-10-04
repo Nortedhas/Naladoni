@@ -6,6 +6,7 @@ import android.graphics.ColorSpace
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.widget.Switch
+import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
@@ -30,7 +31,7 @@ class FilterSwitchViewHolder(val constraintLayout: ConstraintLayout) :
     }
 
     val switch by lazy {
-        val switch = Switch(currentActivity)
+        val switch = SwitchCompat(currentActivity)
         switch.textSize = 17F
         switch.textColor = Color.WHITE
         switch.typeface = Typeface.DEFAULT_BOLD

@@ -1,5 +1,8 @@
 package com.example.ageone.Modules.Filter
 
+import android.graphics.Color
+import android.graphics.Typeface
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -10,6 +13,7 @@ import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
+import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.External.Libraries.Alert.alertManager
 import com.example.ageone.External.Libraries.Alert.single
@@ -20,7 +24,15 @@ import yummypets.com.stevia.*
 class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
     val viewModel = FilterViewModel()
-
+    val clear by lazy {
+        val text = BaseTextView()
+        text.textColor = Color.parseColor("#FFFFFF")
+        text.textSize = 17F
+        text.gravity = Gravity.END
+        text.typeface = Typeface.DEFAULT
+       // text.setBackgroundColor(Color.TRANSPARENT)
+        text
+    }
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
@@ -30,7 +42,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return when (position) {
-                    13,14 -> 3
+                    13, 14 -> 3
                     15 -> 3
                     else -> 1
                 }
@@ -80,13 +92,13 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
         private val FilterCardType = 0
         private val FilterType = 1
-       private val ButtonType = 2
+        private val ButtonType = 2
 
         override fun getItemCount() = 16//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-           in 0..12 -> FilterCardType
-            13,14 -> FilterType
+            in 0..12 -> FilterCardType
+            13, 14 -> FilterType
             15 -> ButtonType
             else -> -1
         }
@@ -163,8 +175,13 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 fun FilterView.renderUIO() {
 
     innerContent.subviews(
-        bodyTable
+        bodyTable,
+        clear
     )
+
+    clear
+        .constrainTopToTopOf(innerContent,10)
+        .constrainRightToRightOf(innerContent,16)
 
     bodyTable
         .fillHorizontally(0)
@@ -174,6 +191,7 @@ fun FilterView.renderUIO() {
 
     bodyTable
         .clipToPadding = false
+
 }
 
 
