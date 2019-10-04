@@ -81,7 +81,7 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
             when (holder) {
                 is СardViewHolder -> {
                     holder.initialize("Скидка 500 при покупке от 2500",
-                        "Nike","до 12.08.2019", R.drawable.pic_photo_logo)
+                        "Nike","до 12.08.2019", R.drawable.pic_hm)
                 }
 
             }

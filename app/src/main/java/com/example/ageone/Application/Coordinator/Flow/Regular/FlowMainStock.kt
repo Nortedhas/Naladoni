@@ -1,11 +1,13 @@
 package com.example.ageone.Application.Coordinator.Flow.Regular
 
 
+import android.content.Intent
 import androidx.core.view.size
-import com.example.ageone.Application.*
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.example.ageone.Application.Coordinator.Router.DataFlow
+import com.example.ageone.Application.currentActivity
+import com.example.ageone.Application.intent
 import com.example.ageone.External.Base.Flow.BaseFlow
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.MainStock.MainStockModel
@@ -62,7 +64,15 @@ class FlowMainStock(previousFlow: BaseFlow? = null) : BaseFlow() {
             InitModuleUI(
                 isBottomNavigationVisible = false,
 
-                exitListener = {},
+                exitListener = {
+                    val text = "Hi"
+                    intent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, text)
+                        type = "text/plain"
+                    }
+                    currentActivity?.startActivity(Intent.createChooser(intent, null))
+                },
 
                 exitIcon = R.drawable.ic_share,
 

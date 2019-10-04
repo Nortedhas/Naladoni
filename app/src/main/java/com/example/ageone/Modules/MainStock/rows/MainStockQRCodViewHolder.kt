@@ -10,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextView.BaseTextView
+import com.example.ageone.External.Libraries.Glide.addImageFromGlide
 import yummypets.com.stevia.*
 
 class MainStockQRCodViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
@@ -90,6 +91,6 @@ fun MainStockQRCodViewHolder.initialize(title:String, text:String, counter:Strin
         text.length,  text.length + counter.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
     textDescribe.text = spannableContent
     textTitle.text = title
-    imageQRCod.setBackgroundResource(qrcod)
     textNumber.text = number
+    addImageFromGlide(imageQRCod, qrcod)
 }

@@ -52,7 +52,7 @@ class FlowMain: BaseFlow() {
             InitModuleUI(
                 isBottomNavigationVisible = true,
                 exitListener = {
-                    coordinator.runFlowFilter()
+                    coordinator.runFlowFilter(this)
                 },
                 exitIcon = R.drawable.pic_filter
             )

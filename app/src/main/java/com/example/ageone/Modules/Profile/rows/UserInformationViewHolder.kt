@@ -8,6 +8,7 @@ import com.example.ageone.R
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.Base.View.BaseView
+import com.example.ageone.External.Libraries.Glide.addImageFromGlide
 import yummypets.com.stevia.*
 
 class UserInformationViewHolder(val constraintLayout: ConstraintLayout) :
@@ -92,6 +93,7 @@ fun UserInformationViewHolder.initialize(text: String,photo: Int) {
 
     textViewName.text = ("Я: " + text)
     imagePhoto.setBackgroundResource(photo)
+    addImageFromGlide(imagePhoto, photo)
 
 
 }

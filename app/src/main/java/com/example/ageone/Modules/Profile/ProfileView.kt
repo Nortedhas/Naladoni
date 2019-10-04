@@ -99,7 +99,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
             when (holder) {
                 is UserInformationViewHolder -> {
                     holder.initialize("Пупкин Георгий", R.drawable.pic_food_main_stock)
-                    holder.viewArrow.setOnClickListener{
+                    holder.view.setOnClickListener{
 
                         rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileN.toString())
 
@@ -114,7 +114,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                     when (position) {
                         2 -> {
                             holder.initialize("Мой город", "Краснодар")
-                            holder.image.setOnClickListener{
+                            holder.back.setOnClickListener{
 
                                 rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileC.toString())
 
@@ -124,7 +124,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
                         3 -> {
                             holder.initialize("Мой номер моб. телефона", "+7 (911) 163 81 56")
-                            holder.image.setOnClickListener{
+                            holder.back.setOnClickListener{
 
                                 rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileP.toString())
 
@@ -135,7 +135,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                 }
                 is ServiceInformationViewHolder -> {
                     holder.initialize("О нашем сервисе")
-                    holder.image.setOnClickListener{
+                    holder.back.setOnClickListener{
 
                         rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileA.toString())
 

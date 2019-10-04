@@ -11,6 +11,7 @@ import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.Base.View.BaseView
+import com.example.ageone.External.Libraries.Glide.addImageFromGlide
 import yummypets.com.stevia.*
 
 class MapDiscountCardViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
@@ -122,6 +123,6 @@ fun MapDiscountCardViewHolder.initialize(title: String, describe: String, icon: 
 
     textViewTitle.text = title
     textViewDescribe.text = describe
-    imageViewType.setBackgroundResource(icon)
+    addImageFromGlide(imageViewType, icon)
 
 }
