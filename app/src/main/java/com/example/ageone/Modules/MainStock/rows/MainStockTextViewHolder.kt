@@ -10,8 +10,7 @@ import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextView.BaseTextView
 import yummypets.com.stevia.*
 
-class MainStockTextViewHolder(val constraintLayout: ConstraintLayout) :
-    BaseViewHolder(constraintLayout) {
+class MainStockTextViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
 
     val textView by lazy {
         val textViewLogin = BaseTextView()
@@ -21,6 +20,7 @@ class MainStockTextViewHolder(val constraintLayout: ConstraintLayout) :
         textViewLogin.setBackgroundColor(Color.TRANSPARENT)
         textViewLogin
     }
+
     init {
         renderUI()
     }
@@ -29,13 +29,14 @@ class MainStockTextViewHolder(val constraintLayout: ConstraintLayout) :
 
 fun MainStockTextViewHolder.renderUI() {
 
+    constraintLayout.backgroundColor = Color.WHITE
+
     constraintLayout.subviews(
         textView
     )
 
-
     textView
-        .constrainTopToTopOf(constraintLayout)
+        .constrainTopToTopOf(constraintLayout, 8)
         .fillHorizontally(16)
         .constrainBottomToBottomOf(constraintLayout,8)
 }

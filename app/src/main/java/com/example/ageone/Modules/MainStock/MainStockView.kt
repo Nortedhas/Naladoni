@@ -1,21 +1,23 @@
 package com.example.ageone.Modules.MainStock
 
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.Shader
+import android.graphics.drawable.BitmapDrawable
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.updatePadding
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.MainStock.rows.MainStockDescribeViewHolder
-import com.example.ageone.Modules.MainStock.rows.MainStockTextViewHolder
 import com.example.ageone.Modules.MainStock.rows.MainStockQRCodViewHolder
+import com.example.ageone.Modules.MainStock.rows.MainStockTextViewHolder
 import com.example.ageone.Modules.MainStock.rows.initialize
+import com.example.ageone.R
 import com.example.ageone.UIComponents.ViewHolders.ButtonViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
-import com.example.ageone.R
 
 
 class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -26,10 +28,32 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
         viewAdapter
     }
 
+    /*val imageViewPhoto by lazy {
+        val imageView = BaseImageView()
+//        imageView.cornerRadius = .dp
+        imageView.backgroundColor = Color.GRAY
+        imageView.initialize()
+    // 	imageView.elevation = 5F.dp
+        imageView
+    }*/
+
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.pic_main_stock_top)//TODO: set background
+        val bmp = BitmapFactory.decodeResource(
+            resources,
+            com.example.ageone.R.drawable.pic_main_stock_top
+        )
+        val bitmapDrawable = BitmapDrawable(resources, bmp)
+        bitmapDrawable.setTileModeXY(
+            Shader.TileMode.REPEAT,
+            Shader.TileMode.REPEAT
+        )
+        background = bitmapDrawable
+//        setBackgroundResource(R.drawable.back_filter)//TODO: set background
+
+//        addImageFromGlide(imageViewPhoto, R.drawable.pic_main_stock_top, 0)
+
         toolbar.title = ""
         renderToolbar()
 
@@ -103,14 +127,12 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                         "Время работы: ",
                         "пн-пт: 10:00 до 18:00. сб-вс: 09:00 до 16:00",
                         "Вкусная шаверма",
-                        com.example.ageone.R.drawable.pic_food_main_stock
+                        R.drawable.pic_food_main_stock
                     )
                 }
                 is MainStockTextViewHolder -> {
                     when (position) {
                         1 -> {
-                            holder.constraintLayout.backgroundColor = Color.WHITE
-                            holder.textView.constrainTopToTopOf(innerContent)
                             holder.initialize(
                                 "Акция: ", "Равным образом новая модель" +
                                         " организационной деятельности способствует подготовки и реализации " +
@@ -119,7 +141,6 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                         }
 
                         2 -> {
-                            holder.constraintLayout.backgroundColor = Color.WHITE
                             holder.initialize("Даты проведения: ", "с 25.08.2019 до 30.08.2019")
 
                         }
@@ -156,6 +177,10 @@ fun MainStockView.renderUIO() {
     innerContent.subviews(
         bodyTable
     )
+
+    /*imageViewPhoto
+        .fillHorizontally()
+        .height(utils.tools.getActualSizeFromDes(193))*/
 
     bodyTable
         .fillHorizontally(0)
