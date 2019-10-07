@@ -23,19 +23,11 @@ import yummypets.com.stevia.*
 class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
     val viewModel = MainStockViewModel()
+
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
     }
-
-    /*val imageViewPhoto by lazy {
-        val imageView = BaseImageView()
-//        imageView.cornerRadius = .dp
-        imageView.backgroundColor = Color.GRAY
-        imageView.initialize()
-    // 	imageView.elevation = 5F.dp
-        imageView
-    }*/
 
     init {
 //        viewModel.loadRealmData()
@@ -51,8 +43,6 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
         )
         background = bitmapDrawable
             //TODO: add white rectangle in bottom
-
-//        addImageFromGlide(imageViewPhoto, R.drawable.pic_main_stock_top, 0)
 
         toolbar.title = ""
         renderToolbar()

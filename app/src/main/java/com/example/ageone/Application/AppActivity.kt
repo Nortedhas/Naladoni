@@ -3,7 +3,6 @@ package com.example.ageone.Application
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import com.example.ageone.External.Base.Activity.BaseActivity
 import com.example.ageone.External.Extensions.Activity.*
@@ -12,12 +11,17 @@ import com.example.ageone.R
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.swarmnyc.promisekt.Promise
 import timber.log.Timber
 
 class AppActivity: BaseActivity() {
-    var fusedLocationProviderClient: FusedLocationProviderClient? = null
+
+    var fusedLocationClient: FusedLocationProviderClient? = null
+    var locationRequest: LocationRequest? = null
+    var locationCallback: LocationCallback? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //only vertical mode
@@ -26,6 +30,7 @@ class AppActivity: BaseActivity() {
         setTheme(R.style.AppTheme)
 
         super.onCreate(savedInstanceState)
+
         mapView.onCreate(savedInstanceState)
         mapViewHowGo.onCreate(savedInstanceState)
 
@@ -40,7 +45,7 @@ class AppActivity: BaseActivity() {
         }
 
 //        FuelManager.instance.basePath = DataBase.url
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+
 
         user.isAuthorized = false //TODO: change after add registration
         coordinator.setLaunchScreen()
@@ -90,6 +95,12 @@ class AppActivity: BaseActivity() {
         router.onBackPressed()
     }
 
+
+    override fun onPause() {
+        super.onPause()
+        stopLocationUpdates()
+    }
+
     override fun onLowMemory() {
         super.onLowMemory()
         mapView.onLowMemory()
@@ -106,6 +117,8 @@ class AppActivity: BaseActivity() {
         super.onResume()
         mapView.onResume()
         mapViewHowGo.onResume()
+
+        startLocationUpdates()
     }
 
     override fun onDestroy() {

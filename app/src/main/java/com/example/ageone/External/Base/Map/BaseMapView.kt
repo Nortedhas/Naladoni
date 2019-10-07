@@ -2,8 +2,11 @@ package com.example.ageone.External.Base.Map
 
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import com.example.ageone.External.Base.Button.BaseButton
+import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Extensions.Activity.isLocationGranted
 import com.example.ageone.External.Extensions.Activity.locationBase
+import com.example.ageone.External.Extensions.Activity.startLocation
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
@@ -17,18 +20,18 @@ fun ImageView.setLocationButtonInMap(left: Int, top: Int, right: Int, bottom: In
     layoutParams.setMargins(left.dp, top.dp, right.dp, bottom.dp)
 }
 
-fun GoogleMap.setMyLocation() {
-    isMyLocationEnabled = true
+fun GoogleMap.setMyLocation(buttonLocation: BaseImageView) {
+//    isMyLocationEnabled = true
 
-    setOnMyLocationClickListener { location ->
-        val loc = if (isLocationGranted) {
+    buttonLocation.setOnClickListener {
+        /*val loc = if (isLocationGranted) {
             LatLng(
                 location.latitude,
                 location.longitude
             )
         } else {
             locationBase
-        }
-        moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 13f))
+        }*/
+        moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 13f))
     }
 }

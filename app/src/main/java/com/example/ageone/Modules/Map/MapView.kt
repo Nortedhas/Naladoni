@@ -39,29 +39,28 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         imageView
     }
 
-    /*val buttonMyLocation by lazy {
+    val buttonMyLocation by lazy {
         val buttonMyLocation = BaseImageView()
         buttonMyLocation.initialize()
         buttonMyLocation.orientation = GradientDrawable.Orientation.TOP_BOTTOM
         buttonMyLocation.setBackgroundResource(R.drawable.pic_navigationbuttom)
         buttonMyLocation.elevation = 5F.dp
         buttonMyLocation
-    }*/
+    }
 
-    var buttonMyLocation: ImageView
+//    var buttonMyLocation: ImageView
 
     init {
 //        viewModel.loadRealmData()
 
         Timber.i("Start init map")
-        buttonMyLocation = (mapView.findViewById<View>(Integer.parseInt("1")).parent as View)
-            .findViewById(Integer.parseInt("2"))
+        /*buttonMyLocation = (mapView.findViewById<View>(Integer.parseInt("1")).parent as View)
+            .findViewById(Integer.parseInt("2"))*/
 
         mapView.getMapAsync{ map ->
             Timber.i("Map ready!")
             map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this.context, R.raw.map_style))
-//            map.setMyLocation()
-            map.isMyLocationEnabled = true
+            map.setMyLocation(buttonMyLocation)
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 13f))
 
         }
@@ -108,15 +107,6 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         }
     }
 
-    fun setUpLocationButton() {
-        buttonMyLocation.setImageResource(R.drawable.pic_navigationbuttom)
-
-        buttonMyLocation
-            .height(24.dp)
-            .width(24.dp)
-            .setLocationButtonInMap(0,0,10,150)
-    }
-
 }
 
 
@@ -124,6 +114,7 @@ fun MapView.renderUIO() {
 
     innerContent.subviews(
         mapView,
+        buttonMyLocation,
         bodyTable,
         imagefringeView
     )
@@ -131,6 +122,12 @@ fun MapView.renderUIO() {
     mapView
         .fillHorizontally()
         .fillVertically()
+
+    buttonMyLocation
+        .height(24.dp)
+        .width(24.dp)
+        .constrainRightToRightOf(innerContent, 8)
+        .constrainBottomToTopOf(bodyTable, 8)
 
     bodyTable
         .constrainBottomToBottomOf(innerContent)
@@ -140,7 +137,6 @@ fun MapView.renderUIO() {
         .height(20)
         .fillHorizontally()
 
-    setUpLocationButton()
 }
 
 
