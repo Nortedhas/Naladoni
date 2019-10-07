@@ -1,87 +1,68 @@
 package com.example.ageone.External.Extensions.Activity
 
 import android.location.Location
-import android.os.Looper
 import android.widget.Toast
 import com.example.ageone.Application.AppActivity
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.tasks.RuntimeExecutionException
 import timber.log.Timber
 
 val locationBase = LatLng(56.838607, 60.605514)
 var currentLocation: Location? = null
 
-val reqSetting: LocationRequest? = LocationRequest.create().apply {
-    fastestInterval = 3000
-    interval = 3000
-    priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-    smallestDisplacement = 1.0f
-}
-
 fun AppActivity.fetchLastLocation(){
-    fusedLocationProviderClient?.
+    /*fusedLocationClient?.
         lastLocation?.addOnSuccessListener{ location ->
         if (location != null) {
             currentLocation = location
         } else {
             Toast.makeText(this, "No Location recorded", Toast.LENGTH_SHORT).show()
         }
-    }
+    }*/
 
-    setLocationUpdates()
+    getLocationUpdates()
 }
 
-private fun AppActivity.setLocationUpdates() {
 
-    reqSetting?.let {
-        val builder = LocationSettingsRequest.Builder()
-            .addLocationRequest(reqSetting)
+private fun AppActivity.getLocationUpdates() {
 
-        val client = LocationServices.getSettingsClient(this)
+    fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        client.checkLocationSettings(builder.build()).addOnCompleteListener { task ->
-            try {
-                val state: LocationSettingsStates? = task.result?.locationSettingsStates
-                state?.let { state ->
-                    Timber.i(
-                        "LocationSettings: \n" +
-                                " GPS present: ${state.isGpsPresent} \n" +
-                                " GPS usable: ${state.isGpsUsable} \n" +
-                                " Location present: " +
-                                "${state.isLocationPresent} \n" +
-                                " Location usable: " +
-                                "${state.isLocationUsable} \n" +
-                                " Network Location present: " +
-                                "${state.isNetworkLocationPresent} \n" +
-                                " Network Location usable: " +
-                                "${state.isNetworkLocationUsable} \n"
-                    )
-
-                }
-            } catch (e: RuntimeExecutionException) {
-                Timber.e("${e.message}")
-            }
-        }
-
-
-        val locationUpdates = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult) {
-                Timber.i("Newest $locationResult")
-                Timber.i("Newest Location: ${locationResult.locations.last()}")
-                Timber.i("Newest Location: ${locationResult.lastLocation}")
-                currentLocation = locationResult.lastLocation
-                // do something with the new location...
-            }
-        }
-
-        fusedLocationProviderClient?.requestLocationUpdates(
-            reqSetting,
-            locationUpdates,
-            Looper.getMainLooper()
-        )
+    locationRequest = LocationRequest().apply {
+        interval = 1 * 1000
+        fastestInterval = 1 * 1000
+        smallestDisplacement = 100f // 100 m
+        priority = LocationRequest.PRIORITY_HIGH_ACCURACY
     }
 
+    locationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult?) {
+            locationResult ?: return
+
+            if (locationResult.locations.isNotEmpty()) {
+                // get latest location
+                val location = locationResult.lastLocation
+                // use your location object
+                // get latitude , longitude and other info from this
+                Timber.i("Newest location: ${location.latitude}")
+                currentLocation  = location
+            }
+        }
+    }
+}
+
+//start location updates
+fun AppActivity.startLocationUpdates() {
+    fusedLocationClient?.requestLocationUpdates(
+        locationRequest,
+        locationCallback,
+        null /* Looper */
+    )
+}
+
+// stop location updates
+fun AppActivity.stopLocationUpdates() {
+    fusedLocationClient?.removeLocationUpdates(locationCallback)
 }
 
 var startLocation: LatLng = locationBase

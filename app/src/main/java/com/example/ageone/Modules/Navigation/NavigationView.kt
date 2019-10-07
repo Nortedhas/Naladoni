@@ -1,8 +1,5 @@
 package com.example.ageone.Modules.Navigation
 import android.graphics.drawable.GradientDrawable
-import android.os.Bundle
-import com.example.ageone.Application.currentActivity
-import com.example.ageone.Application.mapView
 import com.example.ageone.Application.mapViewHowGo
 import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.Module.BaseModule
@@ -10,9 +7,6 @@ import com.example.ageone.External.Extensions.Activity.startLocation
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.R
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import timber.log.Timber
 import yummypets.com.stevia.*
