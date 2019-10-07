@@ -11,7 +11,7 @@
         <item name="android:windowBackground">@drawable/launch_screen</item>
 
         <item name="colorControlNormal">#333333</item>
-        <item name="colorControlActivated">#707ABA</item>
+        <item name="colorControlActivated">#F37E25</item>
 
         <item name="android:colorEdgeEffect">@android:color/white</item>
 
@@ -41,5 +41,4 @@
 
     <!-- color borders viewHolder input layout outline-->
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#F37E25</color>
-
 </resources>

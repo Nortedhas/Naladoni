@@ -2,6 +2,7 @@ package com.example.ageone.Modules.Filter
 
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,16 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
     val viewModel = FilterViewModel()
 
+    val clear by lazy {
+        val text = BaseTextView()
+        text.textColor = Color.parseColor("#FFFFFF")
+        text.textSize = 17F
+        text.text = "Очистить"
+        text.orientation = GradientDrawable.Orientation.BOTTOM_TOP
+        text.typeface = Typeface.DEFAULT
+        text.setBackgroundColor(Color.TRANSPARENT)
+        text
+    }
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
@@ -35,7 +46,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return when (position) {
-                    13,14 -> 3
+                    13, 14 -> 3
                     15 -> 3
                     else -> 1
                 }
@@ -115,8 +126,8 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         override fun getItemCount() = 16//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-           in 0..12 -> FilterCardType
-            13,14 -> FilterType
+            in 0..12 -> FilterCardType
+            13, 14 -> FilterType
             15 -> ButtonType
             else -> -1
         }
@@ -174,6 +185,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                         }
                         14 -> {
                             holder.initialize("Только ближайшие")
+                            holder.linetop.constrainTopToTopOf(innerContent)
                             holder.linetop.visibility = View.INVISIBLE
                         }
                     }
@@ -192,9 +204,17 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
 fun FilterView.renderUIO() {
 
+    toolbar.subviews(
+        clear
+    )
     innerContent.subviews(
         bodyTable
+
     )
+
+    clear
+        .constrainTopToTopOf(toolbar)
+        .constrainLeftToRightOf(toolbar,150)
 
     bodyTable
         .fillHorizontally(0)
@@ -204,6 +224,7 @@ fun FilterView.renderUIO() {
 
     bodyTable
         .clipToPadding = false
+
 }
 
 
