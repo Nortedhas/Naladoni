@@ -1,16 +1,18 @@
 package com.example.ageone.Modules.Filter.rows
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Color.parseColor
-import android.graphics.ColorSpace
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
-import android.widget.Switch
+import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.graphics.drawable.DrawableCompat
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.View.BaseView
 import yummypets.com.stevia.*
+
 
 class FilterSwitchViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
@@ -29,13 +31,30 @@ class FilterSwitchViewHolder(val constraintLayout: ConstraintLayout) :
         view
     }
 
+    var states =
+        arrayOf(intArrayOf(-android.R.attr.state_checked), intArrayOf(android.R.attr.state_checked))
+
+    var thumbColors = intArrayOf(Color.WHITE, Color.parseColor("#781EB0"))
+
+    var trackColors = intArrayOf(Color.parseColor("#C74600"), Color.WHITE)
+
     val switch by lazy {
-        val switch = Switch(currentActivity)
+        val switch = SwitchCompat(currentActivity)
         switch.textSize = 17F
         switch.textColor = Color.WHITE
         switch.typeface = Typeface.DEFAULT_BOLD
         switch.elevation = 3F.dp
         switch.text = ""
+
+        DrawableCompat.setTintList(
+            DrawableCompat.wrap(switch.thumbDrawable),
+            ColorStateList(states, thumbColors)
+        )
+        DrawableCompat.setTintList(
+            DrawableCompat.wrap(switch.trackDrawable),
+            ColorStateList(states, trackColors)
+        )
+
         switch
     }
 

@@ -99,6 +99,8 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                         holder.editText.setText(
                             city[0])
                     }
+
+
                     holder.editText.setOnClickListener{
                         currentActivity?.hideKeyboard()
                         alertManager.list( "Выберите город", city) {_, int ->

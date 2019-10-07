@@ -1,5 +1,8 @@
 package com.example.ageone.Modules.Filter
 
+import android.graphics.Color
+import android.graphics.Typeface
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -10,6 +13,7 @@ import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
+import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.External.Libraries.Alert.alertManager
 import com.example.ageone.External.Libraries.Alert.single
@@ -25,6 +29,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         val viewAdapter = Factory(this)
         viewAdapter
     }
+    
     val layoutManager by lazy {
         val layoutManager = GridLayoutManager(currentActivity, 3)
         layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -38,6 +43,18 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         }
         layoutManager
     }
+    
+    val textViewClear by lazy {
+        val textView = BaseTextView()
+        textView.gravity = Gravity.START
+        textView.typeface = Typeface.DEFAULT_BOLD
+        textView.textSize = 17F
+        textView.textColor = Color.WHITE
+        textView.setBackgroundColor(Color.TRANSPARENT)
+        textView.text = "Очистить"
+    // 	textView.elevation = 5F.dp
+        textView
+    }
 
     init {
 //        viewModel.loadRealmData()
@@ -46,6 +63,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
         toolbar.title = "Покажи мне"
         renderToolbar()
+
         bodyTable.layoutManager = layoutManager
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
@@ -59,9 +77,21 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
         private val list = listOf(
-            "Поесть", "Автосервис", "Красота", "Развлечения", "Фитнес", "Здоровье", "Для детей",
-            "Услуги", "Товары", "Образование", "Туризм", "Для животных", "18+"
+            "Поесть",
+            "Автосервис",
+            "Красота",
+            "Развлечения",
+            "Фитнес",
+            "Здоровье",
+            "Для детей",
+            "Услуги",
+            "Товары",
+            "Образование",
+            "Туризм",
+            "Для животных",
+            "18+"
         )
+
         private val resourceImages = arrayOf(
             R.drawable.pic_food,
             R.drawable.pic_car,
@@ -78,10 +108,9 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
             R.drawable.pic_frame
         )
 
-
         private val FilterCardType = 0
         private val FilterType = 1
-       private val ButtonType = 2
+        private val ButtonType = 2
 
         override fun getItemCount() = 16//viewModel.realmData.size
 

@@ -60,12 +60,10 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
     fun runModuleFiltern() {
         val module = FilterView(   InitModuleUI(
             isBottomNavigationVisible = false,
-            exitListener = {},
-            exitIcon = R.drawable.pic_button_clear,
             isBackPressed = true,
+            backListener = {
 
-            backListener = { this }
-
+            }
         ))
 
         module.viewModel.initialize(models.modelFiltern) { module.reload() }

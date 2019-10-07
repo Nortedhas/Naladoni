@@ -25,7 +25,9 @@ import kotlin.concurrent.schedule
 
 
 class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
+
     val viewModel = FAQViewModel()
+
     val buttonEnter by lazy {
         val button = BaseButton()
         button.visibility = View.GONE
@@ -40,6 +42,7 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
         button.initialize()
         button
     }
+
     val buttonSkip by lazy {
         val button = BaseButton()
         button.textSize = 17F
@@ -51,8 +54,9 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
         button.initialize()
         button
     }
+
     val textToolbar by lazy{
-      val textBar = BaseTextView()
+        val textBar = BaseTextView()
 //        textBar.gravity = Gravity.CENTER
         textBar.typeface = Typeface.DEFAULT_BOLD
         textBar.textSize = 34F
@@ -61,26 +65,26 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
         textBar.orientation = GradientDrawable.Orientation.BOTTOM_TOP
         textBar
     }
+
     val timerFirst = Timer()
-        val timerSecond = Timer()
+    val timerSecond = Timer()
 
-        init {
-            setBackgroundColor(Color.WHITE)
-            bodyTable.adapter = Factory(this)
-            bodyTable.layoutManager = LinearLayoutManager(currentActivity, LinearLayoutManager.HORIZONTAL, false)
-            bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
-            bodyTable.addItemDecoration(CirclePagerIndicatorDecoration())
+    init {
+        setBackgroundColor(Color.WHITE)
+        bodyTable.adapter = Factory(this)
+        bodyTable.layoutManager = LinearLayoutManager(currentActivity, LinearLayoutManager.HORIZONTAL, false)
+        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
+        bodyTable.addItemDecoration(CirclePagerIndicatorDecoration())
 
+        val snapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(bodyTable)
 
-            val snapHelper = PagerSnapHelper()
-            snapHelper.attachToRecyclerView(bodyTable)
-
-            buttonEnter.setOnClickListener {
-                timerFirst.cancel()
-                timerSecond.cancel()
-                user.isAuthorized = true
-                emitEvent?.invoke(FAQViewModel.EventType.OnLoaded.toString())
-            }
+        buttonEnter.setOnClickListener {
+            timerFirst.cancel()
+            timerSecond.cancel()
+            user.isAuthorized = true
+            emitEvent?.invoke(FAQViewModel.EventType.OnLoaded.toString())
+        }
 
         renderUIO()
         timerFirst.schedule(5000){
@@ -92,7 +96,7 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
             if ((bodyTable.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition() == 1) {
                 bodyTable.smoothScrollToPosition(2)
 
-        }
+            }
         }
     }
 
@@ -118,16 +122,19 @@ fun StartView.renderUIO() {
         }
     }
     timer.start()
+
     buttonSkip.setOnClickListener {
         user.isAuthorized = true
         emitEvent?.invoke(FAQViewModel.EventType.OnLoaded.toString())
     }
+
     innerContent.subviews(
         bodyTable,
         buttonEnter,
         buttonSkip,
         textToolbar
     )
+
     buttonSkip
         .constrainLeftToLeftOf(innerContent, 260)
 
