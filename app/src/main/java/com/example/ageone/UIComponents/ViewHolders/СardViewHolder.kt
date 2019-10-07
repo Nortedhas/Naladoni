@@ -1,7 +1,6 @@
 package com.example.ageone.UIComponents.ViewHolders
 
 import android.graphics.Color
-import android.graphics.Outline
 import android.graphics.Typeface
 import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
