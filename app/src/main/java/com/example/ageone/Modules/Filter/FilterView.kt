@@ -6,6 +6,7 @@ import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.GridLayoutManager
@@ -172,7 +173,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                 is FilterSwitchViewHolder -> {
                     when (position) {
                         13 -> {
-                            holder.initialize("Только популярные",true)
+                            holder.initialize("Только популярные")
                             holder.switch.setOnClickListener {
                                 if (holder.switch.isChecked) {
                                     alertManager.single(
@@ -183,7 +184,8 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                             }
                         }
                         14 -> {
-                            holder.initialize("Только ближайшие",false)
+                            holder.initialize("Только ближайшие")
+                            holder.linetop.constrainTopToTopOf(innerContent)
                             holder.linetop.visibility = View.INVISIBLE
                         }
                     }
@@ -201,15 +203,10 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 }
 
 fun FilterView.renderUIO() {
+
     innerContent.subviews(
-        bodyTable,
-        clear
-
+        bodyTable
     )
-
-    textViewClear
-        .constrainTopToTopOf(innerContent)
-        .constrainRightToRightOf(innerContent,15)
 
     bodyTable
         .fillHorizontally(0)

@@ -75,7 +75,7 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
         override fun getItemCount() = 8//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-           in 0..8 -> InnerFilterbType
+            in 0..8 -> InnerFilterbType
             else -> -1
         }
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {

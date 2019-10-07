@@ -2,19 +2,22 @@ package com.example.ageone.Modules.Navigation
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import com.example.ageone.Application.currentActivity
+import com.example.ageone.Application.mapView
+import com.example.ageone.Application.mapViewHowGo
 import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.Module.BaseModule
+import com.example.ageone.External.Extensions.Activity.startLocation
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
+import timber.log.Timber
 import yummypets.com.stevia.*
 
-val MAPVIEW_BUNDLE_KEY = "MapViewBundleKey"
-class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI),
-    OnMapReadyCallback {
+class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI){
 
     val viewModel = NavigationViewModel()
 
@@ -27,17 +30,17 @@ class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
         imageNavigationView
     }
 
-    val mapView by lazy {
-        val mapView = com.google.android.gms.maps.MapView(currentActivity)
-        mapView
-    }
-
     init {
 //        viewModel.loadRealmData()
 
-        var mapViewBundle: Bundle? = null
-        mapView.onCreate(mapViewBundle)
-        mapView.getMapAsync(this)
+        mapViewHowGo.getMapAsync{ map ->
+            Timber.i("Map ready!")
+            map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this.context, R.raw.map_style))
+//            map.setMyLocation()
+            map.isMyLocationEnabled = true
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 13f))
+
+        }
 
         setBackgroundResource(R.drawable.base_background)
         toolbar.title = "Как добраться"
@@ -54,24 +57,17 @@ class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
             }
         )*/
     }
-    override fun onMapReady(googleMap: GoogleMap) {
-        /*googleMap.setMinZoomPreference(12F)*/
-        val ny = LatLng(40.7143528, -74.0059731)
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(ny))
-    }
 }
 
 
 fun NavigationView.renderUIO() {
 
     innerContent.subviews(
-        mapView,
+        mapViewHowGo,
         imageNavigationView
-
-
     )
 
-    mapView
+    mapViewHowGo
         .fillHorizontally()
         .fillVertically()
 

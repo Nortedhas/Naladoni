@@ -40,6 +40,10 @@ val mapView by lazy {
     val mapView = com.google.android.gms.maps.MapView(currentActivity)
     mapView
 }
+val mapViewHowGo by lazy {
+    val mapView = com.google.android.gms.maps.MapView(currentActivity)
+    mapView
+}
 
 
 class App: Application()  {

@@ -10,7 +10,10 @@ import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.Modules.MainStock.rows.*
+import com.example.ageone.Modules.MainStock.rows.MainStockDescribeViewHolder
+import com.example.ageone.Modules.MainStock.rows.MainStockQRCodViewHolder
+import com.example.ageone.Modules.MainStock.rows.MainStockTextViewHolder
+import com.example.ageone.Modules.MainStock.rows.initialize
 import com.example.ageone.R
 import com.example.ageone.UIComponents.ViewHolders.ButtonViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
@@ -39,7 +42,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
 
         val bmp = BitmapFactory.decodeResource(
             resources,
-            com.example.ageone.R.drawable.pic_main_stock_top
+            R.drawable.pic_main_stock_top
         )
         val bitmapDrawable = BitmapDrawable(resources, bmp)
         bitmapDrawable.setTileModeXY(
@@ -47,7 +50,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
             Shader.TileMode.REPEAT
         )
         background = bitmapDrawable
-//        setBackgroundResource(R.drawable.back_filter)//TODO: set background
+            //TODO: add white rectangle in bottom
 
 //        addImageFromGlide(imageViewPhoto, R.drawable.pic_main_stock_top, 0)
 
@@ -103,7 +106,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                     MainStockTextViewHolder(layout)
                 }
                 MainStockButtomType -> {
-                    MainStockButtonViewHolder(layout)
+                    ButtonViewHolder(layout)
                 }
                 MainStockQrType -> {
                     MainStockQRCodViewHolder(layout)
@@ -136,16 +139,19 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                                         "соответствующий условий активизации. Не следует, однако забывать."
                             )
                         }
+
                         2 -> {
                             holder.initialize("Даты проведения: ", "с 25.08.2019 до 30.08.2019")
-
                         }
                     }
                 }
 
-                is MainStockButtonViewHolder -> {
+                is ButtonViewHolder -> {
                     holder.constraintLayout.backgroundColor = Color.WHITE
                     holder.initialize("Как добраться?")
+
+                    holder.button.constrainTopToTopOf(innerContent,12)
+                    holder.button.constrainBottomToBottomOf(innerContent)
                     holder.button.setOnClickListener {
                         rootModule.emitEvent?.invoke(MainStockViewModel.EventType.OnlouderMainStock.toString())
                     }
@@ -173,15 +179,10 @@ fun MainStockView.renderUIO() {
         bodyTable
     )
 
-    /*imageViewPhoto
-        .fillHorizontally()
-        .height(utils.tools.getActualSizeFromDes(193))*/
-
     bodyTable
         .fillHorizontally(0)
         .fillVertically()
         .constrainTopToTopOf(innerContent)
-
 
     bodyTable
         .clipToPadding = false
