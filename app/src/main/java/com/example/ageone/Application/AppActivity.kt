@@ -27,6 +27,7 @@ class AppActivity: BaseActivity() {
 
         super.onCreate(savedInstanceState)
         mapView.onCreate(savedInstanceState)
+        mapViewHowGo.onCreate(savedInstanceState)
 
         setFullScreen()
         setDisplaySize()
@@ -92,21 +93,25 @@ class AppActivity: BaseActivity() {
     override fun onLowMemory() {
         super.onLowMemory()
         mapView.onLowMemory()
+        mapViewHowGo.onLowMemory()
     }
 
     override fun onStop() {
         super.onStop()
         mapView.onStop()
+        mapViewHowGo.onStop()
     }
 
     override fun onResume() {
         super.onResume()
         mapView.onResume()
+        mapViewHowGo.onResume()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         mapView.onDestroy()
+        mapViewHowGo.onDestroy()
     }
 
     override fun onRequestPermissionsResult(

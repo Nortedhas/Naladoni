@@ -78,7 +78,7 @@ class FlowMainStock(previousFlow: BaseFlow? = null) : BaseFlow() {
 
                 isBackPressed = true,
 
-                backListener = { this}
+                backListener = { }
             )
         )
 
@@ -95,6 +95,7 @@ class FlowMainStock(previousFlow: BaseFlow? = null) : BaseFlow() {
         }
         push(module)
     }
+
     fun runModuleNavigation() {
         val module = NavigationView(InitModuleUI(
             isBottomNavigationVisible = false,
