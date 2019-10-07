@@ -159,10 +159,9 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-            val event = 0..12
             when (holder) {
                 is FilterFilterIconsViewHolder -> {
-                    for (x in event) {
+                    for (x in 0..12) {
                         holder.initialize(list[position], resourceImages[position])
                     }
                     holder.card.setOnClickListener {

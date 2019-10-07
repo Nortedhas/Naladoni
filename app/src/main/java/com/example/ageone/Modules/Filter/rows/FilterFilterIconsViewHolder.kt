@@ -72,9 +72,9 @@ fun FilterFilterIconsViewHolder.renderUI() {
 
 }
 
-fun FilterFilterIconsViewHolder.initialize(text: String,Icon: Int) {
+fun FilterFilterIconsViewHolder.initialize(text: String?,Icon: Int) {
 
     textIcon.text = text
-    addImageFromGlide(imageIcon, Icon)
+    addImageFromGlide(imageIcon, Icon,0)
 
 }

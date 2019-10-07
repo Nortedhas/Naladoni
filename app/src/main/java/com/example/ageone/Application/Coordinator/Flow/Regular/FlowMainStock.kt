@@ -6,6 +6,7 @@ import androidx.core.view.size
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.example.ageone.Application.Coordinator.Router.DataFlow
+import com.example.ageone.Application.coordinator
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.Application.intent
 import com.example.ageone.External.Base.Flow.BaseFlow
@@ -56,7 +57,6 @@ class FlowMainStock(previousFlow: BaseFlow? = null) : BaseFlow() {
 
     inner class FlowMainStockModels {
         var modelMainStock = MainStockModel()
-        var modelNavigation = NavigationModel()
     }
 
     fun runModuleMainStock() {
@@ -76,9 +76,7 @@ class FlowMainStock(previousFlow: BaseFlow? = null) : BaseFlow() {
 
                 exitIcon = R.drawable.ic_share,
 
-                isBackPressed = true,
-
-                backListener = { }
+                isBackPressed = true
             )
         )
 
@@ -89,31 +87,11 @@ class FlowMainStock(previousFlow: BaseFlow? = null) : BaseFlow() {
         module.emitEvent = { event ->
             when (MainStockViewModel.EventType.valueOf(event)) {
                 MainStockViewModel.EventType.OnlouderMainStock -> {
-                    runModuleNavigation()
+                    coordinator.runFlowNavigation(this)
                 }
             }
         }
         push(module)
     }
 
-    fun runModuleNavigation() {
-        val module = NavigationView(InitModuleUI(
-            isBottomNavigationVisible = false,
-            isBackPressed = true,
-            backListener = { pop() }
-
-        ))
-        module.viewModel.initialize(models.modelNavigation) { module.reload() }
-
-        settingsCurrentFlow.isBottomNavigationVisible = false
-
-
-        module.emitEvent = { event ->
-            when (NavigationViewModel.EventType.valueOf(event)) {
-                NavigationViewModel.EventType.OnlouderNavigation -> {
-                }
-            }
-        }
-        push(module)
-    }
 }
