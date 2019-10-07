@@ -204,17 +204,9 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
 fun FilterView.renderUIO() {
 
-    toolbar.subviews(
-        clear
-    )
     innerContent.subviews(
         bodyTable
-
     )
-
-    clear
-        .constrainTopToTopOf(toolbar)
-        .constrainLeftToRightOf(toolbar,150)
 
     bodyTable
         .fillHorizontally(0)

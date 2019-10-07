@@ -56,12 +56,10 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
     }
 
     fun runModuleFilter() {
-        val module = FilterView(   InitModuleUI(
+        val module = FilterView(
+            InitModuleUI(
             isBottomNavigationVisible = false,
-            isBackPressed = true,
-            backListener = {
-
-            }
+            isBackPressed = true
         ))
 
         module.viewModel.initialize(models.modelFiltern) { module.reload() }
@@ -79,6 +77,8 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
         }
         push(module)
     }
+
+
     fun runModuleInnerFilter() {
         val module = InnerFilterView(   InitModuleUI(
             isBottomNavigationVisible = false,

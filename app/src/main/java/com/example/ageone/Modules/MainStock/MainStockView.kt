@@ -133,10 +133,6 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                 is MainStockTextViewHolder -> {
                     when (position) {
                         1 -> {
-<<<<<<< HEAD
-=======
-                            holder.constraintLayout.backgroundColor = Color.WHITE
->>>>>>> c8e54c3a7d7a65181c19e82bce95e0e9d8542d77
                             holder.initialize(
                                 "Акция: ", "Равным образом новая модель" +
                                         " организационной деятельности способствует подготовки и реализации " +
@@ -145,12 +141,6 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                         }
 
                         2 -> {
-<<<<<<< HEAD
-=======
-                            holder.constraintLayout.constrainTopToTopOf(innerContent)
-                            holder.textView.constrainTopToTopOf(innerContent)
-                            holder.constraintLayout.backgroundColor = Color.WHITE
->>>>>>> c8e54c3a7d7a65181c19e82bce95e0e9d8542d77
                             holder.initialize("Даты проведения: ", "с 25.08.2019 до 30.08.2019")
 
                         }
