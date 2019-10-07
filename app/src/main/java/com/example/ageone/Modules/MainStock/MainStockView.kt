@@ -10,10 +10,7 @@ import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.InitModuleUI
-import com.example.ageone.Modules.MainStock.rows.MainStockDescribeViewHolder
-import com.example.ageone.Modules.MainStock.rows.MainStockQRCodViewHolder
-import com.example.ageone.Modules.MainStock.rows.MainStockTextViewHolder
-import com.example.ageone.Modules.MainStock.rows.initialize
+import com.example.ageone.Modules.MainStock.rows.*
 import com.example.ageone.R
 import com.example.ageone.UIComponents.ViewHolders.ButtonViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
@@ -106,7 +103,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                     MainStockTextViewHolder(layout)
                 }
                 MainStockButtomType -> {
-                    ButtonViewHolder(layout)
+                    MainStockButtonViewHolder(layout)
                 }
                 MainStockQrType -> {
                     MainStockQRCodViewHolder(layout)
@@ -133,35 +130,22 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                 is MainStockTextViewHolder -> {
                     when (position) {
                         1 -> {
-<<<<<<< HEAD
-=======
-                            holder.constraintLayout.backgroundColor = Color.WHITE
->>>>>>> c8e54c3a7d7a65181c19e82bce95e0e9d8542d77
                             holder.initialize(
                                 "Акция: ", "Равным образом новая модель" +
                                         " организационной деятельности способствует подготовки и реализации " +
                                         "соответствующий условий активизации. Не следует, однако забывать."
                             )
                         }
-
                         2 -> {
-<<<<<<< HEAD
-=======
-                            holder.constraintLayout.constrainTopToTopOf(innerContent)
-                            holder.textView.constrainTopToTopOf(innerContent)
-                            holder.constraintLayout.backgroundColor = Color.WHITE
->>>>>>> c8e54c3a7d7a65181c19e82bce95e0e9d8542d77
                             holder.initialize("Даты проведения: ", "с 25.08.2019 до 30.08.2019")
 
                         }
                     }
                 }
 
-                is ButtonViewHolder -> {
+                is MainStockButtonViewHolder -> {
                     holder.constraintLayout.backgroundColor = Color.WHITE
                     holder.initialize("Как добраться?")
-                    holder.button.constrainTopToTopOf(innerContent,12)
-                    holder.button.constrainBottomToBottomOf(innerContent)
                     holder.button.setOnClickListener {
                         rootModule.emitEvent?.invoke(MainStockViewModel.EventType.OnlouderMainStock.toString())
                     }

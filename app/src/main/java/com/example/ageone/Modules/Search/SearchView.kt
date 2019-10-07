@@ -93,18 +93,13 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                     1
                 }
 
-                override fun getItemViewType(position: Int): Int = when (listReceived) {
-                    true -> if (listReceived) {
-                        SearchViewType
-                    } else {
-                        SearchEmptyViewType
-                    }
-                    false -> if (listReceived) {
-                        SearchViewType
-                    } else {
-                        SearchEmptyViewType
-                    }
-                }
+        override fun getItemViewType(position: Int): Int = if (listReceived) {
+            SearchViewType
+        } else {
+            SearchEmptyViewType
+        }
+
+
 
                 override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
 

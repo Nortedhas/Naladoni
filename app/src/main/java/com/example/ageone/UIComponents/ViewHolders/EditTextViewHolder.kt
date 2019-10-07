@@ -1,19 +1,14 @@
-package com.example.ageone.Modules.City.rows
+package com.example.ageone.UIComponents.ViewHolders
 
 import android.graphics.Color
-import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.Spinner
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.updateMargins
-import com.example.ageone.Application.currentActivity
 import com.example.ageone.Application.utils
 import com.example.ageone.External.Base.EditText.BaseEditText
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
-import com.google.android.material.textfield.TextInputLayout
 import yummypets.com.stevia.*
 
-class CityEditTextViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
+class EditTextViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
 
     val editText by lazy {
         val editText = BaseEditText()
@@ -33,7 +28,7 @@ class CityEditTextViewHolder(val constraintLayout: ConstraintLayout) : BaseViewH
 
 }
 
-fun CityEditTextViewHolder.renderUI() {
+fun EditTextViewHolder.renderUI() {
     constraintLayout.subviews(
         editText
     )
@@ -43,6 +38,7 @@ fun CityEditTextViewHolder.renderUI() {
         .fillHorizontally(16)
 }
 
-fun CityEditTextViewHolder.initialize(text: String) {
+fun EditTextViewHolder.initialize(text: String,hint: String) {
+    editText.hint = hint
     editText.setText(text)
 }

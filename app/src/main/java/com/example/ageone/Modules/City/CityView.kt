@@ -11,11 +11,11 @@ import com.example.ageone.External.InitModuleUI
 import com.example.ageone.External.Libraries.Alert.alertManager
 import com.example.ageone.External.Libraries.Alert.list
 import com.example.ageone.External.Libraries.Alert.single
-import com.example.ageone.Modules.City.rows.CityEditTextViewHolder
 import com.example.ageone.Modules.City.rows.CityViewHolder
 import com.example.ageone.Modules.City.rows.initialize
 import com.example.ageone.R
 import com.example.ageone.UIComponents.ViewHolders.ButtonViewHolder
+import com.example.ageone.UIComponents.ViewHolders.EditTextViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.height
 import yummypets.com.stevia.matchParent
@@ -72,7 +72,7 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
                 val holder = when (viewType) {
                     SelectalertManager -> {
-                        CityEditTextViewHolder(layout)
+                        EditTextViewHolder(layout)
                     }
                     SelectCityTextType -> {
                         CityViewHolder(layout)
@@ -91,7 +91,7 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
             val city = arrayOf("Екатеринбург", "Москва")
             when (holder) {
-                is CityEditTextViewHolder -> {
+                is EditTextViewHolder -> {
                     alertManager.single(
                         message = "мы определили ваш город как ${city[0]}",
                         title = "Ваш город подарков", button = "Отлично"

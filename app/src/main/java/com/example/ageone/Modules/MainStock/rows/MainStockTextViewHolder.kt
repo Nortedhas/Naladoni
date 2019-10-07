@@ -36,13 +36,9 @@ fun MainStockTextViewHolder.renderUI() {
     )
 
     textView
-<<<<<<< HEAD
-        .constrainTopToTopOf(constraintLayout, 8)
-=======
         .constrainTopToTopOf(constraintLayout,9)
->>>>>>> c8e54c3a7d7a65181c19e82bce95e0e9d8542d77
         .fillHorizontally(16)
-        .constrainBottomToBottomOf(constraintLayout,12)
+        .constrainBottomToBottomOf(constraintLayout)
 }
 
 fun MainStockTextViewHolder.initialize(text:String,declaration:String) {

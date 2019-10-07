@@ -58,16 +58,17 @@ fun FilterFilterIconsViewHolder.renderUI() {
     card
         .height(67)
         .width(67)
-        .constrainTopToTopOf(constraintLayout,16)
+        .constrainTopToTopOf(constraintLayout,8)
         .constrainLeftToLeftOf(constraintLayout)
         .constrainRightToRightOf(constraintLayout)
+
     imageIcon
         .fillHorizontally(16)
         .fillVertically(16)
     textIcon
         .fillHorizontally()
         .constrainTopToBottomOf(card,8)
-        .constrainBottomToBottomOf(constraintLayout,1)
+        .constrainBottomToBottomOf(constraintLayout,8)
 
 }
 

@@ -1,12 +1,14 @@
 package com.example.ageone.UIComponents.ViewHolders
 
 import android.graphics.Color
+import android.graphics.Outline
 import android.graphics.Typeface
 import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.ageone.R
 import com.example.ageone.Application.utils
 import com.example.ageone.External.Base.ImageView.BaseImageView
+import com.example.ageone.External.Base.ImageView.setOnlyTopRoundedCorners
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.Base.View.BaseView
@@ -26,6 +28,8 @@ class СardViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(c
 
     val imageViewLogo by lazy {
         val imageView = BaseImageView()
+        imageView.setOnlyTopRoundedCorners(radius = 25.toFloat())
+        imageView.initialize()
         imageView
     }
 
@@ -98,6 +102,8 @@ fun СardViewHolder.renderUI() {
 
     imageViewBottomFrame
         .constrainCenterYToBottomOf(imageViewLogo)
+        .constrainLeftToLeftOf(imageViewLogo)
+        .constrainRightToRightOf(imageViewLogo)
 
     textViewDescribe
         .constrainTopToBottomOf(imageViewLogo,16)
@@ -119,6 +125,6 @@ fun СardViewHolder.initialize(describe: String, logo: String, date: String, pho
     textViewDescribe.text = describe
     textViewLogo.text = logo
     textViewDate.text = date
-    addImageFromGlide(imageViewLogo, photo_logo)
+    addImageFromGlide(imageViewLogo, photo_logo,0)
 
 }

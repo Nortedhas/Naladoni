@@ -73,7 +73,7 @@ fun FilterSwitchViewHolder.renderUI() {
     )
     linetop
         .fillHorizontally()
-        .constrainTopToTopOf(constraintLayout,16)
+        .constrainTopToTopOf(constraintLayout,8)
         .height(1)
     linebuttom
         .fillHorizontally()
@@ -86,7 +86,16 @@ fun FilterSwitchViewHolder.renderUI() {
 
 }
 
-fun FilterSwitchViewHolder.initialize(text: String) {
+fun FilterSwitchViewHolder.initialize(text: String, later: Boolean) {
     switch.text = text
+    if (later){
+        linetop
+            .constrainTopToTopOf(constraintLayout,8)
+
+    }else{
+        linetop
+            .constrainTopToTopOf(constraintLayout)
+    }
+
 
 }

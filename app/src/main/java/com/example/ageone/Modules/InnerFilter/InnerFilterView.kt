@@ -55,6 +55,7 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
+
         private val list = listOf(
             "Кафе", "Бары", "Рестораны", "Фастфуд", "Кофейни", "Доставка еды", "Програм. питания",
             "Другое"
@@ -69,7 +70,6 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
             R.drawable.pic_lunch,
             R.drawable.pic_food
         )
-
         private val InnerFilterbType = 0
 
         override fun getItemCount() = 8//viewModel.realmData.size
@@ -78,7 +78,6 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
            in 0..8 -> InnerFilterbType
             else -> -1
         }
-
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
 
             val layout = ConstraintLayout(parent.context)

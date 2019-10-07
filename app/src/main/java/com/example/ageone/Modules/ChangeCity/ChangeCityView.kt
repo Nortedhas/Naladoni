@@ -2,15 +2,18 @@ package com.example.ageone.Modules.ChangeCity
 
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.doOnTextChanged
+import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.TextInputLayout.InputEditTextType
+import com.example.ageone.External.Extensions.Activity.hideKeyboard
 import com.example.ageone.External.InitModuleUI
+import com.example.ageone.External.Libraries.Alert.alertManager
+import com.example.ageone.External.Libraries.Alert.list
 import com.example.ageone.R
 import com.example.ageone.UIComponents.ViewHolders.ButtonViewHolder
-import com.example.ageone.UIComponents.ViewHolders.InputViewHolder
+import com.example.ageone.UIComponents.ViewHolders.EditTextViewHolder
 import com.example.ageone.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
 
@@ -72,7 +75,7 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 
             val holder = when (viewType) {
                 RegistrationInputType -> {
-                    InputViewHolder(layout)
+                    EditTextViewHolder(layout)
                 }
                 RegistrationButtonType -> {
                     ButtonViewHolder(layout)
@@ -85,13 +88,30 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+            val city = arrayOf("Екатеринбург", "Москва")
             when (holder) {
-                is InputViewHolder -> {
+                is EditTextViewHolder -> {
+                    holder.initialize("","Выберите город")
+                    holder.editText.setOnClickListener{
+                        currentActivity?.hideKeyboard()
+                        alertManager.list( "Выберите город", city) { _, int ->
+                            when (int) {
+                                0 -> {
+                                    holder.editText.setText(
+                                        city[0])
+                                }
+                                1 -> {
+                                    holder.editText.setText(
+                                        city[1])
+                                }
+                            }
 
-                    holder.initialize("Введите ваш город:", InputEditTextType.TEXT)
-                    holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
-                        viewModel.model.inputCity = text.toString()
+                        }
+
                     }
+
+
+
                 }
 
                 is ButtonViewHolder -> {

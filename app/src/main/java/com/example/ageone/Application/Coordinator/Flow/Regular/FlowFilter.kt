@@ -66,7 +66,7 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
 
         module.viewModel.initialize(models.modelFiltern) { module.reload() }
 
-        settingsCurrentFlow.isBottomNavigationVisible = true
+        settingsCurrentFlow.isBottomNavigationVisible = false
 
         module.emitEvent = { event ->
             when (FilterViewModel.EventType.valueOf(event)) {
@@ -91,7 +91,7 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
 
         module.viewModel.initialize(models.modelInnerFiltern) { module.reload() }
 
-        settingsCurrentFlow.isBottomNavigationVisible = true
+        settingsCurrentFlow.isBottomNavigationVisible = false
 
         module.emitEvent = { event ->
             when (InnerFilterViewModel.EventType.valueOf(event)) {
