@@ -53,8 +53,8 @@ fun FilterFilterIconsViewHolder.renderUI() {
             imageIcon
         ),
         textIcon
-
     )
+
     card
         .height(67)
         .width(67)
@@ -65,6 +65,7 @@ fun FilterFilterIconsViewHolder.renderUI() {
     imageIcon
         .fillHorizontally(16)
         .fillVertically(16)
+
     textIcon
         .fillHorizontally()
         .constrainTopToBottomOf(card,8)
@@ -73,8 +74,6 @@ fun FilterFilterIconsViewHolder.renderUI() {
 }
 
 fun FilterFilterIconsViewHolder.initialize(text: String?,Icon: Int) {
-
     textIcon.text = text
     addImageFromGlide(imageIcon, Icon,0)
-
 }

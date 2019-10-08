@@ -3,28 +3,28 @@ package com.example.ageone.Modules.Map
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.size
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.Application.mapView
 import com.example.ageone.External.Base.ImageView.BaseImageView
-import com.example.ageone.External.Base.Map.setLocationButtonInMap
 import com.example.ageone.External.Base.Map.setMyLocation
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
-import com.example.ageone.External.Extensions.Activity.currentLocation
-import com.example.ageone.External.Extensions.Activity.locationBase
 import com.example.ageone.External.Extensions.Activity.startLocation
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.Map.rows.MapDiscountCardViewHolder
 import com.example.ageone.Modules.Map.rows.initialize
 import com.example.ageone.R
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
+import com.google.android.gms.maps.model.MarkerOptions
 import timber.log.Timber
 import yummypets.com.stevia.*
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+
+
 
 
 class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
@@ -61,7 +61,30 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
             Timber.i("Map ready!")
             map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this.context, R.raw.map_style))
             map.setMyLocation(buttonMyLocation)
+
+            val marker = map.addMarker(
+                    MarkerOptions()
+                        .position(startLocation)
+                        .title("Melbourne")
+                        .snippet("Population: 4,137,400")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pic_selected_flag))
+                )
+
+            marker.tag = 1
+
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 13f))
+
+            map.setOnMarkerClickListener { marker ->
+                if (marker.tag is Int) {
+                    val position = marker.tag as Int
+                    if (position in 0 until bodyTable.size) {
+                        bodyTable.smoothScrollToPosition(position)
+                    }
+                }
+
+                return@setOnMarkerClickListener false
+            }
+
 
         }
 

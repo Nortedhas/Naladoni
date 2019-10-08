@@ -55,7 +55,7 @@ class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(in
 
 
 fun NavigationView.renderUIO() {
-
+    
     innerContent.subviews(
         mapViewHowGo,
         imageNavigationView

@@ -4,11 +4,13 @@ import androidx.core.view.size
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.example.ageone.Application.Coordinator.Router.DataFlow
+import com.example.ageone.Application.mapViewHowGo
 import com.example.ageone.External.Base.Flow.BaseFlow
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.Navigation.NavigationModel
 import com.example.ageone.Modules.Navigation.NavigationView
 import com.example.ageone.Modules.Navigation.NavigationViewModel
+import io.realm.internal.sync.BaseModule
 
 fun FlowCoordinator.runFlowNavigation(previousFlow: BaseFlow) {
 
@@ -22,6 +24,7 @@ fun FlowCoordinator.runFlowNavigation(previousFlow: BaseFlow) {
     }
 
     flow?.onFinish = {
+        flow?.viewFlipperModule?.removeAllViews()
         viewFlipperFlow.removeView(flow?.viewFlipperModule)
         flow?.viewFlipperModule?.removeAllViews()
         flow = null
