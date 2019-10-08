@@ -71,12 +71,16 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
             R.drawable.pic_games_3,
             R.drawable.pic_games_4
         ),
+        arrayOf(),//fitness
         arrayOf(
             R.drawable.pic_health_1,
             R.drawable.pic_health_2,
             R.drawable.pic_health_3,
             R.drawable.pic_health_4
         ),
+        arrayOf(),// for children
+        arrayOf(),// service
+        arrayOf(),// products
         arrayOf(
             R.drawable.pic_education_1,
             R.drawable.pic_education_2,
@@ -86,7 +90,9 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
             R.drawable.pic_tourism_1,
             R.drawable.pic_tourism_2,
             R.drawable.pic_tourism_3
-        )
+        ),
+        arrayOf(),//for animals
+        arrayOf()//18+
     )
 
     val namesAll = arrayOf(
@@ -125,6 +131,9 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
             "С компанией",
             "Другое"
         ),
+
+        arrayOf(),//fitness
+
         arrayOf(
             "Стоматология",
             "Диагностика",
@@ -132,6 +141,9 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
             "Другое"
 
         ),
+        arrayOf(),// for children
+        arrayOf(),// service
+        arrayOf(),// products
         arrayOf(
             "Ин. языки",
             "Проф. образование",
@@ -141,7 +153,9 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
             "Отели",
             "Туры",
             "Другое"
-        )
+        ),
+        arrayOf(),//for animals
+        arrayOf()//18+
     )
 
     var indexCurrentFilter = 0
@@ -166,7 +180,7 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
         bindUI()
     }
 
-    fun bindUI() { }
+    fun bindUI() {}
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
