@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.Color.parseColor
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
 import com.example.ageone.External.Base.Switch.BaseSwitch
@@ -71,6 +72,12 @@ fun FilterSwitchViewHolder.renderUI() {
         .fillHorizontally(8)
 }
 
-fun FilterSwitchViewHolder.initialize(text: String) {
+fun FilterSwitchViewHolder.initialize(text: String,visible:Boolean) {
     switch.text = text
+
+    if(visible){
+        linetop.constrainTopToTopOf(constraintLayout)
+        linetop.visibility = View.INVISIBLE
+
+    }
 }

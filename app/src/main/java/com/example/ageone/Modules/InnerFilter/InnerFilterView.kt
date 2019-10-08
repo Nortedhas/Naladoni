@@ -39,14 +39,14 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
 
     val iconsAll = arrayOf(
         arrayOf(
-            R.drawable.pic_bistro,
-            R.drawable.pic_alcohol,
-            R.drawable.pic_dinner,
-            R.drawable.pic_fast_food,
-            R.drawable.pic_cup_and_plate,
-            R.drawable.pic_pizza,
-            R.drawable.pic_lunch,
-            R.drawable.pic_food
+            R.drawable.pic_food_1,
+            R.drawable.pic_food_2,
+            R.drawable.pic_food_3,
+            R.drawable.pic_food_4,
+            R.drawable.pic_food_5,
+            R.drawable.pic_food_6,
+            R.drawable.pic_food_7,
+            R.drawable.pic_food_8
         ),
         arrayOf(
             R.drawable.pic_car_1,
@@ -217,7 +217,7 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
             when (holder) {
                 is FilterFilterIconsViewHolder -> {
-                    holder.initialize(names[position], icons[position])
+                    holder.initialize(names[position], icons[position], false)
                 }
 
             }
