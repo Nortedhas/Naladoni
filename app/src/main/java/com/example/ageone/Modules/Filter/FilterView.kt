@@ -104,19 +104,19 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         )
 
         private val resourceImages = arrayOf(
-            R.drawable.pic_food,
-            R.drawable.pic_car,
-            R.drawable.pic_women_hairstyling,
-            R.drawable.pic_balloons,
-            R.drawable.pic_exercise,
-            R.drawable.pic_pharmacy,
-            R.drawable.pic_duck,
-            R.drawable.pic_repairs,
-            R.drawable.pic_tovari,
-            R.drawable.pic_book,
-            R.drawable.pic_hiking,
-            R.drawable.pic_paw_print,
-            R.drawable.pic_frame
+            R.drawable.pic_categories_1,
+            R.drawable.pic_categories_2,
+            R.drawable.pic_categories_3,
+            R.drawable.pic_categories_4,
+            R.drawable.pic_categories_5,
+            R.drawable.pic_categories_6,
+            R.drawable.pic_categories_7,
+            R.drawable.pic_categories_8,
+            R.drawable.pic_categories_9,
+            R.drawable.pic_categories_10,
+            R.drawable.pic_categories_11,
+            R.drawable.pic_categories_12,
+            R.drawable.pic_categories_13
         )
 
         private val FilterCardType = 0
@@ -172,7 +172,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                 is FilterSwitchViewHolder -> {
                     when (position) {
                         13 -> {
-                            holder.initialize("Только популярные")
+                            holder.initialize("Только популярные",false)
                             holder.switch.setOnClickListener {
                                 if (holder.switch.isChecked) {
                                     alertManager.single(
@@ -183,9 +183,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                             }
                         }
                         14 -> {
-                            holder.initialize("Только ближайшие")
-                            holder.linetop.constrainTopToTopOf(innerContent)
-                            holder.linetop.visibility = View.INVISIBLE
+                            holder.initialize("Только ближайшие",true)
                         }
                     }
                 }
