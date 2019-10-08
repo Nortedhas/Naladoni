@@ -63,8 +63,8 @@ fun FilterFilterIconsViewHolder.renderUI() {
         .constrainRightToRightOf(constraintLayout)
 
     imageIcon
-        .fillHorizontally(16)
-        .fillVertically(16)
+        .fillHorizontally(13)
+        .fillVertically(13)
 
     textIcon
         .fillHorizontally()

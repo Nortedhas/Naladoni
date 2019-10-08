@@ -158,7 +158,7 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
         arrayOf()//18+
     )
 
-    var indexCurrentFilter = 0
+    var indexCurrentFilter = 5
     var icons = arrayOf<Int>()
     var names = arrayOf<String>()
 
