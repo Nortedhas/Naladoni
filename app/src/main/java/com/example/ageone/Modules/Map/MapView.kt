@@ -66,7 +66,6 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                     MarkerOptions()
                         .position(startLocation)
                         .title("Melbourne")
-                        .snippet("Population: 4,137,400")
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.pic_selected_flag))
                 )
 

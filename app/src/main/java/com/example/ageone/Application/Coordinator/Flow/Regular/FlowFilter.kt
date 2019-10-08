@@ -51,24 +51,25 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
     }
 
     inner class FlowFilterModels {
-        var modelFiltern = FilterModel()
-        var modelInnerFiltern = InnerFilterModel()
+        var modelFilter = FilterModel()
+        var modelInnerFilter = InnerFilterModel()
     }
 
     fun runModuleFilter() {
-        val module = FilterView(
-            InitModuleUI(
+        val module = FilterView(InitModuleUI(
             isBottomNavigationVisible = false,
             isBackPressed = true
         ))
 
-        module.viewModel.initialize(models.modelFiltern) { module.reload() }
+        module.viewModel.initialize(models.modelFilter) { module.reload() }
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 
         module.emitEvent = { event ->
             when (FilterViewModel.EventType.valueOf(event)) {
-                FilterViewModel.EventType.OnlouderFilter -> {
+                FilterViewModel.EventType.OnInnerFilterPressed -> {
+                    models.modelInnerFilter.filterName = models.modelFilter.filterName
+                    models.modelInnerFilter.currentFilterIndex = models.modelFilter.currentFilterIndex
                     runModuleInnerFilter()
                 }
 
@@ -80,16 +81,15 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
 
 
     fun runModuleInnerFilter() {
-        val module = InnerFilterView(   InitModuleUI(
+        val module = InnerFilterView(InitModuleUI(
             isBottomNavigationVisible = false,
-            isBackPressed = true,
-
-            backListener = {
-                pop() }
-
+            isBackPressed = true
         ))
 
-        module.viewModel.initialize(models.modelInnerFiltern) { module.reload() }
+        module.viewModel.initialize(models.modelInnerFilter) {
+            module.toolbar.setTitleToolbar(models.modelInnerFilter.filterName)
+            module.reload()
+        }
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 

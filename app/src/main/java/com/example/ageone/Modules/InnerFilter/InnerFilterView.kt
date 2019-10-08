@@ -35,6 +35,8 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
         layoutManager
     }
 
+
+
     val iconsAll = arrayOf(
         arrayOf(
             R.drawable.pic_bistro,
@@ -158,7 +160,6 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
         arrayOf()//18+
     )
 
-    var indexCurrentFilter = 0
     var icons = arrayOf<Int>()
     var names = arrayOf<String>()
 
@@ -225,16 +226,17 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
 
     }
 
+
+    override fun reload() {
+        icons = iconsAll[viewModel.model.currentFilterIndex]
+        names = namesAll[viewModel.model.currentFilterIndex]
+
+        super.reload()
+    }
 }
 
 fun InnerFilterView.renderUIO() {
-
-    icons = iconsAll[indexCurrentFilter]
-    names = namesAll[indexCurrentFilter]
-
     renderBodyTable()
-
-    bodyTable.adapter?.notifyDataSetChanged()
 }
 
 

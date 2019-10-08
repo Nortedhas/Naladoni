@@ -6,7 +6,6 @@ import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.GridLayoutManager
@@ -87,7 +86,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
-        private val list = listOf(
+        private val names = listOf(
             "Поесть",
             "Автосервис",
             "Красота",
@@ -103,7 +102,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
             "18+"
         )
 
-        private val resourceImages = arrayOf(
+        private val icons = arrayOf(
             R.drawable.pic_food,
             R.drawable.pic_car,
             R.drawable.pic_women_hairstyling,
@@ -160,15 +159,18 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
             when (holder) {
-                is FilterFilterIconsViewHolder -> {
-                    for (x in 0..12) {
-                        holder.initialize(list[position], resourceImages[position])
-                    }
-                    holder.card.setOnClickListener {
-                        rootModule.emitEvent?.invoke(FilterViewModel.EventType.OnlouderFilter.toString())
-                    }
 
+                is FilterFilterIconsViewHolder -> {
+                    holder.initialize(names[position], icons[position])
+                    if (position in setOf(0, 1, 2, 3, 5, 9, 10)) {
+                        holder.card.setOnClickListener {
+                            viewModel.model.filterName = names[position]
+                            viewModel.model.currentFilterIndex = position
+                            rootModule.emitEvent?.invoke(FilterViewModel.EventType.OnInnerFilterPressed.name)
+                        }
+                    }
                 }
+
                 is FilterSwitchViewHolder -> {
                     when (position) {
                         13 -> {

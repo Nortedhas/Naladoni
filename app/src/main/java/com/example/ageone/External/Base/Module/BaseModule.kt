@@ -125,9 +125,7 @@ abstract class BaseModule(val initModuleUI: InitModuleUI = InitModuleUI()) : Con
 
     }
 
-
-
-    fun reload() {
+    open fun reload() {
         bodyTable.adapter?.notifyDataSetChanged()
     }
 

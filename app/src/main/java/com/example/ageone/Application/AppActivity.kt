@@ -40,7 +40,9 @@ class AppActivity: BaseActivity() {
         addStoragePermissions()
         addLocationPermissions()
         verifyPermissions {
-            isLocationGranted = true
+            if (hasPermissions(PERMISSIONS_LOCATION)) {
+                isLocationGranted = true
+            }
             fetchLastLocation()
         }
 
@@ -135,7 +137,9 @@ class AppActivity: BaseActivity() {
         when (requestCode) {
             REQUEST_CODE -> {
                 if (grantResult.isNotEmpty() && grantResult[0] == PackageManager.PERMISSION_GRANTED) {
-                    isLocationGranted = true
+                    if (hasPermissions(PERMISSIONS_LOCATION)) {
+                        isLocationGranted = true
+                    }
                     fetchLastLocation()
                 } else {
                     Toast.makeText(this, "Location permission missing", Toast.LENGTH_SHORT)

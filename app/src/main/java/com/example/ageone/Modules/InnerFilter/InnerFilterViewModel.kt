@@ -25,5 +25,6 @@ class InnerFilterViewModel : InterfaceViewModel {
 }
 
 class InnerFilterModel : InterfaceModel {
-
+    var filterName = ""
+    var currentFilterIndex = 0
 }

@@ -25,7 +25,7 @@ fun Activity.addStoragePermissions() {
 }
 
 // LOCATION
-private val PERMISSIONS_LOCATION = arrayOf(
+val PERMISSIONS_LOCATION = arrayOf(
     Manifest.permission.ACCESS_FINE_LOCATION,
     Manifest.permission.ACCESS_COARSE_LOCATION
 )
