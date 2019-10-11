@@ -1,6 +1,7 @@
 package com.example.ageone.Application.Coordinator.Flow.Regular
 
 
+import android.graphics.Color
 import androidx.core.view.size
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
@@ -90,7 +91,8 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
     fun runModuleInnerFilter() {
         val module = InnerFilterViewCollapse(InitModuleUI(
             isBottomNavigationVisible = false,
-            isBackPressed = true
+            isBackPressed = true,
+            colorToolbar = Color.parseColor("#F27A25")
         ))
 
         module.viewModel.initialize(models.modelInnerFilter) {

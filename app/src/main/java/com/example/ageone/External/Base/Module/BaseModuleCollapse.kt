@@ -2,6 +2,7 @@ package com.example.ageone.External.Base.Module
 
 import android.content.Context
 import android.view.View
+import android.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.updatePadding
 import androidx.core.widget.NestedScrollView
@@ -49,11 +50,12 @@ open class BaseModuleCollapse(override var initModuleUI: InitModuleUI = InitModu
     }
 
     val toolbar by lazy {
-        val toolBar = BaseToolbar(initModuleUI, content)
+        val toolBar = Toolbar(currentActivity)
 
         toolBar
             .setBackgroundColor(initModuleUI.colorToolbar)
 
+        toolBar.title = "all"
         if (initModuleUI.isToolbarHidden) {
             toolBar.visibility = View.GONE
         }
@@ -90,13 +92,17 @@ open class BaseModuleCollapse(override var initModuleUI: InitModuleUI = InitModu
     }
 
     fun renderUI() {
+        width(matchParent)
+        height(matchParent)
+
         subviews(
             nestedScrollView.subviews(
                 content
             ),
             appBarLayout.subviews(
-                collapsingToolbarLayout,
-                toolbar
+                collapsingToolbarLayout.subviews(
+                    toolbar
+                )
             )
         )
 
@@ -104,37 +110,24 @@ open class BaseModuleCollapse(override var initModuleUI: InitModuleUI = InitModu
             .height(100)
             .width(matchParent)
 
-
         collapsingToolbarLayout
             .width(matchParent)
             .height(matchParent)
+
         collapsingToolbarLayout.apply {
             expandedTitleMarginStart = 48.dp
             expandedTitleMarginEnd = 64.dp
         }
 
+        collapsingToolbarLayout.setScrollFlags()
 
-        val paramsToolbar = toolbar.layoutParams
-        val newParams: CollapsingToolbarLayout.LayoutParams
-        newParams = if (paramsToolbar is CollapsingToolbarLayout.LayoutParams) {
-            paramsToolbar
-        } else {
-            CollapsingToolbarLayout.LayoutParams(paramsToolbar)
-        }
-        newParams.collapseMode = CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_OFF
-        toolbar.layoutParams = newParams
-        toolbar.requestLayout()
 
+        toolbar.setCollapseMode()
         toolbar
-//            .constrainTopToTopOf(content, 0)
             .fillHorizontally()
             .height(utils.variable.actionBarHeight)
 
-
-
-        val params = nestedScrollView.layoutParams as LayoutParams
-        params.behavior = AppBarLayout.ScrollingViewBehavior()
-        nestedScrollView.requestLayout()
+        nestedScrollView.setScrollinViewBehaviour()
 
         nestedScrollView
             .fillHorizontally()
@@ -146,8 +139,27 @@ open class BaseModuleCollapse(override var initModuleUI: InitModuleUI = InitModu
 
     }
 
+    private fun CollapsingToolbarLayout.setScrollFlags() {
+        val params = layoutParams as AppBarLayout.LayoutParams
+        params.scrollFlags =
+            AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
+    }
+
+    private fun NestedScrollView.setScrollinViewBehaviour() {
+        val params = layoutParams
+        val newParams: LayoutParams
+        newParams = if (params is LayoutParams) {
+            params
+        } else {
+            LayoutParams(params)
+        }
+        newParams.behavior = AppBarLayout.ScrollingViewBehavior()
+        layoutParams = newParams
+        requestLayout()
+    }
+
     fun renderToolbar() {
-        toolbar.initialize()
+//        toolbar.initialize()
     }
 
     fun renderBodyTable() {
@@ -164,6 +176,19 @@ open class BaseModuleCollapse(override var initModuleUI: InitModuleUI = InitModu
         bodyTable
             .clipToPadding = false
 
+    }
+
+    fun Toolbar.setCollapseMode(){
+        val params = layoutParams
+        val newParams: CollapsingToolbarLayout.LayoutParams
+        newParams = if (params is CollapsingToolbarLayout.LayoutParams) {
+            params
+        } else {
+            CollapsingToolbarLayout.LayoutParams(params)
+        }
+        newParams.collapseMode = CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PIN
+        layoutParams = newParams
+        requestLayout()
     }
 
     open fun reload() {

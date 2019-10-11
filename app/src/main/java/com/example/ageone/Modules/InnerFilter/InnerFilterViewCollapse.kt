@@ -168,7 +168,7 @@ class InnerFilterViewCollapse(initModuleUI: InitModuleUI = InitModuleUI()) : Bas
 
         setBackgroundResource(R.drawable.back_filter)
 
-        toolbar.title = ""
+        toolbar.title = "Hello"
 
         renderToolbar()
 
@@ -233,7 +233,7 @@ class InnerFilterViewCollapse(initModuleUI: InitModuleUI = InitModuleUI()) : Bas
 
 
     override fun reload() {
-        toolbar.setTitleToolbar(viewModel.model.filterName)
+//        toolbar.setTitleToolbar(viewModel.model.filterName)
 
         icons = iconsAll[viewModel.model.currentFilterIndex]
         names = namesAll[viewModel.model.currentFilterIndex]
