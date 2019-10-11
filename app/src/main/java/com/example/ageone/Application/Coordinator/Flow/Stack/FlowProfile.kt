@@ -7,6 +7,7 @@ import com.example.ageone.Application.Coordinator.Router.TabBar.Stack
 import com.example.ageone.Application.api
 import com.example.ageone.Application.coordinator
 import com.example.ageone.External.Base.Flow.BaseFlow
+import com.example.ageone.External.Icon
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Models.User.user
 import com.example.ageone.Modules.AboutCompany.AboutCompanyModel
@@ -25,6 +26,7 @@ import com.example.ageone.Modules.ChangePhone.ChangePhoneViewModel
 import com.example.ageone.Modules.Profile.ProfileModel
 import com.example.ageone.Modules.Profile.ProfileView
 import com.example.ageone.Modules.Profile.ProfileViewModel
+import com.example.ageone.R
 import io.realm.Realm
 
 fun FlowCoordinator.runFlowProfile() {
@@ -72,14 +74,17 @@ class FlowProfile : BaseFlow() {
         val module = ProfileView(
             InitModuleUI(
                 isBottomNavigationVisible = true,
-                exitListener = {
-                    user.isAuthorized = false
-                    api.cashTime = 0
-                    Realm.getDefaultInstance().executeTransaction { realm ->
-                        realm.deleteAll()
+                firstIcon = Icon(
+                    icon = R.drawable.ic_exit,
+                    listener = {
+                        user.isAuthorized = false
+                        api.cashTime = 0
+                        Realm.getDefaultInstance().executeTransaction { realm ->
+                            realm.deleteAll()
+                        }
+                        coordinator.start()
                     }
-                    coordinator.start()
-                }
+                )
             )
         )
 
@@ -90,23 +95,19 @@ class FlowProfile : BaseFlow() {
         module.emitEvent = { event ->
             when (ProfileViewModel.EventType.valueOf(event)) {
                 ProfileViewModel.EventType.OnlouderProfileN -> {
-
                     runModuleChangeName()
-
                 }
 
                 ProfileViewModel.EventType.OnlouderProfileP -> {
-
                     runModuleChangePhone()
                 }
 
                 ProfileViewModel.EventType.OnlouderProfileA -> {
                     runModuleAboutCompany()
-
                 }
+
                 ProfileViewModel.EventType.OnlouderProfileC -> {
                     runModuleChangeCity()
-
                 }
 
             }
@@ -118,10 +119,7 @@ class FlowProfile : BaseFlow() {
     fun runModuleChangeName() {
         val module = ChangeNameView(InitModuleUI(
             isBottomNavigationVisible = false,
-            isBackPressed = true,
-            backListener = {
-                pop()
-            }
+            isBackPressed = true
         ))
         module.viewModel.initialize(models.modelChangeName) { module.reload() }
 
@@ -142,10 +140,7 @@ class FlowProfile : BaseFlow() {
     fun runModuleChangePhone() {
         val module = ChangePhoneView(InitModuleUI(
             isBottomNavigationVisible = false,
-            isBackPressed = true,
-            backListener = {
-                pop()
-            }
+            isBackPressed = true
         ))
         module.viewModel.initialize(models.modelChangePhone) { module.reload() }
 
@@ -165,10 +160,7 @@ class FlowProfile : BaseFlow() {
     fun runModuleChangeCity() {
         val module = ChangeCityView(InitModuleUI(
             isBottomNavigationVisible = false,
-            isBackPressed = true,
-            backListener = {
-                pop()
-            }
+            isBackPressed = true
         ))
         module.viewModel.initialize(models.modelChangeCity) { module.reload() }
 
@@ -189,10 +181,7 @@ class FlowProfile : BaseFlow() {
     fun runModuleAboutCompany() {
         val module = AboutCompanyView(InitModuleUI(
             isBottomNavigationVisible = false,
-            isBackPressed = true,
-            backListener = {
-                pop()
-            }
+            isBackPressed = true
         ))
         module.viewModel.initialize(models.modelAboutCompany) { module.reload() }
 

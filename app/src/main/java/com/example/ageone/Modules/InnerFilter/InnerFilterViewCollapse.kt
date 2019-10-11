@@ -15,7 +15,7 @@ import com.example.ageone.Modules.Filter.rows.initialize
 import com.example.ageone.R
 import yummypets.com.stevia.*
 
-class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
+class InnerFilterViewCollapse(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModuleCollapse(initModuleUI) {
 
     val viewModel = InnerFilterViewModel()
 
@@ -184,7 +184,7 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
 
     }
 
-    inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
+    inner class Factory(val rootModule: BaseModuleCollapse) : BaseAdapter<BaseViewHolder>() {
 
         private val InnerFilterbType = 0
 
@@ -242,7 +242,7 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
     }
 }
 
-fun InnerFilterView.renderUIO() {
+fun InnerFilterViewCollapse.renderUIO() {
     renderBodyTable()
 }
 

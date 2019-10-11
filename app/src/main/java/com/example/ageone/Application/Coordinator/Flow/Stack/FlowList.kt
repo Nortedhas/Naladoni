@@ -10,6 +10,7 @@ import com.example.ageone.Application.coordinator
 import com.example.ageone.R
 import com.example.ageone.Application.router
 import com.example.ageone.External.Base.Flow.BaseFlow
+import com.example.ageone.External.Icon
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.List.ListModel
 import com.example.ageone.Modules.List.ListView
@@ -55,10 +56,12 @@ class FlowList : BaseFlow() {
         val module = ListView(
             InitModuleUI(
                 isBottomNavigationVisible = true,
-                exitListener = {
-                    coordinator.runFlowFilter(this)
-                },
-                exitIcon = R.drawable.ic_filter2
+                firstIcon = Icon(
+                    icon = R.drawable.ic_filter2,
+                    listener = {
+                        coordinator.runFlowFilter(this)
+                    }
+                )
             )
         )
         module.viewModel.initialize(models.modelList) { module.reload() }

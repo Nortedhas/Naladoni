@@ -10,6 +10,7 @@ import com.example.ageone.Application.coordinator
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.Application.intent
 import com.example.ageone.External.Base.Flow.BaseFlow
+import com.example.ageone.External.Icon
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.MainStock.MainStockModel
 import com.example.ageone.Modules.MainStock.MainStockView
@@ -63,20 +64,19 @@ class FlowMainStock(previousFlow: BaseFlow? = null) : BaseFlow() {
         val module = MainStockView(
             InitModuleUI(
                 isBottomNavigationVisible = false,
-
-                exitListener = {
-                    val text = "Hi"
-                    intent = Intent().apply {
-                        action = Intent.ACTION_SEND
-                        putExtra(Intent.EXTRA_TEXT, text)
-                        type = "text/plain"
+                isBackPressed = true,
+                firstIcon = Icon(
+                    icon = R.drawable.ic_share,
+                    listener = {
+                        val text = "Hi"
+                        intent = Intent().apply {
+                            action = Intent.ACTION_SEND
+                            putExtra(Intent.EXTRA_TEXT, text)
+                            type = "text/plain"
+                        }
+                        currentActivity?.startActivity(Intent.createChooser(intent, null))
                     }
-                    currentActivity?.startActivity(Intent.createChooser(intent, null))
-                },
-
-                exitIcon = R.drawable.ic_share,
-
-                isBackPressed = true
+                )
             )
         )
 

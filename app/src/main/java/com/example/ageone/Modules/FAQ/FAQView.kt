@@ -43,7 +43,7 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
         button
     }
 
-    val buttonSkip by lazy {
+    /*val buttonSkip by lazy {
         val button = BaseButton()
         button.textSize = 17F
         button.textColor = Color.BLACK
@@ -53,9 +53,9 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
         button.text = "Пропустить"
         button.initialize()
         button
-    }
+    }*/
 
-    val textToolbar by lazy{
+    /*val textToolbar by lazy{
         val textBar = BaseTextView()
 //        textBar.gravity = Gravity.CENTER
         textBar.typeface = Typeface.DEFAULT_BOLD
@@ -64,13 +64,24 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
         textBar.text = "О приложении"
         textBar.orientation = GradientDrawable.Orientation.BOTTOM_TOP
         textBar
-    }
+    }*/
 
     val timerFirst = Timer()
     val timerSecond = Timer()
 
     init {
         setBackgroundColor(Color.WHITE)
+
+        toolbar.title = "О приложении"
+        toolbar.textColor = Color.parseColor("#F06F28")
+
+        toolbar.textView.textColor = Color.BLACK
+        toolbar.textView.setOnClickListener {
+            nextModule()
+        }
+
+        renderToolbar()
+
         bodyTable.adapter = Factory(this)
         bodyTable.layoutManager = LinearLayoutManager(currentActivity, LinearLayoutManager.HORIZONTAL, false)
         bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
@@ -80,13 +91,11 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
         snapHelper.attachToRecyclerView(bodyTable)
 
         buttonEnter.setOnClickListener {
-            timerFirst.cancel()
-            timerSecond.cancel()
-            user.isAuthorized = true
-            emitEvent?.invoke(FAQViewModel.EventType.OnLoaded.toString())
+            nextModule()
         }
 
         renderUIO()
+
         timerFirst.schedule(5000){
             if ((bodyTable.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition() == 0) {
                 bodyTable.smoothScrollToPosition(1)
@@ -100,8 +109,11 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
         }
     }
 
-    companion object {
-        var indexCurrentItem: Int = 0
+    private fun nextModule() {
+        timerFirst.cancel()
+        timerSecond.cancel()
+        user.isAuthorized = true
+        emitEvent?.invoke(FAQViewModel.EventType.OnLoaded.name)
     }
 
 }
@@ -121,26 +133,28 @@ fun StartView.renderUIO() {
 
         }
     }
+
     timer.start()
 
-    buttonSkip.setOnClickListener {
+    /*buttonSkip.setOnClickListener {
         user.isAuthorized = true
-        emitEvent?.invoke(FAQViewModel.EventType.OnLoaded.toString())
+        emitEvent?.invoke(FAQViewModel.EventType.OnLoaded.name)
     }
-
+*/
     innerContent.subviews(
         bodyTable,
-        buttonEnter,
-        buttonSkip,
-        textToolbar
+        buttonEnter
+//        ,
+//        buttonSkip,
+//        textToolbar
     )
 
-    buttonSkip
-        .constrainLeftToLeftOf(innerContent, 260)
+    /*buttonSkip
+        .constrainLeftToLeftOf(innerContent, 260)*/
 
-    textToolbar
+    /*textToolbar
         .constrainTopToTopOf(innerContent, 35)
-        .constrainLeftToLeftOf(innerContent, 16)
+        .constrainLeftToLeftOf(innerContent, 16)*/
 
     buttonEnter
         .constrainTopToBottomOf(bodyTable,25)
@@ -160,13 +174,17 @@ class Factory(val rootModule: BaseModule): BaseAdapter<SliderViewHolder>() {
         "Смотри какие акции окружают тебя с помощью нашей интерактивной карты, и выбирай лучшие предложения в городе!",
         "Смотри какие акции окружают тебя с помощью нашей интерактивной карты, и выбирай лучшие предложения в городе!",
         "Смотри какие акции окружают тебя с помощью нашей интерактивной карты, и выбирай лучшие предложения в городе!")
+
     private val resourceImages = arrayOf(
         R.drawable.faq1,
         R.drawable.faq2,
-        R.drawable.faq3)
+        R.drawable.faq3
+    )
 
     override fun getItemCount() = list.size
+
     override fun getItemViewType(position: Int): Int = 0
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SliderViewHolder {
         val layout = ConstraintLayout(parent.context)
 

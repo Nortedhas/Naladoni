@@ -5,6 +5,8 @@ import androidx.core.view.size
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.example.ageone.Application.Coordinator.Router.DataFlow
+import com.example.ageone.Application.router
+import com.example.ageone.Application.rxData
 import com.example.ageone.External.Base.Flow.BaseFlow
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.Filter.FilterModel
@@ -12,6 +14,7 @@ import com.example.ageone.Modules.Filter.FilterView
 import com.example.ageone.Modules.Filter.FilterViewModel
 import com.example.ageone.Modules.InnerFilter.InnerFilterModel
 import com.example.ageone.Modules.InnerFilter.InnerFilterView
+import com.example.ageone.Modules.InnerFilter.InnerFilterViewCollapse
 import com.example.ageone.Modules.InnerFilter.InnerFilterViewModel
 
 fun FlowCoordinator.runFlowFilter(previousFlow: BaseFlow) {
@@ -58,7 +61,11 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
     fun runModuleFilter() {
         val module = FilterView(InitModuleUI(
             isBottomNavigationVisible = false,
-            isBackPressed = true
+            isBackPressed = true,
+            text = "Очистить",
+            textListener = {
+                rxData.selectedFilter = -1
+            }
         ))
 
         module.viewModel.initialize(models.modelFilter) { module.reload() }
@@ -81,13 +88,12 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
 
 
     fun runModuleInnerFilter() {
-        val module = InnerFilterView(InitModuleUI(
+        val module = InnerFilterViewCollapse(InitModuleUI(
             isBottomNavigationVisible = false,
             isBackPressed = true
         ))
 
         module.viewModel.initialize(models.modelInnerFilter) {
-            module.toolbar.setTitleToolbar(models.modelInnerFilter.filterName)
             module.reload()
         }
 
@@ -95,7 +101,9 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
 
         module.emitEvent = { event ->
             when (InnerFilterViewModel.EventType.valueOf(event)) {
-
+                InnerFilterViewModel.EventType.OnInnerFilterPressed -> {
+                    router.onBackPressed()
+                }
             }
         }
         push(module)

@@ -37,11 +37,11 @@ val currentActivity: BaseActivity?
     get() = App.instance?.mFTActivityLifecycleCallbacks?.currentActivity as BaseActivity
 
 val mapView by lazy {
-    val mapView = com.google.android.gms.maps.MapView(currentActivity)
+    val mapView = MapView(currentActivity)
     mapView
 }
 val mapViewHowGo by lazy {
-    val mapView = com.google.android.gms.maps.MapView(currentActivity)
+    val mapView = MapView(currentActivity)
     mapView
 }
 
@@ -81,8 +81,6 @@ class App: Application()  {
             }
 
         Realm.init(this)
-
-        VK.initialize(this)
 
         registerActivityLifecycleCallbacks(mFTActivityLifecycleCallbacks)
     }

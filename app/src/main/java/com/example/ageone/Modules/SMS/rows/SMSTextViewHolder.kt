@@ -2,7 +2,6 @@ package com.example.ageone.Modules.SMS.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
-import android.os.CountDownTimer
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -15,6 +14,9 @@ import yummypets.com.stevia.constrainTopToTopOf
 import yummypets.com.stevia.fillHorizontally
 import yummypets.com.stevia.subviews
 import yummypets.com.stevia.textColor
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.concurrent.schedule
 
 class RegistrationSMSTextViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
 
@@ -28,10 +30,23 @@ class RegistrationSMSTextViewHolder(val constraintLayout: ConstraintLayout): Bas
         textView
     }
 
+    var timeBeforeRedirect = 60000L
+    val time = SimpleDateFormat("mm:ss")
+
+    val timer = Timer()
 
     init {
 
         renderUI()
+    }
+
+    fun setTime(timeBeforeRedirect: Long) {
+        val text = "Если Вы не получили смс, запросить код повторно можно через "
+        val spannableContent = SpannableString(text + time.format(Date(timeBeforeRedirect)))
+        spannableContent.setSpan(ForegroundColorSpan(Color.parseColor("#f2842d")),
+            text.length,  text.length + 5, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+        textView.text = spannableContent
+
     }
 
 }
@@ -46,10 +61,18 @@ fun RegistrationSMSTextViewHolder.renderUI() {
         .fillHorizontally(16)
 }
 
-fun RegistrationSMSTextViewHolder.initialize(text: String) {
-    val spannableContent = SpannableString(text + "0:39")
-    spannableContent.setSpan(ForegroundColorSpan(Color.parseColor("#f2842d")),
-        text.length,  text.length + 4, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
-    textView.text = spannableContent
+fun RegistrationSMSTextViewHolder.initialize(completion: (()->(Unit))) {
+
+    timer.schedule(0, 1000){
+        timeBeforeRedirect-=1000L
+        currentActivity?.runOnUiThread {
+            if (timeBeforeRedirect == 0L) {
+                timer.cancel()
+                completion.invoke()
+            } else {
+                setTime(timeBeforeRedirect)
+            }
+        }
+    }
 
 }

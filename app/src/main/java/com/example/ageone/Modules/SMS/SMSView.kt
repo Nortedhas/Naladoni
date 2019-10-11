@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ageone.Application.currentActivity
+import com.example.ageone.Application.router
 import com.example.ageone.R
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
@@ -93,7 +94,9 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                     }
                 }
                 is RegistrationSMSTextViewHolder -> {
-                    holder.initialize("Если Вы не получили смс, запросить код повторно можно через ")//TODO
+                    holder.initialize{
+                        router.onBackPressed()
+                    }
                 }
                 is ButtonViewHolder -> {
                     holder.initialize("Подтверждаю")

@@ -8,6 +8,7 @@ import com.example.ageone.Application.Coordinator.Flow.setBottomNavigationVisibl
 import com.example.ageone.Application.Coordinator.Router.DataFlow
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.External.Base.Module.BaseModule
+import com.example.ageone.External.Base.Module.Module
 import com.example.ageone.External.Base.ViewFlipper.BaseViewFlipper
 import com.example.ageone.External.Extensions.Activity.hideKeyboard
 import timber.log.Timber
@@ -44,21 +45,21 @@ abstract class BaseFlow: View(currentActivity){
         isStarted = true
     }
 
-    fun push(module: BaseModule?) {
+    fun push(module: Module?) {
         module?.let { module ->
             includeModule(module)
             //correct viewArrow module
-            viewFlipperModule.displayedChild = stack.indexOf(module.id)
+            viewFlipperModule.displayedChild = stack.indexOf(module.idView)
             setBottomNavigationVisible(module.initModuleUI.isBottomNavigationVisible)
         }
     }
 
     fun pop() {
         if (stack.size > 1) {
-            val currentModule = viewFlipperModule.currentView as BaseModule
+            val currentModule = viewFlipperModule.currentView as Module
             deInitModule(currentModule)
 
-            val isBottomBarVisible = (viewFlipperModule.currentView as BaseModule).initModuleUI.isBottomNavigationVisible
+            val isBottomBarVisible = (viewFlipperModule.currentView as Module).initModuleUI.isBottomNavigationVisible
             setBottomNavigationVisible(isBottomBarVisible)
             settingsCurrentFlow.isBottomNavigationVisible = isBottomBarVisible
 
@@ -70,17 +71,17 @@ abstract class BaseFlow: View(currentActivity){
 
     }
 
-    fun deInitModule(module: BaseModule?) {
+    fun deInitModule(module: Module?) {
         module?.let{ module ->
             
-            if (stack.contains(module.id)) {
-                stack.remove(module.id)
+            if (stack.contains(module.idView)) {
+                stack.remove(module.idView)
             }
             
-            if (viewFlipperModule.contains(module)) {
-                viewFlipperModule.removeView(module)
-                //viewArrow previous module
-                viewFlipperModule.displayedChild = stack.size - 1//.last()
+            if (viewFlipperModule.contains(module.getView())) {
+                viewFlipperModule.removeView(module.getView())
+                //viewArrow show previous module
+                viewFlipperModule.displayedChild = stack.lastIndex
 
             }
             module.onDeInit?.invoke()
@@ -88,11 +89,11 @@ abstract class BaseFlow: View(currentActivity){
         }
     }
 
-    fun includeModule(module: BaseModule?) {
+    fun includeModule(module: Module?) {
         module?.let { module ->
-            if (!stack.contains(module.id)){
-                stack.add(module.id)
-                viewFlipperModule.addView(module)
+            if (!stack.contains(module.idView)){
+                stack.add(module.idView)
+                viewFlipperModule.addView(module.getView())
             }
         }
     }

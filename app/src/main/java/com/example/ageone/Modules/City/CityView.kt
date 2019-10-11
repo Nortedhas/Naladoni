@@ -23,6 +23,7 @@ import yummypets.com.stevia.width
 import yummypets.com.stevia.wrapContent
 
 class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
+
     val viewModel = CityViewModel()
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -36,8 +37,10 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
         toolbar.title = "Город подарков"
         renderToolbar()
+
         bodyTable.adapter = viewAdapter
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
+
         renderUIO()
         bindUI()
     }
@@ -55,7 +58,7 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
             private val SelectalertManager = 0
             private val SelectCityTextType = 1
             private val SelectCityButtonType = 2
-            override fun getItemCount() = 3//viewModel.realmData.size
+            override fun getItemCount() = 3
 
             override fun getItemViewType(position: Int): Int = when (position) {
                 0 -> SelectalertManager

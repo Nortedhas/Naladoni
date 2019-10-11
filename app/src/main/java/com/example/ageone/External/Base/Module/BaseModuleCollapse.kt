@@ -1,42 +1,50 @@
 package com.example.ageone.External.Base.Module
 
+import android.content.Context
 import android.view.View
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.updatePadding
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ageone.External.Base.Toolbar.BaseToolbar
 import com.example.ageone.Application.currentActivity
 import com.example.ageone.Application.utils
 import com.example.ageone.External.Base.ConstraintLayout.BaseConstraintLayout
-import com.example.ageone.External.Base.ImageView.BaseImageView
 import com.example.ageone.External.Base.RecyclerView.BaseRecyclerView
 import com.example.ageone.External.Extensions.Activity.hideKeyboard
 import com.example.ageone.External.InitModuleUI
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 import yummypets.com.stevia.*
 
 
-open class BaseModule(override var initModuleUI: InitModuleUI = InitModuleUI()): ConstraintLayout(currentActivity), Module {
+open class BaseModuleCollapse(override var initModuleUI: InitModuleUI = InitModuleUI()): CoordinatorLayout(currentActivity as Context), Module {
     override fun getView(): View = this
 
     override val idView: Int
         get() = id
 
 
-    val backgroundImage by lazy {
-        val image = BaseImageView()
-        image
+    val appBarLayout by lazy {
+        val appBarLayout = AppBarLayout(currentActivity)
+        appBarLayout
+    }
+
+    val collapsingToolbarLayout by lazy {
+        val collapsingToolbarLayout = CollapsingToolbarLayout(currentActivity)
+        collapsingToolbarLayout
+    }
+
+    val nestedScrollView by lazy {
+        val nestedScrollView = NestedScrollView(currentActivity as Context)
+        nestedScrollView
     }
 
     private val content by lazy {
         val innerContent = BaseConstraintLayout()
         innerContent.setPadding(0, utils.variable.statusBarHeight, 0, 0)
-        innerContent
-    }
-
-    val innerContent by lazy {
-        val innerContent = BaseConstraintLayout()
         innerContent
     }
 
@@ -83,28 +91,56 @@ open class BaseModule(override var initModuleUI: InitModuleUI = InitModuleUI()):
 
     fun renderUI() {
         subviews(
-            backgroundImage,
-            content.subviews(
-                toolbar,
-                innerContent
+            nestedScrollView.subviews(
+                content
+            ),
+            appBarLayout.subviews(
+                collapsingToolbarLayout,
+                toolbar
             )
         )
 
-        content
-            .fillHorizontally()
-            .fillVertically()
+        appBarLayout
+            .height(100)
+            .width(matchParent)
+
+
+        collapsingToolbarLayout
+            .width(matchParent)
+            .height(matchParent)
+        collapsingToolbarLayout.apply {
+            expandedTitleMarginStart = 48.dp
+            expandedTitleMarginEnd = 64.dp
+        }
+
+
+        val paramsToolbar = toolbar.layoutParams
+        val newParams: CollapsingToolbarLayout.LayoutParams
+        newParams = if (paramsToolbar is CollapsingToolbarLayout.LayoutParams) {
+            paramsToolbar
+        } else {
+            CollapsingToolbarLayout.LayoutParams(paramsToolbar)
+        }
+        newParams.collapseMode = CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_OFF
+        toolbar.layoutParams = newParams
+        toolbar.requestLayout()
 
         toolbar
-            .constrainTopToTopOf(content, 0)
+//            .constrainTopToTopOf(content, 0)
             .fillHorizontally()
             .height(utils.variable.actionBarHeight)
 
-        innerContent
+
+
+        val params = nestedScrollView.layoutParams as LayoutParams
+        params.behavior = AppBarLayout.ScrollingViewBehavior()
+        nestedScrollView.requestLayout()
+
+        nestedScrollView
             .fillHorizontally()
             .fillVertically()
-            .constrainTopToBottomOf(toolbar)
 
-        backgroundImage
+        content
             .fillHorizontally()
             .fillVertically()
 
@@ -115,14 +151,14 @@ open class BaseModule(override var initModuleUI: InitModuleUI = InitModuleUI()):
     }
 
     fun renderBodyTable() {
-        innerContent.subviews(
+        content.subviews(
             bodyTable
         )
 
         bodyTable
             .fillHorizontally(8)//TODO: change!
             .fillVertically()
-            .constrainTopToTopOf(innerContent)
+            .constrainTopToTopOf(content)
             .updatePadding(bottom = 24.dp)
 
         bodyTable

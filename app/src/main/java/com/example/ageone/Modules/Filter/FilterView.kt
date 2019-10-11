@@ -10,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ageone.Application.currentActivity
+import com.example.ageone.Application.rxData
 import com.example.ageone.External.Base.Module.BaseModule
 import com.example.ageone.External.Base.RecyclerView.BaseAdapter
 import com.example.ageone.External.Base.RecyclerView.BaseViewHolder
@@ -17,6 +18,8 @@ import com.example.ageone.External.Base.TextView.BaseTextView
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.External.Libraries.Alert.alertManager
 import com.example.ageone.External.Libraries.Alert.single
+import com.example.ageone.External.RxBus.RxBus
+import com.example.ageone.External.RxBus.RxEvent
 import com.example.ageone.Modules.Filter.rows.*
 import com.example.ageone.R
 import yummypets.com.stevia.*
@@ -83,6 +86,11 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     }
 
     fun bindUI() {
+        compositeDisposable.add(
+            RxBus.listen(RxEvent.EventChangeFilterIndex::class.java).subscribe {
+                bodyTable.adapter?.notifyDataSetChanged()
+            }
+        )
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
@@ -117,8 +125,6 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
             R.drawable.pic_categories_12,
             R.drawable.pic_categories_13
         )
-
-        var selectedFilter = -1
 
         private val FilterCardType = 0
         private val FilterType = 1
@@ -163,15 +169,14 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
             when (holder) {
 
                 is FilterFilterIconsViewHolder -> {
-                    holder.initialize(names[position], icons[position], position == selectedFilter)
+                    holder.initialize(names[position], icons[position], position == rxData.selectedFilter)
                     holder.card.setOnClickListener {
                         if (position in setOf(0, 1, 2, 3, 5, 9, 10)) {
                             viewModel.model.filterName = names[position]
                             viewModel.model.currentFilterIndex = position
                             rootModule.emitEvent?.invoke(FilterViewModel.EventType.OnInnerFilterPressed.name)
                         } else {
-                            selectedFilter = position
-                            notifyDataSetChanged()
+                            rxData.selectedFilter = position
                         }
                     }
                 }
@@ -181,7 +186,6 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                         13 -> {
                             holder.initialize("Только популярные",false)
                             holder.switch.setOnClickListener {
-
                             }
                         }
                         14 -> {

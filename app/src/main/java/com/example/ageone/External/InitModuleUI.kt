@@ -4,14 +4,25 @@ import android.graphics.Color
 import android.view.View
 import com.example.ageone.Application.Coordinator.Flow.isBottomNavigationExist
 
-data class InitModuleUI(
+data class InitModuleUI (
     var isBottomNavigationVisible: Boolean = isBottomNavigationExist,
-    var isToolbarHidden: Boolean = false,
     var isBackPressed: Boolean = false,
+
+    var isToolbarHidden: Boolean = false,
     var colorToolbar: Int = Color.TRANSPARENT,
-    var backListener: ((View) -> Unit)? = null,
-    var exitListener: ((View) -> Unit)? = null,
-    var exitIcon: Int? = null,
-    var iconListener: ((View) -> Unit)? = null,
-    var iconExitSize: Int? = null
+
+    var firstIcon: Icon? = null,
+    var secondIcon: Icon? = null,
+    var thirdIcon: Icon? = null,
+
+    var text: String? = null,
+    var textListener: ((View) -> Unit)? = null,
+    var textColor: Int? = null,
+    var textSize: Float? = null
+)
+
+data class Icon (
+    var icon: Int? = null,
+    var size: Int = 25,
+    var listener: ((View) -> Unit)? = null
 )

@@ -13,7 +13,6 @@ import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
 import com.swarmnyc.promisekt.Promise
 import timber.log.Timber
 

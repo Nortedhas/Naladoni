@@ -2,6 +2,7 @@ package com.example.ageone.Application.Coordinator.Flow
 
 import androidx.core.view.size
 import com.example.ageone.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
+import com.example.ageone.Application.Coordinator.Flow.Regular.runFlowFAQ
 import com.example.ageone.Application.Coordinator.Router.DataFlow
 import com.example.ageone.Application.coordinator
 import com.example.ageone.External.Base.Flow.BaseFlow
@@ -31,6 +32,8 @@ fun FlowCoordinator.runFlowAuth() {
         viewFlipperFlow.addView(flow.viewFlipperModule)
         viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
 
+
+
         flow.settingsCurrentFlow = DataFlow(viewFlipperFlow.size - 1)
 
     }
@@ -59,9 +62,6 @@ class FlowAuth: BaseFlow() {
         var modelRegistration = AuthRegistrationModel()
         var modelRegistrationSMS = RegistrationSMSModel()
         var modelSelectCity = CityModel()
-        var modelFAQ = FAQModel()
-//        var modelMap = MapModel()
-
     }
 
     fun runModuleStart() {
@@ -91,7 +91,6 @@ class FlowAuth: BaseFlow() {
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 
-
         module.emitEvent = { event ->
             when(AuthRegistrationViewModel.EventType.valueOf(event)) {
                 AuthRegistrationViewModel.EventType.OnRegistrationPressed -> {
@@ -109,10 +108,7 @@ class FlowAuth: BaseFlow() {
     fun runModuleRegistrationSMS() {
         val module = SMSView(InitModuleUI(
             isBottomNavigationVisible = false,
-            isBackPressed = true,
-            backListener = {
-                pop()
-            }
+            isBackPressed = true
         ))
         module.viewModel.initialize(models.modelRegistrationSMS) { module.reload() }
 
@@ -121,8 +117,8 @@ class FlowAuth: BaseFlow() {
         module.emitEvent = { event ->
             when (RegistrationSMSViewModel.EventType.valueOf(event)) {
                 RegistrationSMSViewModel.EventType.onSityPresed -> {
-                  models.modelSelectCity.code = models.modelRegistrationSMS.code
-                   runModuleCity()
+                    models.modelSelectCity.code = models.modelRegistrationSMS.code
+                    runModuleCity()
                 }
                 RegistrationSMSViewModel.EventType.onTimerPresed -> {
                     runModuleRegistration()
@@ -132,50 +128,22 @@ class FlowAuth: BaseFlow() {
         }
         push(module)
     }
-       fun runModuleCity() {
+
+
+    fun runModuleCity() {
         val module = CityView(InitModuleUI(
             isBottomNavigationVisible = false,
-            isBackPressed = true,
-            backListener = {
-                pop()
-            }
+            isBackPressed = true
         ))
         module.viewModel.initialize(models.modelSelectCity) { module.reload() }
         settingsCurrentFlow.isBottomNavigationVisible = false
         module.emitEvent = { event ->
             when (CityViewModel.EventType.valueOf(event)) {
                 CityViewModel.EventType.onSityPresed -> {
-                    runModuleFAQ()
+                    coordinator.runFlowFAQ()
                 }
             }
         }
         push(module)
-    }
-    fun runModuleFAQ() {
-        val module = com.example.ageone.Modules.FAQ.StartView(
-            InitModuleUI(
-                isBottomNavigationVisible = false,
-                isToolbarHidden = true
-            )
-        )
-        module.viewModel.initialize(models.modelFAQ) { module.reload() }
-
-        settingsCurrentFlow.isBottomNavigationVisible = false
-
-        module.emitEvent = { event ->
-            when (com.example.ageone.Modules.FAQ.FAQViewModel.EventType.valueOf(event)) {
-                com.example.ageone.Modules.FAQ.FAQViewModel.EventType.OnLoaded -> {
-                    module.startLoadingFlow()
-                }
-
-            }
-        }
-        push(module)
-
-    }
-
-    fun BaseModule.startLoadingFlow() {
-        coordinator.start()
-        onDeInit?.invoke()
     }
 }

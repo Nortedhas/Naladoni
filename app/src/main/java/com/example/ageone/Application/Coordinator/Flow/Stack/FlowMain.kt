@@ -8,6 +8,7 @@ import com.example.ageone.Application.Coordinator.Router.DataFlow
 import com.example.ageone.Application.Coordinator.Router.TabBar.Stack.flows
 import com.example.ageone.Application.coordinator
 import com.example.ageone.External.Base.Flow.BaseFlow
+import com.example.ageone.External.Icon
 import com.example.ageone.External.InitModuleUI
 import com.example.ageone.Modules.Map.MapModel
 import com.example.ageone.R
@@ -51,10 +52,12 @@ class FlowMain: BaseFlow() {
         val module = com.example.ageone.Modules.Map.MapView(
             InitModuleUI(
                 isBottomNavigationVisible = true,
-                exitListener = {
-                    coordinator.runFlowFilter(this)
-                },
-                exitIcon = R.drawable.pic_filter
+                firstIcon = Icon(
+                    icon = R.drawable.pic_filter,
+                    listener = {
+                        coordinator.runFlowFilter(this)
+                    }
+                )
             )
         )
         module.viewModel.initialize(models.modelMap) { module.reload() }
