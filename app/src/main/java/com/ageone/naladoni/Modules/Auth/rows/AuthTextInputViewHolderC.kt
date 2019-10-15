@@ -14,21 +14,13 @@ class InputViewHolderC(val constraintLayout: ConstraintLayout): BaseViewHolder(c
     val textInputL by lazy {
         val textInput = BaseTextInputLayout()
 
-        val params = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT)
-        params.marginStart = (-2).dp
-        params.updateMargins(left = (-2).dp)
-        textInput.layoutParams = params
-
-
-        textInput.boxStrokeColor = Color.parseColor("#f2842d")
-        textInput.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_FILLED)
-        textInput.setInactiveUnderlineColor(Color.parseColor("#f2842d"))
+        textInput.boxStrokeColor = Color.parseColor("#F27D25")
+        textInput.setInactiveUnderlineColor(Color.rgb(242, 125, 37))
 
         textInput.editText?.let { editText ->
             editText.textColor = Color.parseColor("#333333")
-            editText.textSize = 5F.dp
+            editText.textSize = 20F
+            editText.maxLines = 1
         }
         textInput
     }

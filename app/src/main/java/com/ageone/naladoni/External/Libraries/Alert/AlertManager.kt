@@ -75,7 +75,7 @@ class AlertManager {
     val textViewMessage: BaseTextView by lazy {
         val textViewMessage = BaseTextView()
         textViewMessage.gravity = View.TEXT_ALIGNMENT_VIEW_END
-        textViewMessage.typeface = Typeface.DEFAULT_BOLD
+        textViewMessage.typeface = Typeface.DEFAULT
         textViewMessage.textSize = 5F.dp
         textViewMessage.textColor = Color.DKGRAY
         textViewMessage.setBackgroundColor(Color.TRANSPARENT)
