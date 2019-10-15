@@ -1,10 +1,5 @@
 package com.ageone.naladoni.Modules.Filter
 
-import android.graphics.Color
-import android.graphics.Typeface
-import android.graphics.drawable.GradientDrawable
-import android.view.Gravity
-import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
@@ -14,14 +9,12 @@ import com.ageone.naladoni.Application.rxData
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
-import com.ageone.naladoni.External.Base.TextView.BaseTextView
 import com.ageone.naladoni.External.InitModuleUI
-import com.ageone.naladoni.External.Libraries.Alert.alertManager
-import com.ageone.naladoni.External.Libraries.Alert.single
 import com.ageone.naladoni.External.RxBus.RxBus
 import com.ageone.naladoni.External.RxBus.RxEvent
 import com.ageone.naladoni.Modules.Filter.rows.*
 import com.ageone.naladoni.R
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {

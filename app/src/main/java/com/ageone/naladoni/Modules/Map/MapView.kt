@@ -1,5 +1,9 @@
 package com.ageone.naladoni.Modules.Map
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Matrix
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.ViewGroup
