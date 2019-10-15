@@ -1,5 +1,9 @@
 package com.ageone.naladoni.Modules.Map
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Matrix
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.ViewGroup
@@ -18,11 +22,11 @@ import com.ageone.naladoni.Modules.Map.rows.MapDiscountCardViewHolder
 import com.ageone.naladoni.Modules.Map.rows.initialize
 import com.ageone.naladoni.R
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import timber.log.Timber
 import yummypets.com.stevia.*
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 
 
 class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
@@ -46,25 +50,28 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         buttonMyLocation
     }
 
-//    var buttonMyLocation: ImageView
-
     init {
 //        viewModel.loadRealmData()
 
         Timber.i("Start init map")
-        /*buttonMyLocation = (mapView.findViewById<View>(Integer.parseInt("1")).parent as View)
-            .findViewById(Integer.parseInt("2"))*/
 
         mapView.getMapAsync{ map ->
             Timber.i("Map ready!")
             map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this.context, R.raw.map_style))
             map.setMyLocation(buttonMyLocation)
 
+            val markerIcon = overlay(
+                BitmapFactory.decodeResource(context.resources,R.drawable.pic_selected_flag),
+                BitmapFactory.decodeResource(context.resources,R.drawable.pic_categories_1)
+                )
+
             val marker = map.addMarker(
                     MarkerOptions()
                         .position(startLocation)
                         .title("Melbourne")
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pic_selected_flag))
+                        .icon(
+                            BitmapDescriptorFactory.fromBitmap(markerIcon)//fromResource(R.drawable.pic_selected_flag)
+                        )
                 )
 
             marker.tag = 1
@@ -95,6 +102,19 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
 
         renderUIO()
         bindUI()
+    }
+
+    fun overlay(back: Bitmap, icon: Bitmap): Bitmap {
+
+        val bmOverlay = Bitmap.createBitmap(back.width, back.height, back.config)
+
+        val canvas = Canvas(bmOverlay)
+        canvas.drawBitmap(back, Matrix(), null)
+        canvas.drawBitmap(
+            Bitmap.createScaledBitmap(
+                icon, 26.dp, 26.dp, false),
+            26F.dp, 11F.dp, null)
+        return bmOverlay
     }
 
     fun bindUI() {
