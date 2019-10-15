@@ -42,6 +42,10 @@ class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(in
 
         renderUIO()
         bindUI()
+
+        onDeInit = {
+            innerContent.removeView(mapViewHowGo)
+        }
     }
 
     fun bindUI() {

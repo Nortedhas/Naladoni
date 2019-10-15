@@ -31,7 +31,7 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
 
     val viewModel = MapViewModel()
 
-    val fringeView by lazy {
+    val imageTopView by lazy {
         val imageView = BaseImageView()
         imageView.initialize()
         imageView.orientation = GradientDrawable.Orientation.BOTTOM_TOP
@@ -48,22 +48,32 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         buttonMyLocation
     }
 
+//    var buttonMyLocation: ImageView
 
     init {
 //        viewModel.loadRealmData()
 
         Timber.i("Start init map")
+        /*buttonMyLocation = (mapView.findViewById<View>(Integer.parseInt("1")).parent as View)
+            .findViewById(Integer.parseInt("2"))*/
 
         mapView.getMapAsync{ map ->
             Timber.i("Map ready!")
             map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this.context, R.raw.map_style))
             map.setMyLocation(buttonMyLocation)
 
+            val markerIcon = overlay(
+                BitmapFactory.decodeResource(context.resources,R.drawable.pic_selected_flag),
+                BitmapFactory.decodeResource(context.resources,R.drawable.pic_categories_1)
+                )
+
             val marker = map.addMarker(
                     MarkerOptions()
                         .position(startLocation)
                         .title("Melbourne")
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pic_selected_flag))
+                        .icon(
+                            BitmapDescriptorFactory.fromBitmap(markerIcon)//fromResource(R.drawable.pic_selected_flag)
+                        )
                 )
 
             marker.tag = 1
@@ -96,7 +106,25 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         bindUI()
     }
 
+    fun overlay(back: Bitmap, icon: Bitmap): Bitmap {
+
+        val bmOverlay = Bitmap.createBitmap(back.width, back.height, back.config)
+
+        val canvas = Canvas(bmOverlay)
+        canvas.drawBitmap(back, Matrix(), null)
+        canvas.drawBitmap(
+            Bitmap.createScaledBitmap(
+                icon, 26.dp, 26.dp, false),
+            26F.dp, 11F.dp, null)
+        return bmOverlay
+    }
+
     fun bindUI() {
+        /*compositeDisposable.add(
+            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
+                bodyTable.adapter?.notifyDataSetChanged()
+            }
+        )*/
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<MapDiscountCardViewHolder>() {
@@ -130,7 +158,7 @@ fun MapView.renderUIO() {
         mapView,
         buttonMyLocation,
         bodyTable,
-        fringeView
+        imageTopView
     )
 
     mapView
@@ -146,7 +174,7 @@ fun MapView.renderUIO() {
     bodyTable
         .constrainBottomToBottomOf(innerContent)
 
-    fringeView
+    imageTopView
         .constrainTopToTopOf(toolbar)
         .height(20)
         .fillHorizontally()

@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
@@ -13,7 +14,10 @@ import com.ageone.naladoni.Application.rxData
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
+import com.ageone.naladoni.External.Base.TextView.BaseTextView
 import com.ageone.naladoni.External.InitModuleUI
+import com.ageone.naladoni.External.Libraries.Alert.alertManager
+import com.ageone.naladoni.External.Libraries.Alert.single
 import com.ageone.naladoni.External.RxBus.RxBus
 import com.ageone.naladoni.External.RxBus.RxEvent
 import com.ageone.naladoni.Modules.Filter.rows.*
@@ -42,7 +46,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         }
         layoutManager
     }
-    
+
 
     init {
 //        viewModel.loadRealmData()
@@ -144,7 +148,9 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
             when (holder) {
 
                 is FilterFilterIconsViewHolder -> {
+                    Timber.i("Position: $position - selected: ${rxData.selectedFilter} - ${position == rxData.selectedFilter}")
                     holder.initialize(names[position], icons[position], position == rxData.selectedFilter)
+
                     holder.card.setOnClickListener {
                         if (position in setOf(0, 1, 2, 3, 5, 9, 10)) {
                             viewModel.model.filterName = names[position]
@@ -152,6 +158,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                             rootModule.emitEvent?.invoke(FilterViewModel.EventType.OnInnerFilterPressed.name)
                         } else {
                             rxData.selectedFilter = position
+                            notifyDataSetChanged()
                         }
                     }
                 }
