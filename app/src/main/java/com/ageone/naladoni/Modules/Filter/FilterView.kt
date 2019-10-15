@@ -22,22 +22,13 @@ import com.ageone.naladoni.External.RxBus.RxBus
 import com.ageone.naladoni.External.RxBus.RxEvent
 import com.ageone.naladoni.Modules.Filter.rows.*
 import com.ageone.naladoni.R
+import timber.log.Timber
 import yummypets.com.stevia.*
 
 class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
     val viewModel = FilterViewModel()
 
-    val clear by lazy {
-        val text = BaseTextView()
-        text.textColor = Color.parseColor("#FFFFFF")
-        text.textSize = 17F
-        text.text = "Очистить"
-        text.orientation = GradientDrawable.Orientation.BOTTOM_TOP
-        text.typeface = Typeface.DEFAULT
-        text.setBackgroundColor(Color.TRANSPARENT)
-        text
-    }
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
@@ -56,18 +47,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         }
         layoutManager
     }
-    
-    val textViewClear by lazy {
-        val textView = BaseTextView()
-        textView.gravity = Gravity.START
-        textView.typeface = Typeface.DEFAULT_BOLD
-        textView.textSize = 17F
-        textView.textColor = Color.WHITE
-        textView.setBackgroundColor(Color.TRANSPARENT)
-        textView.text = "Очистить"
-    // 	textView.elevation = 5F.dp
-        textView
-    }
+
 
     init {
 //        viewModel.loadRealmData()
@@ -169,7 +149,9 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
             when (holder) {
 
                 is FilterFilterIconsViewHolder -> {
+                    Timber.i("Position: $position - selected: ${rxData.selectedFilter} - ${position == rxData.selectedFilter}")
                     holder.initialize(names[position], icons[position], position == rxData.selectedFilter)
+
                     holder.card.setOnClickListener {
                         if (position in setOf(0, 1, 2, 3, 5, 9, 10)) {
                             viewModel.model.filterName = names[position]
@@ -177,6 +159,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                             rootModule.emitEvent?.invoke(FilterViewModel.EventType.OnInnerFilterPressed.name)
                         } else {
                             rxData.selectedFilter = position
+                            notifyDataSetChanged()
                         }
                     }
                 }

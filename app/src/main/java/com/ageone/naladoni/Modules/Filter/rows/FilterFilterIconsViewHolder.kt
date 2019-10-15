@@ -96,5 +96,7 @@ fun FilterFilterIconsViewHolder.initialize(text: String?, Icon: Int, isSelected:
     addImageFromGlide(imageIcon, Icon,0)
     if (isSelected) {
         imageViewSelected.visibility = View.VISIBLE
+    } else {
+        imageViewSelected.visibility = View.GONE
     }
 }
