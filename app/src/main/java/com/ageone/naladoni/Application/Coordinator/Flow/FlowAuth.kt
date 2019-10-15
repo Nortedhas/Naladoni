@@ -6,7 +6,6 @@ import com.ageone.naladoni.Application.Coordinator.Flow.Regular.runFlowFAQ
 import com.ageone.naladoni.Application.Coordinator.Router.DataFlow
 import com.ageone.naladoni.Application.coordinator
 import com.ageone.naladoni.External.Base.Flow.BaseFlow
-import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.Modules.Auth.AuthRegistrationModel
 import com.ageone.naladoni.Modules.Auth.AuthRegistrationView
@@ -14,14 +13,12 @@ import com.ageone.naladoni.Modules.Auth.AuthRegistrationViewModel
 import com.ageone.naladoni.Modules.City.CityModel
 import com.ageone.naladoni.Modules.City.CityView
 import com.ageone.naladoni.Modules.City.CityViewModel
-import com.ageone.naladoni.Modules.FAQ.FAQModel
-import com.ageone.naladoni.Modules.SMS.SMSView
-import com.ageone.naladoni.Modules.RegistrationSMSModel
-import com.ageone.naladoni.Modules.RegistrationSMSViewModel
 import com.ageone.naladoni.Modules.LoadingScreen.LoadingScreenModel
 import com.ageone.naladoni.Modules.LoadingScreen.LoadingScreenView
 import com.ageone.naladoni.Modules.LoadingScreen.LoadingScreenViewModel
-import com.ageone.naladoni.Modules.Map.MapModel
+import com.ageone.naladoni.Modules.SMS.SMSView
+import com.ageone.naladoni.Modules.SMSModel
+import com.ageone.naladoni.Modules.SMSViewModel
 
 fun FlowCoordinator.runFlowAuth() {
 
@@ -60,7 +57,7 @@ class FlowAuth: BaseFlow() {
     inner class FlowAuthModels {
         var modelStart = LoadingScreenModel()
         var modelRegistration = AuthRegistrationModel()
-        var modelRegistrationSMS = RegistrationSMSModel()
+        var modelRegistrationSMS = SMSModel()
         var modelSelectCity = CityModel()
     }
 
@@ -98,14 +95,14 @@ class FlowAuth: BaseFlow() {
                     models.modelRegistrationSMS.inputName = models.modelRegistration.inputName
                     models.modelRegistrationSMS.inputPhone = models.modelRegistration.inputPhone
 
-                    runModuleRegistrationSMS()
+                    runModuleSMS()
                 }
             }
         }
         push(module)
     }
 
-    fun runModuleRegistrationSMS() {
+    fun runModuleSMS() {
         val module = SMSView(InitModuleUI(
             isBottomNavigationVisible = false,
             isBackPressed = true
@@ -115,12 +112,12 @@ class FlowAuth: BaseFlow() {
         settingsCurrentFlow.isBottomNavigationVisible = false
 
         module.emitEvent = { event ->
-            when (RegistrationSMSViewModel.EventType.valueOf(event)) {
-                RegistrationSMSViewModel.EventType.onSityPresed -> {
+            when (SMSViewModel.EventType.valueOf(event)) {
+                SMSViewModel.EventType.onSityPresed -> {
                     models.modelSelectCity.code = models.modelRegistrationSMS.code
                     runModuleCity()
                 }
-                RegistrationSMSViewModel.EventType.onTimerPresed -> {
+                SMSViewModel.EventType.onTimerPresed -> {
                     runModuleRegistration()
 
                 }

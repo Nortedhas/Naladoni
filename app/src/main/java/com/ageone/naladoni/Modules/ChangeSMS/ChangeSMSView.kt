@@ -1,4 +1,4 @@
-package com.ageone.naladoni.Modules.SMS
+package com.ageone.naladoni.Modules.ChangeSMS
 
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -9,10 +9,8 @@ import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.naladoni.External.InitModuleUI
-import com.ageone.naladoni.Modules.City.CityViewModel
-import com.ageone.naladoni.Modules.SMS.rows.SMSTextViewHolder
-import com.ageone.naladoni.Modules.SMS.rows.initialize
-import com.ageone.naladoni.Modules.SMSViewModel
+import com.ageone.naladoni.Modules.ChangeSMS.rows.ChangeSMSTextViewHolder
+import com.ageone.naladoni.Modules.ChangeSMS.rows.initialize
 import com.ageone.naladoni.R
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.InputViewHolder
@@ -23,10 +21,11 @@ import yummypets.com.stevia.width
 import yummypets.com.stevia.wrapContent
 import java.util.*
 
-class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
+class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
+
     var timerSMS: Timer? = null
 
-    val viewModel = SMSViewModel()
+    val viewModel = ChangeSMSViewModel()
 
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
@@ -52,16 +51,16 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val RegistrationSMSInputType = 0
-        private val RegistrationSMSTextType = 1
-        private val RegistrationSMSButtonType = 2
+        private val ChangeSMSInputType = 0
+        private val ChangeSMSTextType = 1
+        private val ChangeSMSButtonType = 2
 
         override fun getItemCount(): Int = 3
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0 -> RegistrationSMSInputType
-            1 -> RegistrationSMSTextType
-            2 -> RegistrationSMSButtonType
+            0 -> ChangeSMSInputType
+            1 -> ChangeSMSTextType
+            2 -> ChangeSMSButtonType
             else -> -1
         }
 
@@ -73,13 +72,13 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                RegistrationSMSInputType -> {
+                ChangeSMSInputType -> {
                     InputViewHolder(layout)
                 }
-                RegistrationSMSTextType -> {
-                    SMSTextViewHolder(layout, timerSMS)
+                ChangeSMSTextType -> {
+                    ChangeSMSTextViewHolder(layout, timerSMS)
                 }
-                RegistrationSMSButtonType -> {
+                ChangeSMSButtonType -> {
                     ButtonViewHolder(layout)
                 }
                 else ->
@@ -97,7 +96,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                         viewModel.model.code = text.toString()
                     }
                 }
-                is SMSTextViewHolder -> {
+                is ChangeSMSTextViewHolder -> {
                     holder.initialize{
                         router.onBackPressed()
                     }
@@ -106,7 +105,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                     holder.initialize("Подтверждаю")
                     holder.button.setOnClickListener {
                         timerSMS?.cancel()
-                        rootModule.emitEvent?.invoke(CityViewModel.EventType.onSityPresed.toString())
+                        rootModule.emitEvent?.invoke(ChangeSMSViewModel.EventType.OnlouderChangeSMS.toString())
 
                     }
                 }
@@ -115,7 +114,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         }
     }
 
-    fun SMSView.renderUIO() {
+    fun ChangeSMSView.renderUIO() {
         renderBodyTable()
     }
 }

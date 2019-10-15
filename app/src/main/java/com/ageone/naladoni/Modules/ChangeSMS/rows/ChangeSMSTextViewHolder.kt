@@ -1,4 +1,4 @@
-package com.ageone.naladoni.Modules.SMS.rows
+package com.ageone.naladoni.Modules.ChangeSMS.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
@@ -10,7 +10,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.naladoni.Application.currentActivity
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.TextView.BaseTextView
-import com.ageone.naladoni.Modules.ChangeSMS.rows.ChangeSMSTextViewHolder
 import yummypets.com.stevia.constrainTopToTopOf
 import yummypets.com.stevia.fillHorizontally
 import yummypets.com.stevia.subviews
@@ -19,7 +18,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.schedule
 
-class SMSTextViewHolder(val constraintLayout: ConstraintLayout, val timer: Timer?): BaseViewHolder(constraintLayout) {
+class ChangeSMSTextViewHolder(val constraintLayout: ConstraintLayout, val timer: Timer?): BaseViewHolder(constraintLayout) {
 
     val textView by lazy {
         val textView = BaseTextView()
@@ -50,7 +49,7 @@ class SMSTextViewHolder(val constraintLayout: ConstraintLayout, val timer: Timer
 
 }
 
-fun SMSTextViewHolder.renderUI() {
+fun ChangeSMSTextViewHolder.renderUI() {
     constraintLayout.subviews(
         textView
     )
@@ -60,7 +59,7 @@ fun SMSTextViewHolder.renderUI() {
         .fillHorizontally(16)
 }
 
-fun SMSTextViewHolder.initialize(completion: (()->(Unit))) {
+fun ChangeSMSTextViewHolder.initialize(completion: (()->(Unit))) {
 
     timer?.schedule(0, 1000){
         timeBeforeRedirect -= 1000L
