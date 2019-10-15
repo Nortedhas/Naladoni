@@ -1,31 +1,30 @@
 package com.ageone.naladoni.Modules.SMS
 
-import android.os.CountDownTimer
-import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.ageone.naladoni.Application.currentActivity
 import com.ageone.naladoni.Application.router
-import com.ageone.naladoni.R
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.Modules.City.CityViewModel
-import com.ageone.naladoni.Modules.FAQ.FAQViewModel
+import com.ageone.naladoni.Modules.RegistrationSMSViewModel
 import com.ageone.naladoni.Modules.SMS.rows.RegistrationSMSTextViewHolder
 import com.ageone.naladoni.Modules.SMS.rows.initialize
-import com.ageone.naladoni.Modules.RegistrationSMSViewModel
+import com.ageone.naladoni.R
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.InputViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.initialize
-import yummypets.com.stevia.*
+import yummypets.com.stevia.height
+import yummypets.com.stevia.matchParent
+import yummypets.com.stevia.width
+import yummypets.com.stevia.wrapContent
+import java.util.*
 
 class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
-
+    var timerSMS: Timer? = null
 
     val viewModel = RegistrationSMSViewModel()
 
@@ -35,6 +34,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
     }
 
     init {
+        timerSMS = Timer()
 
         setBackgroundResource(R.drawable.base_background)
 
@@ -44,14 +44,18 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         bodyTable.adapter = viewAdapter
 
         renderUIO()
+
+        onDeInit = {
+            timerSMS?.cancel()
+        }
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-
         private val RegistrationSMSInputType = 0
         private val RegistrationSMSTextType = 1
         private val RegistrationSMSButtonType = 2
+
         override fun getItemCount(): Int = 3
 
         override fun getItemViewType(position: Int): Int = when (position) {
@@ -73,7 +77,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                     InputViewHolder(layout)
                 }
                 RegistrationSMSTextType -> {
-                    RegistrationSMSTextViewHolder(layout)
+                    RegistrationSMSTextViewHolder(layout, timerSMS)
                 }
                 RegistrationSMSButtonType -> {
                     ButtonViewHolder(layout)
@@ -101,6 +105,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                 is ButtonViewHolder -> {
                     holder.initialize("Подтверждаю")
                     holder.button.setOnClickListener {
+                        timerSMS?.cancel()
                         rootModule.emitEvent?.invoke(CityViewModel.EventType.onSityPresed.toString())
 
                     }

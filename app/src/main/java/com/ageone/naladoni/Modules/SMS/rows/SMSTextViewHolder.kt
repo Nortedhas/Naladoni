@@ -18,7 +18,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.schedule
 
-class RegistrationSMSTextViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
+class RegistrationSMSTextViewHolder(val constraintLayout: ConstraintLayout, val timer: Timer?): BaseViewHolder(constraintLayout) {
 
     val textView by lazy {
         val textView = BaseTextView()
@@ -32,8 +32,6 @@ class RegistrationSMSTextViewHolder(val constraintLayout: ConstraintLayout): Bas
 
     var timeBeforeRedirect = 60000L
     val time = SimpleDateFormat("mm:ss")
-
-    val timer = Timer()
 
     init {
 
@@ -63,8 +61,8 @@ fun RegistrationSMSTextViewHolder.renderUI() {
 
 fun RegistrationSMSTextViewHolder.initialize(completion: (()->(Unit))) {
 
-    timer.schedule(0, 1000){
-        timeBeforeRedirect-=1000L
+    timer?.schedule(0, 1000){
+        timeBeforeRedirect -= 1000L
         currentActivity?.runOnUiThread {
             if (timeBeforeRedirect == 0L) {
                 timer.cancel()
