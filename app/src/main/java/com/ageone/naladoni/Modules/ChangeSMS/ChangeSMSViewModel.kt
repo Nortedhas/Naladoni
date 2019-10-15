@@ -1,25 +1,24 @@
-package com.ageone.naladoni.Modules
+package com.ageone.naladoni.Modules.ChangeSMS
 
 import com.ageone.naladoni.External.Interfaces.InterfaceModel
 import com.ageone.naladoni.External.Interfaces.InterfaceViewModel
 
-class SMSViewModel : InterfaceViewModel {
-    var model = SMSModel()
+class ChangeSMSViewModel : InterfaceViewModel {
+    var model = ChangeSMSModel()
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
-        if (recievedModel is SMSModel) {
+        if (recievedModel is ChangeSMSModel) {
             model = recievedModel
             completion.invoke()
         }
     }
 
     enum class EventType {
-        onSityPresed,
-        onTimerPresed
+        OnlouderChangeSMS
     }
 }
 
-class SMSModel : InterfaceModel {
+class ChangeSMSModel : InterfaceModel {
     var inputName = ""
     var inputPhone = ""
     var code = ""

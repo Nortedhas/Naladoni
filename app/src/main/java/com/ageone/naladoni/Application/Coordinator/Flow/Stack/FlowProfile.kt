@@ -22,6 +22,9 @@ import com.ageone.naladoni.Modules.ChangeName.ChangeNameViewModel
 import com.ageone.naladoni.Modules.ChangePhone.ChangePhoneModel
 import com.ageone.naladoni.Modules.ChangePhone.ChangePhoneView
 import com.ageone.naladoni.Modules.ChangePhone.ChangePhoneViewModel
+import com.ageone.naladoni.Modules.ChangeSMS.ChangeSMSModel
+import com.ageone.naladoni.Modules.ChangeSMS.ChangeSMSView
+import com.ageone.naladoni.Modules.ChangeSMS.ChangeSMSViewModel
 
 import com.ageone.naladoni.Modules.Profile.ProfileModel
 import com.ageone.naladoni.Modules.Profile.ProfileView
@@ -68,6 +71,7 @@ class FlowProfile : BaseFlow() {
         var modelChangePhone = ChangePhoneModel()
         var modelAboutCompany = AboutCompanyModel()
         var modelChangeCity = ChangeCityModel()
+        var modelChangeSMS = ChangeSMSModel()
     }
 
     fun runModuleProfile() {
@@ -150,6 +154,27 @@ class FlowProfile : BaseFlow() {
         module.emitEvent = { event ->
             when (ChangePhoneViewModel.EventType.valueOf(event)) {
                 ChangePhoneViewModel.EventType.OnlouderChangePhone -> {
+
+                    runModuleChangeSMS()
+                }
+            }
+        }
+        push(module)
+    }
+
+    fun runModuleChangeSMS() {
+        val module = ChangeSMSView(InitModuleUI(
+            isBottomNavigationVisible = false,
+            isBackPressed = true
+        ))
+        module.viewModel.initialize(models.modelChangeSMS) { module.reload() }
+
+        settingsCurrentFlow.isBottomNavigationVisible = false
+
+
+        module.emitEvent = { event ->
+            when (ChangeSMSViewModel.EventType.valueOf(event)) {
+                ChangeSMSViewModel.EventType.OnlouderChangeSMS -> {
 
                     runModuleProfile()
                 }

@@ -2,14 +2,12 @@ package com.ageone.naladoni.Modules.City.rows
 
 import android.graphics.Color
 import android.graphics.Typeface
-import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.TextView.BaseTextView
-import com.ageone.naladoni.Modules.SMS.rows.RegistrationSMSTextViewHolder
 import yummypets.com.stevia.*
 
 class CityViewHolder(val constraintLayout: ConstraintLayout) :
