@@ -100,13 +100,14 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(ini
                     innerContent.dismissFocus(holder.textInputL.editText)
                 }
                 is ChangeSMSTextViewHolder -> {
-                    holder.initialize{
+                    holder.initialize {
                         router.onBackPressed()
                     }
                 }
                 is ButtonViewHolder -> {
                     holder.initialize("Подтверждаю")
                     holder.button.setOnClickListener {
+
                         timerSMS?.cancel()
                         rootModule.emitEvent?.invoke(ChangeSMSViewModel.EventType.OnlouderChangeSMS.toString())
 
@@ -116,8 +117,9 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(ini
 
         }
     }
+}
 
-    fun ChangeSMSView.renderUIO() {
-        renderBodyTable()
-    }
+fun ChangeSMSView.renderUIO() {
+
+    renderBodyTable()
 }

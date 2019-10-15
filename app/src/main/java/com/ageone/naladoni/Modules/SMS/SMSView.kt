@@ -25,6 +25,7 @@ import yummypets.com.stevia.wrapContent
 import java.util.*
 
 class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
+
     var timerSMS: Timer? = null
 
     val viewModel = SMSViewModel()
@@ -53,16 +54,16 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val RegistrationSMSInputType = 0
-        private val RegistrationSMSTextType = 1
-        private val RegistrationSMSButtonType = 2
+        private val SMSInputType = 0
+        private val SMSTextType = 1
+        private val SMSButtonType = 2
 
         override fun getItemCount(): Int = 3
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0 -> RegistrationSMSInputType
-            1 -> RegistrationSMSTextType
-            2 -> RegistrationSMSButtonType
+            0 -> SMSInputType
+            1 -> SMSTextType
+            2 -> SMSButtonType
             else -> -1
         }
 
@@ -74,13 +75,13 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                RegistrationSMSInputType -> {
+                SMSInputType -> {
                     InputViewHolder(layout)
                 }
-                RegistrationSMSTextType -> {
+                SMSTextType -> {
                     SMSTextViewHolder(layout, timerSMS)
                 }
-                RegistrationSMSButtonType -> {
+                SMSButtonType -> {
                     ButtonViewHolder(layout)
                 }
                 else ->
@@ -101,7 +102,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                     innerContent.dismissFocus(holder.textInputL.editText)
                 }
                 is SMSTextViewHolder -> {
-                    holder.initialize{
+                    holder.initialize {
                         router.onBackPressed()
                     }
                 }
@@ -117,8 +118,9 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
 
         }
     }
+}
 
-    fun SMSView.renderUIO() {
-        renderBodyTable()
-    }
+fun SMSView.renderUIO() {
+
+    renderBodyTable()
 }

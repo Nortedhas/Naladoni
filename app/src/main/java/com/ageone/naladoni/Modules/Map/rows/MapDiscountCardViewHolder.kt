@@ -24,6 +24,7 @@ class MapDiscountCardViewHolder(val constraintLayout: ConstraintLayout) : BaseVi
         view.initialize()
         view
     }
+
     val imageViewType by lazy {
         val image = BaseImageView()
         image.setBackgroundResource(R.drawable.pic_groupfood)
@@ -71,7 +72,6 @@ class MapDiscountCardViewHolder(val constraintLayout: ConstraintLayout) : BaseVi
         textView.textColor = Color.parseColor("#FFFAFA")
         textView.setBackgroundColor(Color.TRANSPARENT)
         textView.text = "Использовать"
-    // 	textView.elevation = 5F.dp
         textView
     }
 

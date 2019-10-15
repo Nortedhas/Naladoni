@@ -32,6 +32,7 @@ class CitySpinnerViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHo
 }
 
 fun CitySpinnerViewHolder.renderUI() {
+
     constraintLayout.subviews(
         spinnerView
     )
@@ -42,12 +43,5 @@ fun CitySpinnerViewHolder.renderUI() {
 }
 
 fun CitySpinnerViewHolder.initialize(variants: Array<String>) {
-
-//            spinnerView.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, variants )
-//        spinnerView.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onNothingSelected(parent: AdapterView<*>?) {}
-//
-//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {}
-//        }
 
 }

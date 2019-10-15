@@ -57,6 +57,7 @@ class AboutCompanyLogoViewHolder(val constraintLayout: ConstraintLayout) :
 }
 
 fun AboutCompanyLogoViewHolder.renderUI() {
+
     constraintLayout.subviews(
         card.subviews(
             imageViewLogo,
@@ -66,6 +67,7 @@ fun AboutCompanyLogoViewHolder.renderUI() {
 
         )
     )
+
     card
         .fillHorizontally(60)
 
@@ -76,9 +78,11 @@ fun AboutCompanyLogoViewHolder.renderUI() {
         .constrainLeftToLeftOf(card)
         .constrainBottomToBottomOf(card)
         .constrainTopToTopOf(card,18)
+
     textView
         .constrainLeftToRightOf(imageViewLogo, 12)
         .constrainTopToTopOf(imageViewLogo, 5)
+
     textViewDescribe
         .constrainTopToBottomOf(textView)
         .constrainLeftToLeftOf(textView)
@@ -87,6 +91,7 @@ fun AboutCompanyLogoViewHolder.renderUI() {
 }
 
 fun AboutCompanyLogoViewHolder.initialize(describe: String, logo: String) {
+
     textViewDescribe.text = describe
     textView.text = logo
 }

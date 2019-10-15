@@ -11,7 +11,6 @@ import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.RecyclerView.ColumnEqualsPaddingItemDecoration
 import com.ageone.naladoni.External.InitModuleUI
-import com.ageone.naladoni.Modules.Search.SearchViewModel
 import com.ageone.naladoni.UIComponents.ViewHolders.СardViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
@@ -42,20 +41,15 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
     }
 
     fun bindUI() {
-        /*compositeDisposable.add(
-            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
-                bodyTable.adapter?.notifyDataSetChanged()
-            }
-        )*/
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val СardType = 0
+        private val ListСardType = 0
 
         override fun getItemCount() = 10//viewModel.realmData.size
 
-        override fun getItemViewType(position: Int): Int = СardType
+        override fun getItemViewType(position: Int): Int = ListСardType
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
 
@@ -66,7 +60,7 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                СardType -> {
+                ListСardType -> {
                     СardViewHolder(layout)
                 }
                 else -> {

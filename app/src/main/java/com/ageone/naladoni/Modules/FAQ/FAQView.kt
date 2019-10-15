@@ -43,29 +43,6 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
         button
     }
 
-    /*val buttonSkip by lazy {
-        val button = BaseButton()
-        button.textSize = 17F
-        button.textColor = Color.BLACK
-        button.typeface = Typeface.DEFAULT
-        button.backgroundColor = Color.TRANSPARENT
-        button.orientation = GradientDrawable.Orientation.BOTTOM_TOP
-        button.text = "Пропустить"
-        button.initialize()
-        button
-    }*/
-
-    /*val textToolbar by lazy{
-        val textBar = BaseTextView()
-//        textBar.gravity = Gravity.CENTER
-        textBar.typeface = Typeface.DEFAULT_BOLD
-        textBar.textSize = 34F
-        textBar.textColor =  Color.rgb(242, 132, 45)
-        textBar.text = "О приложении"
-        textBar.orientation = GradientDrawable.Orientation.BOTTOM_TOP
-        textBar
-    }*/
-
     val timerFirst = Timer()
     val timerSecond = Timer()
 
@@ -88,6 +65,7 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
         bodyTable.addItemDecoration(CirclePagerIndicatorDecoration())
 
         val snapHelper = PagerSnapHelper()
+
         snapHelper.attachToRecyclerView(bodyTable)
 
         buttonEnter.setOnClickListener {
@@ -97,11 +75,13 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
         renderUIO()
 
         timerFirst.schedule(5000){
+
             if ((bodyTable.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition() == 0) {
                 bodyTable.smoothScrollToPosition(1)
             }
         }
-        timerSecond.schedule(10000){
+        timerSecond.schedule(10000) {
+
             if ((bodyTable.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition() == 1) {
                 bodyTable.smoothScrollToPosition(2)
 
@@ -119,6 +99,7 @@ class StartView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initMod
 }
 
 fun StartView.renderUIO() {
+
     var timer = object : CountDownTimer(10000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             millisUntilFinished / 1000
@@ -136,25 +117,10 @@ fun StartView.renderUIO() {
 
     timer.start()
 
-    /*buttonSkip.setOnClickListener {
-        user.isAuthorized = true
-        emitEvent?.invoke(FAQViewModel.EventType.OnLoaded.name)
-    }
-*/
     innerContent.subviews(
         bodyTable,
         buttonEnter
-//        ,
-//        buttonSkip,
-//        textToolbar
     )
-
-    /*buttonSkip
-        .constrainLeftToLeftOf(innerContent, 260)*/
-
-    /*textToolbar
-        .constrainTopToTopOf(innerContent, 35)
-        .constrainLeftToLeftOf(innerContent, 16)*/
 
     buttonEnter
         .constrainTopToBottomOf(bodyTable,25)

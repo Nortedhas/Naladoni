@@ -34,7 +34,6 @@ class FilterFilterIconsViewHolder(val constraintLayout: ConstraintLayout) :
         imageView.backgroundColor = Color.TRANSPARENT
         imageView.initialize()
         imageView.setImageResource(R.drawable.ic_selected_filter)
-    // 	imageView.elevation = 5F.dp
         imageView
     }
 
@@ -92,6 +91,7 @@ fun FilterFilterIconsViewHolder.renderUI() {
 }
 
 fun FilterFilterIconsViewHolder.initialize(text: String?, Icon: Int, isSelected: Boolean) {
+
     textIcon.text = text
     addImageFromGlide(imageIcon, Icon,0)
     if (isSelected) {

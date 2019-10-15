@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.ageone.naladoni.Application.currentActivity
 import com.ageone.naladoni.Application.rxData
 import com.ageone.naladoni.External.Base.Module.BaseModule
-import com.ageone.naladoni.External.Base.Module.BaseModuleCollapse
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.InitModuleUI
@@ -36,7 +35,7 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
         layoutManager
     }
 
-    val iconsAll = arrayOf(
+    val all_icons = arrayOf(
         arrayOf(
             R.drawable.pic_food_1,
             R.drawable.pic_food_2,
@@ -96,7 +95,7 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
         arrayOf()//18+
     )
 
-    val namesAll = arrayOf(
+    val all_names= arrayOf(
         arrayOf(
             "Кафе",
             "Бары",
@@ -186,12 +185,12 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val InnerFilterbType = 0
+        private val InnerFilterFilterIconsType = 0
 
         override fun getItemCount() = names.size//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            in names.indices -> InnerFilterbType
+            in names.indices -> InnerFilterFilterIconsType
             else -> -1
         }
 
@@ -204,7 +203,7 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                InnerFilterbType -> {
+                InnerFilterFilterIconsType -> {
                     FilterFilterIconsViewHolder(layout)
                 }
                 else -> {
@@ -235,8 +234,8 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
     override fun reload() {
         toolbar.setTitleToolbar(viewModel.model.filterName)
 
-        icons = iconsAll[viewModel.model.currentFilterIndex]
-        names = namesAll[viewModel.model.currentFilterIndex]
+        icons = all_icons[viewModel.model.currentFilterIndex]
+        names = all_names[viewModel.model.currentFilterIndex]
 
         super.reload()
     }

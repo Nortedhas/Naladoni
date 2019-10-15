@@ -9,6 +9,7 @@ import yummypets.com.stevia.*
 
 class AboutCompanyTextViewHolder(val constraintLayout: ConstraintLayout) :
     BaseViewHolder(constraintLayout) {
+
     val textView by lazy {
         val textView = BaseTextView()
         textView.typeface = Typeface.DEFAULT_BOLD
@@ -35,21 +36,21 @@ class AboutCompanyTextViewHolder(val constraintLayout: ConstraintLayout) :
 }
 
 fun AboutCompanyTextViewHolder.renderUI() {
+
     constraintLayout.subviews(
         textView,
         textViewDescribe
     )
+
     textView
         .constrainTopToTopOf(constraintLayout)
         .constrainLeftToLeftOf(constraintLayout,8)
+
     textViewDescribe
         .fillHorizontally(8)
         .constrainTopToBottomOf(textView)
         .constrainLeftToLeftOf(constraintLayout,8)
         .constrainBottomToBottomOf(constraintLayout,11)
-
-
-
 
 }
 

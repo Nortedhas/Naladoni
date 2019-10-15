@@ -2,19 +2,13 @@ package com.ageone.naladoni.Modules.Profile
 
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.doOnTextChanged
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
-import com.ageone.naladoni.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.naladoni.External.InitModuleUI
-import com.ageone.naladoni.Models.User.user
-import com.ageone.naladoni.Modules.Auth.AuthRegistrationViewModel
 import com.ageone.naladoni.Modules.Profile.rows.*
 import com.ageone.naladoni.R
-import com.ageone.naladoni.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
-import javax.annotation.meta.When
 
 class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
@@ -26,7 +20,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
     }
 
     init {
-//        viewModel.loadRealmData()
+
         setBackgroundResource(R.drawable.base_background)//TODO: set background
 
         toolbar.title = "Мой Профиль"
@@ -41,27 +35,22 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
     }
 
     fun bindUI() {
-        /*compositeDisposable.add(
-            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
-                bodyTable.adapter?.notifyDataSetChanged()
-            }
-        )*/
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val UserInformationType = 0
-        private val ProfileInformationType = 1
-        private val ServiceInformationType = 2
-        private val UsedDiscountType = 3
+        private val ProfileUserInformationType = 0
+        private val ProfileUsedDiscountType = 1
+        private val ProfileInformationType = 2
+        private val ProfileServiceInformationType = 3
 
         override fun getItemCount() = 6//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0 -> UserInformationType
-            1 -> UsedDiscountType
+            0 -> ProfileUserInformationType
+            1 -> ProfileUsedDiscountType
             2,3 -> ProfileInformationType
-            4 -> ServiceInformationType
+            4 -> ProfileServiceInformationType
             else -> -1
         }
 
@@ -74,17 +63,18 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                UserInformationType -> {
-                    UserInformationViewHolder(layout)
+
+                ProfileUserInformationType -> {
+                    ProfileUserInformationViewHolder(layout)
                 }
-                UsedDiscountType -> {
-                    UsedDiscountViewHolder(layout)
+                ProfileUsedDiscountType -> {
+                    ProfileUsedDiscountViewHolder(layout)
                 }
                 ProfileInformationType -> {
                     ProfileInformationViewHolder(layout)
                 }
-                ServiceInformationType -> {
-                    ServiceInformationViewHolder(layout)
+                ProfileServiceInformationType -> {
+                    ProfileServiceInformationViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -97,7 +87,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
-                is UserInformationViewHolder -> {
+                is ProfileUserInformationViewHolder -> {
                     holder.initialize("Артем Горбунов", R.drawable.pic_naladoni)
                     holder.view.setOnClickListener{
 
@@ -107,7 +97,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
 
                 }
-                is UsedDiscountViewHolder -> {
+                is ProfileUsedDiscountViewHolder -> {
                     holder.initialize("24","Количество использованных мною скидок:")
                 }
                 is ProfileInformationViewHolder -> {
@@ -133,7 +123,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
                     }
                 }
-                is ServiceInformationViewHolder -> {
+                is ProfileServiceInformationViewHolder -> {
                     holder.initialize("О нашем сервисе")
                     holder.back.setOnClickListener{
 
@@ -155,6 +145,7 @@ fun ProfileView.renderUIO() {
 
     bodyTable
         .constrainTopToTopOf(innerContent)
+
 }
 
 

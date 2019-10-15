@@ -12,7 +12,7 @@ import com.ageone.naladoni.External.Base.View.BaseView
 import com.ageone.naladoni.External.Libraries.Glide.addImageFromGlide
 import yummypets.com.stevia.*
 
-class UserInformationViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
+class ProfileUserInformationViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
 
     val view by lazy {
         val view = BaseView()
@@ -46,14 +46,13 @@ class UserInformationViewHolder(val constraintLayout: ConstraintLayout): BaseVie
         textView
     }
 
-
     init {
 
         renderUI()
     }
 }
 
-fun UserInformationViewHolder.renderUI() {
+fun ProfileUserInformationViewHolder.renderUI() {
 
     constraintLayout.subviews(
         view.subviews(
@@ -61,7 +60,6 @@ fun UserInformationViewHolder.renderUI() {
             viewArrow
         ),
         imagePhoto
-
     )
 
     imagePhoto
@@ -90,7 +88,7 @@ fun UserInformationViewHolder.renderUI() {
 
 }
 
-fun UserInformationViewHolder.initialize(text: String,photo: Int) {
+fun ProfileUserInformationViewHolder.initialize(text: String, photo: Int) {
 
     textViewName.text = ("Я: " + text)
     addImageFromGlide(imagePhoto, photo)

@@ -12,7 +12,7 @@ import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.External.Libraries.Alert.alertManager
 import com.ageone.naladoni.External.Libraries.Alert.list
 import com.ageone.naladoni.External.Libraries.Alert.single
-import com.ageone.naladoni.Modules.City.rows.CityViewHolder
+import com.ageone.naladoni.Modules.City.rows.CityTextViewHolder
 import com.ageone.naladoni.Modules.City.rows.initialize
 import com.ageone.naladoni.R
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
@@ -56,15 +56,15 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
            inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-            private val SelectalertManager = 0
-            private val SelectCityTextType = 1
-            private val SelectCityButtonType = 2
+            private val CityEditTextType = 0
+            private val CityTextType = 1
+            private val CityButtonType = 2
             override fun getItemCount() = 3
 
             override fun getItemViewType(position: Int): Int = when (position) {
-                0 -> SelectalertManager
-                1 -> SelectCityTextType
-                2 -> SelectCityButtonType
+                0 -> CityEditTextType
+                1 -> CityTextType
+                2 -> CityButtonType
                 else -> -1
             }
 
@@ -75,13 +75,13 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                     .height(wrapContent)
 
                 val holder = when (viewType) {
-                    SelectalertManager -> {
+                    CityEditTextType -> {
                         EditTextViewHolder(layout)
                     }
-                    SelectCityTextType -> {
-                        CityViewHolder(layout)
+                    CityTextType -> {
+                        CityTextViewHolder(layout)
                     }
-                    SelectCityButtonType -> {
+                    CityButtonType -> {
                         ButtonViewHolder(layout)
                     }
                     else -> {
@@ -129,12 +129,14 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                 }
 
                 is ButtonViewHolder -> {
+
                     holder.initialize("Подтверждаю")
                     holder.button.setOnClickListener {
                         emitEvent?.invoke(CityViewModel.EventType.onSityPresed.toString())
                     }
                 }
-                is CityViewHolder -> {
+                is CityTextViewHolder -> {
+
                     holder.initialize("Система автоматически определает ваш город")
                 }
 

@@ -9,7 +9,6 @@ import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.naladoni.External.InitModuleUI
-import com.ageone.naladoni.Modules.Auth.AuthRegistrationViewModel
 import com.ageone.naladoni.R
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.InputViewHolder
@@ -95,6 +94,7 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                     }
 
                     innerContent.dismissFocus(holder.textInputL.editText)
+
                 }
 
                 is ButtonViewHolder -> {
@@ -110,8 +110,10 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 }
 
 fun ChangeNameView.renderUIO() {
+
     bodyTable
         .constrainTopToTopOf(innerContent, 130)
+
     renderBodyTable()
 }
 

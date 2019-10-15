@@ -31,7 +31,7 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
 
     val viewModel = MapViewModel()
 
-    val imagefringeView by lazy {
+    val fringeView by lazy {
         val imageView = BaseImageView()
         imageView.initialize()
         imageView.orientation = GradientDrawable.Orientation.BOTTOM_TOP
@@ -48,14 +48,11 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         buttonMyLocation
     }
 
-//    var buttonMyLocation: ImageView
 
     init {
 //        viewModel.loadRealmData()
 
         Timber.i("Start init map")
-        /*buttonMyLocation = (mapView.findViewById<View>(Integer.parseInt("1")).parent as View)
-            .findViewById(Integer.parseInt("2"))*/
 
         mapView.getMapAsync{ map ->
             Timber.i("Map ready!")
@@ -100,11 +97,6 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
     }
 
     fun bindUI() {
-        /*compositeDisposable.add(
-            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
-                bodyTable.adapter?.notifyDataSetChanged()
-            }
-        )*/
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<MapDiscountCardViewHolder>() {
@@ -138,7 +130,7 @@ fun MapView.renderUIO() {
         mapView,
         buttonMyLocation,
         bodyTable,
-        imagefringeView
+        fringeView
     )
 
     mapView
@@ -154,7 +146,7 @@ fun MapView.renderUIO() {
     bodyTable
         .constrainBottomToBottomOf(innerContent)
 
-    imagefringeView
+    fringeView
         .constrainTopToTopOf(toolbar)
         .height(20)
         .fillHorizontally()

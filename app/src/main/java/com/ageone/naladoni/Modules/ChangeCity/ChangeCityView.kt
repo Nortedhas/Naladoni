@@ -7,7 +7,6 @@ import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
-import com.ageone.naladoni.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.naladoni.External.Extensions.Activity.hideKeyboard
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.External.Libraries.Alert.alertManager
@@ -75,10 +74,13 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                 .height(wrapContent)
 
             val holder = when (viewType) {
+
                 RegistrationInputType -> {
+
                     EditTextViewHolder(layout)
                 }
                 RegistrationButtonType -> {
+
                     ButtonViewHolder(layout)
                 }
                 else ->
@@ -89,6 +91,7 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
         }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+
             val city = arrayOf("Екатеринбург", "Москва")
             when (holder) {
                 is EditTextViewHolder -> {
@@ -116,6 +119,7 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                 }
 
                 is ButtonViewHolder -> {
+
                     holder.initialize("Изменить")
                     holder.button.setOnClickListener {
 
@@ -128,7 +132,9 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 }
 
 fun ChangeCityView.renderUIO() {
+
     bodyTable
         .constrainTopToTopOf(innerContent, 130)
+
     renderBodyTable()
 }

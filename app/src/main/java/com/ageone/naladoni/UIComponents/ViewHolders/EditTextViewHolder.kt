@@ -29,6 +29,7 @@ class EditTextViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolde
 }
 
 fun EditTextViewHolder.renderUI() {
+
     constraintLayout.subviews(
         editText
     )

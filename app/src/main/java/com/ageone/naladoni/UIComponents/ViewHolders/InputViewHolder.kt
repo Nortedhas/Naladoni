@@ -36,6 +36,7 @@ class InputViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(c
 }
 
 fun InputViewHolder.renderUI() {
+
     constraintLayout.subviews(
         textInputL
     )
@@ -46,6 +47,7 @@ fun InputViewHolder.renderUI() {
 }
 
 fun InputViewHolder.initialize(hint: String, type: InputEditTextType) {
+
     textInputL.hint = hint
     textInputL.defineType(type)
 }

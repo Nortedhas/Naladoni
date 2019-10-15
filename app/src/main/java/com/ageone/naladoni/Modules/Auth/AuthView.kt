@@ -12,16 +12,16 @@ import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.Modules.Auth.rows.InputViewHolderC
-import com.ageone.naladoni.Modules.Auth.rows.RegistrationTextHolder
+import com.ageone.naladoni.Modules.Auth.rows.AuthTextViewHolder
 import com.ageone.naladoni.Modules.Auth.rows.initialize
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.InputViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
 
-class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
+class AuthView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
 
-    val viewModel = AuthRegistrationViewModel()
+    val viewModel = AuthViewModel()
 
 
     val viewAdapter by lazy {
@@ -47,16 +47,16 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
     inner class Factory(val rootModule: BaseModule): BaseAdapter<BaseViewHolder>() {
 
         private val RegistrationInputType = 0
-        private val RegistrationInputTypeC = 1
+        private val RegistrationInputCType = 1
         private val RegistrationButtonType = 2
-      private val RegistrationTextType = 3
+        private val RegistrationTextType = 3
 
         override fun getItemCount(): Int = 5
 
         override fun getItemViewType(position: Int):Int = when(position) {
 
             0 -> RegistrationInputType
-            1 -> RegistrationInputTypeC
+            1 -> RegistrationInputCType
             2 -> RegistrationButtonType
             3 -> RegistrationTextType
             else -> -1
@@ -73,14 +73,14 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
                 RegistrationInputType -> {
                     InputViewHolder(layout)
                 }
-                RegistrationInputTypeC -> {
+                RegistrationInputCType -> {
                     InputViewHolderC(layout)
                 }
                 RegistrationButtonType -> {
                     ButtonViewHolder(layout)
                 }
                 RegistrationTextType -> {
-                 RegistrationTextHolder(layout)
+                 AuthTextViewHolder(layout)
                 }
                 else ->
                     BaseViewHolder(layout)
@@ -123,7 +123,7 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
 //                            api.request(mapOf(
 //                                "router" to "phoneAuth",
 //                                "phone" to viewModel.model.inputPhone)){
-                               rootModule.emitEvent?.invoke(AuthRegistrationViewModel.EventType.OnRegistrationPressed.toString())
+                               rootModule.emitEvent?.invoke(AuthViewModel.EventType.OnRegistrationPressed.toString())
 //                            }
 //
 //                        }
@@ -131,7 +131,7 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
                     }
                 }
 
-                is RegistrationTextHolder -> {
+                is AuthTextViewHolder -> {
                     holder.initialize()
                 }
             }
@@ -140,8 +140,10 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
     }
 }
 
-fun AuthRegistrationView.renderUIO() {
+fun AuthView.renderUIO() {
+
       bodyTable
           .constrainTopToTopOf(innerContent, 130)
+
     renderBodyTable()
 }

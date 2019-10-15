@@ -10,8 +10,7 @@ import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.TextView.BaseTextView
 import yummypets.com.stevia.*
 
-class CityViewHolder(val constraintLayout: ConstraintLayout) :
-    BaseViewHolder(constraintLayout) {
+class CityTextViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
 
     val textView by lazy {
         val textView = BaseTextView()
@@ -30,7 +29,8 @@ class CityViewHolder(val constraintLayout: ConstraintLayout) :
 
 }
 
-fun CityViewHolder.renderUI() {
+fun CityTextViewHolder.renderUI() {
+
     constraintLayout.subviews(
         textView
     )
@@ -40,8 +40,10 @@ fun CityViewHolder.renderUI() {
         .fillHorizontally(16)
 }
 
-fun CityViewHolder.initialize(text: String) {
+fun CityTextViewHolder.initialize(text: String) {
+
     val spannableContent = SpannableString(text)
     ForegroundColorSpan(Color.parseColor("#f2842d"))
     textView.text = spannableContent
+
 }

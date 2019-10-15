@@ -22,7 +22,7 @@ class FilterSwitchViewHolder(val constraintLayout: ConstraintLayout): BaseViewHo
         view
     }
 
-    val linebuttom by lazy {
+    val lineBottom by lazy {
         val view = BaseView()
         view.backgroundColor = parseColor("#B74200")
         view.orientation = GradientDrawable.Orientation.TOP_BOTTOM
@@ -37,8 +37,8 @@ class FilterSwitchViewHolder(val constraintLayout: ConstraintLayout): BaseViewHo
         switch.typeface = Typeface.DEFAULT_BOLD
         switch.elevation = 3F.dp
         switch.text = ""
-        switch.thumbColors = intArrayOf(Color.WHITE, Color.parseColor("#781EB0"))
-        switch.trackColors = intArrayOf(Color.parseColor("#C74600"), Color.WHITE)
+        switch.thumbColors = intArrayOf(Color.WHITE, parseColor("#781EB0"))
+        switch.trackColors = intArrayOf(parseColor("#C74600"), Color.WHITE)
         switch.initialize()
         switch
     }
@@ -53,7 +53,7 @@ fun FilterSwitchViewHolder.renderUI() {
 
     constraintLayout.subviews(
         linetop,
-        linebuttom,
+        lineBottom,
         switch
     )
 
@@ -62,7 +62,7 @@ fun FilterSwitchViewHolder.renderUI() {
         .constrainTopToTopOf(constraintLayout,16)
         .height(1)
 
-    linebuttom
+    lineBottom
         .fillHorizontally()
         .constrainTopToBottomOf(switch,10)
         .height(1)
@@ -72,12 +72,12 @@ fun FilterSwitchViewHolder.renderUI() {
         .fillHorizontally(8)
 }
 
-fun FilterSwitchViewHolder.initialize(text: String,visible:Boolean) {
-    switch.text = text
+fun FilterSwitchViewHolder.initialize(switch_title: String,visible:Boolean) {
+
+    switch.text = switch_title
 
     if(visible){
         linetop.constrainTopToTopOf(constraintLayout)
         linetop.visibility = View.INVISIBLE
-
     }
 }

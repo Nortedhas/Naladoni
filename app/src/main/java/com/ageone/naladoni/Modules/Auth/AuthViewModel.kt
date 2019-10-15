@@ -3,11 +3,11 @@ package com.ageone.naladoni.Modules.Auth
 import com.ageone.naladoni.External.Interfaces.InterfaceModel
 import com.ageone.naladoni.External.Interfaces.InterfaceViewModel
 
-class AuthRegistrationViewModel: InterfaceViewModel {
-    var model = AuthRegistrationModel()
+class AuthViewModel: InterfaceViewModel {
+    var model = AuthModel()
 
     fun initialize(recievedModel: InterfaceModel, completion: ()->(Unit)) {
-        if (recievedModel is AuthRegistrationModel) {
+        if (recievedModel is AuthModel) {
             model = recievedModel
             completion.invoke()
         }
@@ -18,7 +18,7 @@ class AuthRegistrationViewModel: InterfaceViewModel {
     }
 }
 
-class AuthRegistrationModel: InterfaceModel {
+class AuthModel: InterfaceModel {
     var inputName = ""
     var inputPhone = ""
 }

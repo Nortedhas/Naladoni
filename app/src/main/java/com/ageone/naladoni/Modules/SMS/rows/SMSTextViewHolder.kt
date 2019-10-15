@@ -32,6 +32,7 @@ class SMSTextViewHolder(val constraintLayout: ConstraintLayout, val timer: Timer
     }
 
     var timeBeforeRedirect = 60000L
+
     val time = SimpleDateFormat("mm:ss")
 
     init {
@@ -51,6 +52,7 @@ class SMSTextViewHolder(val constraintLayout: ConstraintLayout, val timer: Timer
 }
 
 fun SMSTextViewHolder.renderUI() {
+
     constraintLayout.subviews(
         textView
     )

@@ -12,7 +12,7 @@ import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.TextView.BaseTextView
 import yummypets.com.stevia.*
 
-class RegistrationTextHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
+class AuthTextViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
 
     val textView by lazy {
         val textViewLogin = BaseTextView()
@@ -30,7 +30,7 @@ class RegistrationTextHolder(val constraintLayout: ConstraintLayout): BaseViewHo
 
 }
 
-fun RegistrationTextHolder.renderUI() {
+fun AuthTextViewHolder.renderUI() {
 
     constraintLayout.subviews(
         textView
@@ -42,7 +42,8 @@ fun RegistrationTextHolder.renderUI() {
         .constrainRightToRightOf(constraintLayout)
 }
 
-fun RegistrationTextHolder.initialize() {
+fun AuthTextViewHolder.initialize() {
+
     val text = "Нажимая на кнопку “Зарегистрироваться”,\nя соглашаюсь с данным\n"
     val declaration = "пользовательским соглашением"
 

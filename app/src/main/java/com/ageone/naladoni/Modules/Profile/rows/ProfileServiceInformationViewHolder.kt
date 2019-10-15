@@ -4,13 +4,14 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.view.Gravity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.ageone.naladoni.R
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.TextView.BaseTextView
 import com.ageone.naladoni.External.Base.View.BaseView
 import yummypets.com.stevia.*
 
-class UsedDiscountViewHolder(val constraintLayout: ConstraintLayout) :
-    BaseViewHolder(constraintLayout) {
+
+class ProfileServiceInformationViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
 
     val back by lazy {
         val view = BaseView()
@@ -21,19 +22,15 @@ class UsedDiscountViewHolder(val constraintLayout: ConstraintLayout) :
         view
     }
 
-    val textViewСounter by lazy {
-        val textView = BaseTextView()
-        textView.textColor = Color.parseColor("#F06F28")
-        textView.textSize = 17F
-        textView.gravity = Gravity.END
-        textView.typeface = Typeface.DEFAULT_BOLD
-        textView.setBackgroundColor(Color.TRANSPARENT)
-        textView
+    val image by lazy {
+        val base = BaseView()
+        base.setBackgroundResource(R.drawable.ic_arrow)
+        base
     }
 
     val textView by lazy {
         val textView = BaseTextView()
-        textView.textColor = Color.parseColor("#333333")
+        textView.textColor = Color.parseColor("#F06F28")
         textView.textSize = 15F
         textView.gravity = Gravity.START
         textView.typeface = Typeface.DEFAULT
@@ -42,19 +39,18 @@ class UsedDiscountViewHolder(val constraintLayout: ConstraintLayout) :
         textView
     }
 
-
     init {
 
         renderUI()
     }
 }
 
-fun UsedDiscountViewHolder.renderUI() {
+fun ProfileServiceInformationViewHolder.renderUI() {
 
     constraintLayout.subviews(
         back.subviews(
-            textViewСounter,
-            textView
+            textView,
+            image
         )
     )
 
@@ -64,19 +60,18 @@ fun UsedDiscountViewHolder.renderUI() {
         .constrainTopToTopOf(constraintLayout, 8)
         .constrainBottomToBottomOf(constraintLayout, 8)
 
-    textViewСounter
-        .fillHorizontally()
-        .constrainTopToTopOf(back)
-        .constrainBottomToBottomOf(back)
-        .constrainRightToRightOf(back, 18)
     textView
-        .constrainTopToTopOf(back,15)
+        .constrainTopToTopOf(back,26)
         .constrainLeftToLeftOf(back, 19)
-        .width(250)
+
+    image
+        .height(20)
+        .width(12)
+        .constrainRightToRightOf(back, 16)
+        .constrainBottomToBottomOf(back)
+        .constrainTopToTopOf(back)
 }
 
-fun UsedDiscountViewHolder.initialize(counter:String, text: String) {
-    textViewСounter.text=counter
+fun ProfileServiceInformationViewHolder.initialize(text: String) {
     textView.text = text
-
 }
