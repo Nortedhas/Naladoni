@@ -1,16 +1,21 @@
 package com.ageone.naladoni.External.Base.TextInputLayout
 
 import android.content.res.ColorStateList
+import android.os.Handler
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
 import android.text.method.DigitsKeyListener
+import android.view.KeyEvent
+import android.widget.LinearLayout
+import androidx.core.view.updateMargins
 import com.ageone.naladoni.R
 import com.ageone.naladoni.Application.currentActivity
 import com.ageone.naladoni.External.Base.EditText.limitLength
 import com.ageone.naladoni.External.Base.EditText.phoneMask
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import yummypets.com.stevia.dp
 import yummypets.com.stevia.style
 
 class BaseTextInputLayout: TextInputLayout(currentActivity) {
@@ -23,6 +28,27 @@ class BaseTextInputLayout: TextInputLayout(currentActivity) {
 
         val text = BaseTextInputEditText()
         addView(text)
+
+        val params = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        params.marginStart = (-2).dp
+        params.updateMargins(left = (-2).dp)
+        layoutParams = params
+
+        editText?.let { editText ->
+
+            editText.setOnTouchListener { view, motionEvent ->
+                if(motionEvent.action == KeyEvent.ACTION_DOWN ){
+                    Handler().postDelayed({
+                        editText.requestFocus()
+                    }, 500)
+                }
+                false
+            }
+        }
+
     }
 
     fun initPassword(colorToggled: Int = boxStrokeColor) {
