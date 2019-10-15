@@ -25,13 +25,11 @@ import yummypets.com.stevia.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 
 
-
-
 class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
 
     val viewModel = MapViewModel()
 
-    val imagefringeView by lazy {
+    val imageTopView by lazy {
         val imageView = BaseImageView()
         imageView.initialize()
         imageView.orientation = GradientDrawable.Orientation.BOTTOM_TOP
@@ -138,7 +136,7 @@ fun MapView.renderUIO() {
         mapView,
         buttonMyLocation,
         bodyTable,
-        imagefringeView
+        imageTopView
     )
 
     mapView
@@ -154,7 +152,7 @@ fun MapView.renderUIO() {
     bodyTable
         .constrainBottomToBottomOf(innerContent)
 
-    imagefringeView
+    imageTopView
         .constrainTopToTopOf(toolbar)
         .height(20)
         .fillHorizontally()

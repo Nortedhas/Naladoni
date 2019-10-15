@@ -175,7 +175,6 @@ class InnerFilterViewCollapse(initModuleUI: InitModuleUI = InitModuleUI()) : Bas
         bodyTable.adapter = viewAdapter
         bodyTable.layoutManager = layoutManager
 
-
         renderUIO()
         bindUI()
     }

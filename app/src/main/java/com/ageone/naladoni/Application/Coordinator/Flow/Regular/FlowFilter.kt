@@ -89,7 +89,7 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
 
 
     fun runModuleInnerFilter() {
-        val module = InnerFilterView(InitModuleUI(
+        val module = InnerFilterViewCollapse(InitModuleUI(
             isBottomNavigationVisible = false,
             isBackPressed = true,
             colorToolbar = Color.parseColor("#F27A25")
