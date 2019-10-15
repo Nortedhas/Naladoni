@@ -1,4 +1,4 @@
-package com.example.ageone.Application
+package com.ageone.naladoni.Application
 
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4

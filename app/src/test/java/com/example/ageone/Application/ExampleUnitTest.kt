@@ -1,4 +1,4 @@
-package com.example.ageone.Application
+package com.ageone.naladoni.Application
 
 import org.junit.Test
 

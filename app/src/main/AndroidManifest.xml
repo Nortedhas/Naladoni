@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        package="com.example.ageone">
+        package="com.ageone.naladoni">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,7 +17,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
-            android:name="com.example.ageone.Application.App"
+            android:name="com.ageone.naladoni.Application.App"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
@@ -33,7 +33,7 @@
                 android:value="@integer/google_play_services_version" />
 
         <activity
-                android:name="com.example.ageone.Application.AppActivity"
+                android:name="com.ageone.naladoni.Application.AppActivity"
                 android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.example.ageone.Application.MyFirebaseMessagingService">
+        <service android:name="com.ageone.naladoni.Application.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
