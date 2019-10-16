@@ -51,15 +51,15 @@ class ChangePhoneView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val RegistrationInputType = 0
-        private val RegistrationButtonType = 1
+        private val CangePhoneInputType = 0
+        private val CangePhoneButtonType = 1
 
         override fun getItemCount(): Int = 4
 
         override fun getItemViewType(position: Int): Int = when (position) {
 
-            0 -> RegistrationInputType
-            1 -> RegistrationButtonType
+            0 -> CangePhoneInputType
+            1 -> CangePhoneButtonType
             else -> -1
         }
 
@@ -72,12 +72,12 @@ class ChangePhoneView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
 
             val holder = when (viewType) {
 
-                RegistrationInputType -> {
+                CangePhoneInputType -> {
 
                     InputViewHolder(layout)
                 }
 
-                RegistrationButtonType -> {
+                CangePhoneButtonType -> {
 
                     ButtonViewHolder(layout)
                 }

@@ -51,19 +51,19 @@ class AuthView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModu
 
     inner class Factory(val rootModule: BaseModule): BaseAdapter<BaseViewHolder>() {
 
-        private val RegistrationInputType = 0
-        private val RegistrationInputCType = 1
-        private val RegistrationButtonType = 2
-        private val RegistrationTextType = 3
+        private val AuthInputType = 0
+        private val AuthInputCType = 1
+        private val AuthButtonType = 2
+        private val AuthTextType = 3
 
         override fun getItemCount(): Int = 5
 
         override fun getItemViewType(position: Int):Int = when(position) {
 
-            0 -> RegistrationInputType
-            1 -> RegistrationInputCType
-            2 -> RegistrationButtonType
-            3 -> RegistrationTextType
+            0 -> AuthInputType
+            1 -> AuthInputCType
+            2 -> AuthButtonType
+            3 -> AuthTextType
             else -> -1
         }
 
@@ -75,16 +75,16 @@ class AuthView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModu
                 .height(wrapContent)
 
             val holder = when(viewType) {
-                RegistrationInputType -> {
+                AuthInputType -> {
                     InputViewHolder(layout)
                 }
-                RegistrationInputCType -> {
+                AuthInputCType -> {
                     InputViewHolderC(layout)
                 }
-                RegistrationButtonType -> {
+                AuthButtonType -> {
                     ButtonViewHolder(layout)
                 }
-                RegistrationTextType -> {
+                AuthTextType -> {
                  AuthTextViewHolder(layout)
                 }
                 else ->
