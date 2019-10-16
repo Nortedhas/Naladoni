@@ -2,6 +2,7 @@ package com.ageone.naladoni.Application.Coordinator.Flow.Regular
 
 
 import android.graphics.Color
+import androidx.core.view.children
 import androidx.core.view.size
 import com.ageone.naladoni.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.naladoni.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
@@ -9,6 +10,7 @@ import com.ageone.naladoni.Application.Coordinator.Router.DataFlow
 import com.ageone.naladoni.Application.router
 import com.ageone.naladoni.Application.rxData
 import com.ageone.naladoni.External.Base.Flow.BaseFlow
+import com.ageone.naladoni.External.Base.Module.Module
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.Modules.Filter.FilterModel
 import com.ageone.naladoni.Modules.Filter.FilterView
@@ -17,6 +19,7 @@ import com.ageone.naladoni.Modules.InnerFilter.InnerFilterModel
 import com.ageone.naladoni.Modules.InnerFilter.InnerFilterView
 import com.ageone.naladoni.Modules.InnerFilter.InnerFilterViewCollapse
 import com.ageone.naladoni.Modules.InnerFilter.InnerFilterViewModel
+import timber.log.Timber
 
 fun FlowCoordinator.runFlowFilter(previousFlow: BaseFlow) {
 
@@ -32,6 +35,14 @@ fun FlowCoordinator.runFlowFilter(previousFlow: BaseFlow) {
     }
 
     flow?.onFinish = {
+
+        flow?.viewFlipperModule?.children?.forEachIndexed { index, view ->
+            if (view is Module) {
+                Timber.i("Delete module in flow finish")
+                view.onDeInit?.invoke()
+            }
+        }
+
         viewFlipperFlow.removeView(flow?.viewFlipperModule)
         flow?.viewFlipperModule?.removeAllViews()
         flow = null
