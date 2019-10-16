@@ -53,18 +53,18 @@ class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
         )*/
     }
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
-        private val AboutCompanyvType = 0
-        private val AboutTextType = 1
-        private val AboutTextButtonType = 2
-        private val AboutTextEmailType = 3
+        private val AboutCompanyLogoType = 0
+        private val AboutCompanyTextType = 1
+        private val AboutCompanyButtonType = 2
+        private val AboutCompanyEmailType = 3
 
         override fun getItemCount() = 7//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0 -> AboutCompanyvType
-            1,2 -> AboutTextType
-            3 -> AboutTextButtonType
-            4 -> AboutTextEmailType
+            0 ->  AboutCompanyLogoType
+            1,2 -> AboutCompanyTextType
+            3 -> AboutCompanyButtonType
+            4 -> AboutCompanyEmailType
             else -> -1
         }
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
@@ -76,16 +76,16 @@ class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                AboutCompanyvType -> {
+                AboutCompanyLogoType -> {
                     AboutCompanyLogoViewHolder(layout)
                 }
-                AboutTextType -> {
+                AboutCompanyTextType -> {
                     AboutCompanyTextViewHolder(layout)
                 }
-                AboutTextButtonType -> {
+                AboutCompanyButtonType -> {
                     ButtonViewHolder(layout)
                 }
-                AboutTextEmailType -> {
+                AboutCompanyEmailType -> {
                     AboutCompanyEmailViewHolder(layout)
                 }
                 else -> {

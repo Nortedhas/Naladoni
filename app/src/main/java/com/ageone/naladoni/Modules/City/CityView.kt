@@ -2,22 +2,28 @@ package com.ageone.naladoni.Modules.City
 
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.ageone.naladoni.Application.api
 import com.ageone.naladoni.Application.currentActivity
+import com.ageone.naladoni.Application.utils
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
+import com.ageone.naladoni.External.Base.EditText.limitLength
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Extensions.Activity.hideKeyboard
+import com.ageone.naladoni.External.HTTP.fetch
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.External.Libraries.Alert.alertManager
 import com.ageone.naladoni.External.Libraries.Alert.list
 import com.ageone.naladoni.External.Libraries.Alert.single
-import com.ageone.naladoni.Modules.City.rows.CityViewHolder
+import com.ageone.naladoni.Modules.City.rows.CityTextViewHolder
 import com.ageone.naladoni.Modules.City.rows.initialize
 import com.ageone.naladoni.R
+import com.ageone.naladoni.SCAG.DataBase
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.EditTextViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.initialize
+import org.json.JSONObject
 import yummypets.com.stevia.height
 import yummypets.com.stevia.matchParent
 import yummypets.com.stevia.width
@@ -34,7 +40,7 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
     init {
         //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.base_background)//TODO: set background
+        setBackgroundResource(R.drawable.base_background)
 
         toolbar.title = "Город подарков"
         renderToolbar()
@@ -56,15 +62,15 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
            inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-            private val SelectalertManager = 0
-            private val SelectCityTextType = 1
-            private val SelectCityButtonType = 2
+            private val CityEditTextType = 0
+            private val CityTextType = 1
+            private val CityButtonType = 2
             override fun getItemCount() = 3
 
             override fun getItemViewType(position: Int): Int = when (position) {
-                0 -> SelectalertManager
-                1 -> SelectCityTextType
-                2 -> SelectCityButtonType
+                0 -> CityEditTextType
+                1 -> CityTextType
+                2 -> CityButtonType
                 else -> -1
             }
 
@@ -75,13 +81,13 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                     .height(wrapContent)
 
                 val holder = when (viewType) {
-                    SelectalertManager -> {
+                    CityEditTextType -> {
                         EditTextViewHolder(layout)
                     }
-                    SelectCityTextType -> {
-                        CityViewHolder(layout)
+                    CityTextType -> {
+                        CityTextViewHolder(layout)
                     }
-                    SelectCityButtonType -> {
+                    CityButtonType -> {
                         ButtonViewHolder(layout)
                     }
                     else -> {
@@ -93,48 +99,46 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
             }
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-            val city = arrayOf("Екатеринбург", "Москва")
+
             when (holder) {
                 is EditTextViewHolder -> {
-                    alertManager.single(
-                        message = "мы определили ваш город как ${city[0]}",
-                        title = "Ваш город подарков", button = "Отлично"
-                    ) { _, _ ->
-                        holder.editText.setText(
-                            city[0])
-                    }
 
 
-                    holder.editText.setOnClickListener{
-                        currentActivity?.hideKeyboard()
-                        alertManager.list( "Выберите город", city) {_, int ->
-                            when (int) {
-                                0 -> {
-                                    holder.editText.setText(
-                                        city[0])
-                                }
-                                1 -> {
-                                    holder.editText.setText(
-                                        city[1])
-                                }
-                            }
+                    DataBase.City.fetch(""){json ->
+                        api.parser.parseAnyObject(json, DataBase.City)
+                        var cities = utils.realm.city.getAllObjects().map { city -> city.name }.toTypedArray()
 
+                        alertManager.single(
+                            message = "мы определили ваш город как ${cities[0]}",//todo: how?
+                            title = "Ваш город подарков", button = "Отлично"
+                        ) { _, _ ->
+                            holder.editText.setText(
+                                cities[0])
                         }
 
+                        holder.editText.setOnClickListener{
+                            currentActivity?.hideKeyboard()
+                            alertManager.list( "Выберите город", cities) { _, index ->
+                                holder.editText.setText(cities[index])
+                            }
+                        }
                     }
 
-                    innerContent.dismissFocus(holder.editText)
+                    holder.editText?.limitLength(20)
 
+                    innerContent.dismissFocus(holder.editText)
 
                 }
 
                 is ButtonViewHolder -> {
+
                     holder.initialize("Подтверждаю")
                     holder.button.setOnClickListener {
                         emitEvent?.invoke(CityViewModel.EventType.onSityPresed.toString())
                     }
                 }
-                is CityViewHolder -> {
+                is CityTextViewHolder -> {
+
                     holder.initialize("Система автоматически определает ваш город")
                 }
 

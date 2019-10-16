@@ -29,6 +29,7 @@ class FilterButtonViewHolder(val constraintLayout: ConstraintLayout) : BaseViewH
 }
 
 fun FilterButtonViewHolder.renderUI() {
+
     constraintLayout.subviews(
         button
     )

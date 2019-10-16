@@ -42,7 +42,6 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
             Shader.TileMode.REPEAT
         )
         background = bitmapDrawable
-            //TODO: add white rectangle in bottom
 
         toolbar.title = ""
         renderToolbar()
@@ -56,27 +55,22 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
     }
 
     fun bindUI() {
-        /*compositeDisposable.add(
-            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
-                bodyTable.adapter?.notifyDataSetChanged()
-            }
-        )*/
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val MainStockType = 0
+        private val MainStockDescribeType = 0
         private val MainStockTextType = 1
         private val MainStockButtomType = 2
-        private val MainStockQrType = 3
+        private val MainStockQRCodType = 3
 
         override fun getItemCount() = 8//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0 -> MainStockType
+            0 -> MainStockDescribeType
             1, 2 -> MainStockTextType
             3 -> MainStockButtomType
-            4 -> MainStockQrType
+            4 -> MainStockQRCodType
             else -> -1
         }
 
@@ -89,7 +83,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                MainStockType -> {
+                MainStockDescribeType -> {
                     MainStockDescribeViewHolder(layout)
                 }
                 MainStockTextType -> {
@@ -98,7 +92,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                 MainStockButtomType -> {
                     ButtonViewHolder(layout)
                 }
-                MainStockQrType -> {
+                MainStockQRCodType -> {
                     MainStockQRCodViewHolder(layout)
                 }
                 else -> {
@@ -151,7 +145,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                     holder.constraintLayout.backgroundColor = Color.WHITE
                     holder.initialize(
                         "Получай выгоду!", "Количество воспользовавшихся предложением:",
-                        "146", com.ageone.naladoni.R.drawable.pic_qarcod, "145 678 345"
+                        "146", R.drawable.pic_qarcod, "145 678 345"
                     )
                 }
 

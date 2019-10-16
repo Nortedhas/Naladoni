@@ -21,7 +21,6 @@ object Variable {
     var displayHeight = 0
     var actionBarHeight = 0
     var token = ""
-    var vkSdkTokenUser = ""
 
     val widthDisplayDesign = 375F
 }

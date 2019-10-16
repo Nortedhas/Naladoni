@@ -39,11 +39,11 @@ fun SliderViewHolder.renderUI() {
 
     )
 
-imageView
-    .constrainTopToBottomOf(constraintLayout, 20)
-    .constrainLeftToLeftOf(constraintLayout)
-    .constrainRightToRightOf(constraintLayout)
-    .constrainBottomToBottomOf(constraintLayout, 20 )
+    imageView
+        .constrainTopToBottomOf(constraintLayout, 20)
+        .constrainLeftToLeftOf(constraintLayout)
+        .constrainRightToRightOf(constraintLayout)
+        .constrainBottomToBottomOf(constraintLayout, 20)
 
     textView
         .fillHorizontally(24)
@@ -53,8 +53,9 @@ imageView
 }
 
 
-fun SliderViewHolder.initialize(textTitle:String, imageViewtitle: Int) {
+fun SliderViewHolder.initialize(textTitle:String, image_view_title: Int) {
+
     textView.text = textTitle
-    imageView.setBackgroundResource(imageViewtitle)
+    imageView.setBackgroundResource(image_view_title)
 
 }

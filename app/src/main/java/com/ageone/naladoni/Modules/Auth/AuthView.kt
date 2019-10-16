@@ -1,11 +1,16 @@
 package com.ageone.naladoni.Modules.Auth
 
+import android.content.Intent
+import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
 import com.ageone.naladoni.Application.api
+import com.ageone.naladoni.Application.currentActivity
+import com.ageone.naladoni.Application.intent
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
+import com.ageone.naladoni.External.Base.EditText.limitLength
 import com.ageone.naladoni.R
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
@@ -16,16 +21,16 @@ import com.ageone.naladoni.External.Libraries.Alert.alertManager
 import com.ageone.naladoni.External.Libraries.Alert.single
 import com.ageone.naladoni.External.Utils.Validation.isValidPhone
 import com.ageone.naladoni.Modules.Auth.rows.InputViewHolderC
-import com.ageone.naladoni.Modules.Auth.rows.RegistrationTextHolder
+import com.ageone.naladoni.Modules.Auth.rows.AuthTextViewHolder
 import com.ageone.naladoni.Modules.Auth.rows.initialize
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.InputViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
 
-class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
+class AuthView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
 
-    val viewModel = AuthRegistrationViewModel()
+    val viewModel = AuthViewModel()
 
 
     val viewAdapter by lazy {
@@ -84,7 +89,7 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
                     ButtonViewHolder(layout)
                 }
                 RegistrationTextType -> {
-                    RegistrationTextHolder(layout)
+                    AuthTextViewHolder(layout)
                 }
                 else ->
                     BaseViewHolder(layout)
@@ -127,7 +132,7 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
                             api.request(mapOf(
                                 "router" to "phoneAuth",
                                 "phone" to viewModel.model.inputPhone)){
-                                rootModule.emitEvent?.invoke(AuthRegistrationViewModel.EventType.OnRegistrationPressed.name)
+                                rootModule.emitEvent?.invoke(AuthViewModel.EventType.OnRegistrationPressed.name)
                             }
 
                         }
@@ -135,8 +140,13 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
                     }
                 }
 
-                is RegistrationTextHolder -> {
+                is AuthTextViewHolder -> {
                     holder.initialize()
+
+                    holder.textView.setOnClickListener {
+                        intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.ru/chrome/privacy/eula_text.html"))
+                        currentActivity?.startActivity(intent)
+                    }
                 }
             }
         }
@@ -144,8 +154,10 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
     }
 }
 
-fun AuthRegistrationView.renderUIO() {
+fun AuthView.renderUIO() {
+
     bodyTable
         .constrainTopToTopOf(innerContent, 130)
+
     renderBodyTable()
 }

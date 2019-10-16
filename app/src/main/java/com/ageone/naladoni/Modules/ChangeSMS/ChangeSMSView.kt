@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
 import com.ageone.naladoni.Application.router
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
+import com.ageone.naladoni.External.Base.EditText.limitLength
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
@@ -97,16 +98,19 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(ini
                         viewModel.model.code = text.toString()
                     }
 
+                    holder.textInputL.editText?.limitLength(6)
+
                     innerContent.dismissFocus(holder.textInputL.editText)
                 }
                 is ChangeSMSTextViewHolder -> {
-                    holder.initialize{
+                    holder.initialize {
                         router.onBackPressed()
                     }
                 }
                 is ButtonViewHolder -> {
                     holder.initialize("Подтверждаю")
                     holder.button.setOnClickListener {
+
                         timerSMS?.cancel()
                         rootModule.emitEvent?.invoke(ChangeSMSViewModel.EventType.OnlouderChangeSMS.toString())
 
@@ -116,8 +120,9 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(ini
 
         }
     }
+}
 
-    fun ChangeSMSView.renderUIO() {
-        renderBodyTable()
-    }
+fun ChangeSMSView.renderUIO() {
+
+    renderBodyTable()
 }

@@ -1,4 +1,5 @@
 package com.ageone.naladoni.Modules.Navigation
+
 import android.graphics.drawable.GradientDrawable
 import com.ageone.naladoni.Application.AppActivity
 import com.ageone.naladoni.Application.currentActivity
@@ -36,7 +37,6 @@ class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(in
         mapViewHowGo?.getMapAsync{ map ->
             Timber.i("Map ready!")
             map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this.context, R.raw.map_style))
-//            map.setMyLocation()
             map.isMyLocationEnabled = true
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 13f))
 
@@ -56,11 +56,6 @@ class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(in
     }
 
     fun bindUI() {
-        /*compositeDisposable.add(
-            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
-                bodyTable.adapter?.notifyDataSetChanged()
-            }
-        )*/
     }
 }
 

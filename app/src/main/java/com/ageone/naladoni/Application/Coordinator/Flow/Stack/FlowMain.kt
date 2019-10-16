@@ -67,7 +67,6 @@ class FlowMain: BaseFlow() {
         module.emitEvent = { event ->
             when (com.ageone.naladoni.Modules.Map.MapViewModel.EventType.valueOf(event)) {
                 com.ageone.naladoni.Modules.Map.MapViewModel.EventType.OnlouderMap -> {
-//                     module.runFlowList()
                 }
 
             }

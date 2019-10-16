@@ -7,9 +7,9 @@ import com.ageone.naladoni.Application.Coordinator.Router.DataFlow
 import com.ageone.naladoni.Application.coordinator
 import com.ageone.naladoni.External.Base.Flow.BaseFlow
 import com.ageone.naladoni.External.InitModuleUI
-import com.ageone.naladoni.Modules.Auth.AuthRegistrationModel
-import com.ageone.naladoni.Modules.Auth.AuthRegistrationView
-import com.ageone.naladoni.Modules.Auth.AuthRegistrationViewModel
+import com.ageone.naladoni.Modules.Auth.AuthModel
+import com.ageone.naladoni.Modules.Auth.AuthView
+import com.ageone.naladoni.Modules.Auth.AuthViewModel
 import com.ageone.naladoni.Modules.City.CityModel
 import com.ageone.naladoni.Modules.City.CityView
 import com.ageone.naladoni.Modules.City.CityViewModel
@@ -54,8 +54,8 @@ class FlowAuth: BaseFlow() {
 
     inner class FlowAuthModels {
         var modelStart = LoadingScreenModel()
-        var modelRegistration = AuthRegistrationModel()
-        var modelRegistrationSMS = SMSModel()
+        var modelAuth = AuthModel()
+        var modelSMS = SMSModel()
         var modelSelectCity = CityModel()
     }
 
@@ -71,27 +71,27 @@ class FlowAuth: BaseFlow() {
         module.emitEvent = { event ->
             when(LoadingScreenViewModel.EventType.valueOf(event)) {
                 LoadingScreenViewModel.EventType. OnRegistrationPhonePressed -> {
-                    runModuleRegistration()
+                    runModuleAuth()
                 }
 
             }
         }
         push(module)
     }
-    fun runModuleRegistration() {
-        val module = AuthRegistrationView(InitModuleUI(
+    fun runModuleAuth() {
+        val module = AuthView(InitModuleUI(
             isBottomNavigationVisible = false
         ))
-        module.viewModel.initialize(models.modelRegistration) { module.reload() }
+        module.viewModel.initialize(models.modelAuth) { module.reload() }
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 
         module.emitEvent = { event ->
-            when(AuthRegistrationViewModel.EventType.valueOf(event)) {
-                AuthRegistrationViewModel.EventType.OnRegistrationPressed -> {
+            when(AuthViewModel.EventType.valueOf(event)) {
+                AuthViewModel.EventType.OnRegistrationPressed -> {
 
-                    models.modelRegistrationSMS.inputName = models.modelRegistration.inputName
-                    models.modelRegistrationSMS.inputPhone = models.modelRegistration.inputPhone
+                    models.modelSMS.inputName = models.modelAuth.inputName
+                    models.modelSMS.inputPhone = models.modelAuth.inputPhone
 
                     runModuleSMS()
                 }
@@ -105,18 +105,18 @@ class FlowAuth: BaseFlow() {
             isBottomNavigationVisible = false,
             isBackPressed = true
         ))
-        module.viewModel.initialize(models.modelRegistrationSMS) { module.reload() }
+        module.viewModel.initialize(models.modelSMS) { module.reload() }
 
         settingsCurrentFlow.isBottomNavigationVisible = false
 
         module.emitEvent = { event ->
             when (SMSViewModel.EventType.valueOf(event)) {
                 SMSViewModel.EventType.onSityPresed -> {
-                    models.modelSelectCity.code = models.modelRegistrationSMS.code
+                    models.modelSelectCity.code = models.modelSMS.code
                     runModuleCity()
                 }
                 SMSViewModel.EventType.onTimerPresed -> {
-                    runModuleRegistration()
+                    runModuleAuth()
 
                 }
             }

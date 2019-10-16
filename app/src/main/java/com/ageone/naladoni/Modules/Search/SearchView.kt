@@ -23,7 +23,9 @@ import com.ageone.naladoni.Modules.Search.rows.SearchEmptyViewHolder
 import com.ageone.naladoni.Modules.Search.rows.initialize
 
 class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
+
     val viewModel = SearchViewModel()
+
     val card by lazy {
         val view = BaseView()
         view.cornerRadius = 12.dp
@@ -42,14 +44,17 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         searchView.initialize()
         searchView
     }
+
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
     }
+
     val linearManager by lazy {
         val layoutManager = LinearLayoutManager(currentActivity)
         layoutManager
     }
+
     val gridManager by lazy {
         val layoutManager = GridLayoutManager(currentActivity, 2)
         layoutManager
@@ -72,17 +77,13 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     }
 
     fun bindUI() {
-        /*compositeDisposable.add(
-            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
-                bodyTable.adapter?.notifyDataSetChanged()
-            }
-        )*/
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
-        private val SearchViewType = 0
-        private val SearchEmptyViewType = 1
 
+        private val SearchViewType = 0
+
+        private val SearchEmptyViewType = 1
 
         override fun getItemCount() =
                 if (listReceived) {
@@ -94,6 +95,7 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                 }
 
         override fun getItemViewType(position: Int): Int = if (listReceived) {
+
             SearchViewType
         } else {
             SearchEmptyViewType
@@ -151,33 +153,34 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
     var listReceived = true
 
-    fun SearchView.renderUIO() {
-        innerContent.subviews(
-            card.subviews(
-                searchView
-            )
+fun SearchView.renderUIO() {
+
+    innerContent.subviews(
+        card.subviews(
+            searchView
         )
-        card
-            .constrainTopToBottomOf(toolbar, 5)
-            .constrainRightToRightOf(innerContent)
-            .constrainLeftToLeftOf(innerContent)
+    )
 
-        innerContent.subviews(
-            bodyTable
-        )
+    card
+        .constrainTopToBottomOf(toolbar, 5)
+        .constrainRightToRightOf(innerContent)
+        .constrainLeftToLeftOf(innerContent)
 
+    innerContent.subviews(
         bodyTable
-            .fillHorizontally(0)
-            .fillVertically()
-            .constrainTopToBottomOf(card, 8)
-            .updatePadding(bottom = 24.dp)
+    )
 
-        bodyTable
-            .clipToPadding = false
+    bodyTable
+        .fillHorizontally(0)
+        .fillVertically()
+        .constrainTopToBottomOf(card, 8)
+        .updatePadding(bottom = 24.dp)
 
+    bodyTable
+        .clipToPadding = false
 
-        bodyTable.addItemDecoration(ColumnEqualsPaddingItemDecoration(8.dp, 2))
+    bodyTable.addItemDecoration(ColumnEqualsPaddingItemDecoration(8.dp, 2))
 
-    }
+}
 
 

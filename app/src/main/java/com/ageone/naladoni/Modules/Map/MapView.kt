@@ -22,11 +22,13 @@ import com.ageone.naladoni.Modules.Map.rows.MapDiscountCardViewHolder
 import com.ageone.naladoni.Modules.Map.rows.initialize
 import com.ageone.naladoni.R
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import timber.log.Timber
 import yummypets.com.stevia.*
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+
+
 
 
 class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
@@ -50,10 +52,14 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         buttonMyLocation
     }
 
+//    var buttonMyLocation: ImageView
+
     init {
 //        viewModel.loadRealmData()
 
         Timber.i("Start init map")
+        /*buttonMyLocation = (mapView.findViewById<View>(Integer.parseInt("1")).parent as View)
+            .findViewById(Integer.parseInt("2"))*/
 
         mapView.getMapAsync{ map ->
             Timber.i("Map ready!")

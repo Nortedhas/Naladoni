@@ -9,7 +9,6 @@ import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.TextView.BaseTextView
 import com.ageone.naladoni.External.Base.View.BaseView
 import com.ageone.naladoni.External.Libraries.Glide.addImageFromGlide
-import com.ageone.naladoni.R
 import yummypets.com.stevia.*
 
 class MainStockDescribeViewHolder(val constraintLayout: ConstraintLayout) :
@@ -74,6 +73,7 @@ class MainStockDescribeViewHolder(val constraintLayout: ConstraintLayout) :
 }
 
 fun MainStockDescribeViewHolder.renderUI() {
+
     constraintLayout.subviews(
         BoxView,
         view.subviews(
@@ -115,15 +115,11 @@ fun MainStockDescribeViewHolder.renderUI() {
 
 }
 
-fun MainStockDescribeViewHolder.initialize(
-    text: String,
-    describe: String,
-    textlogo: String,
-    logo: Int
-) {
-    textViewLogo.text = textlogo
-    textViewTitle.text = text
+fun MainStockDescribeViewHolder.initialize(title_text: String, describe: String, text_logo: String, image_logo: Int) {
+
+    textViewLogo.text = text_logo
+    textViewTitle.text = title_text
     textViewDescribe.text = describe
-    addImageFromGlide(imageIconView, logo)
+    addImageFromGlide(imageIconView, image_logo)
 
 }

@@ -1,12 +1,17 @@
 package com.ageone.naladoni.Modules.SMS
 
+import android.content.Intent
+import android.net.Uri
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
+import com.ageone.naladoni.Application.currentActivity
+import com.ageone.naladoni.Application.intent
 import com.ageone.naladoni.Application.api
 import com.ageone.naladoni.Application.router
 import com.ageone.naladoni.Application.utils
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
+import com.ageone.naladoni.External.Base.EditText.limitLength
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
@@ -33,6 +38,7 @@ import yummypets.com.stevia.wrapContent
 import java.util.*
 
 class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
+
     var timerSMS: Timer? = null
 
     val viewModel = SMSViewModel()
@@ -61,16 +67,16 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val RegistrationSMSInputType = 0
-        private val RegistrationSMSTextType = 1
-        private val RegistrationSMSButtonType = 2
+        private val SMSInputType = 0
+        private val SMSTextType = 1
+        private val SMSButtonType = 2
 
         override fun getItemCount(): Int = 3
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            0 -> RegistrationSMSInputType
-            1 -> RegistrationSMSTextType
-            2 -> RegistrationSMSButtonType
+            0 -> SMSInputType
+            1 -> SMSTextType
+            2 -> SMSButtonType
             else -> -1
         }
 
@@ -82,13 +88,13 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                RegistrationSMSInputType -> {
+                SMSInputType -> {
                     InputViewHolder(layout)
                 }
-                RegistrationSMSTextType -> {
+                SMSTextType -> {
                     SMSTextViewHolder(layout, timerSMS)
                 }
-                RegistrationSMSButtonType -> {
+                SMSButtonType -> {
                     ButtonViewHolder(layout)
                 }
                 else ->
@@ -106,51 +112,31 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                         viewModel.model.code = text.toString()
                     }
 
+                    holder.textInputL.editText?.limitLength(6)
+
                     innerContent.dismissFocus(holder.textInputL.editText)
                 }
                 is SMSTextViewHolder -> {
                     holder.initialize {
                         router.onBackPressed()
                     }
+
                 }
                 is ButtonViewHolder -> {
                     holder.initialize("Подтверждаю")
                     holder.button.setOnClickListener {
                         timerSMS?.cancel()
+                        rootModule.emitEvent?.invoke(CityViewModel.EventType.onSityPresed.toString())
 
-                        api.request(
-                            mapOf(
-                                "router" to "codeCheck",
-                                "phone" to viewModel.model.inputPhone,
-                                "code" to viewModel.model.code
-                            ), isErrorShown = true
-                        ) { json ->
-                            Timber.i("JSON answer $json")
-                            api.parser.userData(json)
-                            DataBase.User.update(
-                                user.hashId,
-                                mapOf(
-//                                    "phone" to viewModel.model.inputPhone,
-                                    "name" to viewModel.model.inputName
-                                )
-                            )
-
-                            utils.variable.token = json.optString("Token")
-
-                            user.data.name = viewModel.model.inputName
-                            user.data.phone = viewModel.model.inputPhone
-                            user.isAuthorized = true
-
-                            rootModule.emitEvent?.invoke(CityViewModel.EventType.onSityPresed.name)
-                        }
                     }
                 }
-
             }
+
         }
     }
 }
 
 fun SMSView.renderUIO() {
+
     renderBodyTable()
 }

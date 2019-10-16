@@ -5,6 +5,7 @@ import com.ageone.naladoni.External.HTTP.API.API
 import com.ageone.naladoni.SCAG.DataBase
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.extensions.jsonBody
+import org.json.JSONArray
 import org.json.JSONObject
 import timber.log.Timber
 
@@ -12,11 +13,11 @@ fun DataBase.request(params: Map<String, Any>, completion: (JSONObject) -> (Unit
 
     Fuel.post(API.Routes.Database.path)
         .jsonBody(api.createBody(params).toString())
-//        .header(DataBase.headers)
+        .header(DataBase.headers)
         .responseString { request, response, result ->
             result.fold({ result ->
                 val jsonObject = JSONObject(result)
-                Timber.i("API Update:\n $request \n $response")
+                Timber.i("API Update:\n $request\n \n $response")
 
                 val error = jsonObject.optString("error", "")
                 if (error != "") {
@@ -31,7 +32,6 @@ fun DataBase.request(params: Map<String, Any>, completion: (JSONObject) -> (Unit
 
         }
 }
-
 
 //TODO: 3 func
 fun DataBase.update(objectID: String, objectStruct: Map<String, Any>) {
@@ -65,7 +65,8 @@ fun DataBase.fetch(filter: String, cashTime: Int = 0, completion: (JSONObject) -
     "collectionName" to name,
     "cashTime" to cashTime,
     "filter" to if (filter.isBlank()) "isExist = true" else "$filter && isExist = true"
-    )) { jsonObject ->
-        Timber.i("Object: $jsonObject")
+    )) { json ->
+        Timber.i("Object: $json")
+        completion.invoke(json)
     }
 }

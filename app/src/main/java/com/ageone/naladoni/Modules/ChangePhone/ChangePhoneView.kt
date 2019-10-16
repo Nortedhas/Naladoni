@@ -71,11 +71,14 @@ class ChangePhoneView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
                 .height(wrapContent)
 
             val holder = when (viewType) {
+
                 RegistrationInputType -> {
+
                     InputViewHolder(layout)
                 }
 
                 RegistrationButtonType -> {
+
                     ButtonViewHolder(layout)
                 }
 
@@ -113,7 +116,9 @@ class ChangePhoneView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
 }
 
 fun ChangePhoneView.renderUIO() {
+
     bodyTable
         .constrainTopToTopOf(innerContent, 130)
+
     renderBodyTable()
 }

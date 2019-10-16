@@ -10,8 +10,7 @@ import com.ageone.naladoni.External.Base.TextView.BaseTextView
 import com.ageone.naladoni.External.Base.View.BaseView
 import yummypets.com.stevia.*
 
-class ProfileInformationViewHolder(val constraintLayout: ConstraintLayout) :
-    BaseViewHolder(constraintLayout) {
+class ProfileInformationViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
 
     val back by lazy {
         val view = BaseView()
@@ -22,12 +21,12 @@ class ProfileInformationViewHolder(val constraintLayout: ConstraintLayout) :
         view
     }
 
-
     val image by lazy {
         val base = BaseView()
         base.setBackgroundResource(R.drawable.ic_arrow)
         base
     }
+
     val textTitle by lazy {
         val textView = BaseTextView()
         textView.textColor = Color.parseColor("#F06F28")
@@ -75,9 +74,11 @@ fun ProfileInformationViewHolder.renderUI() {
     textTitle
         .constrainTopToTopOf(back, 15)
         .constrainLeftToLeftOf(back, 19)
+
     textView
         .constrainTopToBottomOf(textTitle, 11)
         .constrainLeftToLeftOf(back, 19)
+
     image
         .height(20)
         .width(12)
@@ -86,8 +87,9 @@ fun ProfileInformationViewHolder.renderUI() {
         .constrainBottomToBottomOf(back)
 }
 
-fun ProfileInformationViewHolder.initialize(title:String, text: String) {
-    textTitle.text=title
+fun ProfileInformationViewHolder.initialize(title_text:String, text: String) {
+
+    textTitle.text=title_text
     textView.text = text
 
 }

@@ -1,10 +1,5 @@
 package com.ageone.naladoni.Modules.Filter
 
-import android.graphics.Color
-import android.graphics.Typeface
-import android.graphics.drawable.GradientDrawable
-import android.view.Gravity
-import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updatePadding
@@ -14,10 +9,7 @@ import com.ageone.naladoni.Application.rxData
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
-import com.ageone.naladoni.External.Base.TextView.BaseTextView
 import com.ageone.naladoni.External.InitModuleUI
-import com.ageone.naladoni.External.Libraries.Alert.alertManager
-import com.ageone.naladoni.External.Libraries.Alert.single
 import com.ageone.naladoni.External.RxBus.RxBus
 import com.ageone.naladoni.External.RxBus.RxEvent
 import com.ageone.naladoni.Modules.Filter.rows.*
@@ -106,16 +98,16 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
             R.drawable.pic_categories_13
         )
 
-        private val FilterCardType = 0
-        private val FilterType = 1
-        private val ButtonType = 2
+        private val FilterFilterIconsType = 0
+        private val FilterSwitchType = 1
+        private val FilterButtonType = 2
 
         override fun getItemCount() = 16//viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
-            in 0..12 -> FilterCardType
-            13, 14 -> FilterType
-            15 -> ButtonType
+            in 0..12 -> FilterFilterIconsType
+            13, 14 -> FilterSwitchType
+            15 -> FilterButtonType
             else -> -1
         }
 
@@ -128,13 +120,13 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                FilterCardType -> {
+                FilterFilterIconsType -> {
                     FilterFilterIconsViewHolder(layout)
                 }
-                FilterType -> {
+                FilterSwitchType -> {
                     FilterSwitchViewHolder(layout)
                 }
-                ButtonType -> {
+                FilterButtonType -> {
                     FilterButtonViewHolder(layout)
                 }
                 else -> {
