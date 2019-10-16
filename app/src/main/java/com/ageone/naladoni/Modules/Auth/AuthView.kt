@@ -1,9 +1,13 @@
 package com.ageone.naladoni.Modules.Auth
 
+import android.content.Intent
+import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
+import com.ageone.naladoni.Application.currentActivity
+import com.ageone.naladoni.Application.intent
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.naladoni.R
 import com.ageone.naladoni.External.Base.Module.BaseModule
@@ -133,6 +137,11 @@ class AuthView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModu
 
                 is AuthTextViewHolder -> {
                     holder.initialize()
+
+                    holder.textView.setOnClickListener {
+                        intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.ru/chrome/privacy/eula_text.html"))
+                        currentActivity?.startActivity(intent)
+                    }
                 }
             }
         }

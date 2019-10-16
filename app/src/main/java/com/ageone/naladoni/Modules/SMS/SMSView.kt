@@ -1,8 +1,12 @@
 package com.ageone.naladoni.Modules.SMS
 
+import android.content.Intent
+import android.net.Uri
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
+import com.ageone.naladoni.Application.currentActivity
+import com.ageone.naladoni.Application.intent
 import com.ageone.naladoni.Application.router
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.naladoni.External.Base.Module.BaseModule
@@ -105,6 +109,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                     holder.initialize {
                         router.onBackPressed()
                     }
+
                 }
                 is ButtonViewHolder -> {
                     holder.initialize("Подтверждаю")
