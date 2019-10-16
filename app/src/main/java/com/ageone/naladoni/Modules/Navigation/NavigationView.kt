@@ -49,6 +49,11 @@ class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(in
     }
 
     fun bindUI() {
+        /*compositeDisposable.add(
+          RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
+              bodyTable.adapter?.notifyDataSetChanged()
+          }
+      )*/
     }
 }
 
