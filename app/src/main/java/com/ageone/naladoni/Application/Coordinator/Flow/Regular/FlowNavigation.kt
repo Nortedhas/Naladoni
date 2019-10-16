@@ -1,16 +1,19 @@
 package com.ageone.naladoni.Application.Coordinator.Flow.Regular
 
+import androidx.core.view.children
 import androidx.core.view.size
 import com.ageone.naladoni.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.naladoni.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.ageone.naladoni.Application.Coordinator.Router.DataFlow
 import com.ageone.naladoni.Application.mapViewHowGo
 import com.ageone.naladoni.External.Base.Flow.BaseFlow
+import com.ageone.naladoni.External.Base.Module.Module
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.Modules.Navigation.NavigationModel
 import com.ageone.naladoni.Modules.Navigation.NavigationView
 import com.ageone.naladoni.Modules.Navigation.NavigationViewModel
 import io.realm.internal.sync.BaseModule
+import timber.log.Timber
 
 fun FlowCoordinator.runFlowNavigation(previousFlow: BaseFlow) {
 
@@ -24,6 +27,12 @@ fun FlowCoordinator.runFlowNavigation(previousFlow: BaseFlow) {
     }
 
     flow?.onFinish = {
+        flow?.viewFlipperModule?.children?.forEachIndexed { index, view ->
+            if (view is Module) {
+                Timber.i("Delete module in flow finish")
+                view.onDeInit?.invoke()
+            }
+        }
         flow?.viewFlipperModule?.removeAllViews()
         viewFlipperFlow.removeView(flow?.viewFlipperModule)
         flow?.viewFlipperModule?.removeAllViews()

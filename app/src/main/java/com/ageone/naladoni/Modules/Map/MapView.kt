@@ -60,7 +60,7 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
             map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this.context, R.raw.map_style))
             map.setMyLocation(buttonMyLocation)
 
-            val markerIcon = overlay(
+            val markerIcon = createMarkerIconBitmap(
                 BitmapFactory.decodeResource(context.resources,R.drawable.pic_selected_flag),
                 BitmapFactory.decodeResource(context.resources,R.drawable.pic_categories_1)
                 )
@@ -68,9 +68,8 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
             val marker = map.addMarker(
                     MarkerOptions()
                         .position(startLocation)
-                        .title("Melbourne")
                         .icon(
-                            BitmapDescriptorFactory.fromBitmap(markerIcon)//fromResource(R.drawable.pic_selected_flag)
+                            BitmapDescriptorFactory.fromBitmap(markerIcon)
                         )
                 )
 
@@ -104,17 +103,16 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         bindUI()
     }
 
-    fun overlay(back: Bitmap, icon: Bitmap): Bitmap {
+    fun createMarkerIconBitmap(back: Bitmap, icon: Bitmap): Bitmap {
+        val flag = Bitmap.createBitmap(back.width, back.height, back.config)
 
-        val bmOverlay = Bitmap.createBitmap(back.width, back.height, back.config)
-
-        val canvas = Canvas(bmOverlay)
+        val canvas = Canvas(flag)
         canvas.drawBitmap(back, Matrix(), null)
         canvas.drawBitmap(
-            Bitmap.createScaledBitmap(
-                icon, 26.dp, 26.dp, false),
+            Bitmap.createScaledBitmap(icon, 26.dp, 26.dp, false),
             26F.dp, 11F.dp, null)
-        return bmOverlay
+
+        return flag
     }
 
     fun bindUI() {
@@ -144,6 +142,9 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         override fun onBindViewHolder(holder: MapDiscountCardViewHolder, position: Int) {
             holder.initialize("Шаверма Mix",
                 "При покупке шавермы big получи 0.5 колы в подарок!", R.drawable.pic_groupfood)
+            holder.constraintLayout.setOnClickListener {
+//                mapView.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 13f))
+            }
         }
     }
 

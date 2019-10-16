@@ -4,6 +4,7 @@ import com.ageone.naladoni.Application.api
 import com.ageone.naladoni.Application.utils
 import com.ageone.naladoni.External.Libraries.Alert.alertManager
 import com.ageone.naladoni.External.Libraries.Alert.blockUI
+import com.ageone.naladoni.External.Libraries.Alert.single
 import com.ageone.naladoni.Models.User.user
 import com.ageone.naladoni.SCAG.DataBase
 import com.ageone.naladoni.SCAG.Enums
@@ -45,24 +46,30 @@ class API {
             }
     }
 
-    fun request(params: Map<String, Any>, completion: (JSONObject) -> (Unit)) {
+    fun request(params: Map<String, Any>, isErrorShown: Boolean = false, completion: (JSONObject) -> (Unit)) {
 
         Fuel.post(Routes.Api.path)
             .jsonBody(createBody(params).toString())
-//            .header(DataBase.headers)
+            .header(DataBase.headers)
             .responseString { request, response, result ->
                 result.fold({ result ->
                     val jsonObject = JSONObject(result)
                     Timber.i("API request:\n $request \n $response")
 
                     val error = jsonObject.optString("error", "")
-                    if (error != "") {
+                    if (error.isNotEmpty()) {
                         Timber.e("$error")
+                        if (isErrorShown) {
+                            alertManager.single("Ошибка", "$error",
+                                completion =  {_,_ ->
+                                    alertManager.blockUI(false)
+                                })
+                        }
                     } else {
                         completion.invoke(jsonObject)
                     }
 
-                }, { error ->
+                },{ error ->
                     Timber.e("${error.response.responseMessage}")
                 })
 

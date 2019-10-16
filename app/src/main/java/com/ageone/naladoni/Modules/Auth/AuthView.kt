@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
+import com.ageone.naladoni.Application.api
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.naladoni.R
 import com.ageone.naladoni.External.Base.Module.BaseModule
@@ -11,6 +12,9 @@ import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.naladoni.External.InitModuleUI
+import com.ageone.naladoni.External.Libraries.Alert.alertManager
+import com.ageone.naladoni.External.Libraries.Alert.single
+import com.ageone.naladoni.External.Utils.Validation.isValidPhone
 import com.ageone.naladoni.Modules.Auth.rows.InputViewHolderC
 import com.ageone.naladoni.Modules.Auth.rows.RegistrationTextHolder
 import com.ageone.naladoni.Modules.Auth.rows.initialize
@@ -49,7 +53,7 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
         private val RegistrationInputType = 0
         private val RegistrationInputTypeC = 1
         private val RegistrationButtonType = 2
-      private val RegistrationTextType = 3
+        private val RegistrationTextType = 3
 
         override fun getItemCount(): Int = 5
 
@@ -80,7 +84,7 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
                     ButtonViewHolder(layout)
                 }
                 RegistrationTextType -> {
-                 RegistrationTextHolder(layout)
+                    RegistrationTextHolder(layout)
                 }
                 else ->
                     BaseViewHolder(layout)
@@ -93,14 +97,14 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
             when(holder) {
                 is InputViewHolder -> {
 
-                            holder.initialize("Введите ваше имя и фамилию:", InputEditTextType.TEXT)
-                            holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
-                                viewModel.model.inputName = text.toString()
-                            }
+                    holder.initialize("Введите ваше имя и фамилию:", InputEditTextType.TEXT)
+                    holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
+                        viewModel.model.inputName = text.toString()
+                    }
 
                     innerContent.dismissFocus(holder.textInputL.editText)
 
-                    }
+                }
                 is InputViewHolderC -> {
                     holder.initialize("Введите ваш номер телефона:", InputEditTextType.PHONE)
                     holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
@@ -113,20 +117,20 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
                 is ButtonViewHolder -> {
                     holder.initialize("Войти в приложение")
                     holder.button.setOnClickListener {
-//                        if (!viewModel.model.inputPhone.isValidPhone()) {
-//                            alertManager.single("Неверный номер", "Введен неверный номер", null) {_,_ ->
-//                            }
-//                        }  else if (viewModel.model.inputName.isBlank()){
-//                            alertManager.single("Неверное имя", "Имя не введено", null) {_,_ ->
-//                            }
-//                        } else {
-//                            api.request(mapOf(
-//                                "router" to "phoneAuth",
-//                                "phone" to viewModel.model.inputPhone)){
-                               rootModule.emitEvent?.invoke(AuthRegistrationViewModel.EventType.OnRegistrationPressed.toString())
-//                            }
-//
-//                        }
+                        if (!viewModel.model.inputPhone.isValidPhone()) {
+                            alertManager.single("Неверный номер", "Введен неверный номер", null) {_,_ ->
+                            }
+                        }  else if (viewModel.model.inputName.isBlank()){
+                            alertManager.single("Неверное имя", "Имя не введено", null) {_,_ ->
+                            }
+                        } else {
+                            api.request(mapOf(
+                                "router" to "phoneAuth",
+                                "phone" to viewModel.model.inputPhone)){
+                                rootModule.emitEvent?.invoke(AuthRegistrationViewModel.EventType.OnRegistrationPressed.name)
+                            }
+
+                        }
 
                     }
                 }
@@ -141,7 +145,7 @@ class AuthRegistrationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseMod
 }
 
 fun AuthRegistrationView.renderUIO() {
-      bodyTable
-          .constrainTopToTopOf(innerContent, 130)
+    bodyTable
+        .constrainTopToTopOf(innerContent, 130)
     renderBodyTable()
 }

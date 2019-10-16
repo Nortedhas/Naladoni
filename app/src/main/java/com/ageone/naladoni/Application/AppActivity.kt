@@ -6,15 +6,29 @@ import android.os.Bundle
 import android.widget.Toast
 import com.ageone.naladoni.External.Base.Activity.BaseActivity
 import com.ageone.naladoni.External.Extensions.Activity.*
+import com.ageone.naladoni.External.HTTP.update
+import com.ageone.naladoni.External.Libraries.Alert.alertManager
+import com.ageone.naladoni.External.Libraries.Alert.blockUI
+import com.ageone.naladoni.External.Libraries.Alert.single
 import com.ageone.naladoni.Models.User.user
 import com.ageone.naladoni.R
+import com.ageone.naladoni.SCAG.DataBase
+import com.github.kittinunf.fuel.core.FuelManager
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import com.swarmnyc.promisekt.Promise
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
+import java.io.IOException
+import java.net.InetSocketAddress
+import java.net.Socket
 
 class AppActivity: BaseActivity() {
 
@@ -45,8 +59,7 @@ class AppActivity: BaseActivity() {
             fetchLastLocation()
         }
 
-//        FuelManager.instance.basePath = DataBase.url
-
+        FuelManager.instance.basePath = DataBase.url
 
         user.isAuthorized = false //TODO: change after add registration
         coordinator.setLaunchScreen()
@@ -60,22 +73,33 @@ class AppActivity: BaseActivity() {
             }
 
         }.then {
-            /*api.handshake {
-                Timber.i("Handshake out")
-                coordinator.start()
+            hasInternetConnection()
+                .subscribe{isConnectedToInternet ->
+                    Timber.i("Internet connected: $isConnectedToInternet")
+                    if (!isConnectedToInternet) {
+                        Timber.i("Internet not connected")
+                        alertManager.blockUI(true)
+                        alertManager.single("Отсуствует интернет-соединение", "Проверьте интернет-соединение")
+                    } else {
+                        api.handshake {
+                            Timber.i("Handshake out")
+                            coordinator.start()
 
-                FirebaseInstanceId.getInstance().instanceId
-                    .addOnCompleteListener(OnCompleteListener { task ->
-                        if (!task.isSuccessful) {
-                            Timber.i("fail")
-                            return@OnCompleteListener
+                            FirebaseInstanceId.getInstance().instanceId
+                                .addOnCompleteListener(OnCompleteListener { task ->
+                                    if (!task.isSuccessful) {
+                                        Timber.i("fail")
+                                        return@OnCompleteListener
+                                    }
+
+                                    // Get new Instance ID UserHandshake
+                                    val token = task.result?.token ?: ""
+                                    DataBase.User.update(user.hashId, mapOf("fcmToken" to token))
+                                })
                         }
+                    }
+                }
 
-                        // Get new Instance ID UserHandshake
-                        val token = task.result?.token ?: ""
-//                        DataBase.User.update(user.hashId, mapOf("fcmToken" to token))
-                    })
-            }*/
 
             val googleApiAvailability = GoogleApiAvailability.getInstance()
             when (val result = googleApiAvailability.isGooglePlayServicesAvailable(this)) {
@@ -106,19 +130,19 @@ class AppActivity: BaseActivity() {
     override fun onLowMemory() {
         super.onLowMemory()
         mapView.onLowMemory()
-        mapViewHowGo.onLowMemory()
+        mapViewHowGo?.onLowMemory()
     }
 
     override fun onStop() {
         super.onStop()
         mapView.onStop()
-        mapViewHowGo.onStop()
+        mapViewHowGo?.onStop()
     }
 
     override fun onResume() {
         super.onResume()
         mapView.onResume()
-        mapViewHowGo.onResume()
+        mapViewHowGo?.onResume()
 
         startLocationUpdates()
     }
@@ -126,7 +150,7 @@ class AppActivity: BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         mapView.onDestroy()
-        mapViewHowGo.onDestroy()
+        mapViewHowGo?.onDestroy()
     }
 
     override fun onRequestPermissionsResult(
@@ -149,5 +173,24 @@ class AppActivity: BaseActivity() {
         }
     }
 
+    fun hasInternetConnection(): Single<Boolean> {
+        return Single.fromCallable {
+            try {
+                // Connect to Google DNS to check for connection
+                val timeoutMs = 1500
+                val socket = Socket()
+                val socketAddress = InetSocketAddress("8.8.8.8", 53)
+
+                socket.connect(socketAddress, timeoutMs)
+                socket.close()
+
+                true
+            } catch (e: IOException) {
+                false
+            }
+        }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 
 }

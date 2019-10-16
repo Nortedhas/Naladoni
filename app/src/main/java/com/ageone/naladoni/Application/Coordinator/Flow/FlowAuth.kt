@@ -29,8 +29,6 @@ fun FlowCoordinator.runFlowAuth() {
         viewFlipperFlow.addView(flow.viewFlipperModule)
         viewFlipperFlow.displayedChild = viewFlipperFlow.indexOfChild(flow.viewFlipperModule)
 
-
-
         flow.settingsCurrentFlow = DataFlow(viewFlipperFlow.size - 1)
 
     }

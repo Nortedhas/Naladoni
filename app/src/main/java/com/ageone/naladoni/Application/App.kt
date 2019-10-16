@@ -39,10 +39,13 @@ val mapView by lazy {
     val mapView = MapView(currentActivity)
     mapView
 }
+
 val mapViewHowGo by lazy {
     val mapView = MapView(currentActivity)
     mapView
 }
+// var mapViewHowGo: MapView? = null
+
 
 
 class App: Application()  {

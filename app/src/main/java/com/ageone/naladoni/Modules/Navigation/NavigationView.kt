@@ -1,5 +1,7 @@
 package com.ageone.naladoni.Modules.Navigation
 import android.graphics.drawable.GradientDrawable
+import com.ageone.naladoni.Application.AppActivity
+import com.ageone.naladoni.Application.currentActivity
 import com.ageone.naladoni.Application.mapViewHowGo
 import com.ageone.naladoni.External.Base.ImageView.BaseImageView
 import com.ageone.naladoni.External.Base.Module.BaseModule
@@ -7,6 +9,7 @@ import com.ageone.naladoni.External.Extensions.Activity.startLocation
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.R
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.MapStyleOptions
 import timber.log.Timber
 import yummypets.com.stevia.*
@@ -27,7 +30,10 @@ class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(in
     init {
 //        viewModel.loadRealmData()
 
-        mapViewHowGo.getMapAsync{ map ->
+//        mapViewHowGo = MapView(currentActivity)
+//        mapViewHowGo?.onCreate(null)
+//        (currentActivity as AppActivity).onCreateMapView()
+        mapViewHowGo?.getMapAsync{ map ->
             Timber.i("Map ready!")
             map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this.context, R.raw.map_style))
 //            map.setMyLocation()
@@ -44,6 +50,7 @@ class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(in
         bindUI()
 
         onDeInit = {
+            Timber.i("DeInit module")
             innerContent.removeView(mapViewHowGo)
         }
     }
@@ -59,15 +66,17 @@ class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(in
 
 
 fun NavigationView.renderUIO() {
-    
-    innerContent.subviews(
-        mapViewHowGo,
-        imageNavigationView
-    )
+    mapViewHowGo?.let { mapViewHowGo ->
 
-    mapViewHowGo
-        .fillHorizontally()
-        .fillVertically()
+        innerContent.subviews(
+            mapViewHowGo,
+            imageNavigationView
+        )
+
+        mapViewHowGo
+            .fillHorizontally()
+            .fillVertically()
+    }
 
     imageNavigationView
         .constrainRightToRightOf(innerContent, 16)

@@ -3,21 +3,29 @@ package com.ageone.naladoni.Modules.SMS
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
+import com.ageone.naladoni.Application.api
 import com.ageone.naladoni.Application.router
+import com.ageone.naladoni.Application.utils
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.TextInputLayout.InputEditTextType
+import com.ageone.naladoni.External.HTTP.update
 import com.ageone.naladoni.External.InitModuleUI
+import com.ageone.naladoni.Models.User.user
 import com.ageone.naladoni.Modules.City.CityViewModel
 import com.ageone.naladoni.Modules.SMS.rows.SMSTextViewHolder
 import com.ageone.naladoni.Modules.SMS.rows.initialize
 import com.ageone.naladoni.Modules.SMSViewModel
 import com.ageone.naladoni.R
+import com.ageone.naladoni.SCAG.DataBase
+import com.ageone.naladoni.SCAG.Parser
+import com.ageone.naladoni.SCAG.userData
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.InputViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.initialize
+import timber.log.Timber
 import yummypets.com.stevia.height
 import yummypets.com.stevia.matchParent
 import yummypets.com.stevia.width
@@ -101,7 +109,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                     innerContent.dismissFocus(holder.textInputL.editText)
                 }
                 is SMSTextViewHolder -> {
-                    holder.initialize{
+                    holder.initialize {
                         router.onBackPressed()
                     }
                 }
@@ -109,16 +117,40 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                     holder.initialize("Подтверждаю")
                     holder.button.setOnClickListener {
                         timerSMS?.cancel()
-                        rootModule.emitEvent?.invoke(CityViewModel.EventType.onSityPresed.toString())
 
+                        api.request(
+                            mapOf(
+                                "router" to "codeCheck",
+                                "phone" to viewModel.model.inputPhone,
+                                "code" to viewModel.model.code
+                            ), isErrorShown = true
+                        ) { json ->
+                            Timber.i("JSON answer $json")
+                            api.parser.userData(json)
+                            DataBase.User.update(
+                                user.hashId,
+                                mapOf(
+//                                    "phone" to viewModel.model.inputPhone,
+                                    "name" to viewModel.model.inputName
+                                )
+                            )
+
+                            utils.variable.token = json.optString("Token")
+
+                            user.data.name = viewModel.model.inputName
+                            user.data.phone = viewModel.model.inputPhone
+                            user.isAuthorized = true
+
+                            rootModule.emitEvent?.invoke(CityViewModel.EventType.onSityPresed.name)
+                        }
                     }
                 }
-            }
 
+            }
         }
     }
+}
 
-    fun SMSView.renderUIO() {
-        renderBodyTable()
-    }
+fun SMSView.renderUIO() {
+    renderBodyTable()
 }
