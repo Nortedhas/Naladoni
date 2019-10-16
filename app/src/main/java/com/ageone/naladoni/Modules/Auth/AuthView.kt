@@ -9,6 +9,7 @@ import androidx.core.widget.doOnTextChanged
 import com.ageone.naladoni.Application.currentActivity
 import com.ageone.naladoni.Application.intent
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
+import com.ageone.naladoni.External.Base.EditText.limitLength
 import com.ageone.naladoni.R
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
@@ -101,6 +102,8 @@ class AuthView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModu
                             holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
                                 viewModel.model.inputName = text.toString()
                             }
+
+                    holder.textInputL.editText?.limitLength(24)
 
                     innerContent.dismissFocus(holder.textInputL.editText)
 

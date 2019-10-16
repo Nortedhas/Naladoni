@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
+import com.ageone.naladoni.External.Base.EditText.limitLength
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
@@ -92,6 +93,8 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                     holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
                         viewModel.model.inputName = text.toString()
                     }
+
+                    holder.textInputL.editText?.limitLength(24)
 
                     innerContent.dismissFocus(holder.textInputL.editText)
 

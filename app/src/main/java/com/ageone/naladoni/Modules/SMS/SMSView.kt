@@ -9,6 +9,7 @@ import com.ageone.naladoni.Application.currentActivity
 import com.ageone.naladoni.Application.intent
 import com.ageone.naladoni.Application.router
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
+import com.ageone.naladoni.External.Base.EditText.limitLength
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
@@ -102,6 +103,8 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                     holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
                         viewModel.model.code = text.toString()
                     }
+
+                    holder.textInputL.editText?.limitLength(6)
 
                     innerContent.dismissFocus(holder.textInputL.editText)
                 }
