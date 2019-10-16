@@ -98,7 +98,7 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(ini
                         viewModel.model.code = text.toString()
                     }
 
-                    holder.textInputL.editText?.limitLength(6)
+                    holder.textInputL.editText?.limitLength(4)
 
                     innerContent.dismissFocus(holder.textInputL.editText)
                 }
