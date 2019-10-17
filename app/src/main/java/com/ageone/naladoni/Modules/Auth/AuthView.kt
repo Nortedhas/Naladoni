@@ -6,11 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
-import com.ageone.naladoni.Application.api
 import com.ageone.naladoni.Application.currentActivity
 import com.ageone.naladoni.Application.intent
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
-import com.ageone.naladoni.External.Base.EditText.limitLength
 import com.ageone.naladoni.R
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
@@ -128,8 +126,9 @@ class AuthView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModu
                         }  else if (viewModel.model.inputName.isBlank()){
                             alertManager.single("Неверное имя", "Имя не введено", null) {_,_ ->
                             }
-                               rootModule.emitEvent?.invoke(AuthViewModel.EventType.OnRegistrationPressed.toString())
-                        }
+
+                        }else {
+                            emitEvent?.invoke(AuthViewModel.EventType.OnAuthPressed.toString())}
 
                     }
                 }

@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.naladoni.Application.currentActivity
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
+import com.ageone.naladoni.External.Base.EditText.disablekeyboard
 import com.ageone.naladoni.External.Base.EditText.limitLength
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
@@ -114,6 +115,8 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                         }
 
                     }
+
+                    holder.editText?.disablekeyboard()
 
                     innerContent.dismissFocus(holder.editText)
 

@@ -14,7 +14,7 @@ class AuthViewModel: InterfaceViewModel {
     }
 
     enum class EventType{
-        OnRegistrationPressed
+        OnAuthPressed
     }
 }
 
