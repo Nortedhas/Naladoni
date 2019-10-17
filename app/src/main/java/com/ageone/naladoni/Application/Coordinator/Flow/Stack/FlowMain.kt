@@ -4,6 +4,7 @@ import androidx.core.view.size
 import com.ageone.naladoni.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.naladoni.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.ageone.naladoni.Application.Coordinator.Flow.Regular.runFlowFilter
+import com.ageone.naladoni.Application.Coordinator.Flow.Regular.runFlowMainStock
 import com.ageone.naladoni.Application.Coordinator.Router.DataFlow
 import com.ageone.naladoni.Application.Coordinator.Router.TabBar.Stack.flows
 import com.ageone.naladoni.Application.coordinator
@@ -67,6 +68,8 @@ class FlowMain: BaseFlow() {
         module.emitEvent = { event ->
             when (com.ageone.naladoni.Modules.Map.MapViewModel.EventType.valueOf(event)) {
                 com.ageone.naladoni.Modules.Map.MapViewModel.EventType.OnlouderMap -> {
+                    coordinator.runFlowMainStock(this)
+
                 }
 
             }

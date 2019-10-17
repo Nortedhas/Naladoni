@@ -18,6 +18,7 @@ import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Extensions.Activity.startLocation
 import com.ageone.naladoni.External.InitModuleUI
+import com.ageone.naladoni.Modules.List.ListViewModel
 import com.ageone.naladoni.Modules.Map.rows.MapDiscountCardViewHolder
 import com.ageone.naladoni.Modules.Map.rows.initialize
 import com.ageone.naladoni.R
@@ -29,9 +30,7 @@ import yummypets.com.stevia.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 
 
-
-
-class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
+class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
     val viewModel = MapViewModel()
 
@@ -61,24 +60,24 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         /*buttonMyLocation = (mapView.findViewById<View>(Integer.parseInt("1")).parent as View)
             .findViewById(Integer.parseInt("2"))*/
 
-        mapView.getMapAsync{ map ->
+        mapView.getMapAsync { map ->
             Timber.i("Map ready!")
             map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this.context, R.raw.map_style))
             map.setMyLocation(buttonMyLocation)
 
             val markerIcon = overlay(
-                BitmapFactory.decodeResource(context.resources,R.drawable.pic_selected_flag),
-                BitmapFactory.decodeResource(context.resources,R.drawable.pic_categories_1)
-                )
+                BitmapFactory.decodeResource(context.resources, R.drawable.pic_selected_flag),
+                BitmapFactory.decodeResource(context.resources, R.drawable.pic_categories_1)
+            )
 
             val marker = map.addMarker(
-                    MarkerOptions()
-                        .position(startLocation)
-                        .title("Melbourne")
-                        .icon(
-                            BitmapDescriptorFactory.fromBitmap(markerIcon)//fromResource(R.drawable.pic_selected_flag)
-                        )
-                )
+                MarkerOptions()
+                    .position(startLocation)
+                    .title("Melbourne")
+                    .icon(
+                        BitmapDescriptorFactory.fromBitmap(markerIcon)//fromResource(R.drawable.pic_selected_flag)
+                    )
+            )
 
             marker.tag = 1
 
@@ -103,7 +102,8 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         renderToolbar()
 
         bodyTable.adapter = Factory(this)
-        bodyTable.layoutManager = LinearLayoutManager(currentActivity, LinearLayoutManager.HORIZONTAL, false)
+        bodyTable.layoutManager =
+            LinearLayoutManager(currentActivity, LinearLayoutManager.HORIZONTAL, false)
         bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
         renderUIO()
@@ -118,8 +118,10 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         canvas.drawBitmap(back, Matrix(), null)
         canvas.drawBitmap(
             Bitmap.createScaledBitmap(
-                icon, 26.dp, 26.dp, false),
-            26F.dp, 11F.dp, null)
+                icon, 26.dp, 26.dp, false
+            ),
+            26F.dp, 11F.dp, null
+        )
         return bmOverlay
     }
 
@@ -137,7 +139,10 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
 
         override fun getItemViewType(position: Int): Int = 0
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MapDiscountCardViewHolder {
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int
+        ): MapDiscountCardViewHolder {
             val layout = ConstraintLayout(parent.context)
 
             layout
@@ -148,8 +153,16 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         }
 
         override fun onBindViewHolder(holder: MapDiscountCardViewHolder, position: Int) {
-            holder.initialize("Шаверма Mix",
-                "При покупке шавермы big получи 0.5 колы в подарок!", R.drawable.pic_groupfood)
+            holder.initialize(
+                "Шаверма Mix",
+                "При покупке шавермы big получи 0.5 колы в подарок!", R.drawable.pic_groupfood
+            )
+            holder.buttonUse.setOnClickListener {
+               emitEvent?.invoke( MapViewModel.EventType.OnlouderMap.toString())
+
+            }
+
+
         }
     }
 
