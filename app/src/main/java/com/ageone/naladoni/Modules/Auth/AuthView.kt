@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
+import com.ageone.naladoni.Application.api
 import com.ageone.naladoni.Application.currentActivity
 import com.ageone.naladoni.Application.intent
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
@@ -16,6 +17,9 @@ import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.naladoni.External.InitModuleUI
+import com.ageone.naladoni.External.Libraries.Alert.alertManager
+import com.ageone.naladoni.External.Libraries.Alert.single
+import com.ageone.naladoni.External.Utils.Validation.isValidPhone
 import com.ageone.naladoni.Modules.Auth.rows.InputViewHolderC
 import com.ageone.naladoni.Modules.Auth.rows.AuthTextViewHolder
 import com.ageone.naladoni.Modules.Auth.rows.initialize
@@ -98,12 +102,10 @@ class AuthView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModu
             when(holder) {
                 is InputViewHolder -> {
 
-                            holder.initialize("Введите ваше имя и фамилию:", InputEditTextType.TEXT)
-                            holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
-                                viewModel.model.inputName = text.toString()
-                            }
-
-                    holder.textInputL.editText?.limitLength(24)
+                    holder.initialize("Введите ваше имя и фамилию:", InputEditTextType.TEXT)
+                    holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
+                        viewModel.model.inputName = text.toString()
+                    }
 
                     innerContent.dismissFocus(holder.textInputL.editText)
 
@@ -120,20 +122,20 @@ class AuthView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModu
                 is ButtonViewHolder -> {
                     holder.initialize("Войти в приложение")
                     holder.button.setOnClickListener {
-//                        if (!viewModel.model.inputPhone.isValidPhone()) {
-//                            alertManager.single("Неверный номер", "Введен неверный номер", null) {_,_ ->
-//                            }
-//                        }  else if (viewModel.model.inputName.isBlank()){
-//                            alertManager.single("Неверное имя", "Имя не введено", null) {_,_ ->
-//                            }
-//                        } else {
+                        if (!viewModel.model.inputPhone.isValidPhone()) {
+                            alertManager.single("Неверный номер", "Введен неверный номер", null) {_,_ ->
+                            }
+                        }  else if (viewModel.model.inputName.isBlank()){
+                            alertManager.single("Неверное имя", "Имя не введено", null) {_,_ ->
+                            }
+                        } else {
 //                            api.request(mapOf(
 //                                "router" to "phoneAuth",
 //                                "phone" to viewModel.model.inputPhone)){
                                rootModule.emitEvent?.invoke(AuthViewModel.EventType.OnRegistrationPressed.toString())
-//                            }
-//
-//                        }
+                          // }
+
+                        }
 
                     }
                 }

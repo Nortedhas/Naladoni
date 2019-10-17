@@ -9,6 +9,10 @@ import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.naladoni.External.InitModuleUI
+import com.ageone.naladoni.External.Libraries.Alert.alertManager
+import com.ageone.naladoni.External.Libraries.Alert.single
+import com.ageone.naladoni.External.Utils.Validation.isValidPhone
+import com.ageone.naladoni.Modules.Auth.AuthViewModel
 import com.ageone.naladoni.R
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.InputViewHolder
@@ -105,9 +109,16 @@ class ChangePhoneView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
                 is ButtonViewHolder -> {
                     holder.initialize("Изменить")
                     holder.button.setOnClickListener {
-                        rootModule.emitEvent?.invoke(ChangePhoneViewModel.EventType.OnlouderChangePhone.toString())
+                        if (!viewModel.model.inputPhone.isValidPhone()) {
+                            alertManager.single("Неверный номер", "Введен неверный номер", null) { _, _ ->
+                            }
+                        }  else {
+                            rootModule.emitEvent?.invoke(ChangePhoneViewModel.EventType.OnlouderChangePhone.toString())
+                        }
 
                     }
+
+
                 }
             }
         }
