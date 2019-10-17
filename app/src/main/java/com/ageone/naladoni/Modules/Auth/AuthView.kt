@@ -128,13 +128,7 @@ class AuthView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModu
                         }  else if (viewModel.model.inputName.isBlank()){
                             alertManager.single("Неверное имя", "Имя не введено", null) {_,_ ->
                             }
-                        } else {
-//                            api.request(mapOf(
-//                                "router" to "phoneAuth",
-//                                "phone" to viewModel.model.inputPhone)){
                                rootModule.emitEvent?.invoke(AuthViewModel.EventType.OnRegistrationPressed.toString())
-                          // }
-
                         }
 
                     }

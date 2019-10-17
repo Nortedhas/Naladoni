@@ -128,7 +128,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                             }
                         } else {
                             timerSMS?.cancel()
-                            rootModule.emitEvent?.invoke(CityViewModel.EventType.onSityPresed.toString())
+                            rootModule.emitEvent?.invoke(SMSViewModel.EventType.onSityPresed.toString())
 
                         }
 

@@ -31,7 +31,7 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.base_background)//TODO: set background
+        setBackgroundResource(R.drawable.base_background)
 
         toolbar.title = "Город"
 
@@ -115,8 +115,6 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 
                     }
 
-                    holder.editText?.limitLength(20)
-
                     innerContent.dismissFocus(holder.editText)
 
                 }
@@ -125,6 +123,7 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 
                     holder.initialize("Изменить")
                     holder.button.setOnClickListener {
+                        emitEvent?.invoke(ChangeCityViewModel.EventType.OnlouderChangeCity.toString())
 
                     }
                 }
