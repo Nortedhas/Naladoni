@@ -1,6 +1,9 @@
 package com.ageone.naladoni.Modules.Map
 
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Matrix
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.ViewGroup
@@ -173,12 +176,14 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         }
 
         override fun onBindViewHolder(holder: MapDiscountCardViewHolder, position: Int) {
-            holder.initialize("Шаверма Mix",
-                "При покупке шавермы big получи 0.5 колы в подарок!",
-                all_icons[position]
+            val stock = viewModel.realmData[position]
+            holder.initialize(
+                stock.name,
+                stock.shortAbout,
+                R.drawable.pic_food_map
             )
             holder.buttonUse.setOnClickListener {
-                emitEvent?.invoke(MapViewModel.EventType.OnlouderMap.toString())
+                emitEvent?.invoke(MapViewModel.EventType.OnlouderMap.name)
 
             }
 
