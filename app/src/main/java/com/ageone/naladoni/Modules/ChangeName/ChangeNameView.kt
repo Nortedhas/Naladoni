@@ -52,15 +52,15 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
-        private val RegistrationInputType = 0
-        private val RegistrationButtonType = 1
+        private val CangeNameInputType = 0
+        private val CangeNameButtonType = 1
 
         override fun getItemCount(): Int = 4
 
         override fun getItemViewType(position: Int): Int = when (position) {
 
-            0 -> RegistrationInputType
-            1 -> RegistrationButtonType
+            0 -> CangeNameInputType
+            1 -> CangeNameButtonType
             else -> -1
         }
 
@@ -72,10 +72,10 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                 .height(wrapContent)
 
             val holder = when (viewType) {
-                RegistrationInputType -> {
+                CangeNameInputType -> {
                     InputViewHolder(layout)
                 }
-                RegistrationButtonType -> {
+                CangeNameButtonType -> {
                     ButtonViewHolder(layout)
                 }
                 else ->

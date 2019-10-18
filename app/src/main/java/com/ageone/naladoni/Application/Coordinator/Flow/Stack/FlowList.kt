@@ -8,7 +8,6 @@ import com.ageone.naladoni.Application.Coordinator.Router.DataFlow
 import com.ageone.naladoni.Application.Coordinator.Router.TabBar.Stack
 import com.ageone.naladoni.Application.coordinator
 import com.ageone.naladoni.R
-import com.ageone.naladoni.Application.router
 import com.ageone.naladoni.External.Base.Flow.BaseFlow
 import com.ageone.naladoni.External.Icon
 import com.ageone.naladoni.External.InitModuleUI

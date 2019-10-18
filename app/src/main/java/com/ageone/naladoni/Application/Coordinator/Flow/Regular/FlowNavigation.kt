@@ -27,12 +27,14 @@ fun FlowCoordinator.runFlowNavigation(previousFlow: BaseFlow) {
     }
 
     flow?.onFinish = {
+
         flow?.viewFlipperModule?.children?.forEachIndexed { index, view ->
             if (view is Module) {
                 Timber.i("Delete module in flow finish")
                 view.onDeInit?.invoke()
             }
         }
+
         flow?.viewFlipperModule?.removeAllViews()
         viewFlipperFlow.removeView(flow?.viewFlipperModule)
         flow?.viewFlipperModule?.removeAllViews()
