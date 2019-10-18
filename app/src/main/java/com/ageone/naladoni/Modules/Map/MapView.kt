@@ -51,6 +51,12 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         buttonMyLocation
     }
 
+    val all_icons = arrayOf(
+    R.drawable.pic_food_map,
+    R.drawable.pic_car_map,
+    R.drawable.pic_duck_map
+   )
+
 //    var buttonMyLocation: ImageView
 
     init {
@@ -153,48 +159,19 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         }
 
         override fun onBindViewHolder(holder: MapDiscountCardViewHolder, position: Int) {
-            when(position) {
-                0 -> {
-                    holder.initialize(
-                        "Шаверма Mix",
+                    holder.initialize("Шаверма Mix",
                         "При покупке шавермы big получи 0.5 колы в подарок!",
-                        R.drawable.pic_food_map
+                        all_icons[position]
                     )
                     holder.buttonUse.setOnClickListener {
                         emitEvent?.invoke(MapViewModel.EventType.OnlouderMap.toString())
 
                     }
-                }
-                1 -> {
-                    holder.initialize(
-                        "Шаверма Mix",
-                        "При покупке шавермы big получи 0.5 колы в подарок!",
-                        R.drawable.pic_car_map
-                    )
-                    holder.buttonUse.setOnClickListener {
-                        emitEvent?.invoke(MapViewModel.EventType.OnlouderMap.toString())
-
-                    }
-                }
-                2 -> {
-                    holder.initialize(
-                        "Шаверма Mix",
-                        "При покупке шавермы big получи 0.5 колы в подарок!",
-                        R.drawable.pic_duck_map
-                    )
-                    holder.buttonUse.setOnClickListener {
-                        emitEvent?.invoke(MapViewModel.EventType.OnlouderMap.toString())
-
-                    }
-
-                }
 
             }
 
         }
     }
-
-}
 
 
 fun MapView.renderUIO() {
