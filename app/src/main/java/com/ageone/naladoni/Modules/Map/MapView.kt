@@ -1,9 +1,6 @@
 package com.ageone.naladoni.Modules.Map
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.Matrix
+import android.graphics.*
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.ViewGroup
@@ -56,9 +53,9 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         buttonMyLocation
     }
     val all_icons = arrayOf(
-        R.drawable.pic_food_map,
-        R.drawable.pic_car_map,
-        R.drawable.pic_duck_map
+        R.drawable.ic_category_0,
+        R.drawable.ic_category_1,
+        R.drawable.ic_category_2
     )
 
     init {
