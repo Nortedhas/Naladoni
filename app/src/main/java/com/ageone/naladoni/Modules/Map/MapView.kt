@@ -153,15 +153,43 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModu
         }
 
         override fun onBindViewHolder(holder: MapDiscountCardViewHolder, position: Int) {
-            holder.initialize(
-                "Шаверма Mix",
-                "При покупке шавермы big получи 0.5 колы в подарок!", R.drawable.pic_groupfood
-            )
-            holder.buttonUse.setOnClickListener {
-               emitEvent?.invoke( MapViewModel.EventType.OnlouderMap.toString())
+            when(position) {
+                0 -> {
+                    holder.initialize(
+                        "Шаверма Mix",
+                        "При покупке шавермы big получи 0.5 колы в подарок!",
+                        R.drawable.pic_food_map
+                    )
+                    holder.buttonUse.setOnClickListener {
+                        emitEvent?.invoke(MapViewModel.EventType.OnlouderMap.toString())
+
+                    }
+                }
+                1 -> {
+                    holder.initialize(
+                        "Шаверма Mix",
+                        "При покупке шавермы big получи 0.5 колы в подарок!",
+                        R.drawable.pic_car_map
+                    )
+                    holder.buttonUse.setOnClickListener {
+                        emitEvent?.invoke(MapViewModel.EventType.OnlouderMap.toString())
+
+                    }
+                }
+                2 -> {
+                    holder.initialize(
+                        "Шаверма Mix",
+                        "При покупке шавермы big получи 0.5 колы в подарок!",
+                        R.drawable.pic_duck_map
+                    )
+                    holder.buttonUse.setOnClickListener {
+                        emitEvent?.invoke(MapViewModel.EventType.OnlouderMap.toString())
+
+                    }
+
+                }
 
             }
-
 
         }
     }

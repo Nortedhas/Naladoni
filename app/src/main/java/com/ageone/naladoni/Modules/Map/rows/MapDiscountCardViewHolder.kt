@@ -14,7 +14,8 @@ import com.ageone.naladoni.External.Base.View.BaseView
 import com.ageone.naladoni.External.Libraries.Glide.addImageFromGlide
 import yummypets.com.stevia.*
 
-class MapDiscountCardViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
+class MapDiscountCardViewHolder(val constraintLayout: ConstraintLayout) :
+    BaseViewHolder(constraintLayout) {
 
     val viewBack by lazy {
         val view = BaseView()
@@ -24,10 +25,15 @@ class MapDiscountCardViewHolder(val constraintLayout: ConstraintLayout) : BaseVi
         view.initialize()
         view
     }
-
+    val ImageBackground by lazy {
+        val Image = BaseView()
+        Image.backgroundColor = Color.parseColor("#F37E25")
+        Image.cornerRadius = 40.dp
+        Image.initialize()
+        Image
+    }
     val imageViewType by lazy {
         val image = BaseImageView()
-        image.setBackgroundResource(R.drawable.pic_groupfood)
         image.elevation = 5F.dp
         image
     }
@@ -59,7 +65,7 @@ class MapDiscountCardViewHolder(val constraintLayout: ConstraintLayout) : BaseVi
         button.backgroundColor = Color.parseColor("#F37E25")
         button.cornerRadius = 2.dp
         button.gradient = Color.parseColor("#F06F28")
-    	button.orientation = GradientDrawable.Orientation.TOP_BOTTOM
+        button.orientation = GradientDrawable.Orientation.TOP_BOTTOM
         button.initialize()
         button
     }
@@ -85,7 +91,9 @@ fun MapDiscountCardViewHolder.renderUI() {
 
     constraintLayout.subviews(
         viewBack.subviews(
-            imageViewType,
+            ImageBackground.subviews(
+                imageViewType
+            ),
             textViewTitle,
             textViewDescribe,
             buttonUse.subviews(
@@ -101,22 +109,30 @@ fun MapDiscountCardViewHolder.renderUI() {
         .constrainTopToTopOf(constraintLayout, 8)
         .width(95.dp)
 
-    imageViewType
+    ImageBackground
         .constrainLeftToLeftOf(viewBack, 8)
         .constrainTopToTopOf(viewBack, 8)
         .width(44)
         .height(44)
 
+    imageViewType
+        .width(20)
+        .height(20)
+        .constrainLeftToLeftOf(ImageBackground)
+        .constrainRightToRightOf(ImageBackground)
+        .constrainBottomToBottomOf(ImageBackground)
+        .constrainTopToTopOf(ImageBackground)
+
     textViewTitle
         .fillHorizontally()
         .constrainTopToTopOf(viewBack, 8)
-        .constrainLeftToRightOf(imageViewType, 8)
+        .constrainLeftToRightOf(ImageBackground, 8)
         .constrainRightToRightOf(viewBack, 8)
 
     textViewDescribe
         .fillHorizontally()
         .constrainTopToBottomOf(textViewTitle, 4)
-        .constrainLeftToRightOf(imageViewType, 8)
+        .constrainLeftToRightOf(ImageBackground, 8)
         .constrainRightToRightOf(viewBack, 8)
 
     buttonUse
@@ -136,6 +152,6 @@ fun MapDiscountCardViewHolder.initialize(title: String, describe: String, icon: 
 
     textViewTitle.text = title
     textViewDescribe.text = describe
-    addImageFromGlide(imageViewType, icon)
+    addImageFromGlide(imageViewType, icon,0)
 
 }
