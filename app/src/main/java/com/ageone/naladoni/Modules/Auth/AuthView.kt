@@ -26,6 +26,7 @@ import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.InputViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
+import java.util.regex.Pattern
 
 class AuthView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
 
@@ -129,9 +130,10 @@ class AuthView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModu
                             alertManager.single("Неверное имя", "Имя не введено", null) {_,_ ->
                             }
                         } else {
+                            var phone = Regex("\\D+").replace(viewModel.model.inputPhone,"")
                             api.request(mapOf(
                                 "router" to "phoneAuth",
-                                "phone" to viewModel.model.inputPhone)){
+                                "phone" to phone)){
                                 rootModule.emitEvent?.invoke(AuthViewModel.EventType.OnAuthPressed.name)
                             }
 
