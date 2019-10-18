@@ -75,9 +75,9 @@ fun ProfileUsedDiscountViewHolder.renderUI() {
         .width(250)
 }
 
-fun ProfileUsedDiscountViewHolder.initialize(counter:String, text: String) {
+fun ProfileUsedDiscountViewHolder.initialize(counter: Int, text: String) {
 
-    counterTextView.text=counter
+    counterTextView.text = "$counter"
     textView.text = text
 
 }

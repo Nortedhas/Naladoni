@@ -1,12 +1,8 @@
 package com.ageone.naladoni.Modules.SMS
 
-import android.content.Intent
-import android.net.Uri
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
-import com.ageone.naladoni.Application.currentActivity
-import com.ageone.naladoni.Application.intent
 import com.ageone.naladoni.Application.api
 import com.ageone.naladoni.Application.router
 import com.ageone.naladoni.Application.utils
@@ -25,7 +21,6 @@ import com.ageone.naladoni.Modules.SMS.rows.initialize
 import com.ageone.naladoni.Modules.SMSViewModel
 import com.ageone.naladoni.R
 import com.ageone.naladoni.SCAG.DataBase
-import com.ageone.naladoni.SCAG.Parser
 import com.ageone.naladoni.SCAG.userData
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.InputViewHolder
@@ -108,7 +103,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
             when (holder) {
                 is InputViewHolder -> {
                     holder.initialize("Введите смс-код:", InputEditTextType.NUMERIC)
-                    holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
+                    holder.textInputL.editText?.doOnTextChanged { text, _, _, _ ->
                         viewModel.model.code = text.toString()
                     }
 
@@ -126,7 +121,31 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                     holder.initialize("Подтверждаю")
                     holder.button.setOnClickListener {
                         timerSMS?.cancel()
-                        rootModule.emitEvent?.invoke(CityViewModel.EventType.onSityPresed.toString())
+
+                        api.request(mapOf(
+                            "router" to "codeCheck",
+                            "phone" to viewModel.model.inputPhone,
+                            "code" to viewModel.model.code
+                        ), isErrorShown = true) { json ->
+                            Timber.i("JSON answer $json")
+
+                            api.parser.userData(json)
+
+                            DataBase.User.update(
+                                user.hashId,
+                                mapOf(
+//                                    "phone" to viewModel.model.inputPhone,
+                                    "name" to viewModel.model.inputName
+                                ))
+
+                            utils.variable.token = json.optString("Token")
+
+                            user.data.name = viewModel.model.inputName
+                            user.data.phone = viewModel.model.inputPhone
+                            user.isAuthorized = true
+
+                            rootModule.emitEvent?.invoke(SMSViewModel.EventType.OnAcceptCode.name)
+                        }
 
                     }
                 }

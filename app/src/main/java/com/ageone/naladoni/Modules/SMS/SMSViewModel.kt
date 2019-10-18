@@ -14,7 +14,7 @@ class SMSViewModel : InterfaceViewModel {
     }
 
     enum class EventType {
-        onSityPresed,
+        OnAcceptCode,
         onTimerPresed
     }
 }

@@ -28,6 +28,7 @@ fun FlowCoordinator.runFlowLoading() {
     }
 
     flow?.onFinish = {
+
         viewFlipperFlow.removeView(flow?.viewFlipperModule)
         flow?.viewFlipperModule?.removeAllViews()
 

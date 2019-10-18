@@ -7,15 +7,20 @@ import com.ageone.naladoni.Application.currentActivity
 import com.ageone.naladoni.Application.utils
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.naladoni.External.Base.EditText.limitLength
+import com.ageone.naladoni.External.Base.Map.distance
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Extensions.Activity.hideKeyboard
+import com.ageone.naladoni.External.Extensions.Activity.startLocation
 import com.ageone.naladoni.External.HTTP.fetch
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.External.Libraries.Alert.alertManager
+import com.ageone.naladoni.External.Libraries.Alert.blockUI
 import com.ageone.naladoni.External.Libraries.Alert.list
 import com.ageone.naladoni.External.Libraries.Alert.single
+import com.ageone.naladoni.Models.User.City
+import com.ageone.naladoni.Models.User.user
 import com.ageone.naladoni.Modules.City.rows.CityTextViewHolder
 import com.ageone.naladoni.Modules.City.rows.initialize
 import com.ageone.naladoni.R
@@ -23,7 +28,6 @@ import com.ageone.naladoni.SCAG.DataBase
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.EditTextViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.initialize
-import org.json.JSONObject
 import yummypets.com.stevia.height
 import yummypets.com.stevia.matchParent
 import yummypets.com.stevia.width
@@ -49,6 +53,7 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 //        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
         renderUIO()
+        alertManager.blockUI(true)
         bindUI()
     }
 
@@ -103,25 +108,35 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
             when (holder) {
                 is EditTextViewHolder -> {
 
+                    DataBase.City.fetch(""){ json ->
 
-                    DataBase.City.fetch(""){json ->
                         api.parser.parseAnyObject(json, DataBase.City)
-                        var cities = utils.realm.city.getAllObjects().map { city -> city.name }.toTypedArray()
 
+                        val cities = utils.realm.city.getAllObjects().map {
+                                city -> City(city.name, city.hashId)
+                        }.toTypedArray()
+                        val citiesNames = utils.realm.city.getAllObjects().map { city -> city.name }.toTypedArray()
+
+                        val nearestCity = getNearestCity()
+
+                        alertManager.blockUI(false)
                         alertManager.single(
-                            message = "мы определили ваш город как ${cities[0]}",//todo: how?
+                            message = "Мы определили ваш город как ${nearestCity.name}",
                             title = "Ваш город подарков", button = "Отлично"
                         ) { _, _ ->
-                            holder.editText.setText(
-                                cities[0])
+
+                            holder.editText.setText("${nearestCity.name}")
+                            user.info.city = nearestCity
                         }
 
                         holder.editText.setOnClickListener{
                             currentActivity?.hideKeyboard()
-                            alertManager.list( "Выберите город", cities) { _, index ->
-                                holder.editText.setText(cities[index])
+                            alertManager.list( "Выберите город", citiesNames) { _, index ->
+                                holder.editText.setText(citiesNames[index])
+                                user.info.city = cities[index]
                             }
                         }
+
                     }
 
                     holder.editText?.limitLength(20)
@@ -134,7 +149,7 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
                     holder.initialize("Подтверждаю")
                     holder.button.setOnClickListener {
-                        emitEvent?.invoke(CityViewModel.EventType.onSityPresed.toString())
+                        emitEvent?.invoke(CityViewModel.EventType.OnAcceptCode.name)
                     }
                 }
                 is CityTextViewHolder -> {
@@ -154,4 +169,22 @@ fun CityView.renderUIO() {
     renderBodyTable()
 }
 
+
+fun getNearestCity(): City {
+    val cities = utils.realm.city.getAllObjects()
+    var nearCity = City()
+    var nearestDistance = -1.0
+    cities.forEachIndexed { index, city ->
+        city.location?.let { location ->
+            val curDistance = distance(
+                startLocation.latitude, startLocation.longitude,
+                location.latitude, location.longitude, "K")
+            if (nearestDistance < 0 || nearestDistance > curDistance) {
+                nearestDistance = curDistance
+                nearCity = City(city.name, city.hashId)
+            }
+        }
+    }
+    return nearCity
+}
 

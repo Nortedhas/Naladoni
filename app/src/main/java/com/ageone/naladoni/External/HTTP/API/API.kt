@@ -88,8 +88,8 @@ class API {
 
 //    fun handleUser()
 
-    fun requestMainLoad(completion: () -> Unit): Promise<Unit> {
-        return Promise { resolve, _ ->
+    fun requestMainLoad(completion: () -> Unit){
+
             //TODO change cashtime как отловить первый заход?
             api.request(mapOf("router" to "mainLoad", "cashTime" to 0)) { jsonObject ->
                 for (type in DataBase.values()) {
@@ -99,7 +99,6 @@ class API {
                 completion.invoke()
             }
 
-        }
     }
 
 

@@ -31,10 +31,7 @@ class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(in
     init {
 //        viewModel.loadRealmData()
 
-//        mapViewHowGo = MapView(currentActivity)
-//        mapViewHowGo?.onCreate(null)
-//        (currentActivity as AppActivity).onCreateMapView()
-        mapViewHowGo?.getMapAsync{ map ->
+        mapViewHowGo.getMapAsync{ map ->
             Timber.i("Map ready!")
             map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this.context, R.raw.map_style))
             map.isMyLocationEnabled = true
@@ -50,7 +47,6 @@ class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(in
         bindUI()
 
         onDeInit = {
-            Timber.i("DeInit module")
             innerContent.removeView(mapViewHowGo)
         }
     }

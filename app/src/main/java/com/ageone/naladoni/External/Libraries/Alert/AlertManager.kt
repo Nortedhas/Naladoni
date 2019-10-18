@@ -63,7 +63,7 @@ class AlertManager {
         val textViewTitle = BaseTextView()
         textViewTitle.gravity = View.TEXT_ALIGNMENT_VIEW_END
         textViewTitle.typeface = Typeface.DEFAULT_BOLD
-        textViewTitle.textSize = 6F.dp
+        textViewTitle.textSize = 16F
         textViewTitle.textColor = Color.BLACK
         textViewTitle.setBackgroundColor(Color.TRANSPARENT)
         textViewTitle
@@ -76,7 +76,7 @@ class AlertManager {
         val textViewMessage = BaseTextView()
         textViewMessage.gravity = View.TEXT_ALIGNMENT_VIEW_END
         textViewMessage.typeface = Typeface.DEFAULT
-        textViewMessage.textSize = 5F.dp
+        textViewMessage.textSize = 15F
         textViewMessage.textColor = Color.DKGRAY
         textViewMessage.setBackgroundColor(Color.TRANSPARENT)
         textViewMessage

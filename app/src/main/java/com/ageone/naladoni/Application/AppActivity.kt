@@ -54,7 +54,7 @@ class AppActivity: BaseActivity() {
         addLocationPermissions()
         verifyPermissions {
             if (hasPermissions(PERMISSIONS_LOCATION)) {
-                isLocationGranted = true
+                user.permission.geo = true
             }
             fetchLastLocation()
         }
@@ -162,7 +162,7 @@ class AppActivity: BaseActivity() {
             REQUEST_CODE -> {
                 if (grantResult.isNotEmpty() && grantResult[0] == PackageManager.PERMISSION_GRANTED) {
                     if (hasPermissions(PERMISSIONS_LOCATION)) {
-                        isLocationGranted = true
+                        user.permission.geo = true
                     }
                     fetchLastLocation()
                 } else {

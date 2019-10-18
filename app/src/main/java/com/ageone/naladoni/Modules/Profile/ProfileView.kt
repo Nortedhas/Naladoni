@@ -1,11 +1,13 @@
 package com.ageone.naladoni.Modules.Profile
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.InitModuleUI
+import com.ageone.naladoni.Models.User.user
 import com.ageone.naladoni.Modules.Profile.rows.*
 import com.ageone.naladoni.R
 import yummypets.com.stevia.*
@@ -27,8 +29,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
-//        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
-
+        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
         renderUIO()
         bindUI()
@@ -87,37 +88,31 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
+
                 is ProfileUserInformationViewHolder -> {
-                    holder.initialize("Артем Горбунов", R.drawable.pic_naladoni)
+                    holder.initialize(user.data.name, R.drawable.pic_naladoni)
                     holder.view.setOnClickListener{
-
-                        rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileN.toString())
-
+                        rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileN.name)
                     }
-
-
                 }
+
                 is ProfileUsedDiscountViewHolder -> {
-                    holder.initialize("24","Количество использованных мною скидок:")
+                    holder.initialize(user.data.giftsTakenNum,"Количество использованных мною скидок:")
                 }
+
                 is ProfileInformationViewHolder -> {
                     when (position) {
                         2 -> {
-                            holder.initialize("Мой город", "Екатеринбург")
+                            holder.initialize("Мой город", user.info.city?.name ?: "")
                             holder.back.setOnClickListener{
-
-                                rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileC.toString())
-
+                                rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileC.name)
                             }
-
                         }
 
                         3 -> {
-                            holder.initialize("Мой номер моб. телефона", "+7 (911) 163 81 56")
+                            holder.initialize("Мой номер моб. телефона", user.data.phone)
                             holder.back.setOnClickListener{
-
-                                rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileP.toString())
-
+                                rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileP.name)
                             }
                         }
 
@@ -126,9 +121,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                 is ProfileServiceInformationViewHolder -> {
                     holder.initialize("О нашем сервисе")
                     holder.back.setOnClickListener{
-
-                        rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileA.toString())
-
+                        rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileA.name)
                     }
                 }
             }

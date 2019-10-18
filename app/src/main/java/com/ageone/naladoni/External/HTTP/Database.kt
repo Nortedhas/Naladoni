@@ -61,11 +61,12 @@ fun DataBase.delete(objectID: String) {
 fun DataBase.fetch(filter: String, cashTime: Int = 0, completion: (JSONObject) -> (Unit)) {
     request(
         mapOf(
-    "router" to "fetch",
-    "collectionName" to name,
-    "cashTime" to cashTime,
-    "filter" to if (filter.isBlank()) "isExist = true" else "$filter && isExist = true"
-    )) { json ->
+            "router" to "fetch",
+            "collectionName" to name,
+            "cashTime" to cashTime,
+            "withCollectionName" to true,
+            "filter" to filter
+        )) { json ->
         Timber.i("Object: $json")
         completion.invoke(json)
     }

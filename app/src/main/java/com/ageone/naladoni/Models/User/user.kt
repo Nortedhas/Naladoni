@@ -18,4 +18,9 @@ object user {
         set(value) = ShPref.put("userIsAuthorized", value)
 
     var data = UserData
+
+    var info = UserInformation()
+    var location = UserLocation()
+    var permission = UserPermissions()
+
 }

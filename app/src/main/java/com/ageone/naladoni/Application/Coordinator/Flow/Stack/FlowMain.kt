@@ -1,5 +1,6 @@
 package com.ageone.naladoni.Application.Coordinator.Flow.Stack
 
+import androidx.core.view.children
 import androidx.core.view.size
 import com.ageone.naladoni.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.naladoni.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
@@ -8,10 +9,12 @@ import com.ageone.naladoni.Application.Coordinator.Router.DataFlow
 import com.ageone.naladoni.Application.Coordinator.Router.TabBar.Stack.flows
 import com.ageone.naladoni.Application.coordinator
 import com.ageone.naladoni.External.Base.Flow.BaseFlow
+import com.ageone.naladoni.External.Base.Module.Module
 import com.ageone.naladoni.External.Icon
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.Modules.Map.MapModel
 import com.ageone.naladoni.R
+import timber.log.Timber
 
 fun FlowCoordinator.runFlowMain() {
 
@@ -27,6 +30,13 @@ fun FlowCoordinator.runFlowMain() {
     }
 
     flow?.onFinish = {
+        flow?.viewFlipperModule?.children?.forEachIndexed { index, view ->
+            if (view is Module) {
+                Timber.i("Delete module in flow finish")
+                view.onDeInit?.invoke()
+            }
+        }
+
         viewFlipperFlow.removeView(flow?.viewFlipperModule)
         flow?.viewFlipperModule?.removeAllViews()
         flow = null

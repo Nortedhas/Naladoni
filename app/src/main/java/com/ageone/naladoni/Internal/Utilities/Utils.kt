@@ -11,4 +11,5 @@ class Utils {
     var isNetworkReachable = false
     var realm = RealmUtilities
     val config = ConfigDefault
+    val googleApiKey = "AIzaSyCDfj5ZoL0kncxgH8ja-julymHYjFR3Av0"
 }

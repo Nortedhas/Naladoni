@@ -111,8 +111,7 @@ class FlowAuth: BaseFlow() {
 
         module.emitEvent = { event ->
             when (SMSViewModel.EventType.valueOf(event)) {
-                SMSViewModel.EventType.onSityPresed -> {
-                    models.modelSelectCity.code = models.modelSMS.code
+                SMSViewModel.EventType.OnAcceptCode -> {
                     runModuleCity()
                 }
                 SMSViewModel.EventType.onTimerPresed -> {
@@ -131,10 +130,12 @@ class FlowAuth: BaseFlow() {
             isBackPressed = true
         ))
         module.viewModel.initialize(models.modelSelectCity) { module.reload() }
+
         settingsCurrentFlow.isBottomNavigationVisible = false
+
         module.emitEvent = { event ->
             when (CityViewModel.EventType.valueOf(event)) {
-                CityViewModel.EventType.onSityPresed -> {
+                CityViewModel.EventType.OnAcceptCode -> {
                     coordinator.runFlowFAQ()
                 }
             }

@@ -1,14 +1,15 @@
 package com.ageone.naladoni.External.Extensions.Activity
 
-import android.location.Location
-import android.widget.Toast
 import com.ageone.naladoni.Application.AppActivity
-import com.google.android.gms.location.*
+import com.ageone.naladoni.Models.User.user
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import timber.log.Timber
 
 val locationBase = LatLng(56.838607, 60.605514)
-var currentLocation: Location? = null
 
 fun AppActivity.fetchLastLocation(){
     /*fusedLocationClient?.
@@ -45,7 +46,7 @@ private fun AppActivity.getLocationUpdates() {
                 // use your location object
                 // get latitude , longitude and other info from this
                 Timber.i("Newest location: ${location.latitude}")
-                currentLocation  = location
+                user.location.currentLocation  = location
             }
         }
     }
@@ -67,10 +68,10 @@ fun AppActivity.stopLocationUpdates() {
 
 var startLocation: LatLng = locationBase
     get() {
-    return if (isLocationGranted) {
+    return if (user.permission.geo) {
             LatLng(
-                currentLocation?.latitude ?: locationBase.latitude,
-                currentLocation?.longitude ?: locationBase.longitude
+                user.location.currentLocation?.latitude ?: locationBase.latitude,
+                user.location.currentLocation?.longitude ?: locationBase.longitude
             )
         } else {
             locationBase

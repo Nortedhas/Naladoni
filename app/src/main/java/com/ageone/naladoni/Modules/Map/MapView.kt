@@ -12,7 +12,9 @@ import androidx.core.view.size
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ageone.naladoni.Application.currentActivity
 import com.ageone.naladoni.Application.mapView
+import com.ageone.naladoni.Application.mapViewHowGo
 import com.ageone.naladoni.External.Base.ImageView.BaseImageView
+import com.ageone.naladoni.External.Base.Map.geodecodeByCoordinates
 import com.ageone.naladoni.External.Base.Map.setMyLocation
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
@@ -27,9 +29,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import timber.log.Timber
 import yummypets.com.stevia.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
-
-
-
 
 class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
 
@@ -52,23 +51,19 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         buttonMyLocation
     }
 
-//    var buttonMyLocation: ImageView
 
     init {
-//        viewModel.loadRealmData()
-
-        Timber.i("Start init map")
-        /*buttonMyLocation = (mapView.findViewById<View>(Integer.parseInt("1")).parent as View)
-            .findViewById(Integer.parseInt("2"))*/
+        viewModel.loadRealmData()
 
         mapView.getMapAsync{ map ->
-            Timber.i("Map ready!")
             map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this.context, R.raw.map_style))
             map.setMyLocation(buttonMyLocation)
 
+            Timber.i("Stocks: ${viewModel.realmData}")
+
             val markerIcon = createMarkerIconBitmap(
-                BitmapFactory.decodeResource(context.resources,R.drawable.pic_selected_flag),
-                BitmapFactory.decodeResource(context.resources,R.drawable.pic_categories_1)
+                BitmapFactory.decodeResource(context.resources, R.drawable.pic_selected_flag),
+                BitmapFactory.decodeResource(context.resources, R.drawable.pic_categories_1)
                 )
 
             val marker = map.addMarker(
@@ -107,6 +102,10 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
 
         renderUIO()
         bindUI()
+
+        onDeInit = {
+            innerContent.removeView(mapView)
+        }
     }
 
     fun createMarkerIconBitmap(back: Bitmap, icon: Bitmap): Bitmap {
@@ -158,6 +157,7 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
 
 
 fun MapView.renderUIO() {
+    innerContent.removeAllViews()
 
     innerContent.subviews(
         mapView,
