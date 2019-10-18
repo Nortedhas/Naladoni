@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.ageone.naladoni.R
 import com.ageone.naladoni.Application.currentActivity
+import com.ageone.naladoni.Application.utils
 import com.ageone.naladoni.External.Base.Button.BaseButton
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
@@ -124,12 +125,13 @@ fun StartView.renderUIO() {
 
     buttonEnter
         .constrainTopToBottomOf(bodyTable,25)
+        .width((utils.variable.displayWidth - 27))
         .constrainBottomToBottomOf(innerContent, 40)
-        .fillHorizontally(32)
+        .constrainLeftToLeftOf(innerContent)
+        .constrainRightToRightOf(innerContent)
 
     bodyTable
-        .constrainTopToTopOf(innerContent, 20)
-        .constrainBottomToBottomOf(innerContent, 20)
+        .constrainTopToTopOf(innerContent)
         .constrainLeftToLeftOf(innerContent)
         .constrainRightToRightOf(innerContent)
 }
@@ -138,8 +140,8 @@ class Factory(val rootModule: BaseModule): BaseAdapter<SliderViewHolder>() {
 
     private val list = listOf(
         "Смотри какие акции окружают тебя с помощью нашей интерактивной карты, и выбирай лучшие предложения в городе!",
-        "Смотри какие акции окружают тебя с помощью нашей интерактивной карты, и выбирай лучшие предложения в городе!",
-        "Смотри какие акции окружают тебя с помощью нашей интерактивной карты, и выбирай лучшие предложения в городе!")
+        "Нужна скидка на конкретную услугу? Выберите ее в фильтре или воспользуйтесь поиском!",
+        "Все, что нужно чтобы получить скидку, это прийти в магазин партнера или показать QR-код. Это все! Так просто.")
 
     private val resourceImages = arrayOf(
         R.drawable.faq1,
