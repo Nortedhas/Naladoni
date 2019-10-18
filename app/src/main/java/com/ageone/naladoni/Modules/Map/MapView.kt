@@ -82,6 +82,7 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
 
     private fun setMap() {
         mapView.getMapAsync { map ->
+            Timber.i("Map ready!")
             map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this.context, R.raw.map_style))
             map.setMyLocation(buttonMyLocation)
             map.setMarkers()
