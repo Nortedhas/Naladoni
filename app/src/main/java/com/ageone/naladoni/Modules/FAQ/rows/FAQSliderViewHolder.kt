@@ -11,7 +11,7 @@ import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.TextView.BaseTextView
 import yummypets.com.stevia.*
 
-class SliderViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
+class FAQSliderViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(constraintLayout) {
     val textView by lazy {
         val textView = BaseTextView()
         textView.gravity = Gravity.CENTER
@@ -33,7 +33,7 @@ class SliderViewHolder(val constraintLayout: ConstraintLayout): BaseViewHolder(c
 
 }
 
-fun SliderViewHolder.renderUI() {
+fun FAQSliderViewHolder.renderUI() {
     constraintLayout.subviews(
         textView,
         imageView
@@ -57,7 +57,7 @@ fun SliderViewHolder.renderUI() {
 }
 
 
-fun SliderViewHolder.initialize(textTitle:String, image_view_title: Int) {
+fun FAQSliderViewHolder.initialize(textTitle:String, image_view_title: Int) {
 
     textView.text = textTitle
     imageView.setBackgroundResource(image_view_title)

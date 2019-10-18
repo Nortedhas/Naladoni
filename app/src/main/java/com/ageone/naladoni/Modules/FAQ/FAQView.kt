@@ -16,10 +16,9 @@ import com.ageone.naladoni.External.Base.Button.BaseButton
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.CirclePagerIndicatorDecoration
-import com.ageone.naladoni.External.Base.TextView.BaseTextView
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.Models.User.user
-import com.ageone.naladoni.Modules.FAQ.rows.SliderViewHolder
+import com.ageone.naladoni.Modules.FAQ.rows.FAQSliderViewHolder
 import yummypets.com.stevia.*
 import java.util.*
 import kotlin.concurrent.schedule
@@ -136,7 +135,7 @@ fun StartView.renderUIO() {
         .constrainRightToRightOf(innerContent)
 }
 
-class Factory(val rootModule: BaseModule): BaseAdapter<SliderViewHolder>() {
+class Factory(val rootModule: BaseModule): BaseAdapter<FAQSliderViewHolder>() {
 
     private val list = listOf(
         "Смотри какие акции окружают тебя с помощью нашей интерактивной карты, и выбирай лучшие предложения в городе!",
@@ -153,17 +152,17 @@ class Factory(val rootModule: BaseModule): BaseAdapter<SliderViewHolder>() {
 
     override fun getItemViewType(position: Int): Int = 0
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SliderViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FAQSliderViewHolder {
         val layout = ConstraintLayout(parent.context)
 
         layout
             .width(matchParent)
             .height(wrapContent)
 
-        return SliderViewHolder(layout)
+        return FAQSliderViewHolder(layout)
     }
 
-    override fun onBindViewHolder(viewHolder: SliderViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: FAQSliderViewHolder, position: Int) {
         viewHolder.textView.text = list[position]
         viewHolder.imageView.setBackgroundResource(resourceImages[position])
     }
