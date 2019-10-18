@@ -55,7 +55,11 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         buttonMyLocation.elevation = 5F.dp
         buttonMyLocation
     }
-
+    val all_icons = arrayOf(
+        R.drawable.pic_food_map,
+        R.drawable.pic_car_map,
+        R.drawable.pic_duck_map
+    )
 
     init {
         viewModel.loadRealmData()
@@ -172,19 +176,19 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         }
 
         override fun onBindViewHolder(holder: MapDiscountCardViewHolder, position: Int) {
-            val stock = viewModel.realmData[position]
-            holder.initialize(stock.name,
-                stock.shortAbout,
-                R.drawable.pic_groupfood)
+            holder.initialize("Шаверма Mix",
+                "При покупке шавермы big получи 0.5 колы в подарок!",
+                all_icons[position]
+            )
+            holder.buttonUse.setOnClickListener {
+                emitEvent?.invoke(MapViewModel.EventType.OnlouderMap.toString())
 
-            holder.constraintLayout.setOnClickListener {
-//                mapView.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 13f))
             }
 
         }
-    }
 
-}
+        }
+    }
 
 
 fun MapView.renderUIO() {

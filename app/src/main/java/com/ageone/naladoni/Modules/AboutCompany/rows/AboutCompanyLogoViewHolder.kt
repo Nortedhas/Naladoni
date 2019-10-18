@@ -24,7 +24,7 @@ class AboutCompanyLogoViewHolder(val constraintLayout: ConstraintLayout) :
 
     val imageViewLogo by lazy {
         val imageView = BaseImageView()
-        imageView.setBackgroundResource(R.drawable.pic_logo_naladoni)
+        imageView.setBackgroundResource(R.drawable.pic_logo_empty)
         imageView
     }
 
