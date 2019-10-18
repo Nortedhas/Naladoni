@@ -37,61 +37,61 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
 
     val all_icons = arrayOf(
         arrayOf(
-            R.drawable.pic_food_1,
-            R.drawable.pic_food_2,
-            R.drawable.pic_food_3,
-            R.drawable.pic_food_4,
-            R.drawable.pic_food_5,
-            R.drawable.pic_food_6,
-            R.drawable.pic_food_7,
-            R.drawable.pic_food_8
+            R.drawable.ic_category_0_0,//food
+            R.drawable.ic_category_0_1,
+            R.drawable.ic_category_0_2,
+            R.drawable.ic_category_0_3,
+            R.drawable.ic_category_0_4,
+            R.drawable.ic_category_0_5,
+            R.drawable.ic_category_0_6,
+            R.drawable.ic_category_0
         ),
         arrayOf(
-            R.drawable.pic_car_1,
-            R.drawable.pic_car_2,
-            R.drawable.pic_car_3,
-            R.drawable.pic_car_4,
-            R.drawable.pic_car_5
+            R.drawable.ic_category_1_0,//Cars
+            R.drawable.ic_category_1_1,
+            R.drawable.ic_category_1_2,
+            R.drawable.ic_category_1_3,
+            R.drawable.ic_category_1_4
         ),
         arrayOf(
-            R.drawable.pic_beauty_1,
-            R.drawable.pic_beauty_2,
-            R.drawable.pic_beauty_3,
-            R.drawable.pic_beauty_4,
-            R.drawable.pic_beauty_5,
-            R.drawable.pic_beauty_6,
-            R.drawable.pic_beauty_7,
-            R.drawable.pic_beauty_8,
-            R.drawable.pic_beauty_9,
-            R.drawable.pic_beauty_10
+            R.drawable.ic_category_2_0,//Beuty
+            R.drawable.ic_category_2_1,
+            R.drawable.ic_category_2_2,
+            R.drawable.ic_category_2_3,
+            R.drawable.ic_category_2_4,
+            R.drawable.ic_category_2_5,
+            R.drawable.ic_category_2_6,
+            R.drawable.ic_category_2_7,
+            R.drawable.ic_category_2_8,
+            R.drawable.ic_category_2_9
         ),
         arrayOf(
-            R.drawable.pic_games_1,
-            R.drawable.pic_games_2,
-            R.drawable.pic_games_3,
-            R.drawable.pic_games_4
+            R.drawable.ic_category_3_0,//Entertainment
+            R.drawable.ic_category_3_1,
+            R.drawable.ic_category_3_2,
+            R.drawable.ic_category_3_3
         ),
         arrayOf(),//fitness
         arrayOf(
-            R.drawable.pic_health_1,
-            R.drawable.pic_health_2,
-            R.drawable.pic_health_3,
-            R.drawable.pic_health_4
+            R.drawable.ic_category_5_0,//Health
+            R.drawable.ic_category_5_1,
+            R.drawable.ic_category_5_2,
+            R.drawable.ic_category_5_3
         ),
         arrayOf(),// for children
         arrayOf(),// service
         arrayOf(),// products
         arrayOf(
-            R.drawable.pic_education_1,
-            R.drawable.pic_education_2,
-            R.drawable.pic_education_3
+            R.drawable.ic_category_9_0,//Education
+            R.drawable.ic_category_9_1,
+            R.drawable.ic_category_9_2
         ),
         arrayOf(
-            R.drawable.pic_tourism_1,
-            R.drawable.pic_tourism_2,
-            R.drawable.pic_tourism_3
+            R.drawable.ic_category_10_0,//Tourism
+            R.drawable.ic_category_10_1,
+            R.drawable.ic_category_10_2
         ),
-        arrayOf(),//for animals
+        arrayOf(),//For animals
         arrayOf()//18+
     )
 

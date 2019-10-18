@@ -83,19 +83,19 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
         )
 
         private val icons = arrayOf(
-            R.drawable.pic_categories_1,
-            R.drawable.pic_categories_2,
-            R.drawable.pic_categories_3,
-            R.drawable.pic_categories_4,
-            R.drawable.pic_categories_5,
-            R.drawable.pic_categories_6,
-            R.drawable.pic_categories_7,
-            R.drawable.pic_categories_8,
-            R.drawable.pic_categories_9,
-            R.drawable.pic_categories_10,
-            R.drawable.pic_categories_11,
-            R.drawable.pic_categories_12,
-            R.drawable.pic_categories_13
+            R.drawable.ic_category_0,
+            R.drawable.ic_category_1,
+            R.drawable.ic_category_2,
+            R.drawable.ic_category_3,
+            R.drawable.ic_category_4,
+            R.drawable.ic_category_5,
+            R.drawable.ic_category_6,
+            R.drawable.ic_category_7,
+            R.drawable.ic_category_8,
+            R.drawable.ic_category_9,
+            R.drawable.ic_category_10,
+            R.drawable.ic_category_11,
+            R.drawable.ic_category_12
         )
 
         private val FilterFilterIconsType = 0
