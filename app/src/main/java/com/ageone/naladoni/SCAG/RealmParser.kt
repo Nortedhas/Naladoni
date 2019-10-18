@@ -2,7 +2,10 @@
 
 package com.ageone.naladoni.SCAG
 
+import com.ageone.naladoni.Application.rxData
 import com.ageone.naladoni.External.Extensions.Realm.add
+import com.ageone.naladoni.External.RxBus.RxBus
+import com.ageone.naladoni.External.RxBus.RxEvent
 import org.json.JSONObject
 
 class Parser {
@@ -38,8 +41,30 @@ fun parseAnyObject(json: JSONObject, type: DataBase) {
 				DataBase.User -> {
 					json.parseUser()
 				}
-				}
+			}
 			add(obj)
+		}
+
+		when (type) {
+			DataBase.Category -> {
+			}
+			DataBase.City -> {
+			}
+			DataBase.Company -> {
+			}
+			DataBase.Document -> {
+			}
+			DataBase.Image -> {
+			}
+			DataBase.Location -> {
+			}
+			DataBase.Stock -> {
+				RxBus.publish(RxEvent.EventReloadStocks())
+			}
+			DataBase.Subcategory -> {
+			}
+			DataBase.User -> {
+			}
 		}
 	}
 }

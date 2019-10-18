@@ -13,7 +13,7 @@ class ChangeCityViewModel : InterfaceViewModel {
 
     /*var realmData = listOf<>()
     fun loadRealmData() {
-        realmData = utils.realm.product.getAllObjects()//TODO: change type data!
+        realmData = utils.realm.product.getAllObjects()
     }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {

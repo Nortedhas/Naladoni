@@ -10,7 +10,6 @@ import com.ageone.naladoni.Application.api
 import com.ageone.naladoni.Application.currentActivity
 import com.ageone.naladoni.Application.intent
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
-import com.ageone.naladoni.External.Base.EditText.limitLength
 import com.ageone.naladoni.R
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
@@ -102,14 +101,15 @@ class AuthView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModu
             when(holder) {
                 is InputViewHolder -> {
 
-                    holder.initialize("Введите ваше имя и фамилию:", InputEditTextType.TEXT)
-                    holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
-                        viewModel.model.inputName = text.toString()
-                    }
+                            holder.initialize("Введите ваше имя и фамилию:", InputEditTextType.TEXT)
+                            holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
+                                viewModel.model.inputName = text.toString()
+                            }
+
 
                     innerContent.dismissFocus(holder.textInputL.editText)
 
-                }
+                    }
                 is InputViewHolderC -> {
                     holder.initialize("Введите ваш номер телефона:", InputEditTextType.PHONE)
                     holder.textInputL.editText?.doOnTextChanged { text, start, count, after ->
@@ -132,7 +132,7 @@ class AuthView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModu
                             api.request(mapOf(
                                 "router" to "phoneAuth",
                                 "phone" to viewModel.model.inputPhone)){
-                                rootModule.emitEvent?.invoke(AuthViewModel.EventType.OnRegistrationPressed.name)
+                                rootModule.emitEvent?.invoke(AuthViewModel.EventType.OnAuthPressed.name)
                             }
 
                         }

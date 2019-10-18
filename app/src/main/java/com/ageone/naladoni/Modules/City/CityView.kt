@@ -8,6 +8,7 @@ import com.ageone.naladoni.Application.utils
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.naladoni.External.Base.EditText.limitLength
 import com.ageone.naladoni.External.Base.Map.distance
+import com.ageone.naladoni.External.Base.EditText.disableKeyboard
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
@@ -23,11 +24,13 @@ import com.ageone.naladoni.Models.User.City
 import com.ageone.naladoni.Models.User.user
 import com.ageone.naladoni.Modules.City.rows.CityTextViewHolder
 import com.ageone.naladoni.Modules.City.rows.initialize
+import com.ageone.naladoni.Network.HTTP.getCity
 import com.ageone.naladoni.R
 import com.ageone.naladoni.SCAG.DataBase
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.EditTextViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.initialize
+import timber.log.Timber
 import yummypets.com.stevia.height
 import yummypets.com.stevia.matchParent
 import yummypets.com.stevia.width
@@ -117,17 +120,20 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                         }.toTypedArray()
                         val citiesNames = utils.realm.city.getAllObjects().map { city -> city.name }.toTypedArray()
 
-                        val nearestCity = getNearestCity()
+                        api.getCity(startLocation.latitude, startLocation.longitude) { nearestCity ->
 
-                        alertManager.blockUI(false)
-                        alertManager.single(
-                            message = "Мы определили ваш город как ${nearestCity.name}",
-                            title = "Ваш город подарков", button = "Отлично"
-                        ) { _, _ ->
+                            alertManager.blockUI(false)
+                            alertManager.single(
+                                message = "Мы определили ваш город как ${nearestCity.name}",
+                                title = "Ваш город подарков", button = "Отлично"
+                            ) { _, _ ->
 
-                            holder.editText.setText("${nearestCity.name}")
-                            user.info.city = nearestCity
+                                holder.editText.setText("${nearestCity.name}")
+                                user.info.city = nearestCity
+                            }
                         }
+
+
 
                         holder.editText.setOnClickListener{
                             currentActivity?.hideKeyboard()
@@ -139,7 +145,7 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
                     }
 
-                    holder.editText?.limitLength(20)
+                    holder.editText.disableKeyboard()
 
                     innerContent.dismissFocus(holder.editText)
 

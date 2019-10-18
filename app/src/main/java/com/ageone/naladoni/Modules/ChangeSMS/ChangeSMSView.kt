@@ -11,8 +11,12 @@ import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.naladoni.External.InitModuleUI
+import com.ageone.naladoni.External.Libraries.Alert.alertManager
+import com.ageone.naladoni.External.Libraries.Alert.single
+import com.ageone.naladoni.External.Utils.Validation.isValidSMSCod
 import com.ageone.naladoni.Modules.ChangeSMS.rows.ChangeSMSTextViewHolder
 import com.ageone.naladoni.Modules.ChangeSMS.rows.initialize
+import com.ageone.naladoni.Modules.City.CityViewModel
 import com.ageone.naladoni.R
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.InputViewHolder
@@ -98,7 +102,7 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(ini
                         viewModel.model.code = text.toString()
                     }
 
-                    holder.textInputL.editText?.limitLength(6)
+                    holder.textInputL.editText?.limitLength(4)
 
                     innerContent.dismissFocus(holder.textInputL.editText)
                 }
@@ -110,9 +114,14 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(ini
                 is ButtonViewHolder -> {
                     holder.initialize("Подтверждаю")
                     holder.button.setOnClickListener {
+                        if (!viewModel.model.code.isValidSMSCod()) {
+                            alertManager.single("Неверный код", "Введен неверный код", null) { _, _ ->
+                            }
+                        } else {
+                            timerSMS?.cancel()
+                            rootModule.emitEvent?.invoke(ChangeSMSViewModel.EventType.OnlouderChangeSMS.toString())
 
-                        timerSMS?.cancel()
-                        rootModule.emitEvent?.invoke(ChangeSMSViewModel.EventType.OnlouderChangeSMS.toString())
+                        }
 
                     }
                 }

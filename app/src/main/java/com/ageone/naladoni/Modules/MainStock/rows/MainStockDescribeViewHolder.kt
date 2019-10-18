@@ -20,7 +20,13 @@ class MainStockDescribeViewHolder(val constraintLayout: ConstraintLayout) :
         view.initialize()
         view
     }
-
+    val ImageBackground by lazy {
+        val Image = BaseView()
+        Image.backgroundColor = Color.parseColor("#F37E25")
+        Image.cornerRadius = 40.dp
+        Image.initialize()
+        Image
+    }
     val imageIconView by lazy {
         val imageView = BaseImageView()
         imageView
@@ -81,20 +87,29 @@ fun MainStockDescribeViewHolder.renderUI() {
             textViewDescribe,
             textViewTitle
         ),
-        imageIconView
+        ImageBackground.subviews(
+            imageIconView
+        )
     )
 
-    imageIconView
+    ImageBackground
         .height(74)
         .width(74)
         .constrainLeftToLeftOf(constraintLayout)
         .constrainRightToRightOf(constraintLayout)
         .constrainCenterYToTopOf(view)
+    imageIconView
+        .height(32)
+        .width(32)
+        .constrainTopToTopOf(ImageBackground)
+        .constrainBottomToBottomOf(ImageBackground)
+        .constrainLeftToLeftOf(ImageBackground)
+        .constrainRightToRightOf(ImageBackground)
 
     BoxView
         .height(60)
         .fillHorizontally()
-        .constrainCenterYToBottomOf( view)
+        .constrainCenterYToBottomOf(view)
 
     view
         .height(120)
@@ -120,6 +135,6 @@ fun MainStockDescribeViewHolder.initialize(title_text: String, describe: String,
     textViewLogo.text = text_logo
     textViewTitle.text = title_text
     textViewDescribe.text = describe
-    addImageFromGlide(imageIconView, image_logo)
+    addImageFromGlide(imageIconView, image_logo,0)
 
 }

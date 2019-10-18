@@ -1,15 +1,14 @@
 package com.ageone.naladoni.External.HTTP.API
 
+import android.provider.Settings
 import com.ageone.naladoni.Application.api
+import com.ageone.naladoni.Application.currentActivity
 import com.ageone.naladoni.Application.utils
 import com.ageone.naladoni.External.Libraries.Alert.alertManager
 import com.ageone.naladoni.External.Libraries.Alert.blockUI
 import com.ageone.naladoni.External.Libraries.Alert.single
 import com.ageone.naladoni.Models.User.user
-import com.ageone.naladoni.SCAG.DataBase
-import com.ageone.naladoni.SCAG.Enums
-import com.ageone.naladoni.SCAG.Parser
-import com.ageone.naladoni.SCAG.userData
+import com.ageone.naladoni.SCAG.*
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.extensions.jsonBody
 import com.swarmnyc.promisekt.Promise
@@ -25,22 +24,18 @@ class API {
 
     val parser = Parser()
 
-    fun handshake(completion: () -> Unit) {
+    fun handshake(completion: () -> Unit){
         Fuel.post(Routes.Handshake.path)
-            .jsonBody(
-                createBody(
-                    mapOf(
-                        "deviceId" to uuid
-                    )
-                ).toString()
-            )
+            .jsonBody(createBody(mapOf(
+                "deviceId" to Settings.Secure.getString(currentActivity?.contentResolver, Settings.Secure.ANDROID_ID)
+            )).toString())
             .responseString { request, response, result ->
                 Timber.i("API Handshake: $request $response")
 
                 val jsonObject = JSONObject(result.get())
                 utils.variable.token = jsonObject.optString("Token")
                 Timber.i("API new token: ${utils.variable.token}")
-                cashTime = Date().time.toInt()
+//                cashTime = Date().time.toInt()
                 parser.userData(jsonObject)
                 completion.invoke()
             }
@@ -90,14 +85,14 @@ class API {
 
     fun requestMainLoad(completion: () -> Unit){
 
-            //TODO change cashtime как отловить первый заход?
-            api.request(mapOf("router" to "mainLoad", "cashTime" to 0)) { jsonObject ->
-                for (type in DataBase.values()) {
-                    parser.parseAnyObject(jsonObject, type)
-                }
-                parser.userData(jsonObject)
-                completion.invoke()
+        api.request(mapOf("router" to "mainLoad", "cashTime" to api.cashTime)) { jsonObject ->
+            for (type in DataBase.values()) {
+                parser.parseAnyObject(jsonObject, type)
             }
+            parser.config(jsonObject)
+            api.cashTime = (System.currentTimeMillis() / 1000).toInt()
+            completion.invoke()
+        }
 
     }
 
@@ -106,11 +101,5 @@ class API {
         Handshake("/handshake"),
         Database("/database"),
         Api("/api");
-    }
-
-    var uuid = if (user.hashId.isNotBlank()) user.hashId else UUID.randomUUID().toString()
-
-    fun uuidReload() {
-        uuid = UUID.randomUUID().toString()
     }
 }

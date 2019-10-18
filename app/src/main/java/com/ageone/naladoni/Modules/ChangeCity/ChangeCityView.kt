@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.naladoni.Application.currentActivity
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
-import com.ageone.naladoni.External.Base.EditText.limitLength
+import com.ageone.naladoni.External.Base.EditText.disableKeyboard
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
@@ -31,7 +31,7 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.base_background)//TODO: set background
+        setBackgroundResource(R.drawable.base_background)
 
         toolbar.title = "Город"
 
@@ -115,7 +115,7 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 
                     }
 
-                    holder.editText?.limitLength(20)
+                    holder.editText?.disableKeyboard()
 
                     innerContent.dismissFocus(holder.editText)
 
@@ -125,6 +125,7 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 
                     holder.initialize("Изменить")
                     holder.button.setOnClickListener {
+                        emitEvent?.invoke(ChangeCityViewModel.EventType.OnlouderChangeCity.toString())
 
                     }
                 }

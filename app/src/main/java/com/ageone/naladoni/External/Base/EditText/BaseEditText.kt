@@ -41,3 +41,7 @@ fun EditText.phoneMask(s: CharSequence?) = when (val l = s?.length ?: 40) {
     else -> this.text
 
 }
+fun EditText.disableKeyboard() {
+    isCursorVisible = false
+    showSoftInputOnFocus = false
+}

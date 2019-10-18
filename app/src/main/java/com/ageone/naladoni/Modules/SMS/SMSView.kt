@@ -14,7 +14,15 @@ import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.naladoni.External.HTTP.update
 import com.ageone.naladoni.External.InitModuleUI
+import com.ageone.naladoni.External.Libraries.Alert.alertManager
+import com.ageone.naladoni.External.Libraries.Alert.single
+import com.ageone.naladoni.External.Utils.Validation.isValidSMSCod
 import com.ageone.naladoni.Models.User.user
+import com.ageone.naladoni.External.Libraries.Alert.alertManager
+import com.ageone.naladoni.External.Libraries.Alert.single
+import com.ageone.naladoni.External.Utils.Validation.isValidPhone
+import com.ageone.naladoni.External.Utils.Validation.isValidSMSCod
+import com.ageone.naladoni.Modules.Auth.AuthViewModel
 import com.ageone.naladoni.Modules.City.CityViewModel
 import com.ageone.naladoni.Modules.SMS.rows.SMSTextViewHolder
 import com.ageone.naladoni.Modules.SMS.rows.initialize
@@ -107,7 +115,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                         viewModel.model.code = text.toString()
                     }
 
-                    holder.textInputL.editText?.limitLength(6)
+                    holder.textInputL.editText?.limitLength(4)
 
                     innerContent.dismissFocus(holder.textInputL.editText)
                 }
@@ -119,32 +127,41 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                 }
                 is ButtonViewHolder -> {
                     holder.initialize("Подтверждаю")
+
                     holder.button.setOnClickListener {
-                        timerSMS?.cancel()
+                        if (!viewModel.model.code.isValidSMSCod()) {
+                            alertManager.single("Неверный код", "Введен неверный код", null) { _, _ ->
+                            }
+                        } else {
+                            timerSMS?.cancel()
 
-                        api.request(mapOf(
-                            "router" to "codeCheck",
-                            "phone" to viewModel.model.inputPhone,
-                            "code" to viewModel.model.code
-                        ), isErrorShown = true) { json ->
-                            Timber.i("JSON answer $json")
-
-                            api.parser.userData(json)
-
-                            DataBase.User.update(
-                                user.hashId,
+                            api.request(
                                 mapOf(
+                                    "router" to "codeCheck",
+                                    "phone" to viewModel.model.inputPhone,
+                                    "code" to viewModel.model.code
+                                ), isErrorShown = true
+                            ) { json ->
+                                Timber.i("JSON answer $json")
+
+                                api.parser.userData(json)
+
+                                DataBase.User.update(
+                                    user.hashId,
+                                    mapOf(
 //                                    "phone" to viewModel.model.inputPhone,
-                                    "name" to viewModel.model.inputName
-                                ))
+                                        "name" to viewModel.model.inputName
+                                    )
+                                )
 
-                            utils.variable.token = json.optString("Token")
+                                utils.variable.token = json.optString("Token")
 
-                            user.data.name = viewModel.model.inputName
-                            user.data.phone = viewModel.model.inputPhone
-                            user.isAuthorized = true
+                                user.data.name = viewModel.model.inputName
+                                user.data.phone = viewModel.model.inputPhone
+                                user.isAuthorized = true
 
-                            rootModule.emitEvent?.invoke(SMSViewModel.EventType.OnAcceptCode.name)
+                                rootModule.emitEvent?.invoke(SMSViewModel.EventType.OnAcceptCode.name)
+                            }
                         }
 
                     }

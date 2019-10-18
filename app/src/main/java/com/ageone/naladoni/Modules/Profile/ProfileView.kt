@@ -36,6 +36,11 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
     }
 
     fun bindUI() {
+        /*compositeDisposable.add(
+          RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
+              bodyTable.adapter?.notifyDataSetChanged()
+          }
+      )*/
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {

@@ -4,7 +4,7 @@ import com.ageone.naladoni.Application.utils
 import org.json.JSONObject
 
 fun Parser.config(json: JSONObject) {
-	(json.optJSONArray("Config")[0] as JSONObject).let { userJson ->
+	json.optJSONArray("Config")?.optJSONObject(0)?.let { userJson ->//todo: change ?
 		utils.config.name = userJson.optString("name", "")
 	}
 }

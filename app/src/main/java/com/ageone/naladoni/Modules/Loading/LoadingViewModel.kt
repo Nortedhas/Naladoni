@@ -23,12 +23,12 @@ class LoadingViewModel : InterfaceViewModel {
     }
 
     fun startLoading(completion: () -> Unit) {
+        user.info.city?.let { city ->
+            api.getCityStocks(city.hashId)
+        }
         api.requestMainLoad {
             Timber.i("completion invoke")
             webSocket.initialize()
-            user.info.city?.let { city ->
-                api.getCityStocks(city.hashId)
-            }
             completion.invoke()
         }
 

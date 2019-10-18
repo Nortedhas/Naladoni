@@ -55,6 +55,11 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
     }
 
     fun bindUI() {
+        /*compositeDisposable.add(
+          RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
+              bodyTable.adapter?.notifyDataSetChanged()
+          }
+      )*/
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
@@ -111,7 +116,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                         "Время работы: ",
                         "пн-пт: 10:00 до 18:00. сб-вс: 09:00 до 16:00",
                         "Вкусная шаверма",
-                        R.drawable.pic_food_main_stock
+                        R.drawable.pic_food_map
                     )
                 }
                 is MainStockTextViewHolder -> {

@@ -20,15 +20,20 @@ import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Extensions.Activity.startLocation
 import com.ageone.naladoni.External.InitModuleUI
+import com.ageone.naladoni.External.RxBus.RxBus
+import com.ageone.naladoni.External.RxBus.RxEvent
+import com.ageone.naladoni.Modules.List.ListViewModel
 import com.ageone.naladoni.Modules.Map.rows.MapDiscountCardViewHolder
 import com.ageone.naladoni.Modules.Map.rows.initialize
 import com.ageone.naladoni.R
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import timber.log.Timber
 import yummypets.com.stevia.*
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
 
 class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
 
@@ -55,42 +60,9 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
     init {
         viewModel.loadRealmData()
 
-        mapView.getMapAsync{ map ->
-            map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this.context, R.raw.map_style))
-            map.setMyLocation(buttonMyLocation)
+        Timber.i("Stocks: ${viewModel.realmData}")
 
-            Timber.i("Stocks: ${viewModel.realmData}")
-
-            val markerIcon = createMarkerIconBitmap(
-                BitmapFactory.decodeResource(context.resources, R.drawable.pic_selected_flag),
-                BitmapFactory.decodeResource(context.resources, R.drawable.pic_categories_1)
-                )
-
-            val marker = map.addMarker(
-                    MarkerOptions()
-                        .position(startLocation)
-                        .icon(
-                            BitmapDescriptorFactory.fromBitmap(markerIcon)
-                        )
-                )
-
-            marker.tag = 1
-
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 13f))
-
-            map.setOnMarkerClickListener { marker ->
-                if (marker.tag is Int) {
-                    val position = marker.tag as Int
-                    if (position in 0 until bodyTable.size) {
-                        bodyTable.smoothScrollToPosition(position)
-                    }
-                }
-
-                return@setOnMarkerClickListener false
-            }
-
-
-        }
+        setMap()
 
         setBackgroundResource(R.drawable.base_background)
         toolbar.title = "Карта подарков"
@@ -108,6 +80,29 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         }
     }
 
+    private fun setMap() {
+        mapView.getMapAsync { map ->
+            map.setMapStyle(MapStyleOptions.loadRawResourceStyle(this.context, R.raw.map_style))
+            map.setMyLocation(buttonMyLocation)
+            map.setMarkers()
+
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 13f))
+
+            map.setOnMarkerClickListener { marker ->
+                if (marker.tag is Int) {
+                    val position = marker.tag as Int
+                    if (position in 0 until bodyTable.size) {
+                        bodyTable.smoothScrollToPosition(position)
+                    }
+                }
+
+                return@setOnMarkerClickListener false
+            }
+
+
+        }
+    }
+
     fun createMarkerIconBitmap(back: Bitmap, icon: Bitmap): Bitmap {
         val flag = Bitmap.createBitmap(back.width, back.height, back.config)
 
@@ -122,15 +117,46 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
 
     fun bindUI() {
         /*compositeDisposable.add(
-            RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
+            RxBus.listen(RxEvent.EventReloadStocks::class.java).subscribe {
+                viewModel.loadRealmData()
+
+                Timber.i("Stocks: ${viewModel.realmData}")
+
                 bodyTable.adapter?.notifyDataSetChanged()
             }
         )*/
     }
 
+    fun GoogleMap.setMarkers(){
+            viewModel.realmData.forEachIndexed { index, stock ->
+                stock.location?.let {location ->
+                    val markerIcon = createMarkerIconBitmap(
+                        BitmapFactory.decodeResource(context.resources, R.drawable.pic_selected_flag),
+                        BitmapFactory.decodeResource(context.resources, R.drawable.pic_categories_1)
+                    )
+
+                    val marker = addMarker(
+                        MarkerOptions()
+                            .position(
+                                LatLng(
+                                    location.latitude,
+                                    location.longitude
+                                )
+                            )
+                            .icon(
+                                BitmapDescriptorFactory.fromBitmap(markerIcon)
+                            )
+                    )
+
+                    marker.tag = index
+                }
+
+            }
+    }
+
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<MapDiscountCardViewHolder>() {
 
-        override fun getItemCount() = 3
+        override fun getItemCount() = viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = 0
 
@@ -145,11 +171,15 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         }
 
         override fun onBindViewHolder(holder: MapDiscountCardViewHolder, position: Int) {
-            holder.initialize("Шаверма Mix",
-                "При покупке шавермы big получи 0.5 колы в подарок!", R.drawable.pic_groupfood)
+            val stock = viewModel.realmData[position]
+            holder.initialize(stock.name,
+                stock.shortAbout,
+                R.drawable.pic_groupfood)
+
             holder.constraintLayout.setOnClickListener {
 //                mapView.moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 13f))
             }
+
         }
     }
 

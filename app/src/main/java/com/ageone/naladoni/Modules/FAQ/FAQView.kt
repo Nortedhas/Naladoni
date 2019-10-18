@@ -11,14 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.ageone.naladoni.R
 import com.ageone.naladoni.Application.currentActivity
+import com.ageone.naladoni.Application.utils
 import com.ageone.naladoni.External.Base.Button.BaseButton
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.CirclePagerIndicatorDecoration
-import com.ageone.naladoni.External.Base.TextView.BaseTextView
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.Models.User.user
-import com.ageone.naladoni.Modules.FAQ.rows.SliderViewHolder
+import com.ageone.naladoni.Modules.FAQ.rows.FAQSliderViewHolder
 import yummypets.com.stevia.*
 import java.util.*
 import kotlin.concurrent.schedule
@@ -124,22 +124,23 @@ fun StartView.renderUIO() {
 
     buttonEnter
         .constrainTopToBottomOf(bodyTable,25)
+        .width((utils.variable.displayWidth - 27))
         .constrainBottomToBottomOf(innerContent, 40)
-        .fillHorizontally(32)
+        .constrainLeftToLeftOf(innerContent)
+        .constrainRightToRightOf(innerContent)
 
     bodyTable
-        .constrainTopToTopOf(innerContent, 20)
-        .constrainBottomToBottomOf(innerContent, 20)
+        .constrainTopToTopOf(innerContent)
         .constrainLeftToLeftOf(innerContent)
         .constrainRightToRightOf(innerContent)
 }
 
-class Factory(val rootModule: BaseModule): BaseAdapter<SliderViewHolder>() {
+class Factory(val rootModule: BaseModule): BaseAdapter<FAQSliderViewHolder>() {
 
     private val list = listOf(
         "Смотри какие акции окружают тебя с помощью нашей интерактивной карты, и выбирай лучшие предложения в городе!",
-        "Смотри какие акции окружают тебя с помощью нашей интерактивной карты, и выбирай лучшие предложения в городе!",
-        "Смотри какие акции окружают тебя с помощью нашей интерактивной карты, и выбирай лучшие предложения в городе!")
+        "Нужна скидка на конкретную услугу? Выберите ее в фильтре или воспользуйтесь поиском!",
+        "Все, что нужно чтобы получить скидку, это прийти в магазин партнера или показать QR-код. Это все! Так просто.")
 
     private val resourceImages = arrayOf(
         R.drawable.faq1,
@@ -151,17 +152,17 @@ class Factory(val rootModule: BaseModule): BaseAdapter<SliderViewHolder>() {
 
     override fun getItemViewType(position: Int): Int = 0
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SliderViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FAQSliderViewHolder {
         val layout = ConstraintLayout(parent.context)
 
         layout
             .width(matchParent)
             .height(wrapContent)
 
-        return SliderViewHolder(layout)
+        return FAQSliderViewHolder(layout)
     }
 
-    override fun onBindViewHolder(viewHolder: SliderViewHolder, position: Int) {
+    override fun onBindViewHolder(viewHolder: FAQSliderViewHolder, position: Int) {
         viewHolder.textView.text = list[position]
         viewHolder.imageView.setBackgroundResource(resourceImages[position])
     }
