@@ -25,3 +25,5 @@ fun String.isValidEmail() : Boolean {
             "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")
     return emailRegex.matcher(this).matches()
 }
+
+fun String.toCorrectPhone() = Regex("\\D+").replace(this,"")
