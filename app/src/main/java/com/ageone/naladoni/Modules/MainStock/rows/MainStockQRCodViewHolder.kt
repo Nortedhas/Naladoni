@@ -13,7 +13,8 @@ import com.ageone.naladoni.External.Base.TextView.BaseTextView
 import com.ageone.naladoni.External.Libraries.Glide.addImageFromGlide
 import yummypets.com.stevia.*
 
-class MainStockQRCodViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
+class MainStockQRCodViewHolder(val constraintLayout: ConstraintLayout) :
+    BaseViewHolder(constraintLayout) {
 
     val textTitle by lazy {
         val text = BaseTextView()
@@ -69,7 +70,7 @@ fun MainStockQRCodViewHolder.renderUI() {
     )
 
     textTitle
-        .constrainTopToTopOf(constraintLayout,22)
+        .constrainTopToTopOf(constraintLayout, 22)
         .fillHorizontally(50)
 
     textDescribe
@@ -85,18 +86,23 @@ fun MainStockQRCodViewHolder.renderUI() {
 
     textNumber
         .constrainTopToBottomOf(imageQRCod)
-        .constrainBottomToBottomOf(constraintLayout,31)
+        .constrainBottomToBottomOf(constraintLayout, 31)
         .fillHorizontally()
 }
 
-fun MainStockQRCodViewHolder.initialize(title:String, text:String, counter:String, qr_cod: Int, number: String) {
+fun MainStockQRCodViewHolder.initialize( counter: String, qr_cod: Int, number: String) {
+
+    val text: String = "Количество воспользовавшихся предложением:"
 
     val spannableContent = SpannableString(text + counter)
     spannableContent.setSpan(
         ForegroundColorSpan(Color.parseColor("#f2842d")),
-        text.length,  text.length + counter.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+        text.length, text.length + counter.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE
+    )
+
     textDescribe.text = spannableContent
-    textTitle.text = title
+    textTitle.text = "Получай выгоду!"
     textNumber.text = number
     addImageFromGlide(imageQRCod, qr_cod)
+    constraintLayout.backgroundColor = Color.WHITE
 }

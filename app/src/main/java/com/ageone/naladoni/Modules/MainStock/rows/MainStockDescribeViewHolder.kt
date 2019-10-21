@@ -130,10 +130,10 @@ fun MainStockDescribeViewHolder.renderUI() {
 
 }
 
-fun MainStockDescribeViewHolder.initialize(title_text: String, describe: String, text_logo: String, image_logo: Int) {
+fun MainStockDescribeViewHolder.initialize( describe: String, text_logo: String, image_logo: Int) {
 
     textViewLogo.text = text_logo
-    textViewTitle.text = title_text
+    textViewTitle.text = "Время работы: "
     textViewDescribe.text = describe
     addImageFromGlide(imageIconView, image_logo,0)
 

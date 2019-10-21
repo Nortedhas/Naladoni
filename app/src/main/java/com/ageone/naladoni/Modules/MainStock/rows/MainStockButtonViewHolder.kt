@@ -39,6 +39,7 @@ fun MainStockButtonViewHolder.renderUI() {
         .fillHorizontally(20)
 }
 
-fun MainStockButtonViewHolder.initialize(text: String) {
-    button.text = text
+fun MainStockButtonViewHolder.initialize() {
+    button.text = "Как добраться?"
+    constraintLayout.backgroundColor = Color.WHITE
 }

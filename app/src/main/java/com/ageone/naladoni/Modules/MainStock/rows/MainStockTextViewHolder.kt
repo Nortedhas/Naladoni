@@ -41,8 +41,15 @@ fun MainStockTextViewHolder.renderUI() {
         .constrainBottomToBottomOf(constraintLayout,6)
 }
 
-fun MainStockTextViewHolder.initialize(text:String,declaration:String) {
+fun MainStockTextViewHolder.initialize(position: Int,declaration:String) {
 
+     var text:String = ""
+
+    if(position == 1){
+        text = "Акция: "
+    }else{
+        text = "Даты проведения:"
+    }
     val spannableContent = SpannableString(text + declaration)
     spannableContent.setSpan(
         ForegroundColorSpan(Color.parseColor("#f2842d")),

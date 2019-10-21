@@ -1,7 +1,6 @@
 package com.ageone.naladoni.Modules.MainStock
 
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.graphics.Shader
 import android.graphics.drawable.BitmapDrawable
 import android.view.ViewGroup
@@ -108,7 +107,6 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
             when (holder) {
                 is MainStockDescribeViewHolder -> {
                     holder.initialize(
-                        "Время работы: ",
                         "пн-пт: 10:00 до 18:00. сб-вс: 09:00 до 16:00",
                         "Вкусная шаверма",
                         R.drawable.ic_category_0
@@ -118,30 +116,26 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                     when (position) {
                         1 -> {
                             holder.initialize(
-                                "Акция: ", "Равным образом новая модель" +
+                                position, "Равным образом новая модель" +
                                         " организационной деятельности способствует подготовки и реализации " +
                                         "соответствующий условий активизации. Не следует, однако забывать."
                             )
                         }
 
                         2 -> {
-                            holder.initialize("Даты проведения: ", "с 25.08.2019 до 30.08.2019")
+                            holder.initialize(position, "с 25.08.2019 до 30.08.2019")
                         }
                     }
                 }
                 is MainStockButtonViewHolder -> {
-                    holder.constraintLayout.backgroundColor = Color.WHITE
-                    holder.initialize("Как добраться?")
+                    holder.initialize()
                     holder.button.setOnClickListener {
                         rootModule.emitEvent?.invoke(MainStockViewModel.EventType.OnlouderMainStock.name)
                     }
                 }
 
                 is MainStockQRCodViewHolder -> {
-                    holder.constraintLayout.backgroundColor = Color.WHITE
-                    holder.initialize(
-                        "Получай выгоду!", "Количество воспользовавшихся предложением:",
-                        "146", R.drawable.pic_qarcod, "145 678 345"
+                    holder.initialize("146", R.drawable.pic_qarcod, "145 678 345"
                     )
                 }
 
