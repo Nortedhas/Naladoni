@@ -182,7 +182,7 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                 )
 
                 holder.buttonUse.setOnClickListener {
-                    emitEvent?.invoke(MapViewModel.EventType.OnlouderMap.name)
+                    emitEvent?.invoke(MapViewModel.EventType.OnClickMap.name)
 
                 }
             }

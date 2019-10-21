@@ -7,7 +7,7 @@ class ChangeSMSViewModel : InterfaceViewModel {
     var model = ChangeSMSModel()
 
     enum class EventType {
-        OnlouderChangeSMS
+        OnClickChangeSMS
     }
 
     /*var realmData = listOf<>()

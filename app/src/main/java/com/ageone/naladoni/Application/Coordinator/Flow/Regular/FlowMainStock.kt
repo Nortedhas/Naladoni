@@ -17,9 +17,6 @@ import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.Modules.MainStock.MainStockModel
 import com.ageone.naladoni.Modules.MainStock.MainStockView
 import com.ageone.naladoni.Modules.MainStock.MainStockViewModel
-import com.ageone.naladoni.Modules.Navigation.NavigationModel
-import com.ageone.naladoni.Modules.Navigation.NavigationView
-import com.ageone.naladoni.Modules.Navigation.NavigationViewModel
 import com.ageone.naladoni.R
 import timber.log.Timber
 
@@ -97,7 +94,7 @@ class FlowMainStock(previousFlow: BaseFlow? = null) : BaseFlow() {
 
         module.emitEvent = { event ->
             when (MainStockViewModel.EventType.valueOf(event)) {
-                MainStockViewModel.EventType.OnlouderMainStock -> {
+                MainStockViewModel.EventType.OnClickMainStock -> {
                     coordinator.runFlowNavigation(this)
                 }
             }

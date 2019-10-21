@@ -12,7 +12,6 @@ import com.ageone.naladoni.Application.coordinator
 import com.ageone.naladoni.External.Base.Flow.BaseFlow
 import com.ageone.naladoni.External.Base.Module.Module
 import com.ageone.naladoni.External.InitModuleUI
-import com.ageone.naladoni.Modules.MainStock.MainStockModel
 import com.ageone.naladoni.Modules.Search.SearchModel
 import timber.log.Timber
 
@@ -72,7 +71,7 @@ class FlowSearch : BaseFlow() {
 
         module.emitEvent = { event ->
             when (com.ageone.naladoni.Modules.Search.SearchViewModel.EventType.valueOf(event)) {
-                com.ageone.naladoni.Modules.Search.SearchViewModel.EventType.OnlouderSearch -> {
+                com.ageone.naladoni.Modules.Search.SearchViewModel.EventType.OnClickSearch -> {
                     coordinator.runFlowMainStock(this)
                 }
 

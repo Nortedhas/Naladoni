@@ -8,7 +8,7 @@ class NavigationViewModel : InterfaceViewModel {
     var model = NavigationModel()
 
     enum class EventType {
-        OnlouderNavigation
+        OnClickNavigation
     }
 
     /*var realmData = listOf<>()

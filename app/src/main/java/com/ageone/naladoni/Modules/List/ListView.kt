@@ -15,8 +15,6 @@ import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.UIComponents.ViewHolders.СardViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
@@ -99,7 +97,7 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                     holder.viewCard.setOnClickListener {
                         rxData.currentStock = stock
 
-                        rootModule.emitEvent?.invoke(ListViewModel.EventType.OnlouderList.name)
+                        rootModule.emitEvent?.invoke(ListViewModel.EventType.OnListPressed.name)
 
                     }
                 }

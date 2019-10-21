@@ -8,7 +8,7 @@ class ChangePhoneViewModel : InterfaceViewModel {
     var model = ChangePhoneModel()
 
     enum class EventType {
-        OnlouderChangePhone
+        OnClickChangePhone
     }
 
     /*var realmData = listOf<>()

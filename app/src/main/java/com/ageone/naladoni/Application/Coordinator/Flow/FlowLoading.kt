@@ -5,7 +5,6 @@ import com.ageone.naladoni.Application.Coordinator.Flow.FlowCoordinator.ViewFlip
 import com.ageone.naladoni.Application.Coordinator.Router.DataFlow
 import com.ageone.naladoni.Application.Coordinator.Router.TabBar.TabBar
 import com.ageone.naladoni.Application.Coordinator.Router.createStackFlows
-import com.ageone.naladoni.Application.coordinator
 import com.ageone.naladoni.External.Base.Flow.BaseFlow
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.InitModuleUI
@@ -75,7 +74,7 @@ class FlowLoading: BaseFlow() {
 
         module.emitEvent = { event ->
             when(LoadingViewModel.EventType.valueOf(event)) {
-                LoadingViewModel.EventType.onFinish -> {
+                LoadingViewModel.EventType.OnTimerFinishPressed -> {
 
                     Timber.i("Bottom Start flow main")
                     module.startMainFlow()

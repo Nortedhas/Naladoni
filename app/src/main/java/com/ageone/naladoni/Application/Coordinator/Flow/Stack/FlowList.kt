@@ -79,7 +79,7 @@ class FlowList : BaseFlow() {
 
         module.emitEvent = { event ->
             when (com.ageone.naladoni.Modules.List.ListViewModel.EventType.valueOf(event)) {
-                com.ageone.naladoni.Modules.List.ListViewModel.EventType.OnlouderList -> {
+                com.ageone.naladoni.Modules.List.ListViewModel.EventType.OnListPressed -> {
                     coordinator.runFlowMainStock(this)
                 }
 

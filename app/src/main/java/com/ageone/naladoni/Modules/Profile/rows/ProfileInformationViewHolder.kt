@@ -87,9 +87,9 @@ fun ProfileInformationViewHolder.renderUI() {
         .constrainBottomToBottomOf(back)
 }
 
-fun ProfileInformationViewHolder.initialize(title_text:String, text: String) {
+fun ProfileInformationViewHolder.initialize(titleText:String, text: String) {
 
-    textTitle.text=title_text
+    textTitle.text= titleText
     textView.text = text
 
 }

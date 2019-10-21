@@ -9,7 +9,7 @@ class MapViewModel : InterfaceViewModel {
     var model = MapModel()
 
     enum class EventType {
-        OnlouderMap
+        OnClickMap
 
     }
 

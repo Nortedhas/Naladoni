@@ -17,7 +17,6 @@ import com.ageone.naladoni.Modules.Filter.FilterView
 import com.ageone.naladoni.Modules.Filter.FilterViewModel
 import com.ageone.naladoni.Modules.InnerFilter.InnerFilterModel
 import com.ageone.naladoni.Modules.InnerFilter.InnerFilterView
-import com.ageone.naladoni.Modules.InnerFilter.InnerFilterViewCollapse
 import com.ageone.naladoni.Modules.InnerFilter.InnerFilterViewModel
 import timber.log.Timber
 
@@ -86,7 +85,7 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
 
         module.emitEvent = { event ->
             when (FilterViewModel.EventType.valueOf(event)) {
-                FilterViewModel.EventType.OnInnerFilterPressed -> {
+                FilterViewModel.EventType.OnFilterPressed -> {
                     models.modelInnerFilter.filterName = models.modelFilter.filterName
                     models.modelInnerFilter.currentFilterIndex = models.modelFilter.currentFilterIndex
                     runModuleInnerFilter()

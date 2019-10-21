@@ -8,7 +8,7 @@ class MainStockViewModel : InterfaceViewModel {
     var model = MainStockModel()
 
     enum class EventType {
-        OnlouderMainStock
+        OnClickMainStock
     }
 
     /*var realmData = listOf<>()

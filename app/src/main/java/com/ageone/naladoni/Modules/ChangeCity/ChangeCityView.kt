@@ -12,24 +12,18 @@ import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Extensions.Activity.hideKeyboard
-import com.ageone.naladoni.External.Extensions.Activity.startLocation
 import com.ageone.naladoni.External.HTTP.fetch
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.External.Libraries.Alert.alertManager
-import com.ageone.naladoni.External.Libraries.Alert.blockUI
 import com.ageone.naladoni.External.Libraries.Alert.list
-import com.ageone.naladoni.External.Libraries.Alert.single
 import com.ageone.naladoni.Models.User.City
 import com.ageone.naladoni.Models.User.user
-import com.ageone.naladoni.Network.HTTP.getCity
 import com.ageone.naladoni.R
 import com.ageone.naladoni.SCAG.DataBase
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.EditTextViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
-import android.view.View.OnFocusChangeListener
-import com.ageone.naladoni.External.Libraries.Alert.list
 
 
 class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -145,7 +139,7 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 
                     holder.initialize("Изменить")
                     holder.button.setOnClickListener {
-                        emitEvent?.invoke(ChangeCityViewModel.EventType.OnlouderChangeCity.name)
+                        emitEvent?.invoke(ChangeCityViewModel.EventType.OnClickChangeCity.name)
 
                     }
                 }

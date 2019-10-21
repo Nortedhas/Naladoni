@@ -5,14 +5,12 @@ import com.ageone.naladoni.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.naladoni.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.ageone.naladoni.Application.Coordinator.Router.DataFlow
 import com.ageone.naladoni.Application.Coordinator.Router.TabBar.Stack
-import com.ageone.naladoni.Application.api
 import com.ageone.naladoni.Application.coordinator
 import com.ageone.naladoni.External.Base.Flow.BaseFlow
 import com.ageone.naladoni.External.Base.Module.Module
 import com.ageone.naladoni.External.Extensions.FlowCoordinator.logout
 import com.ageone.naladoni.External.Icon
 import com.ageone.naladoni.External.InitModuleUI
-import com.ageone.naladoni.Models.User.user
 import com.ageone.naladoni.Modules.AboutCompany.AboutCompanyModel
 import com.ageone.naladoni.Modules.AboutCompany.AboutCompanyView
 import com.ageone.naladoni.Modules.AboutCompany.AboutCompanyViewModel
@@ -33,7 +31,6 @@ import com.ageone.naladoni.Modules.Profile.ProfileModel
 import com.ageone.naladoni.Modules.Profile.ProfileView
 import com.ageone.naladoni.Modules.Profile.ProfileViewModel
 import com.ageone.naladoni.R
-import io.realm.Realm
 import timber.log.Timber
 
 fun FlowCoordinator.runFlowProfile() {
@@ -104,19 +101,19 @@ class FlowProfile : BaseFlow() {
 
         module.emitEvent = { event ->
             when (ProfileViewModel.EventType.valueOf(event)) {
-                ProfileViewModel.EventType.OnlouderProfileN -> {
+                ProfileViewModel.EventType.OnClickProfileName -> {
                     runModuleChangeName()
                 }
 
-                ProfileViewModel.EventType.OnlouderProfileP -> {
+                ProfileViewModel.EventType.OnClickProfilePhone -> {
                     runModuleChangePhone()
                 }
 
-                ProfileViewModel.EventType.OnlouderProfileA -> {
+                ProfileViewModel.EventType.OnClickProfileAboutCompany -> {
                     runModuleAboutCompany()
                 }
 
-                ProfileViewModel.EventType.OnlouderProfileC -> {
+                ProfileViewModel.EventType.OnClickProfileCity -> {
                     runModuleChangeCity()
                 }
 
@@ -138,7 +135,7 @@ class FlowProfile : BaseFlow() {
 
         module.emitEvent = { event ->
             when (ChangeNameViewModel.EventType.valueOf(event)) {
-                ChangeNameViewModel.EventType.OnlouderChangeName -> {
+                ChangeNameViewModel.EventType.OnClickChangeName -> {
 
                     runModuleProfile()
                 }
@@ -159,7 +156,7 @@ class FlowProfile : BaseFlow() {
 
         module.emitEvent = { event ->
             when (ChangePhoneViewModel.EventType.valueOf(event)) {
-                ChangePhoneViewModel.EventType.OnlouderChangePhone -> {
+                ChangePhoneViewModel.EventType.OnClickChangePhone -> {
 
                     runModuleChangeSMS()
                 }
@@ -180,7 +177,7 @@ class FlowProfile : BaseFlow() {
 
         module.emitEvent = { event ->
             when (ChangeSMSViewModel.EventType.valueOf(event)) {
-                ChangeSMSViewModel.EventType.OnlouderChangeSMS -> {
+                ChangeSMSViewModel.EventType.OnClickChangeSMS -> {
 
                     runModuleProfile()
                 }
@@ -200,7 +197,7 @@ class FlowProfile : BaseFlow() {
 
         module.emitEvent = { event ->
             when (ChangeCityViewModel.EventType.valueOf(event)) {
-                ChangeCityViewModel.EventType.OnlouderChangeCity -> {
+                ChangeCityViewModel.EventType.OnClickChangeCity -> {
 
                     runModuleProfile()
                 }
@@ -221,7 +218,7 @@ class FlowProfile : BaseFlow() {
 
         module.emitEvent = { event ->
             when (AboutCompanyViewModel.EventType.valueOf(event)) {
-                AboutCompanyViewModel.EventType.OnlouderAboutCompany -> {
+                AboutCompanyViewModel.EventType.OnClickAboutCompany -> {
 
                     runModuleProfile()
                 }

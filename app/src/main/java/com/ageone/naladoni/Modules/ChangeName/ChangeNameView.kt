@@ -109,7 +109,7 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                             }
                         } else {
 
-                            rootModule.emitEvent?.invoke(ChangeNameViewModel.EventType.OnlouderChangeName.name)
+                            rootModule.emitEvent?.invoke(ChangeNameViewModel.EventType.OnClickChangeName.name)
                         }
 
                     }

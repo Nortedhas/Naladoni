@@ -97,7 +97,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                 is ProfileUserInformationViewHolder -> {
                     holder.initialize(user.data.name, R.drawable.pic_naladoni)
                     holder.view.setOnClickListener{
-                        rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileN.name)
+                        rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnClickProfileName.name)
                     }
                 }
 
@@ -110,14 +110,14 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                         2 -> {
                             holder.initialize("Мой город", user.info.city?.name ?: "")
                             holder.back.setOnClickListener{
-                                rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileC.name)
+                                rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnClickProfileCity.name)
                             }
                         }
 
                         3 -> {
                             holder.initialize("Мой номер моб. телефона", user.data.phone)
                             holder.back.setOnClickListener{
-                                rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileP.name)
+                                rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnClickProfilePhone.name)
                             }
                         }
 
@@ -126,7 +126,7 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
                 is ProfileServiceInformationViewHolder -> {
                     holder.initialize("О нашем сервисе")
                     holder.back.setOnClickListener{
-                        rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnlouderProfileA.name)
+                        rootModule.emitEvent?.invoke(ProfileViewModel.EventType.OnClickProfileAboutCompany.name)
                     }
                 }
             }

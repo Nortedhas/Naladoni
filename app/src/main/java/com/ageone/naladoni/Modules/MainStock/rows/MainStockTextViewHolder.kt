@@ -56,16 +56,3 @@ fun MainStockTextViewHolder.initialize(declaration:String) {
         0,  text.length , Spannable.SPAN_INCLUSIVE_INCLUSIVE)
     textView.text = spannableContent
 }
-
-
-
-fun MainStockTextViewHolder.initialize(text:String, timeFrom: Int, timeTo: Int) {
-
-    val declaration = "с ${format.format(Date(timeFrom.toLong()))} до ${format.format(Date(timeTo.toLong()))}"
-
-    val spannableContent = SpannableString(text + declaration)
-    spannableContent.setSpan(
-        ForegroundColorSpan(Color.parseColor("#f2842d")),
-        0,  text.length , Spannable.SPAN_INCLUSIVE_INCLUSIVE)
-    textView.text = spannableContent
-}

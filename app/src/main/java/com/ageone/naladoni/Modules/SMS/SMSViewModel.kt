@@ -8,7 +8,7 @@ class SMSViewModel : InterfaceViewModel {
 
     enum class EventType {
         OnAcceptCode,
-        onTimerPresed
+        OnTimerPressed
     }
     /*var realmData = listOf<>()
     fun loadRealmData() {
