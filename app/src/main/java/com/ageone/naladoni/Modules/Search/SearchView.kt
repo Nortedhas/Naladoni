@@ -140,7 +140,7 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                                 "Nike", 0, ""
                             )
                             holder.viewCard.setOnClickListener {
-                                rootModule.emitEvent?.invoke(SearchViewModel.EventType.OnlouderSearch.toString())
+                                rootModule.emitEvent?.invoke(SearchViewModel.EventType.OnlouderSearch.name)
 
                             }
                         }

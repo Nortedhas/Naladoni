@@ -18,6 +18,7 @@ import com.ageone.naladoni.Modules.MainStock.rows.MainStockDescribeViewHolder
 import com.ageone.naladoni.Modules.MainStock.rows.MainStockQRCodViewHolder
 import com.ageone.naladoni.Modules.MainStock.rows.MainStockTextViewHolder
 import com.ageone.naladoni.Modules.MainStock.rows.initialize
+import com.ageone.naladoni.Modules.MainStock.rows.*
 import com.ageone.naladoni.R
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.initialize
@@ -114,7 +115,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                     MainStockTextViewHolder(layout)
                 }
                 MainStockButtomType -> {
-                    ButtonViewHolder(layout)
+                    MainStockButtonViewHolder(layout)
                 }
                 MainStockQRCodType -> {
                     MainStockQRCodViewHolder(layout)
@@ -158,15 +159,11 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                         }
                     }
                 }
-
-                is ButtonViewHolder -> {
+                is MainStockButtonViewHolder -> {
                     holder.constraintLayout.backgroundColor = Color.WHITE
                     holder.initialize("Как добраться?")
-
-                    holder.button.constrainTopToTopOf(innerContent,12)
-                    holder.button.constrainBottomToBottomOf(innerContent)
                     holder.button.setOnClickListener {
-                        rootModule.emitEvent?.invoke(MainStockViewModel.EventType.OnlouderMainStock.toString())
+                        rootModule.emitEvent?.invoke(MainStockViewModel.EventType.OnlouderMainStock.name)
                     }
                 }
 

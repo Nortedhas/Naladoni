@@ -117,7 +117,7 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(ini
                             }
                         } else {
                             timerSMS?.cancel()
-                            rootModule.emitEvent?.invoke(ChangeSMSViewModel.EventType.OnlouderChangeSMS.toString())
+                            rootModule.emitEvent?.invoke(ChangeSMSViewModel.EventType.OnlouderChangeSMS.name)
 
                         }
 
