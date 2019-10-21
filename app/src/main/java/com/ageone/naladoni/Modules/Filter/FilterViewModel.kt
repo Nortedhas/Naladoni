@@ -7,7 +7,7 @@ class FilterViewModel : InterfaceViewModel {
     var model = FilterModel()
 
     enum class EventType {
-        OnInnerFilterPressed
+        OnFilterPressed
     }
 
     /*var realmData = listOf<>()

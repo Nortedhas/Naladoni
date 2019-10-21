@@ -7,7 +7,7 @@ class AuthViewModel: InterfaceViewModel {
     var model = AuthModel()
 
     enum class EventType{
-        OnAuthPressed
+        OnClickAuth
     }
 
     /*var realmData = listOf<>()

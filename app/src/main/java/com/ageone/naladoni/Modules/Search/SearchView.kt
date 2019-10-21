@@ -169,7 +169,7 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
                         holder.viewCard.setOnClickListener {
                             rxData.currentStock = stock
-                            rootModule.emitEvent?.invoke(SearchViewModel.EventType.OnlouderSearch.name)
+                            rootModule.emitEvent?.invoke(SearchViewModel.EventType.OnClickSearch.name)
                         }
                     }
 

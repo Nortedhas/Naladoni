@@ -9,7 +9,7 @@ class ListViewModel : InterfaceViewModel {
     var model = ListModel()
 
     enum class EventType {
-        OnlouderList
+        OnListPressed
 
     }
 

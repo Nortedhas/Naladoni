@@ -148,7 +148,7 @@ class FilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                         if (position in setOf(0, 1, 2, 3, 5, 9, 10)) {
                             viewModel.model.filterName = names[position]
                             viewModel.model.currentFilterIndex = position
-                            rootModule.emitEvent?.invoke(FilterViewModel.EventType.OnInnerFilterPressed.name)
+                            rootModule.emitEvent?.invoke(FilterViewModel.EventType.OnFilterPressed.name)
                         } else {
                             rxData.selectedFilter = position
                             notifyDataSetChanged()

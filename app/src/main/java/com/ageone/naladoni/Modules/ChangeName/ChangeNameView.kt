@@ -115,7 +115,7 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                             )
                             user.data.name = viewModel.model.inputName
                             RxBus.publish(RxEvent.EventChangeName())
-                            rootModule.emitEvent?.invoke(ChangeNameViewModel.EventType.OnlouderChangeName.name)
+                            rootModule.emitEvent?.invoke(ChangeNameViewModel.EventType.OnClickChangeName.name)
                         }
 
                     }

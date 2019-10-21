@@ -8,7 +8,7 @@ class AboutCompanyViewModel : InterfaceViewModel {
     var model = AboutCompanyModel()
 
     enum class EventType {
-        OnlouderAboutCompany
+        OnClickAboutCompany
 
     }
 

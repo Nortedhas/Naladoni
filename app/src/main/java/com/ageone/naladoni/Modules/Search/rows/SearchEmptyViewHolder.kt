@@ -54,6 +54,6 @@ fun SearchEmptyViewHolder.renderUI() {
 
 }
 
-fun SearchEmptyViewHolder.initialize(describe_text: String) {
-    describe.text = describe_text
+fun SearchEmptyViewHolder.initialize(describeText: String) {
+    describe.text = describeText
 }

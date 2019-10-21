@@ -9,7 +9,7 @@ class ChangeNameViewModel : InterfaceViewModel {
 
     enum class EventType {
 
-        OnlouderChangeName
+        OnClickChangeName
     }
 
     /*var realmData = listOf<>()

@@ -7,10 +7,10 @@ class ProfileViewModel : InterfaceViewModel {
     var model = ProfileModel()
 
     enum class EventType {
-        OnlouderProfileN,
-        OnlouderProfileP,
-        OnlouderProfileA,
-        OnlouderProfileC
+        OnClickProfileName,
+        OnClickProfilePhone,
+        OnClickProfileAboutCompany,
+        OnClickProfileCity
 
     }
 

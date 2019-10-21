@@ -148,8 +148,7 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                     holder.initialize("Изменить")
                     holder.button.setOnClickListener {
                         RxBus.publish(RxEvent.EventChangeCity())
-                        emitEvent?.invoke(ChangeCityViewModel.EventType.OnlouderChangeCity.name)
-
+                        emitEvent?.invoke(ChangeCityViewModel.EventType.OnClickChangeCity.name)
                     }
                 }
             }

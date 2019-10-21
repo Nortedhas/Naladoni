@@ -88,7 +88,7 @@ class FlowAuth: BaseFlow() {
 
         module.emitEvent = { event ->
             when(AuthViewModel.EventType.valueOf(event)) {
-                AuthViewModel.EventType.OnAuthPressed -> {
+                AuthViewModel.EventType.OnClickAuth -> {
 
                     models.modelSMS.inputName = models.modelAuth.inputName
                     models.modelSMS.inputPhone = models.modelAuth.inputPhone
@@ -114,7 +114,7 @@ class FlowAuth: BaseFlow() {
                 SMSViewModel.EventType.OnAcceptCode -> {
                     runModuleCity()
                 }
-                SMSViewModel.EventType.onTimerPresed -> {
+                SMSViewModel.EventType.OnTimerPressed -> {
                     runModuleAuth()
 
                 }

@@ -9,7 +9,7 @@ class SearchViewModel : InterfaceViewModel {
     var model = SearchModel()
 
     enum class EventType {
-        OnlouderSearch
+        OnClickSearch
     }
 
     /*var realmData = listOf<>()

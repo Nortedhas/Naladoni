@@ -12,7 +12,6 @@ import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.External.Libraries.Alert.alertManager
 import com.ageone.naladoni.External.Libraries.Alert.single
 import com.ageone.naladoni.External.Utils.Validation.isValidPhone
-import com.ageone.naladoni.Modules.Auth.AuthViewModel
 import com.ageone.naladoni.R
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.InputViewHolder
@@ -113,7 +112,7 @@ class ChangePhoneView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
                             alertManager.single("Неверный номер", "Введен неверный номер", null) { _, _ ->
                             }
                         }  else {
-                            rootModule.emitEvent?.invoke(ChangePhoneViewModel.EventType.OnlouderChangePhone.name)
+                            rootModule.emitEvent?.invoke(ChangePhoneViewModel.EventType.OnClickChangePhone.name)
                         }
 
                     }

@@ -1,17 +1,11 @@
 package com.ageone.naladoni.Modules.City.rows
-import android.R
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.LinearLayout
+
 import android.widget.Spinner
 
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.updateMargins
 import com.ageone.naladoni.Application.currentActivity
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import yummypets.com.stevia.constrainTopToTopOf
-import yummypets.com.stevia.dp
 import yummypets.com.stevia.fillHorizontally
 import yummypets.com.stevia.subviews
 

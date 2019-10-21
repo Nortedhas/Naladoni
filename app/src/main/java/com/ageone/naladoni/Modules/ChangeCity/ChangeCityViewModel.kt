@@ -7,7 +7,7 @@ class ChangeCityViewModel : InterfaceViewModel {
     var model = ChangeCityModel()
 
     enum class EventType {
-        OnlouderChangeCity
+        OnClickChangeCity
     }
 
     /*var realmData = listOf<>()

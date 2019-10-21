@@ -158,7 +158,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                     holder.constraintLayout.backgroundColor = Color.WHITE
                     holder.initialize()
                     holder.button.setOnClickListener {
-                        rootModule.emitEvent?.invoke(MainStockViewModel.EventType.OnlouderMainStock.name)
+                        rootModule.emitEvent?.invoke(MainStockViewModel.EventType.OnClickMainStock.name)
                     }
                 }
 

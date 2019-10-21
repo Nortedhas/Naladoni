@@ -12,7 +12,7 @@ class LoadingViewModel : InterfaceViewModel {
     var model = LoadingModel()
 
     enum class EventType{
-        onFinish
+        OnTimerFinishPressed
     }
 
     fun initialize(recievedModel: InterfaceModel, completion: ()->(Unit)) {

@@ -27,7 +27,6 @@ import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.InputViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
-import java.util.regex.Pattern
 
 class AuthView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
 
@@ -135,7 +134,7 @@ class AuthView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModu
                             api.request(mapOf(
                                 "router" to "phoneAuth",
                                 "phone" to phone)){
-                                rootModule.emitEvent?.invoke(AuthViewModel.EventType.OnAuthPressed.name)
+                                rootModule.emitEvent?.invoke(AuthViewModel.EventType.OnClickAuth.name)
                             }
 
                         }

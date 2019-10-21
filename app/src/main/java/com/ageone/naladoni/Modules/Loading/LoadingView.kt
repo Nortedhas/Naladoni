@@ -22,7 +22,7 @@ class LoadingView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
 
     fun loading(){
         viewModel.startLoading {
-            emitEvent?.invoke(LoadingViewModel.EventType.onFinish.name)
+            emitEvent?.invoke(LoadingViewModel.EventType.OnTimerFinishPressed.name)
         }
 
     }

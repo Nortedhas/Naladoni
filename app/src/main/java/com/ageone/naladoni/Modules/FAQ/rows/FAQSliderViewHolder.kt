@@ -57,9 +57,9 @@ fun FAQSliderViewHolder.renderUI() {
 }
 
 
-fun FAQSliderViewHolder.initialize(textTitle:String, image_view_title: Int) {
+fun FAQSliderViewHolder.initialize(textTitle:String, imageViewTitle: Int) {
 
     textView.text = textTitle
-    imageView.setBackgroundResource(image_view_title)
+    imageView.setBackgroundResource(imageViewTitle)
 
 }
