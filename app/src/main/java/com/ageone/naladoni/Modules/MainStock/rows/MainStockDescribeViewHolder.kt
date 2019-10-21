@@ -38,7 +38,7 @@ class MainStockDescribeViewHolder(val constraintLayout: ConstraintLayout) :
         imageView
     }
 
-    val textViewDescribe by lazy {
+    val textViewTimeDescribe by lazy {
         val textView = BaseTextView()
         textView.gravity = Gravity.START
         textView.typeface = Typeface.DEFAULT
@@ -84,7 +84,7 @@ fun MainStockDescribeViewHolder.renderUI() {
         BoxView,
         view.subviews(
             textViewLogo,
-            textViewDescribe,
+            textViewTimeDescribe,
             textViewTitle
         ),
         ImageBackground.subviews(
@@ -125,7 +125,7 @@ fun MainStockDescribeViewHolder.renderUI() {
         .constrainTopToBottomOf(textViewLogo, 9)
         .fillHorizontally(90)
 
-    textViewDescribe
+    textViewTimeDescribe
         .constrainTopToBottomOf(textViewTitle)
         .fillHorizontally(10)
 
@@ -136,7 +136,7 @@ fun MainStockDescribeViewHolder.initialize(title_text: String, text_logo: String
 
     textViewLogo.text = text_logo
     textViewTitle.text = title_text
-    textViewDescribe.text = "пн-пт: $from до $to. сб-вс: $fromHolidays до $toHolidays"
+    textViewTimeDescribe.text = "пн-пт: $from до $to. сб-вс: $fromHolidays до $toHolidays"
     addImageFromGlide(imageIconView, image_logo,0)
 
 }

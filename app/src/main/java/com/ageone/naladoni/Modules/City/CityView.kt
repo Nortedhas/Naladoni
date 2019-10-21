@@ -121,7 +121,7 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                         val citiesNames = utils.realm.city.getAllObjects().map { city -> city.name }.toTypedArray()
 
                         api.getCity(startLocation.latitude, startLocation.longitude) { nearestCity ->
-
+                            user.info.city = nearestCity
                             alertManager.blockUI(false)
                             alertManager.single(
                                 message = "Мы определили ваш город как ${nearestCity.name}",
@@ -129,7 +129,6 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                             ) { _, _ ->
 
                                 holder.editText.setText("${nearestCity.name}")
-                                user.info.city = nearestCity
                             }
                         }
 
@@ -155,6 +154,7 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
                     holder.initialize("Подтверждаю")
                     holder.button.setOnClickListener {
+
                         emitEvent?.invoke(CityViewModel.EventType.OnAcceptCode.name)
                     }
                 }

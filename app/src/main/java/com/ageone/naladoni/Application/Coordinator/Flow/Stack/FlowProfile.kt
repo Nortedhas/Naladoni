@@ -9,6 +9,7 @@ import com.ageone.naladoni.Application.api
 import com.ageone.naladoni.Application.coordinator
 import com.ageone.naladoni.External.Base.Flow.BaseFlow
 import com.ageone.naladoni.External.Base.Module.Module
+import com.ageone.naladoni.External.Extensions.FlowCoordinator.logout
 import com.ageone.naladoni.External.Icon
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.Models.User.user
@@ -91,12 +92,7 @@ class FlowProfile : BaseFlow() {
                 firstIcon = Icon(
                     icon = R.drawable.ic_exit,
                     listener = {
-                        user.isAuthorized = false
-                        api.cashTime = 0
-                        Realm.getDefaultInstance().executeTransaction { realm ->
-                            realm.deleteAll()
-                        }
-                        coordinator.start()
+                        coordinator.logout()
                     }
                 )
             )

@@ -138,19 +138,22 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                                 Timber.i("JSON answer $json")
 
                                 api.parser.userData(json)
-
-                                DataBase.User.update(
-                                    user.hashId,
-                                    mapOf(
-//                                    "phone" to viewModel.model.inputPhone,
-                                        "name" to viewModel.model.inputName
-                                    )
-                                )
-
                                 utils.variable.token = json.optString("Token")
 
-                                user.data.name = viewModel.model.inputName
-                                user.data.phone = viewModel.model.inputPhone
+                                if (!user.data.name.isNullOrBlank()) {
+                                    DataBase.User.update(
+                                        user.hashId,
+                                        mapOf(
+//                                    "phone" to viewModel.model.inputPhone,
+                                            "name" to viewModel.model.inputName
+                                        )
+                                    )
+
+                                    user.data.name = viewModel.model.inputName
+                                    user.data.phone = viewModel.model.inputPhone
+                                }
+
+
                                 user.isAuthorized = true
 
                                 rootModule.emitEvent?.invoke(SMSViewModel.EventType.OnAcceptCode.name)
