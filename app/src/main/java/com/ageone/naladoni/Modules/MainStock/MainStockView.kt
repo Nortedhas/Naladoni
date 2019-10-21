@@ -1,5 +1,6 @@
 package com.ageone.naladoni.Modules.MainStock
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Shader
@@ -20,8 +21,6 @@ import com.ageone.naladoni.Modules.MainStock.rows.MainStockTextViewHolder
 import com.ageone.naladoni.Modules.MainStock.rows.initialize
 import com.ageone.naladoni.Modules.MainStock.rows.*
 import com.ageone.naladoni.R
-import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
-import com.ageone.naladoni.UIComponents.ViewHolders.initialize
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -86,14 +85,16 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
 
         private val MainStockDescribeType = 0
         private val MainStockTextType = 1
-        private val MainStockButtomType = 2
-        private val MainStockQRCodType = 3
+        private val  MainStockDataTextType = 2
+        private val MainStockButtomType = 3
+        private val MainStockQRCodType = 4
 
         override fun getItemCount() = 8 //viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
             0 -> MainStockDescribeType
-            1, 2 -> MainStockTextType
+            1 -> MainStockTextType
+            2 -> MainStockDataTextType
             3 -> MainStockButtomType
             4 -> MainStockQRCodType
             else -> -1
@@ -113,6 +114,9 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                 }
                 MainStockTextType -> {
                     MainStockTextViewHolder(layout)
+                }
+                MainStockDataTextType -> {
+                    MainStockDataTextViewHolder(layout)
                 }
                 MainStockButtomType -> {
                     MainStockButtonViewHolder(layout)
@@ -142,25 +146,19 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                     )
                 }
                 is MainStockTextViewHolder -> {
-                    when (position) {
-                        1 -> {
-                            holder.initialize(
-                                position, rxData.currentStock?.longAbout ?: ""
-                            )
-                        }
-
-                        2 -> {
-                            holder.initialize(
-                                position,
-                                rxData.currentStock?.avaliableTo ?: 0,//TODO: change
-                                rxData.currentStock?.avaliableTo ?: 0
-                                )
-                        }
-                    }
+                    holder.initialize(rxData.currentStock?.longAbout ?: "")
                 }
+
+                is MainStockDataTextViewHolder ->{
+                    holder.initialize(
+                        rxData.currentStock?.avaliableTo ?: 0,//TODO: change
+                        rxData.currentStock?.avaliableTo ?: 0
+                    )
+                }
+
                 is MainStockButtonViewHolder -> {
                     holder.constraintLayout.backgroundColor = Color.WHITE
-                    holder.initialize("Как добраться?")
+                    holder.initialize()
                     holder.button.setOnClickListener {
                         rootModule.emitEvent?.invoke(MainStockViewModel.EventType.OnlouderMainStock.name)
                     }
@@ -169,8 +167,6 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                 is MainStockQRCodViewHolder -> {
                     holder.constraintLayout.backgroundColor = Color.WHITE
                     holder.initialize(
-                        "Получай выгоду!",
-                        "Количество воспользовавшихся предложением: ",
                         "146",
                         R.drawable.pic_qarcod,
                         "145 678 345"
