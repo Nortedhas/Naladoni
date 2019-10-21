@@ -125,7 +125,7 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 
                     holder.initialize("Изменить")
                     holder.button.setOnClickListener {
-                        emitEvent?.invoke(ChangeCityViewModel.EventType.OnlouderChangeCity.toString())
+                        emitEvent?.invoke(ChangeCityViewModel.EventType.OnlouderChangeCity.name)
 
                     }
                 }

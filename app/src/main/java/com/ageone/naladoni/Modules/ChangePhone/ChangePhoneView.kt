@@ -113,7 +113,7 @@ class ChangePhoneView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
                             alertManager.single("Неверный номер", "Введен неверный номер", null) { _, _ ->
                             }
                         }  else {
-                            rootModule.emitEvent?.invoke(ChangePhoneViewModel.EventType.OnlouderChangePhone.toString())
+                            rootModule.emitEvent?.invoke(ChangePhoneViewModel.EventType.OnlouderChangePhone.name)
                         }
 
                     }

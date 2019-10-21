@@ -34,7 +34,7 @@ fun MainStockButtonViewHolder.renderUI() {
     )
 
     button
-        .constrainTopToTopOf(constraintLayout,12)
+        .constrainTopToTopOf(constraintLayout,6)
         .constrainBottomToBottomOf(constraintLayout)
         .fillHorizontally(20)
 }

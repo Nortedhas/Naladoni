@@ -106,6 +106,7 @@ fun СardViewHolder.renderUI() {
 
     imageViewBottomFrame
         .constrainCenterYToBottomOf(imageViewLogo)
+        .width((utils.variable.displayWidth - 48) / 2 )
         .constrainLeftToLeftOf(imageViewLogo)
         .constrainRightToRightOf(imageViewLogo)
 

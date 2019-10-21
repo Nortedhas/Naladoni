@@ -98,7 +98,7 @@ fun LoadingScreenView.renderUIO() {
         }
 
         override fun onFinish() {
-            emitEvent?.invoke(LoadingScreenViewModel.EventType.OnRegistrationPhonePressed.toString())
+            emitEvent?.invoke(LoadingScreenViewModel.EventType.OnRegistrationPhonePressed.name)
         }
     }
     timer.start()
