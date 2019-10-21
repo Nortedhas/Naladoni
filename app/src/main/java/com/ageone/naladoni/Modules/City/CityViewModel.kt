@@ -13,15 +13,20 @@ import yummypets.com.stevia.textColor
 class CityViewModel : InterfaceViewModel {
     var model = CityModel()
 
+    enum class EventType{
+        OnAcceptCode
+    }
+
+    /*var realmData = listOf<>()
+           fun loadRealmData() {
+               realmData = utils.realm.product.getAllObjects()//TODO: change type data!
+           }*/
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
         if (recievedModel is CityModel) {
             model = recievedModel
             completion.invoke()
         }
-    }
-    enum class EventType{
-        OnAcceptCode
     }
 }
 

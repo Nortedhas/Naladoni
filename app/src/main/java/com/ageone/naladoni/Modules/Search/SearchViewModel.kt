@@ -12,6 +12,11 @@ class SearchViewModel : InterfaceViewModel {
         OnlouderSearch
     }
 
+    /*var realmData = listOf<>()
+       fun loadRealmData() {
+           realmData = utils.realm.product.getAllObjects()//TODO: change type data!
+       }*/
+
     var realmData = listOf<Stock>()
     fun loadRealmData(filter: String) {
         realmData = emptyList()

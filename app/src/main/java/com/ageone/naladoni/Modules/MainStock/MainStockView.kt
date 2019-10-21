@@ -19,9 +19,6 @@ import com.ageone.naladoni.Modules.MainStock.rows.MainStockQRCodViewHolder
 import com.ageone.naladoni.Modules.MainStock.rows.MainStockTextViewHolder
 import com.ageone.naladoni.Modules.MainStock.rows.initialize
 import com.ageone.naladoni.Modules.MainStock.rows.*
-import com.ageone.naladoni.R
-import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
-import com.ageone.naladoni.UIComponents.ViewHolders.initialize
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition

@@ -13,6 +13,11 @@ class MapViewModel : InterfaceViewModel {
 
     }
 
+    /*var realmData = listOf<>()
+    fun loadRealmData() {
+        realmData = utils.realm.product.getAllObjects()//TODO: change type data!
+    }*/
+
     var realmData = listOf<Stock>()
     fun loadRealmData() {
         realmData = utils.realm.stock.getAllObjects()
