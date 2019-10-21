@@ -147,21 +147,16 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                     )
                 }
                 is MainStockTextViewHolder -> {
-                    when (position) {
-                        1 -> {
-                            holder.initialize(
-                               rxData.currentStock?.longAbout ?: ""
-                            )
-                        }
-
-                        2 -> {
-                            holder.initialize(
-                                rxData.currentStock?.avaliableTo ?: 0,//TODO: change
-                                rxData.currentStock?.avaliableTo ?: 0
-                                )
-                        }
-                    }
+                    holder.initialize(rxData.currentStock?.longAbout ?: "")
                 }
+
+                is MainStockDataTextViewHolder ->{
+                    holder.initialize(
+                        rxData.currentStock?.avaliableTo ?: 0,//TODO: change
+                        rxData.currentStock?.avaliableTo ?: 0
+                    )
+                }
+
                 is MainStockButtonViewHolder -> {
                     holder.constraintLayout.backgroundColor = Color.WHITE
                     holder.initialize()
