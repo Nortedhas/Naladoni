@@ -177,11 +177,8 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
 
         override fun onBindViewHolder(holder: MapDiscountCardViewHolder, position: Int) {
             val stock = viewModel.realmData[position]
-            holder.initialize(
-                stock.name,
-                stock.shortAbout,
-                R.drawable.pic_food_map
-            )
+            holder.initialize(stock.name, stock.shortAbout,all_icons[position])
+
             holder.buttonUse.setOnClickListener {
                 emitEvent?.invoke(MapViewModel.EventType.OnlouderMap.name)
 

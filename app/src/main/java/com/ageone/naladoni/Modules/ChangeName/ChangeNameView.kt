@@ -4,7 +4,6 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
-import com.ageone.naladoni.External.Base.EditText.limitLength
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
@@ -12,10 +11,6 @@ import com.ageone.naladoni.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.External.Libraries.Alert.alertManager
 import com.ageone.naladoni.External.Libraries.Alert.single
-import com.ageone.naladoni.External.Utils.Validation.isValidPhone
-import com.ageone.naladoni.External.Utils.Validation.isValidText
-import com.ageone.naladoni.Modules.Auth.AuthViewModel
-import com.ageone.naladoni.Modules.ChangeSMS.ChangeSMSViewModel
 import com.ageone.naladoni.R
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.InputViewHolder
@@ -107,10 +102,12 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                 is ButtonViewHolder -> {
                     holder.initialize("Изменить")
                     holder.button.setOnClickListener {
-                        if (!viewModel.model.inputName.isValidText()) {
-                            alertManager.single("Неверное имя", "Введено неверное имя", null) { _, _ ->
+                        if (viewModel.model.inputName.isBlank()) {
+                            alertManager.single("Неверное имя", "Имя не введено", null) { _, _ ->
                             }
-                        }else {
+                        } else if (viewModel.model.inputName.length < 6) { alertManager.single("Неверное имя", "Имя введено неверно", null) { _, _ ->
+                            }
+                        } else {
 
                             rootModule.emitEvent?.invoke(ChangeNameViewModel.EventType.OnlouderChangeName.toString())
                         }

@@ -5,15 +5,6 @@ import java.util.regex.Pattern.compile
 fun String.isValidPhone() : Boolean {
     return length == "+7 (965) 865-82-56".length
 }
-fun String.isValidText() : Boolean {
-    return length > "+++".length
-}
-fun String.isValidTextAuto() : Boolean {
-    return length >= "++++++".length
-}
-fun String.isValidSMSCod() : Boolean {
-    return length == "0000".length
-}
 
 fun String.isValidEmail() : Boolean {
     val emailRegex = compile("(?:[a-zA-Z0-9!#$%\\&‘*+/=?\\^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%\\&'*+/=?\\^_`{|}" +

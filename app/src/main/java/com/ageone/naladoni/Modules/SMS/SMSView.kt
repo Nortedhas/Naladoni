@@ -16,14 +16,7 @@ import com.ageone.naladoni.External.HTTP.update
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.External.Libraries.Alert.alertManager
 import com.ageone.naladoni.External.Libraries.Alert.single
-import com.ageone.naladoni.External.Utils.Validation.isValidSMSCod
 import com.ageone.naladoni.Models.User.user
-import com.ageone.naladoni.External.Libraries.Alert.alertManager
-import com.ageone.naladoni.External.Libraries.Alert.single
-import com.ageone.naladoni.External.Utils.Validation.isValidPhone
-import com.ageone.naladoni.External.Utils.Validation.isValidSMSCod
-import com.ageone.naladoni.Modules.Auth.AuthViewModel
-import com.ageone.naladoni.Modules.City.CityViewModel
 import com.ageone.naladoni.Modules.SMS.rows.SMSTextViewHolder
 import com.ageone.naladoni.Modules.SMS.rows.initialize
 import com.ageone.naladoni.Modules.SMSViewModel
@@ -129,7 +122,7 @@ class SMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                     holder.initialize("Подтверждаю")
 
                     holder.button.setOnClickListener {
-                        if (!viewModel.model.code.isValidSMSCod()) {
+                        if (viewModel.model.code.length < 4) {
                             alertManager.single("Неверный код", "Введен неверный код", null) { _, _ ->
                             }
                         } else {
