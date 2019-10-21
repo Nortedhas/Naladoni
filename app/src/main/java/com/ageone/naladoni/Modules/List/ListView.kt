@@ -6,6 +6,7 @@ import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ageone.naladoni.R
 import com.ageone.naladoni.Application.currentActivity
+import com.ageone.naladoni.Application.rxData
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
@@ -96,6 +97,8 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                     )
 
                     holder.viewCard.setOnClickListener {
+                        rxData.currentStock = stock
+
                         rootModule.emitEvent?.invoke(ListViewModel.EventType.OnlouderList.toString())
 
                     }

@@ -130,11 +130,12 @@ fun MainStockDescribeViewHolder.renderUI() {
 
 }
 
-fun MainStockDescribeViewHolder.initialize(title_text: String, describe: String, text_logo: String, image_logo: Int) {
+fun MainStockDescribeViewHolder.initialize(title_text: String, text_logo: String, image_logo: Int,
+                                           from: String, to: String, fromHolidays: String, toHolidays: String) {
 
     textViewLogo.text = text_logo
     textViewTitle.text = title_text
-    textViewDescribe.text = describe
+    textViewDescribe.text = "пн-пт: $from до $to. сб-вс: $fromHolidays до $toHolidays"
     addImageFromGlide(imageIconView, image_logo,0)
 
 }
