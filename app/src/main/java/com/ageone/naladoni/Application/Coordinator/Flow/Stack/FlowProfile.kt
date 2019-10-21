@@ -5,12 +5,15 @@ import com.ageone.naladoni.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.naladoni.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.ageone.naladoni.Application.Coordinator.Router.DataFlow
 import com.ageone.naladoni.Application.Coordinator.Router.TabBar.Stack
+import com.ageone.naladoni.Application.api
 import com.ageone.naladoni.Application.coordinator
+import com.ageone.naladoni.Application.router
 import com.ageone.naladoni.External.Base.Flow.BaseFlow
 import com.ageone.naladoni.External.Base.Module.Module
 import com.ageone.naladoni.External.Extensions.FlowCoordinator.logout
 import com.ageone.naladoni.External.Icon
 import com.ageone.naladoni.External.InitModuleUI
+import com.ageone.naladoni.Models.User.user
 import com.ageone.naladoni.Modules.AboutCompany.AboutCompanyModel
 import com.ageone.naladoni.Modules.AboutCompany.AboutCompanyView
 import com.ageone.naladoni.Modules.AboutCompany.AboutCompanyViewModel
@@ -31,6 +34,7 @@ import com.ageone.naladoni.Modules.Profile.ProfileModel
 import com.ageone.naladoni.Modules.Profile.ProfileView
 import com.ageone.naladoni.Modules.Profile.ProfileViewModel
 import com.ageone.naladoni.R
+import io.realm.Realm
 import timber.log.Timber
 
 fun FlowCoordinator.runFlowProfile() {
@@ -198,9 +202,8 @@ class FlowProfile : BaseFlow() {
         module.emitEvent = { event ->
             when (ChangeCityViewModel.EventType.valueOf(event)) {
                 ChangeCityViewModel.EventType.OnClickChangeCity -> {
-
-                    runModuleProfile()
-                }
+                    router.onBackPressed()
+//                    runModuleProfile()
             }
         }
         push(module)

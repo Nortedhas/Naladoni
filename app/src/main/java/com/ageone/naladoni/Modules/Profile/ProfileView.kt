@@ -7,6 +7,8 @@ import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.InitModuleUI
+import com.ageone.naladoni.External.RxBus.RxBus
+import com.ageone.naladoni.External.RxBus.RxEvent
 import com.ageone.naladoni.Models.User.user
 import com.ageone.naladoni.Modules.Profile.rows.*
 import com.ageone.naladoni.R
@@ -36,11 +38,11 @@ class ProfileView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(init
     }
 
     fun bindUI() {
-        /*compositeDisposable.add(
-          RxBus.listen(RxEvent.Event::class.java).subscribe {//TODO: change type event
+        compositeDisposable.add(
+          RxBus.listen(RxEvent.EventChangeCity::class.java).subscribe {//TODO: change type event
               bodyTable.adapter?.notifyDataSetChanged()
           }
-      )*/
+      )
     }
 
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
