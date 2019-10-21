@@ -1,16 +1,30 @@
 package com.ageone.naladoni.Modules.MainStock
 
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.graphics.Shader
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.ageone.naladoni.Application.rxData
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.InitModuleUI
+import com.ageone.naladoni.Internal.Utilities.getIdCategoryIcon
+import com.ageone.naladoni.Modules.MainStock.rows.MainStockDescribeViewHolder
+import com.ageone.naladoni.Modules.MainStock.rows.MainStockQRCodViewHolder
+import com.ageone.naladoni.Modules.MainStock.rows.MainStockTextViewHolder
+import com.ageone.naladoni.Modules.MainStock.rows.initialize
 import com.ageone.naladoni.Modules.MainStock.rows.*
 import com.ageone.naladoni.R
+import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
+import com.ageone.naladoni.UIComponents.ViewHolders.initialize
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import yummypets.com.stevia.*
 
 
@@ -26,23 +40,35 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
     init {
 //        viewModel.loadRealmData()
 
-        val bmp = BitmapFactory.decodeResource(
-            resources,
-            R.drawable.pic_main_stock_top
-        )
-        val bitmapDrawable = BitmapDrawable(resources, bmp)
-        bitmapDrawable.setTileModeXY(
-            Shader.TileMode.REPEAT,
-            Shader.TileMode.REPEAT
-        )
-        background = bitmapDrawable
+        Glide.with(this)
+            .asBitmap()
+            .load(rxData.currentStock?.image?.original ?: "")
+            .into(object : CustomTarget<Bitmap>(){
+                override fun onResourceReady(
+                    resource: Bitmap,
+                    transition: Transition<in Bitmap>?
+                ) {
+                    val bitmapDrawable = BitmapDrawable(resources, resource)
+                    bitmapDrawable.setTileModeXY(
+                        Shader.TileMode.REPEAT,
+                        Shader.TileMode.REPEAT
+                    )
+                    background = bitmapDrawable
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {
+                    // this is called when imageView is cleared on lifecycle call or for
+                    // some other reason.
+                    // if you are referencing the bitmap somewhere else too other than this imageView
+                    // clear it here as you can no longer have the bitmap
+                }
+            })
 
         toolbar.title = ""
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
-//        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
-
+        bodyTable.overScrollMode = View.OVER_SCROLL_NEVER
 
         renderUIO()
         bindUI()
@@ -63,7 +89,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
         private val MainStockButtomType = 2
         private val MainStockQRCodType = 3
 
-        override fun getItemCount() = 8//viewModel.realmData.size
+        override fun getItemCount() = 8 //viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
             0 -> MainStockDescribeType
@@ -107,35 +133,47 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
             when (holder) {
                 is MainStockDescribeViewHolder -> {
                     holder.initialize(
-                        "пн-пт: 10:00 до 18:00. сб-вс: 09:00 до 16:00",
-                        "Вкусная шаверма",
-                        R.drawable.ic_category_0
+                        rxData.currentStock?.name ?: "",
+                        getIdCategoryIcon(rxData.currentStock?.category?.serialNum ?: 0),
+                        rxData.currentStock?.workTimeFrom ?: "",
+                        rxData.currentStock?.workTimeTo ?: "",
+                        rxData.currentStock?.workTimeFrom ?: "",//TODO: change
+                        rxData.currentStock?.workTimeTo ?: ""//TODO: change
                     )
                 }
                 is MainStockTextViewHolder -> {
                     when (position) {
                         1 -> {
                             holder.initialize(
-                                position, "Равным образом новая модель" +
-                                        " организационной деятельности способствует подготовки и реализации " +
-                                        "соответствующий условий активизации. Не следует, однако забывать."
+                                position, rxData.currentStock?.longAbout ?: ""
                             )
                         }
 
                         2 -> {
-                            holder.initialize(position, "с 25.08.2019 до 30.08.2019")
+                            holder.initialize(
+                                position,
+                                rxData.currentStock?.avaliableTo ?: 0,//TODO: change
+                                rxData.currentStock?.avaliableTo ?: 0
+                                )
                         }
                     }
                 }
                 is MainStockButtonViewHolder -> {
-                    holder.initialize()
+                    holder.constraintLayout.backgroundColor = Color.WHITE
+                    holder.initialize("Как добраться?")
                     holder.button.setOnClickListener {
                         rootModule.emitEvent?.invoke(MainStockViewModel.EventType.OnlouderMainStock.name)
                     }
                 }
 
                 is MainStockQRCodViewHolder -> {
-                    holder.initialize("146", R.drawable.pic_qarcod, "145 678 345"
+                    holder.constraintLayout.backgroundColor = Color.WHITE
+                    holder.initialize(
+                        "Получай выгоду!",
+                        "Количество воспользовавшихся предложением: ",
+                        "146",
+                        R.drawable.pic_qarcod,
+                        "145 678 345"
                     )
                 }
 

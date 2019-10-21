@@ -18,6 +18,7 @@ import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Extensions.Activity.startLocation
 import com.ageone.naladoni.External.InitModuleUI
+import com.ageone.naladoni.Internal.Utilities.getIdCategoryIcon
 import com.ageone.naladoni.Modules.Map.rows.MapDiscountCardViewHolder
 import com.ageone.naladoni.Modules.Map.rows.initialize
 import com.ageone.naladoni.R
@@ -172,26 +173,24 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         }
 
         override fun onBindViewHolder(holder: MapDiscountCardViewHolder, position: Int) {
+            if (position in viewModel.realmData.indices) {
+                val stock = viewModel.realmData[position]
+                holder.initialize(
+                    stock.name,
+                    stock.shortAbout,
+                    getIdCategoryIcon(stock.category?.serialNum ?: 0)
+                )
 
-            val stock = viewModel.realmData[position]
-            holder.initialize(
-                stock.name,
-                stock.shortAbout,
-                currentActivity?.resources?.getIdentifier(
-                    "drawable/ic_category_${stock.category?.serialNum ?: 0}",
-                    null, context.packageName) ?: R.drawable.ic_category_0
-            )
+                holder.buttonUse.setOnClickListener {
+                    emitEvent?.invoke(MapViewModel.EventType.OnlouderMap.name)
 
-            holder.buttonUse.setOnClickListener {
-                emitEvent?.invoke(MapViewModel.EventType.OnlouderMap.name)
-
+                }
             }
 
         }
 
-        }
     }
-
+}
 
 fun MapView.renderUIO() {
     innerContent.removeAllViews()
