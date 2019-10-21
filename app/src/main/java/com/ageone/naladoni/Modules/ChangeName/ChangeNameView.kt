@@ -102,10 +102,10 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                 is ButtonViewHolder -> {
                     holder.initialize("Изменить")
                     holder.button.setOnClickListener {
-                        if (viewModel.model.inputName.isBlank()) {
-                            alertManager.single("Неверное имя", "Имя не введено", null) { _, _ ->
-                            }
-                        } else if (viewModel.model.inputName.length < 6) { alertManager.single("Неверное имя", "Имя введено неверно", null) { _, _ ->
+                       if (viewModel.model.inputName.length < 3) {
+
+                           alertManager.single("Неверное имя", "Имя введено неверно", null) { _, _ ->
+
                             }
                         } else {
 
