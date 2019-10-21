@@ -28,6 +28,9 @@ import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.EditTextViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
+import android.view.View.OnFocusChangeListener
+import com.ageone.naladoni.External.Libraries.Alert.list
+
 
 class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
@@ -108,26 +111,27 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                 is EditTextViewHolder -> {
                     holder.editText.setText(user.info.city?.name)
 
-                    DataBase.City.fetch(""){ json ->
+                    DataBase.City.fetch("") { json ->
                         api.parser.parseAnyObject(json, DataBase.City)
 
-                        val cities = utils.realm.city.getAllObjects().map {
-                                city -> City(city.name, city.hashId)
+                        val cities = utils.realm.city.getAllObjects().map { city ->
+                            City(city.name, city.hashId)
                         }.toTypedArray()
-                        val citiesNames = utils.realm.city.getAllObjects().map { city -> city.name }.toTypedArray()
+                        val citiesNames = utils.realm.city.getAllObjects().map { city -> city.name }
+                            .toTypedArray()
 
-                        holder.editText.setOnClickListener{
+                        holder.editText.setOnClickListener {
                             currentActivity?.hideKeyboard()
-                            alertManager.list( "Выберите город", citiesNames) { _, index ->
+                            alertManager.list("Выберите город", citiesNames) { _, index ->
                                 holder.editText.setText(citiesNames[index])
                                 user.info.city = cities[index]
                             }
                         }
-
                     }
 
                     holder.editText.disableKeyboard()
                     innerContent.dismissFocus(holder.editText)
+
                 }
 
                 is ButtonViewHolder -> {

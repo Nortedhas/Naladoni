@@ -91,8 +91,9 @@ fun MainStockQRCodViewHolder.renderUI() {
         .fillHorizontally()
 }
 
-fun MainStockQRCodViewHolder.initialize(title:String, text:String, usesCount: Int, code: String, number: String) {
+fun MainStockQRCodViewHolder.initialize( usesCount: Int, code: String, number: String) {
     val counter = "$usesCount"
+    val text: String = "Количество воспользовавшихся предложением:"
 
     val spannableContent = SpannableString(text + counter)
     spannableContent.setSpan(
@@ -101,7 +102,7 @@ fun MainStockQRCodViewHolder.initialize(title:String, text:String, usesCount: In
 
     textDescribe.text = spannableContent
 
-    textTitle.text = title
+    textTitle.text = "Получай выгоду!"
     textNumber.text = number
 
     val myBitmap = QRCode.from("{" +

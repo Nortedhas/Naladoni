@@ -14,6 +14,11 @@ class ProfileViewModel : InterfaceViewModel {
 
     }
 
+    /*var realmData = listOf<>()
+       fun loadRealmData() {
+           realmData = utils.realm.product.getAllObjects()//TODO: change type data!
+       }*/
+
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
         if (recievedModel is ProfileModel) {
             model = recievedModel

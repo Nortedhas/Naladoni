@@ -100,7 +100,7 @@ class AboutCompanyView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule
 
             when (holder) {
                 is AboutCompanyLogoViewHolder -> {
-                    holder.initialize("Все акции твоего города ","NALADONI")
+                    holder.initialize()
                 }
 
                 is AboutCompanyTextViewHolder -> {

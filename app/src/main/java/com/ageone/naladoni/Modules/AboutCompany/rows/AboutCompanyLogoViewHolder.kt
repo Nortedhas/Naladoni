@@ -90,8 +90,8 @@ fun AboutCompanyLogoViewHolder.renderUI() {
 
 }
 
-fun AboutCompanyLogoViewHolder.initialize(describe: String, logo: String) {
+fun AboutCompanyLogoViewHolder.initialize() {
 
-    textViewDescribe.text = describe
-    textView.text = logo
+    textViewDescribe.text = "Все акции твоего города"
+    textView.text = "NALADONI"
 }

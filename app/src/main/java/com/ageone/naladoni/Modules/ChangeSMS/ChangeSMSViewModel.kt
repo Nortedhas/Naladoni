@@ -6,15 +6,20 @@ import com.ageone.naladoni.External.Interfaces.InterfaceViewModel
 class ChangeSMSViewModel : InterfaceViewModel {
     var model = ChangeSMSModel()
 
+    enum class EventType {
+        OnlouderChangeSMS
+    }
+
+    /*var realmData = listOf<>()
+      fun loadRealmData() {
+          realmData = utils.realm.product.getAllObjects()//TODO: change type data!
+      }*/
+
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
         if (recievedModel is ChangeSMSModel) {
             model = recievedModel
             completion.invoke()
         }
-    }
-
-    enum class EventType {
-        OnlouderChangeSMS
     }
 }
 
