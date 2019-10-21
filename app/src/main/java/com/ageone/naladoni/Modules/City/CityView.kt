@@ -131,8 +131,15 @@ class CityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                                 holder.editText.setText("${nearestCity.name}")
                             }
                         }
-
-
+                        holder.editText.setOnFocusChangeListener { _, hasFocus ->
+                            if (hasFocus) {
+                                currentActivity?.hideKeyboard()
+                                alertManager.list("Выберите город", citiesNames) { _, index ->
+                                    holder.editText.setText(citiesNames[index])
+                                    user.info.city = cities[index]
+                                }
+                            }
+                        }
 
                         holder.editText.setOnClickListener{
                             currentActivity?.hideKeyboard()
