@@ -21,4 +21,5 @@ class RxEvent {
     class EventChangeFilterIndex
 
     class EventReloadStocks
+    class EventChangeCity
 }

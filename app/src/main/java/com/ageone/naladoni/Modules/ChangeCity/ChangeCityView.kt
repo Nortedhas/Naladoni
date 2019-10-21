@@ -30,6 +30,8 @@ import com.ageone.naladoni.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
 import android.view.View.OnFocusChangeListener
 import com.ageone.naladoni.External.Libraries.Alert.list
+import com.ageone.naladoni.External.RxBus.RxBus
+import com.ageone.naladoni.External.RxBus.RxEvent
 
 
 class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -138,6 +140,7 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
 
                     holder.initialize("Изменить")
                     holder.button.setOnClickListener {
+                        RxBus.publish(RxEvent.EventChangeCity())
                         emitEvent?.invoke(ChangeCityViewModel.EventType.OnlouderChangeCity.name)
 
                     }

@@ -7,6 +7,7 @@ import com.ageone.naladoni.Application.Coordinator.Router.DataFlow
 import com.ageone.naladoni.Application.Coordinator.Router.TabBar.Stack
 import com.ageone.naladoni.Application.api
 import com.ageone.naladoni.Application.coordinator
+import com.ageone.naladoni.Application.router
 import com.ageone.naladoni.External.Base.Flow.BaseFlow
 import com.ageone.naladoni.External.Base.Module.Module
 import com.ageone.naladoni.External.Extensions.FlowCoordinator.logout
@@ -201,8 +202,8 @@ class FlowProfile : BaseFlow() {
         module.emitEvent = { event ->
             when (ChangeCityViewModel.EventType.valueOf(event)) {
                 ChangeCityViewModel.EventType.OnlouderChangeCity -> {
-
-                    runModuleProfile()
+                    router.onBackPressed()
+//                    runModuleProfile()
                 }
             }
         }
