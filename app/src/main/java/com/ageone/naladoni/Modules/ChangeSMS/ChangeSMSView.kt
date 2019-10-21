@@ -3,6 +3,7 @@ package com.ageone.naladoni.Modules.ChangeSMS
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
+import com.ageone.naladoni.Application.api
 import com.ageone.naladoni.Application.router
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.naladoni.External.Base.EditText.limitLength
@@ -13,9 +14,13 @@ import com.ageone.naladoni.External.Base.TextInputLayout.InputEditTextType
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.External.Libraries.Alert.alertManager
 import com.ageone.naladoni.External.Libraries.Alert.single
+import com.ageone.naladoni.External.RxBus.RxBus
+import com.ageone.naladoni.External.RxBus.RxEvent
+import com.ageone.naladoni.Models.User.user
 import com.ageone.naladoni.Modules.ChangeSMS.rows.ChangeSMSTextViewHolder
 import com.ageone.naladoni.Modules.ChangeSMS.rows.initialize
 import com.ageone.naladoni.R
+import com.ageone.naladoni.SCAG.userData
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.InputViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.initialize
@@ -117,6 +122,17 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(ini
                             }
                         } else {
                             timerSMS?.cancel()
+
+                            api.request(
+                                mapOf(
+                                    "router" to "codeCheck",
+                                    "phone" to viewModel.model.inputPhone,
+                                    "code" to viewModel.model.code
+                                ), isErrorShown = true
+                            ) { json ->
+                                user.data.phone = viewModel.model.inputPhone
+                            }
+                            RxBus.publish(RxEvent.EventChangePhone())
                             rootModule.emitEvent?.invoke(ChangeSMSViewModel.EventType.OnClickChangeSMS.name)
 
                         }

@@ -3,6 +3,7 @@ package com.ageone.naladoni.Modules.ChangePhone
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.widget.doOnTextChanged
+import com.ageone.naladoni.Application.api
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
@@ -12,6 +13,8 @@ import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.External.Libraries.Alert.alertManager
 import com.ageone.naladoni.External.Libraries.Alert.single
 import com.ageone.naladoni.External.Utils.Validation.isValidPhone
+import com.ageone.naladoni.External.Utils.Validation.toCorrectPhone
+import com.ageone.naladoni.Modules.Auth.AuthViewModel
 import com.ageone.naladoni.R
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.InputViewHolder
@@ -112,7 +115,13 @@ class ChangePhoneView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
                             alertManager.single("Неверный номер", "Введен неверный номер", null) { _, _ ->
                             }
                         }  else {
-                            rootModule.emitEvent?.invoke(ChangePhoneViewModel.EventType.OnClickChangePhone.name)
+                            var phone = viewModel.model.inputPhone.toCorrectPhone()
+                            api.request(mapOf(
+                                "router" to "phoneAuth",
+                                "phone" to phone)){
+                                rootModule.emitEvent?.invoke(ChangePhoneViewModel.EventType.OnClickChangePhone.name)
+                            }
+
                         }
 
                     }

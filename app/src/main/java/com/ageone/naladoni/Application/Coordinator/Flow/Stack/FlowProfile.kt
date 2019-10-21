@@ -141,7 +141,6 @@ class FlowProfile : BaseFlow() {
             when (ChangeNameViewModel.EventType.valueOf(event)) {
                 ChangeNameViewModel.EventType.OnClickChangeName -> {
                     router.onBackPressed()
-//                    runModuleProfile()
                 }
             }
         }
@@ -163,7 +162,7 @@ class FlowProfile : BaseFlow() {
         module.emitEvent = { event ->
             when (ChangePhoneViewModel.EventType.valueOf(event)) {
                 ChangePhoneViewModel.EventType.OnClickChangePhone -> {
-
+                    models.modelChangeSMS.inputPhone = models.modelChangePhone.inputPhone
                     runModuleChangeSMS()
                 }
             }
@@ -186,8 +185,7 @@ class FlowProfile : BaseFlow() {
         module.emitEvent = { event ->
             when (ChangeSMSViewModel.EventType.valueOf(event)) {
                 ChangeSMSViewModel.EventType.OnClickChangeSMS -> {
-
-                    runModuleProfile()
+                    router.onBackPressed()
                 }
             }
         }
@@ -210,7 +208,6 @@ class FlowProfile : BaseFlow() {
             when (ChangeCityViewModel.EventType.valueOf(event)) {
                 ChangeCityViewModel.EventType.OnClickChangeCity -> {
                     router.onBackPressed()
-//                    runModuleProfile()
                 }
             }
             push(module)
