@@ -20,14 +20,17 @@ import java.util.*
 class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
     val viewModel = ListViewModel()
+
     val viewAdapter by lazy {
         val viewAdapter = Factory(this)
         viewAdapter
     }
+
     val layoutManager by lazy {
         val layoutManager = GridLayoutManager(currentActivity, 2)
         layoutManager
     }
+
     init {
         viewModel.loadRealmData()
 
@@ -78,7 +81,6 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
             return holder
         }
 
-        val format = SimpleDateFormat("dd.MM.yyyy")
 
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
@@ -89,7 +91,7 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                     holder.initialize(
                         stock.shortAbout,
                         stock.name,
-                        "до ${format.format(Date(stock.avaliableTo.toLong()))}",
+                        stock.avaliableTo,
                         stock.image?.preview ?: ""
                     )
 

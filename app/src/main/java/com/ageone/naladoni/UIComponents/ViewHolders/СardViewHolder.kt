@@ -13,6 +13,8 @@ import com.ageone.naladoni.External.Base.TextView.BaseTextView
 import com.ageone.naladoni.External.Base.View.BaseView
 import com.ageone.naladoni.External.Libraries.Glide.addImageFromGlide
 import yummypets.com.stevia.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class СardViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
 
@@ -68,6 +70,9 @@ class СardViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(c
         textView.setBackgroundColor(Color.TRANSPARENT)
         textView
     }
+
+    val format = SimpleDateFormat("dd.MM.yyyy")
+
     init {
 
         renderUI()
@@ -119,11 +124,11 @@ fun СardViewHolder.renderUI() {
 
 }
 
-fun СardViewHolder.initialize(describe: String, logo: String, date: String, photo_logo: String) {
+fun СardViewHolder.initialize(describe: String, logo: String, date: Int, photo_logo: String) {
 
     textViewDescribe.text = describe
     textViewLogo.text = logo
-    textViewDate.text = date
+    textViewDate.text = "до ${format.format(Date(date.toLong()))}"
     addImageFromGlide(imageViewLogo, photo_logo,0)
 
 }

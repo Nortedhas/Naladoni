@@ -172,6 +172,7 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         }
 
         override fun onBindViewHolder(holder: MapDiscountCardViewHolder, position: Int) {
+
             val stock = viewModel.realmData[position]
             holder.initialize(
                 stock.name,
