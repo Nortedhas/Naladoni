@@ -166,8 +166,8 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                     holder.initialize(
                         "Получай выгоду!",
                         "Количество воспользовавшихся предложением: ",
-                        "146",
-                        R.drawable.pic_qarcod,
+                        rxData.currentStock?.usesNum ?: 0,
+                        rxData.currentStock?.code ?: "0",
                         rxData.currentStock?.code ?: "0"
                     )
                 }

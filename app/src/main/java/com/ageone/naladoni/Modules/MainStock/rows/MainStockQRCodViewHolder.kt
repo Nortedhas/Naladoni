@@ -10,8 +10,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.ageone.naladoni.External.Base.ImageView.BaseImageView
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.TextView.BaseTextView
-import com.ageone.naladoni.External.Libraries.Glide.addImageFromGlide
 import yummypets.com.stevia.*
+import com.ageone.naladoni.Models.User.user
+import net.glxn.qrgen.android.QRCode
+
 
 class MainStockQRCodViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
 
@@ -89,14 +91,22 @@ fun MainStockQRCodViewHolder.renderUI() {
         .fillHorizontally()
 }
 
-fun MainStockQRCodViewHolder.initialize(title:String, text:String, counter:String, qr_cod: Int, number: String) {
+fun MainStockQRCodViewHolder.initialize(title:String, text:String, usesCount: Int, code: String, number: String) {
+    val counter = "$usesCount"
 
     val spannableContent = SpannableString(text + counter)
     spannableContent.setSpan(
         ForegroundColorSpan(Color.parseColor("#f2842d")),
         text.length,  text.length + counter.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+
     textDescribe.text = spannableContent
+
     textTitle.text = title
     textNumber.text = number
-    addImageFromGlide(imageQRCod, qr_cod)
+
+    val myBitmap = QRCode.from("{" +
+            "\"clientHashId\":\"${user.hashId}\", " +
+            "\"code\":\"$code\"}"
+            ).bitmap()
+    imageQRCod.setImageBitmap(myBitmap)
 }
