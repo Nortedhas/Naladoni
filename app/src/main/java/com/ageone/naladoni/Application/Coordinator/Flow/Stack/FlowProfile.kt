@@ -140,8 +140,8 @@ class FlowProfile : BaseFlow() {
         module.emitEvent = { event ->
             when (ChangeNameViewModel.EventType.valueOf(event)) {
                 ChangeNameViewModel.EventType.OnlouderChangeName -> {
-
-                    runModuleProfile()
+                    router.onBackPressed()
+//                    runModuleProfile()
                 }
             }
         }

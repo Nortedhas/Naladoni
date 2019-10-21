@@ -1,6 +1,5 @@
 package com.ageone.naladoni.Modules.ChangeCity
 
-import com.ageone.naladoni.Application.utils
 import com.ageone.naladoni.External.Interfaces.InterfaceModel
 import com.ageone.naladoni.External.Interfaces.InterfaceViewModel
 

@@ -8,10 +8,15 @@ import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.Base.TextInputLayout.InputEditTextType
+import com.ageone.naladoni.External.HTTP.update
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.External.Libraries.Alert.alertManager
 import com.ageone.naladoni.External.Libraries.Alert.single
+import com.ageone.naladoni.External.RxBus.RxBus
+import com.ageone.naladoni.External.RxBus.RxEvent
+import com.ageone.naladoni.Models.User.user
 import com.ageone.naladoni.R
+import com.ageone.naladoni.SCAG.DataBase
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.InputViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.initialize
@@ -32,7 +37,6 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
         setBackgroundResource(R.drawable.base_background)//TODO: set background
 
         toolbar.title = "Имя и фамилия"
-
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
@@ -102,13 +106,15 @@ class ChangeNameView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                 is ButtonViewHolder -> {
                     holder.initialize("Изменить")
                     holder.button.setOnClickListener {
-                       if (viewModel.model.inputName.length < 3) {
-
-                           alertManager.single("Неверное имя", "Имя введено неверно", null) { _, _ ->
-
-                            }
+                        if (viewModel.model.inputName.length < 3) {
+                            alertManager.single("Неверное имя", "Имя введено неверно", null) { _, _ -> }
                         } else {
-
+                            DataBase.User.update(
+                                user.hashId,
+                                mapOf("name" to viewModel.model.inputName)
+                            )
+                            user.data.name = viewModel.model.inputName
+                            RxBus.publish(RxEvent.EventChangeName())
                             rootModule.emitEvent?.invoke(ChangeNameViewModel.EventType.OnlouderChangeName.name)
                         }
 

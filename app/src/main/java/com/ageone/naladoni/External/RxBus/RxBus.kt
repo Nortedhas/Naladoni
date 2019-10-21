@@ -22,4 +22,5 @@ class RxEvent {
 
     class EventReloadStocks
     class EventChangeCity
+    class EventChangeName
 }
