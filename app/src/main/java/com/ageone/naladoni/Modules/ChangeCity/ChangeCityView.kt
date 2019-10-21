@@ -119,7 +119,14 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                         }.toTypedArray()
                         val citiesNames = utils.realm.city.getAllObjects().map { city -> city.name }
                             .toTypedArray()
-
+                        holder.editText.setOnFocusChangeListener { _, hasFocus ->
+                            if (hasFocus) {
+                                currentActivity?.hideKeyboard()
+                                alertManager.list("Выберите город", citiesNames) { _, index ->
+                                    holder.editText.setText(citiesNames[index])
+                                    user.info.city = cities[index]
+                                }
+                            }}
                         holder.editText.setOnClickListener {
                             currentActivity?.hideKeyboard()
                             alertManager.list("Выберите город", citiesNames) { _, index ->
