@@ -2,21 +2,20 @@ package com.ageone.naladoni.Modules.ChangeCity
 
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.ageone.naladoni.Application.currentActivity
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
 import com.ageone.naladoni.External.Base.EditText.disableKeyboard
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
-import com.ageone.naladoni.External.Extensions.Activity.hideKeyboard
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.External.Libraries.Alert.alertManager
-import com.ageone.naladoni.External.Libraries.Alert.list
-import com.ageone.naladoni.R
 import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.EditTextViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
+import android.view.View.OnFocusChangeListener
+import com.ageone.naladoni.External.Libraries.Alert.list
+
 
 class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
@@ -31,7 +30,7 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
     init {
 //        viewModel.loadRealmData()
 
-        setBackgroundResource(R.drawable.base_background)
+        setBackgroundResource(com.ageone.naladoni.R.drawable.base_background)
 
         toolbar.title = "Город"
 
@@ -97,8 +96,26 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
             when (holder) {
                 is EditTextViewHolder -> {
                     holder.initialize("","Выберите город")
+                    holder.editText.setOnFocusChangeListener { _, hasFocus ->
+                        if (hasFocus) {
+                            alertManager.list( "Выберите город", city) { _, int ->
+                                when (int) {
+                                    0 -> {
+                                        holder.editText.setText(
+                                            city[0])
+                                    }
+                                    1 -> {
+                                        holder.editText.setText(
+                                            city[1])
+                                    }
+                                }
+
+                            }
+
+                        }
+                    }
                     holder.editText.setOnClickListener{
-                        currentActivity?.hideKeyboard()
+                      //  currentActivity?.hideKeyboard()
                         alertManager.list( "Выберите город", city) { _, int ->
                             when (int) {
                                 0 -> {
