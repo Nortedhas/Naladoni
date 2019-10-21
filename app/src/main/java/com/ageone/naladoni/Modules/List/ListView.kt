@@ -14,6 +14,8 @@ import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.UIComponents.ViewHolders.СardViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
 
@@ -27,7 +29,7 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
         layoutManager
     }
     init {
-//        viewModel.loadRealmData()
+        viewModel.loadRealmData()
 
         setBackgroundResource(R.drawable.base_background)
 
@@ -52,7 +54,7 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
 
         private val ListСardType = 0
 
-        override fun getItemCount() = 10//viewModel.realmData.size
+        override fun getItemCount() = viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = ListСardType
 
@@ -76,12 +78,21 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
             return holder
         }
 
+        val format = SimpleDateFormat("dd.MM.yyyy")
+
         override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
 
             when (holder) {
                 is СardViewHolder -> {
-                    holder.initialize("Скидка 500 при покупке от 2500",
-                        "Nike","до 12.08.2019", R.drawable.pic_hm)
+                    val stock = viewModel.realmData[position]
+
+                    holder.initialize(
+                        stock.shortAbout,
+                        stock.name,
+                        "до ${format.format(Date(stock.avaliableTo.toLong()))}",
+                        stock.image?.preview ?: ""
+                    )
+
                     holder.viewCard.setOnClickListener {
                         rootModule.emitEvent?.invoke(ListViewModel.EventType.OnlouderList.toString())
 

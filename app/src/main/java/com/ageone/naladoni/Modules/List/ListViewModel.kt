@@ -1,7 +1,9 @@
 package com.ageone.naladoni.Modules.List
 
+import com.ageone.naladoni.Application.utils
 import com.ageone.naladoni.External.Interfaces.InterfaceModel
 import com.ageone.naladoni.External.Interfaces.InterfaceViewModel
+import com.ageone.naladoni.SCAG.Stock
 
 class ListViewModel : InterfaceViewModel {
     var model = ListModel()
@@ -9,6 +11,11 @@ class ListViewModel : InterfaceViewModel {
     enum class EventType {
         OnlouderList
 
+    }
+
+    var realmData = listOf<Stock>()
+    fun loadRealmData() {
+        realmData = utils.realm.stock.getAllObjects()
     }
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {

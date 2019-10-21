@@ -12,28 +12,24 @@ import androidx.core.view.size
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ageone.naladoni.Application.currentActivity
 import com.ageone.naladoni.Application.mapView
-import com.ageone.naladoni.Application.mapViewHowGo
 import com.ageone.naladoni.External.Base.ImageView.BaseImageView
-import com.ageone.naladoni.External.Base.Map.geodecodeByCoordinates
 import com.ageone.naladoni.External.Base.Map.setMyLocation
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Extensions.Activity.startLocation
 import com.ageone.naladoni.External.InitModuleUI
-import com.ageone.naladoni.External.RxBus.RxBus
-import com.ageone.naladoni.External.RxBus.RxEvent
-import com.ageone.naladoni.Modules.List.ListViewModel
 import com.ageone.naladoni.Modules.Map.rows.MapDiscountCardViewHolder
 import com.ageone.naladoni.Modules.Map.rows.initialize
 import com.ageone.naladoni.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import timber.log.Timber
 import yummypets.com.stevia.*
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
+
 
 class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModuleUI) {
 
@@ -177,7 +173,13 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
 
         override fun onBindViewHolder(holder: MapDiscountCardViewHolder, position: Int) {
             val stock = viewModel.realmData[position]
-            holder.initialize(stock.name, stock.shortAbout,all_icons[position])
+            holder.initialize(
+                stock.name,
+                stock.shortAbout,
+                currentActivity?.resources?.getIdentifier(
+                    "drawable/ic_category_${stock.category?.serialNum ?: 0}",
+                    null, context.packageName) ?: R.drawable.ic_category_0
+            )
 
             holder.buttonUse.setOnClickListener {
                 emitEvent?.invoke(MapViewModel.EventType.OnlouderMap.name)

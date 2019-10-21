@@ -137,7 +137,7 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
                         is СardViewHolder -> {
                             holder.initialize(
                                 "Скидка 500 при покупке от 2500",
-                                "Nike", "до 12.08.2019", R.drawable.pic_washing
+                                "Nike", "до 12.08.2019", ""
                             )
                             holder.viewCard.setOnClickListener {
                                 rootModule.emitEvent?.invoke(SearchViewModel.EventType.OnlouderSearch.toString())

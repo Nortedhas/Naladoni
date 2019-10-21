@@ -119,7 +119,7 @@ fun СardViewHolder.renderUI() {
 
 }
 
-fun СardViewHolder.initialize(describe: String, logo: String, date: String, photo_logo: Int) {
+fun СardViewHolder.initialize(describe: String, logo: String, date: String, photo_logo: String) {
 
     textViewDescribe.text = describe
     textViewLogo.text = logo
