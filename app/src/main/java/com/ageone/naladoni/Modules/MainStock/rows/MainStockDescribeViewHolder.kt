@@ -98,6 +98,7 @@ fun MainStockDescribeViewHolder.renderUI() {
         .constrainLeftToLeftOf(constraintLayout)
         .constrainRightToRightOf(constraintLayout)
         .constrainCenterYToTopOf(view)
+
     imageIconView
         .height(32)
         .width(32)

@@ -99,7 +99,7 @@ class ListView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initMod
                     holder.viewCard.setOnClickListener {
                         rxData.currentStock = stock
 
-                        rootModule.emitEvent?.invoke(ListViewModel.EventType.OnlouderList.toString())
+                        rootModule.emitEvent?.invoke(ListViewModel.EventType.OnlouderList.name)
 
                     }
                 }

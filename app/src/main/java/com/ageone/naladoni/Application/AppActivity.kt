@@ -61,7 +61,7 @@ class AppActivity: BaseActivity() {
 
         FuelManager.instance.basePath = DataBase.url
 
-        user.isAuthorized = false //TODO: change after add registration
+//        user.isAuthorized = false //TODO: change after add registration
         coordinator.setLaunchScreen()
         Promise<Unit> { resolve, _ ->
 
