@@ -127,10 +127,7 @@ class AuthView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModu
                         if (!viewModel.model.inputPhone.isValidPhone()) {
                             alertManager.single("Неверный номер", "Введен неверный номер", null) {_,_ ->
                             }
-                        }  else if (viewModel.model.inputName.isBlank()){
-                            alertManager.single("Неверное имя", "Имя не введено", null) {_,_ ->
-                            }
-                        } else if (viewModel.model.inputName.length < 6){
+                        }else if (viewModel.model.inputName.length < 3){
                             alertManager.single("Неверное имя", "Имя введено неверно", null) {_,_ ->
                             }
                         }else {
