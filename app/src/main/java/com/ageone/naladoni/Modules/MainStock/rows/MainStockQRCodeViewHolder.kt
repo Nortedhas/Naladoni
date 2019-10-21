@@ -15,7 +15,7 @@ import com.ageone.naladoni.Models.User.user
 import net.glxn.qrgen.android.QRCode
 
 
-class MainStockQRCodViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
+class MainStockQRCodeViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHolder(constraintLayout) {
 
     val textTitle by lazy {
         val text = BaseTextView()
@@ -61,7 +61,7 @@ class MainStockQRCodViewHolder(val constraintLayout: ConstraintLayout) : BaseVie
 
 }
 
-fun MainStockQRCodViewHolder.renderUI() {
+fun MainStockQRCodeViewHolder.renderUI() {
 
     constraintLayout.subviews(
         textTitle,
@@ -91,7 +91,7 @@ fun MainStockQRCodViewHolder.renderUI() {
         .fillHorizontally()
 }
 
-fun MainStockQRCodViewHolder.initialize( usesCount: Int, code: String, number: String) {
+fun MainStockQRCodeViewHolder.initialize(usesCount: Int, code: String, number: String) {
     val counter = "$usesCount"
     val text: String = "Количество воспользовавшихся предложением:"
 

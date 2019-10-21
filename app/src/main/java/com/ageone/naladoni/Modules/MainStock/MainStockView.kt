@@ -15,7 +15,7 @@ import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
 import com.ageone.naladoni.External.InitModuleUI
 import com.ageone.naladoni.Internal.Utilities.getIdCategoryIcon
 import com.ageone.naladoni.Modules.MainStock.rows.MainStockDescribeViewHolder
-import com.ageone.naladoni.Modules.MainStock.rows.MainStockQRCodViewHolder
+import com.ageone.naladoni.Modules.MainStock.rows.MainStockQRCodeViewHolder
 import com.ageone.naladoni.Modules.MainStock.rows.MainStockTextViewHolder
 import com.ageone.naladoni.Modules.MainStock.rows.initialize
 import com.ageone.naladoni.Modules.MainStock.rows.*
@@ -83,9 +83,9 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
 
         private val MainStockDescribeType = 0
         private val MainStockTextType = 1
-        private val  MainStockDataTextType = 2
+        private val MainStockDataTextType = 2
         private val MainStockButtomType = 3
-        private val MainStockQRCodType = 4
+        private val MainStockQRCodeType = 4
 
         override fun getItemCount() = 8 //viewModel.realmData.size
 
@@ -94,7 +94,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
             1 -> MainStockTextType
             2 -> MainStockDataTextType
             3 -> MainStockButtomType
-            4 -> MainStockQRCodType
+            4 -> MainStockQRCodeType
             else -> -1
         }
 
@@ -119,8 +119,8 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                 MainStockButtomType -> {
                     MainStockButtonViewHolder(layout)
                 }
-                MainStockQRCodType -> {
-                    MainStockQRCodViewHolder(layout)
+                MainStockQRCodeType -> {
+                    MainStockQRCodeViewHolder(layout)
                 }
                 else -> {
                     BaseViewHolder(layout)
@@ -162,7 +162,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                     }
                 }
 
-                is MainStockQRCodViewHolder -> {
+                is MainStockQRCodeViewHolder -> {
                     holder.constraintLayout.backgroundColor = Color.WHITE
                     holder.initialize(
                           rxData.currentStock?.usesNum ?: 0,
