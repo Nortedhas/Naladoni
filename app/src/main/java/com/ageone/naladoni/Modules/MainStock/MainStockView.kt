@@ -1,7 +1,6 @@
 package com.ageone.naladoni.Modules.MainStock
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Shader
 import android.graphics.drawable.BitmapDrawable
@@ -21,6 +20,8 @@ import com.ageone.naladoni.Modules.MainStock.rows.MainStockTextViewHolder
 import com.ageone.naladoni.Modules.MainStock.rows.initialize
 import com.ageone.naladoni.Modules.MainStock.rows.*
 import com.ageone.naladoni.R
+import com.ageone.naladoni.UIComponents.ViewHolders.ButtonViewHolder
+import com.ageone.naladoni.UIComponents.ViewHolders.initialize
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -146,16 +147,21 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                     )
                 }
                 is MainStockTextViewHolder -> {
-                    holder.initialize(rxData.currentStock?.longAbout ?: "")
-                }
+                    when (position) {
+                        1 -> {
+                            holder.initialize(
+                               rxData.currentStock?.longAbout ?: ""
+                            )
+                        }
 
-                is MainStockDataTextViewHolder ->{
-                    holder.initialize(
-                        rxData.currentStock?.avaliableTo ?: 0,//TODO: change
-                        rxData.currentStock?.avaliableTo ?: 0
-                    )
+                        2 -> {
+                            holder.initialize(
+                                rxData.currentStock?.avaliableTo ?: 0,//TODO: change
+                                rxData.currentStock?.avaliableTo ?: 0
+                                )
+                        }
+                    }
                 }
-
                 is MainStockButtonViewHolder -> {
                     holder.constraintLayout.backgroundColor = Color.WHITE
                     holder.initialize()
@@ -167,9 +173,9 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                 is MainStockQRCodViewHolder -> {
                     holder.constraintLayout.backgroundColor = Color.WHITE
                     holder.initialize(
-                        "146",
-                        R.drawable.pic_qarcod,
-                        "145 678 345"
+                          rxData.currentStock?.usesNum ?: 0,
+                        rxData.currentStock?.code ?: "0",
+                        rxData.currentStock?.code ?: "0"
                     )
                 }
 

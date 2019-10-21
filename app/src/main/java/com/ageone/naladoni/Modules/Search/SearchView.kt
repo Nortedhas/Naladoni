@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ageone.naladoni.R
 import com.ageone.naladoni.Application.currentActivity
+import com.ageone.naladoni.Application.rxData
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Base.RecyclerView.BaseViewHolder
@@ -19,6 +20,8 @@ import com.ageone.naladoni.UIComponents.ViewHolders.initialize
 import com.ageone.naladoni.UIComponents.ViewHolders.СardViewHolder
 import yummypets.com.stevia.*
 import com.ageone.naladoni.External.Base.SearchView.BaseSearchView
+import com.ageone.naladoni.External.Libraries.Alert.alertManager
+import com.ageone.naladoni.External.Libraries.Alert.single
 import com.ageone.naladoni.Modules.Search.rows.SearchEmptyViewHolder
 import com.ageone.naladoni.Modules.Search.rows.initialize
 
@@ -61,12 +64,11 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     }
 
     init {
-//        viewModel.loadRealmData()
+        viewModel.loadRealmData("")
 
         setBackgroundResource(R.drawable.back_search)
 
         toolbar.title = "Хочу найти"
-
         renderToolbar()
 
         bodyTable.adapter = viewAdapter
@@ -74,6 +76,30 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
         renderUIO()
         bindUI()
+
+        searchView.setOnQueryTextListener(object: androidx.appcompat.widget.SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.loadRealmData(query ?: "")
+                if (viewModel.realmData.isEmpty()) {
+                    alertManager.single(
+                        "Мы ничего не нашли",
+                        "В вашем городе нет подарков по данному запросу, попробуйте поискать ещё",
+                        button = "Понятно"
+                    ) { _, _ ->
+
+                    }
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText.isNullOrBlank()) {
+                    viewModel.loadRealmData("")
+                }
+                return false
+            }
+
+        })
     }
 
     fun bindUI() {
@@ -87,76 +113,78 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
     inner class Factory(val rootModule: BaseModule) : BaseAdapter<BaseViewHolder>() {
 
         private val SearchViewType = 0
-
         private val SearchEmptyViewType = 1
 
         override fun getItemCount() =
-                if (listReceived) {
-                    bodyTable.layoutManager = gridManager
-                    10
-                } else {
-                    bodyTable.layoutManager = linearManager
-                    1
-                }
+            if (viewModel.realmData.isNotEmpty()) {
+                bodyTable.layoutManager = gridManager
+                viewModel.realmData.size
+            } else {
+                bodyTable.layoutManager = linearManager
+                1
+            }
 
-        override fun getItemViewType(position: Int): Int = if (listReceived) {
-
+        override fun getItemViewType(position: Int): Int = if (viewModel.realmData.isNotEmpty()) {
             SearchViewType
         } else {
             SearchEmptyViewType
         }
 
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
 
+            val layout = ConstraintLayout(parent.context)
 
-                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+            layout
+                .width(matchParent)
+                .height(wrapContent)
 
-                    val layout = ConstraintLayout(parent.context)
+            val holder = when (viewType) {
+                SearchViewType -> {
+                    СardViewHolder(layout)
+                }
+                SearchEmptyViewType -> {
+                    SearchEmptyViewHolder(layout)
+                }
+                else -> {
+                    BaseViewHolder(layout)
+                }
+            }
 
-                    layout
-                        .width(matchParent)
-                        .height(wrapContent)
-                    val holder = when (viewType) {
-                        SearchViewType -> {
-                            СardViewHolder(layout)
-                        }
-                        SearchEmptyViewType -> {
-                            SearchEmptyViewHolder(layout)
-                        }
-                        else -> {
-                            BaseViewHolder(layout)
+            return holder
+
+        }
+
+        override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+            when (holder) {
+                is СardViewHolder -> {
+                    if (position in viewModel.realmData.indices) {
+                        val stock = viewModel.realmData[position]
+
+                        holder.initialize(
+                            stock.shortAbout,
+                            stock.name,
+                            stock.avaliableTo,
+                            stock.image?.preview ?: ""
+                        )
+
+                        holder.viewCard.setOnClickListener {
+                            rxData.currentStock = stock
+                            rootModule.emitEvent?.invoke(SearchViewModel.EventType.OnlouderSearch.name)
                         }
                     }
-
-                    return holder
 
                 }
-
-                override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-
-                    when (holder) {
-                        is СardViewHolder -> {
-                            holder.initialize(
-                                "Скидка 500 при покупке от 2500",
-                                "Nike", 0, ""
-                            )
-                            holder.viewCard.setOnClickListener {
-                                rootModule.emitEvent?.invoke(SearchViewModel.EventType.OnlouderSearch.name)
-
-                            }
-                        }
-                        is SearchEmptyViewHolder -> {
-                            holder.initialize("Найдите для себя лучшую акцию в вашем городе!")
-                        }
-
-                    }
-
+                is SearchEmptyViewHolder -> {
+                    holder.initialize("Найдите для себя лучшую акцию в вашем городе!")
                 }
 
             }
 
+        }
+
     }
 
-    var listReceived = true
+}
 
 fun SearchView.renderUIO() {
 
