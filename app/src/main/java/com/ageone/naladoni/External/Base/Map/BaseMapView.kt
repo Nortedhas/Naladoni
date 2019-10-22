@@ -1,26 +1,14 @@
 package com.ageone.naladoni.External.Base.Map
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
-import androidx.core.content.ContextCompat
-import com.ageone.naladoni.Application.utils
 import com.ageone.naladoni.External.Base.ImageView.BaseImageView
 import com.ageone.naladoni.External.Extensions.Activity.startLocation
-import com.ageone.naladoni.External.Libraries.GoogleMap.Route
+import com.ageone.naladoni.External.Libraries.GoogleMap.Request.Route
 import com.ageone.naladoni.Models.User.user
-import com.github.kittinunf.fuel.Fuel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.*
-import com.google.maps.android.PolyUtil
-import org.json.JSONArray
-import org.json.JSONObject
-import timber.log.Timber
-import kotlin.math.acos
-import kotlin.math.cos
-import kotlin.math.sin
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.PolylineOptions
 
 
 fun GoogleMap.setMyLocation(buttonLocation: BaseImageView) {
@@ -33,6 +21,9 @@ fun GoogleMap.setMyLocation(buttonLocation: BaseImageView) {
         moveCamera(CameraUpdateFactory.newLatLngZoom(startLocation, 13f))
     }
 }
+
+//TODO: replace in base
+
 
 fun GoogleMap.drawPolyline(
     route: Route,

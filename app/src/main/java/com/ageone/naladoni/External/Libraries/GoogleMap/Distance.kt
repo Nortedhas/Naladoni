@@ -4,6 +4,8 @@ import kotlin.math.acos
 import kotlin.math.cos
 import kotlin.math.sin
 
+//TODO: replace in base
+
 fun distance(lat1: Double, lon1: Double, lat2: Double, lon2: Double, unit: String): Double {
     if (lat1 == lat2 && lon1 == lon2) {
         return 0.0

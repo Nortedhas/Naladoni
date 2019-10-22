@@ -9,6 +9,8 @@ import org.json.JSONArray
 import org.json.JSONObject
 import timber.log.Timber
 
+//TODO: replace in base
+
 fun geodecodeByCoordinates(latitude: Double, longitude: Double, completion: (Address) -> Unit) {
 
     val url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=${utils.googleApiKey}"

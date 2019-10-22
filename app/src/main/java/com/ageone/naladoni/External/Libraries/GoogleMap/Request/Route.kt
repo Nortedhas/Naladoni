@@ -8,6 +8,8 @@ import com.google.maps.android.PolyUtil
 import org.json.JSONObject
 import timber.log.Timber
 
+//TODO: replace in base
+
 data class Route(
     var path: MutableList<List<LatLng>> = ArrayList(),
     var boundsNortheast: LatLng = startLocation,
