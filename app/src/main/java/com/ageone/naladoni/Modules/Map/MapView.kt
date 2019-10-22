@@ -52,16 +52,9 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
         buttonMyLocation.elevation = 5F.dp
         buttonMyLocation
     }
-    val all_icons = arrayOf(
-        R.drawable.ic_category_0,
-        R.drawable.ic_category_1,
-        R.drawable.ic_category_2
-    )
 
     init {
         viewModel.loadRealmData()
-
-        Timber.i("Stocks: ${viewModel.realmData}")
 
         setMap()
 

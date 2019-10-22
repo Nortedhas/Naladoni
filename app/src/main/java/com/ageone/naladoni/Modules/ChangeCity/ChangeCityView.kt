@@ -32,6 +32,7 @@ import android.view.View.OnFocusChangeListener
 import com.ageone.naladoni.External.Libraries.Alert.list
 import com.ageone.naladoni.External.RxBus.RxBus
 import com.ageone.naladoni.External.RxBus.RxEvent
+import com.ageone.naladoni.Network.HTTP.getCityStocks
 
 
 class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initModuleUI) {
@@ -148,6 +149,10 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                     holder.initialize("Изменить")
                     holder.button.setOnClickListener {
                         RxBus.publish(RxEvent.EventChangeCity())
+                        user.info.city?.let { city ->
+                            utils.realm.stock.getAllObjects().deleteAllFromRealm()
+                            api.getCityStocks(city.hashId)
+                        }
                         emitEvent?.invoke(ChangeCityViewModel.EventType.OnClickChangeCity.name)
                     }
                 }

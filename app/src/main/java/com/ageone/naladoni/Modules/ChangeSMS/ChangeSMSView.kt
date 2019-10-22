@@ -16,6 +16,7 @@ import com.ageone.naladoni.External.Libraries.Alert.alertManager
 import com.ageone.naladoni.External.Libraries.Alert.single
 import com.ageone.naladoni.External.RxBus.RxBus
 import com.ageone.naladoni.External.RxBus.RxEvent
+import com.ageone.naladoni.External.Utils.Validation.toCorrectPhone
 import com.ageone.naladoni.Models.User.user
 import com.ageone.naladoni.Modules.ChangeSMS.rows.ChangeSMSTextViewHolder
 import com.ageone.naladoni.Modules.ChangeSMS.rows.initialize
@@ -126,8 +127,9 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(ini
                             api.request(
                                 mapOf(
                                     "router" to "codeCheck",
-                                    "phone" to viewModel.model.inputPhone,
-                                    "code" to viewModel.model.code
+                                    "phone" to viewModel.model.inputPhone.toCorrectPhone(),
+                                    "code" to viewModel.model.code,
+                                    "toUpdateExistingNumber" to true
                                 ), isErrorShown = true
                             ) { json ->
                                 user.data.phone = viewModel.model.inputPhone

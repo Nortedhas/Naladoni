@@ -186,6 +186,7 @@ class FlowProfile : BaseFlow() {
             when (ChangeSMSViewModel.EventType.valueOf(event)) {
                 ChangeSMSViewModel.EventType.OnClickChangeSMS -> {
                     router.onBackPressed()
+                    router.onBackPressed()
                 }
             }
         }
