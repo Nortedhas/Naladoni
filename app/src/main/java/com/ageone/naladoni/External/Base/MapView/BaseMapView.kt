@@ -11,6 +11,8 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.LatLng
 import yummypets.com.stevia.dp
 
+//TODO: replace in base - delete
+
 class BaseMapView: MapView(currentActivity) {
 
 }

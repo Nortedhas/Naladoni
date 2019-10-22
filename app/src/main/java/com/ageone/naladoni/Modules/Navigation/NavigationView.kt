@@ -68,6 +68,7 @@ class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(in
     }
 
     fun GoogleMap.setUpMarkers() {
+        clear()
         rxData.currentStock?.let { stock ->
             stock.location?.let {location ->
                 var endLocation = LatLng(
@@ -83,6 +84,7 @@ class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(in
                         .icon(
                             getMarker(R.drawable.ic_end_path)
                         )
+                        .anchor(0.6F, 1F)
                 )
 
 
@@ -90,8 +92,9 @@ class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(in
                     MarkerOptions()
                         .position(startLocation)
                         .icon(
-                            getMarker(R.drawable.ic_start_path)
+                            getMarker(R.drawable.pic_start_flag)
                         )
+                        .anchor(0.4F, 0.6F)
                 )
 
                 loadRoutePath(startLocation, endLocation, emptyArray()) { route ->
