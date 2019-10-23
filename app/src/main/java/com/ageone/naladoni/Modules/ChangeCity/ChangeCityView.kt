@@ -29,6 +29,7 @@ import com.ageone.naladoni.UIComponents.ViewHolders.EditTextViewHolder
 import com.ageone.naladoni.UIComponents.ViewHolders.initialize
 import yummypets.com.stevia.*
 import android.view.View.OnFocusChangeListener
+import com.ageone.naladoni.External.Extensions.Realm.deleteAll
 import com.ageone.naladoni.External.Libraries.Alert.list
 import com.ageone.naladoni.External.RxBus.RxBus
 import com.ageone.naladoni.External.RxBus.RxEvent
@@ -150,7 +151,7 @@ class ChangeCityView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(i
                     holder.button.setOnClickListener {
                         RxBus.publish(RxEvent.EventChangeCity())
                         user.info.city?.let { city ->
-                            utils.realm.stock.getAllObjects().deleteAllFromRealm()
+                            deleteAll(utils.realm.stock.getAllObjects())
                             api.getCityStocks(city.hashId)
                         }
                         emitEvent?.invoke(ChangeCityViewModel.EventType.OnClickChangeCity.name)

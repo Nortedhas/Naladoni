@@ -10,11 +10,11 @@ import com.ageone.naladoni.Application.mapViewHowGo
 import com.ageone.naladoni.Application.rxData
 import com.ageone.naladoni.External.Base.ImageView.BaseImageView
 import com.ageone.naladoni.External.Base.Map.drawPolyline
-import com.ageone.naladoni.External.Base.Map.loadRoutePath
 import com.ageone.naladoni.External.Base.Map.setMyLocation
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Extensions.Activity.startLocation
 import com.ageone.naladoni.External.InitModuleUI
+import com.ageone.naladoni.External.Libraries.GoogleMap.Request.loadRoutePath
 import com.ageone.naladoni.R
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap

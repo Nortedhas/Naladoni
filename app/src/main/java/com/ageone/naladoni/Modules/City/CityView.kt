@@ -6,8 +6,6 @@ import com.ageone.naladoni.Application.api
 import com.ageone.naladoni.Application.currentActivity
 import com.ageone.naladoni.Application.utils
 import com.ageone.naladoni.External.Base.ConstraintLayout.dismissFocus
-import com.ageone.naladoni.External.Base.EditText.limitLength
-import com.ageone.naladoni.External.Base.Map.distance
 import com.ageone.naladoni.External.Base.EditText.disableKeyboard
 import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
@@ -20,6 +18,7 @@ import com.ageone.naladoni.External.Libraries.Alert.alertManager
 import com.ageone.naladoni.External.Libraries.Alert.blockUI
 import com.ageone.naladoni.External.Libraries.Alert.list
 import com.ageone.naladoni.External.Libraries.Alert.single
+import com.ageone.naladoni.External.Libraries.GoogleMap.distance
 import com.ageone.naladoni.Models.User.City
 import com.ageone.naladoni.Models.User.user
 import com.ageone.naladoni.Modules.City.rows.CityTextViewHolder
