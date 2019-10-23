@@ -211,8 +211,9 @@ class FlowProfile : BaseFlow() {
                     router.onBackPressed()
                 }
             }
-            push(module)
         }
+
+        push(module)
     }
 
     fun runModuleAboutCompany() {

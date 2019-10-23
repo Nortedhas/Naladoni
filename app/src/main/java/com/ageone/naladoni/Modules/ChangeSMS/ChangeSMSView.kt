@@ -133,9 +133,10 @@ class ChangeSMSView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(ini
                                 ), isErrorShown = true
                             ) { json ->
                                 user.data.phone = viewModel.model.inputPhone
+                                RxBus.publish(RxEvent.EventChangePhone())
+                                rootModule.emitEvent?.invoke(ChangeSMSViewModel.EventType.OnClickChangeSMS.name)
                             }
-                            RxBus.publish(RxEvent.EventChangePhone())
-                            rootModule.emitEvent?.invoke(ChangeSMSViewModel.EventType.OnClickChangeSMS.name)
+
 
                         }
 
