@@ -175,7 +175,7 @@ class SearchView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(initM
 
                 }
                 is SearchEmptyViewHolder -> {
-                    holder.initialize("Найдите для себя лучшую акцию в вашем городе!")
+                    holder.initialize()/*"Найдите для себя лучшую акцию в вашем городе!")*/
                 }
 
             }

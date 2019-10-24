@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.Shader
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -50,6 +51,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                         Shader.TileMode.REPEAT,
                         Shader.TileMode.REPEAT
                     )
+
                     background = bitmapDrawable
                 }
 
@@ -86,8 +88,9 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
         private val MainStockDataTextType = 2
         private val MainStockButtomType = 3
         private val MainStockQRCodeType = 4
+        private val MainStockEmptyType = 5
 
-        override fun getItemCount() = 8 //viewModel.realmData.size
+        override fun getItemCount() = 9 //viewModel.realmData.size
 
         override fun getItemViewType(position: Int): Int = when (position) {
             0 -> MainStockDescribeType
@@ -95,6 +98,7 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
             2 -> MainStockDataTextType
             3 -> MainStockButtomType
             4 -> MainStockQRCodeType
+            5 -> MainStockEmptyType
             else -> -1
         }
 
@@ -122,6 +126,9 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                 MainStockQRCodeType -> {
                     MainStockQRCodeViewHolder(layout)
                 }
+                MainStockEmptyType -> {
+                    MainStockEmptyViewHolder(layout)
+                }
                 else -> {
                     BaseViewHolder(layout)
                 }
@@ -137,17 +144,14 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                     holder.initialize(
                         rxData.currentStock?.name ?: "",
                         getIdCategoryIcon(rxData.currentStock?.category?.serialNum ?: 0),
-                        rxData.currentStock?.workTimeFrom ?: "",
-                        rxData.currentStock?.workTimeTo ?: "",
-                        rxData.currentStock?.workTimeFrom ?: "",//TODO: change
-                        rxData.currentStock?.workTimeTo ?: ""//TODO: change
+                        rxData.currentStock?.workTime ?: ""
                     )
                 }
                 is MainStockTextViewHolder -> {
                     holder.initialize(rxData.currentStock?.longAbout ?: "")
                 }
 
-                is MainStockDataTextViewHolder ->{
+                is MainStockDataTextViewHolder -> {
                     holder.initialize(
                         rxData.currentStock?.avaliableTo ?: 0,//TODO: change
                         rxData.currentStock?.avaliableTo ?: 0
@@ -169,6 +173,9 @@ class MainStockView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(in
                         rxData.currentStock?.code ?: "0",
                         rxData.currentStock?.code ?: "0"
                     )
+                }
+                is MainStockEmptyViewHolder -> {
+                    holder.initialize(150)
                 }
 
             }

@@ -82,9 +82,9 @@ class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(in
                             endLocation
                         )
                         .icon(
-                            getMarker(R.drawable.ic_end_path)
+                            getMarker(R.drawable.pic_flag_end)
                         )
-                        .anchor(0.6F, 1F)
+                        .anchor(0.4F, 0.6F)
                 )
 
 
@@ -92,7 +92,7 @@ class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(in
                     MarkerOptions()
                         .position(startLocation)
                         .icon(
-                            getMarker(R.drawable.pic_start_flag)
+                            getMarker(R.drawable.pic_flag_start)
                         )
                         .anchor(0.4F, 0.6F)
                 )
@@ -107,8 +107,7 @@ class NavigationView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(in
 
 }
 
-fun NavigationView.getMarker(id: Int) = //bitmapDescriptorFromVector(this.context, id)
-BitmapDescriptorFactory.fromBitmap(getBitmapFromVectorDrawable(context, id))
+fun NavigationView.getMarker(id: Int) = BitmapDescriptorFactory.fromBitmap(getBitmapFromVectorDrawable(context, id))
 
 fun getBitmapFromVectorDrawable(context: Context, drawableId: Int): Bitmap {
     val drawable = AppCompatResources.getDrawable(context, drawableId)

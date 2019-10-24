@@ -18,7 +18,8 @@ object RxBus {
 }
 
 class RxEvent {
-    class EventChangeFilterIndex
+    class EventChangeCategoryIndex
+    class EventChangeSubcategoryIndex
 
     class EventReloadStocks
     class EventChangeCity

@@ -7,6 +7,8 @@ import androidx.core.view.size
 import com.ageone.naladoni.Application.Coordinator.Flow.FlowCoordinator
 import com.ageone.naladoni.Application.Coordinator.Flow.FlowCoordinator.ViewFlipperFlowObject.viewFlipperFlow
 import com.ageone.naladoni.Application.Coordinator.Router.DataFlow
+import com.ageone.naladoni.Application.Coordinator.Router.TabBar.TabBar
+import com.ageone.naladoni.Application.Coordinator.Router.createStackFlows
 import com.ageone.naladoni.Application.router
 import com.ageone.naladoni.Application.rxData
 import com.ageone.naladoni.External.Base.Flow.BaseFlow
@@ -75,7 +77,7 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
             isBackPressed = true,
             text = "Очистить",
             textListener = {
-                rxData.selectedFilter = -1
+                rxData.filterCategory = -1
             }
         ))
 
@@ -91,7 +93,10 @@ class FlowFilter (previousFlow: BaseFlow? = null) : BaseFlow()  {
                     runModuleInnerFilter()
                 }
 
-
+                FilterViewModel.EventType.OnSearch -> {
+                    router.onBackPressed()
+                    TabBar.bottomNavigation.setCurrentItem(2, true)
+                }
             }
         }
         push(module)

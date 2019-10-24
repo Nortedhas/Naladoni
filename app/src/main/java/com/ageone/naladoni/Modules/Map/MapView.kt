@@ -18,6 +18,7 @@ import com.ageone.naladoni.External.Base.Module.BaseModule
 import com.ageone.naladoni.External.Base.RecyclerView.BaseAdapter
 import com.ageone.naladoni.External.Extensions.Activity.startLocation
 import com.ageone.naladoni.External.InitModuleUI
+import com.ageone.naladoni.Internal.Utilities.getIdCategoryFlag
 import com.ageone.naladoni.Internal.Utilities.getIdCategoryIcon
 import com.ageone.naladoni.Modules.Map.rows.MapDiscountCardViewHolder
 import com.ageone.naladoni.Modules.Map.rows.initialize
@@ -125,10 +126,6 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
     fun GoogleMap.setMarkers(){
             viewModel.realmData.forEachIndexed { index, stock ->
                 stock.location?.let {location ->
-                    val markerIcon = createMarkerIconBitmap(
-                        BitmapFactory.decodeResource(context.resources, R.drawable.pic_selected_flag),
-                        BitmapFactory.decodeResource(context.resources, R.drawable.pic_categories_1)
-                    )
 
                     val marker = addMarker(
                         MarkerOptions()
@@ -139,8 +136,9 @@ class MapView(initModuleUI: InitModuleUI = InitModuleUI()): BaseModule(initModul
                                 )
                             )
                             .icon(
-                                BitmapDescriptorFactory.fromBitmap(markerIcon)
+                                BitmapDescriptorFactory.fromResource(getIdCategoryFlag(stock.category?.serialNum ?: 0))
                             )
+                            .anchor(0.4F, 0.6F)
                     )
 
                     marker.tag = index

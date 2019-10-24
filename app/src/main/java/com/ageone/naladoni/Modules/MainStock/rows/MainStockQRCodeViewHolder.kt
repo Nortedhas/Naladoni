@@ -93,7 +93,7 @@ fun MainStockQRCodeViewHolder.renderUI() {
 
 fun MainStockQRCodeViewHolder.initialize(usesCount: Int, code: String, number: String) {
     val counter = "$usesCount"
-    val text: String = "Количество воспользовавшихся предложением:"
+    val text: String = "Количество воспользовавшихся предложением: "
 
     val spannableContent = SpannableString(text + counter)
     spannableContent.setSpan(

@@ -219,7 +219,8 @@ class InnerFilterView(initModuleUI: InitModuleUI = InitModuleUI()) : BaseModule(
                 is FilterFilterIconsViewHolder -> {
                     holder.initialize(names[position], icons[position], false)
                     holder.card.setOnClickListener {
-                        rxData.selectedFilter = viewModel.model.currentFilterIndex
+                        rxData.filterCategory = viewModel.model.currentFilterIndex
+                        rxData.filterSubcategory = position
                         rootModule.emitEvent?.invoke(InnerFilterViewModel.EventType.OnInnerFilterPressed.name)
                     }
                 }

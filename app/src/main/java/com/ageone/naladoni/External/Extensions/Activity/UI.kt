@@ -30,10 +30,12 @@ fun Activity.setDisplaySize() {
 
     Timber.i("width = ${utils.variable.displayWidth}")
 
-    // Calculate ActionBar height
+    // Calculate ToolBar height
     val tv = TypedValue()
     if (theme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-        utils.variable.actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics) / 3
+        utils.variable.actionBarHeight =
+            (TypedValue.complexToDimensionPixelSize(tv.data, displayMetrics) / displayMetrics.density).toInt()
+
     }
 }
 

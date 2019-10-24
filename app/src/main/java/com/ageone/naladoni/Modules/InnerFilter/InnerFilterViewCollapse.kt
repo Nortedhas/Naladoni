@@ -218,7 +218,7 @@ class InnerFilterViewCollapse(initModuleUI: InitModuleUI = InitModuleUI()) : Bas
                 is FilterFilterIconsViewHolder -> {
                     holder.initialize(names[position], icons[position], false)
                     holder.card.setOnClickListener {
-                        rxData.selectedFilter = viewModel.model.currentFilterIndex
+                        rxData.filterCategory = viewModel.model.currentFilterIndex
                         rootModule.emitEvent?.invoke(InnerFilterViewModel.EventType.OnInnerFilterPressed.name)
                     }
                 }

@@ -132,10 +132,10 @@ fun MainStockDescribeViewHolder.renderUI() {
 }
 
 fun MainStockDescribeViewHolder.initialize(textLogo: String, imageLogo: Int,
-                                           from: String, to: String, fromHolidays: String, toHolidays: String) {
+                                           timeDescribe: String) {
 
     textViewLogo.text = textLogo
-    textViewTimeDescribe.text = "пн-пт: $from до $to. сб-вс: $fromHolidays до $toHolidays"
+    textViewTimeDescribe.text = timeDescribe
     textViewTitle.text = "Время работы: "
     addImageFromGlide(imageIconView, imageLogo,0)
 

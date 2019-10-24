@@ -36,6 +36,8 @@ class SearchEmptyViewHolder(val constraintLayout: ConstraintLayout) : BaseViewHo
 
 fun SearchEmptyViewHolder.renderUI() {
 
+    describe.text = "Найдите для себя лучшую акцию в вашем городе!"
+
     constraintLayout.subviews(
         image,
         describe
@@ -54,6 +56,5 @@ fun SearchEmptyViewHolder.renderUI() {
 
 }
 
-fun SearchEmptyViewHolder.initialize(describeText: String) {
-    describe.text = describeText
+fun SearchEmptyViewHolder.initialize() {
 }

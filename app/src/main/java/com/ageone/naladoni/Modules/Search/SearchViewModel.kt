@@ -1,5 +1,6 @@
 package com.ageone.naladoni.Modules.Search
 
+import com.ageone.naladoni.Application.rxData
 import com.ageone.naladoni.Application.utils
 import com.ageone.naladoni.External.Interfaces.InterfaceModel
 import com.ageone.naladoni.External.Interfaces.InterfaceViewModel
@@ -19,7 +20,11 @@ class SearchViewModel : InterfaceViewModel {
 
     var realmData = listOf<Stock>()
     fun loadRealmData(filter: String) {
-        realmData = emptyList()
+        realmData = if (rxData.isSetFilter) {
+            rxData.filteredStocks
+        } else {
+            emptyList()
+        }
 
         if (filter.isNotBlank()) {
             realmData = utils.realm.stock.getAllObjects().filter { stock ->
@@ -28,6 +33,7 @@ class SearchViewModel : InterfaceViewModel {
                         stock.longAbout.contains(filter, true)
             }
         }
+
     }
 
     fun initialize(recievedModel: InterfaceModel, completion: () -> (Unit)) {
